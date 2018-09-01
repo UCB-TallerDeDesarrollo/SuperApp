@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListaPage } from '../pages/lista/lista';
+import { WordPage } from '../pages/word/word';
 
 
 
@@ -14,7 +15,8 @@ import { ListaPage } from '../pages/lista/lista';
   declarations: [
     MyApp,
     HomePage,
-    ListaPage
+    ListaPage,
+    WordPage
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,8 @@ import { ListaPage } from '../pages/lista/lista';
   entryComponents: [
     MyApp,
     HomePage,
-    ListaPage
+    ListaPage,
+    WordPage
   ],
   providers: [
     StatusBar,
