@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListaPage } from '../pages/lista/lista';
 import { WordPage } from '../pages/word/word';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 
 
@@ -32,6 +33,7 @@ import { WordPage } from '../pages/word/word';
   providers: [
     StatusBar,
     SplashScreen,
+    ScreenOrientation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
