@@ -1,3 +1,4 @@
+import { WordPage } from './../word/word';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ListaPage } from '../lista/lista';
@@ -13,6 +14,9 @@ export class HomePage {
   }
   pushPageList(){
     this.navCtrl.push(ListaPage);
+  }
+  pushPageWord(){
+    this.navCtrl.push(WordPage);
   }
 
 }
