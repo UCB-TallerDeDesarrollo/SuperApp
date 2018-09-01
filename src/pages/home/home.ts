@@ -11,7 +11,7 @@ export class HomePage {
   constructor(public navCtrl: NavController) {
 
   }
-  pushPage(){
+  pushPageList(){
     // push another page onto the navigation stack
     // causing the nav controller to transition to the new page
     // optional data can also be passed to the pushed page.
