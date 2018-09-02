@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { ColorsManager } from './Managers/ColorsManager';
+import { ArrayManager } from './Managers/ArrayManager';
 
 @Component({
   selector: 'page-word',
@@ -11,7 +12,7 @@ import { ColorsManager } from './Managers/ColorsManager';
 
 export class WordPage {
   product:string;
-  letters_sorted: any = [];
+  letters_color: any = [];
   color:string;
   image_route:string;
   constructor(public navCtrl: NavController) {
@@ -19,12 +20,22 @@ export class WordPage {
     this.color=ColorsManager.get_color_style();
     this.image_route="assets/imgs/Products/"+this.product+".jpg";
     let letters = this.product.toUpperCase().split('');
+    let letters_sorted: any = [];
 
     for (let letter of letters) {
-      this.letters_sorted.push({
+      letters_sorted.push({
         letter: letter,
         color: this.getRandomColor()
       });
+    }
+
+    while (letters_sorted.length > 0) {
+      let data: any = ArrayManager.get_random_element(letters_sorted);
+      this.letters_color.push({
+        letter: data.letter,
+        color: data.color
+      });
+      letters_sorted.splice(letters_sorted.indexOf(data), 1);
     }
   }
 
