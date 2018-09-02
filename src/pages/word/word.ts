@@ -18,11 +18,31 @@ export class WordPage {
     this.color=ColorsManager.get_color_style();
     this.image_route="assets/imgs/Products/"+this.product+".jpg";
     let letters = this.product.toUpperCase().split('');
+    let letters_sorted: any = [];
 
     for (let letter of letters) {
-      console.log(letter);
+      letters_sorted.push({
+        letter: letter,
+        color: this.getRandomColor()
+      });
+    }
+
+    for (let e of letters_sorted) {
+      console.log(e);
     }
   }
+
+  getRandomColor() {
+    var color = "";
+
+    for (var i = 0; i < 3; ++i) {
+      var part = Math.round(Math.random() * 255).toString(16);
+      color += (part.length > 1) ? part : "0" + part;
+    }
+
+    return color;
+  }
+
 }
 
 
