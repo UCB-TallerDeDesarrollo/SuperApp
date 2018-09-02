@@ -1,14 +1,15 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+<ion-header>  
+    
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding class="main">
+  
+  <div class="logo">
+      <img src="assets/imgs/shopping.svg" class="superapp-logo" alt="">
+  </div>
+  <h1 class="main-title">JUEGOS</h1>
+  <div class="game-images">
+    <img src="assets/imgs/lista.png" class="list" alt="" (click)="pushPageList()">
+    <img src="assets/imgs/palabras.png" class="word" alt="" (click)="pushPageWord()">
+  </div>
 </ion-content>
