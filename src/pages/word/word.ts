@@ -19,3 +19,5 @@ export class WordPage {
     this.image_route="assets/imgs/Products/"+this.product+".jpg";
   }
 }
+
+
