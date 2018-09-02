@@ -1,10 +1,15 @@
+import { ArrayManager } from './ArrayManager';
+
 export class ProductManager{
-    static products:string[]=["arroz", "atun", "azucar", "cafe"];
+
+    static products:string[]=
+    ["arroz",
+     "atun",
+     "azucar",
+     "cafe"];
+
     static get_product(){
-        var index=this.randomInt(0, this.products.length);
-        return this.products[index];
+        return ArrayManager.get_random_element(this.products);
     }
-    static randomInt(min, max){
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-     }
+  
 }
