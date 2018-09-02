@@ -16,10 +16,10 @@
 }
 
 .product{
-    position: absolute;
-    left: 8%;
+    position: relative;
     top: 8%;
-    height: 79%;
+    left: 10%;
+    width: 80%;
 }
 .box{
     visibility: visible;
@@ -28,6 +28,10 @@
 .product-image{
     position: absolute;
     visibility: visible;
+    background: url("/assets/imgs/bigsquare.png") no-repeat;
+    background-size: cover;
+    width: 150px;
+    height: 150px;
     right: 1%;
     top: 30%;
 }

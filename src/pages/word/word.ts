@@ -18,7 +18,7 @@ export class WordPage {
   constructor(public navCtrl: NavController) {
     this.product=ProductManager.get_product();
     this.color=ColorsManager.get_color_style();
-    this.image_route="assets/imgs/Products/"+this.product+".jpg";
+    this.image_route="/assets/imgs/Products/"+this.product.toLowerCase()+".jpg";
     let letters = this.product.toUpperCase().split('');
     let letters_sorted: any = [];
 
