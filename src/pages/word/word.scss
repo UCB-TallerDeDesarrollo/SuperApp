@@ -16,17 +16,18 @@
 }
 
 .product{
-    position:absolute;
-    height: 33%;
-    top:20px;
-    left:20px;
+    position: absolute;
+    left: 8%;
+    top: 8%;
+    height: 79%;
 }
 .box{
-    position:absolute;
-    top:0px;
-    left:0px;
+    visibility: visible;
+    right: 1%;
 }
 .product-image{
-   top:10px;
-   left:10px;
+    position: absolute;
+    visibility: visible;
+    right: 1%;
+    top: 30%;
 }
