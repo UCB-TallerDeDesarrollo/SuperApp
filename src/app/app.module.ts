@@ -10,8 +10,6 @@ import { ListaPage } from '../pages/lista/lista';
 import { WordPage } from '../pages/word/word';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
-
-
 @NgModule({
   declarations: [
     MyApp,
@@ -37,4 +35,5 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
-export class AppModule {}
+export class AppModule {
+}
