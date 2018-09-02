@@ -12,8 +12,10 @@ import { ColorsManager } from './Managers/ColorsManager';
 export class WordPage {
   product:string;
   color:string;
+  image_route:string;
   constructor(public navCtrl: NavController) {
     this.product=ProductManager.get_product();
     this.color=ColorsManager.get_color_style();
+    this.image_route="assets/imgs/Products/"+this.product+".jpg";
   }
 }
