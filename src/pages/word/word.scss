@@ -31,3 +31,17 @@
     right: 1%;
     top: 30%;
 }
+
+.letter_container {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    border: solid 1px #888;
+    line-height: 45px;
+    background-color: white;
+}
+
+.letter {
+    display: block;
+}

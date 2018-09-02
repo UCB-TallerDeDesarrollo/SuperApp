@@ -11,6 +11,7 @@ import { ColorsManager } from './Managers/ColorsManager';
 
 export class WordPage {
   product:string;
+  letters_sorted: any = [];
   color:string;
   image_route:string;
   constructor(public navCtrl: NavController) {
@@ -18,22 +19,17 @@ export class WordPage {
     this.color=ColorsManager.get_color_style();
     this.image_route="assets/imgs/Products/"+this.product+".jpg";
     let letters = this.product.toUpperCase().split('');
-    let letters_sorted: any = [];
 
     for (let letter of letters) {
-      letters_sorted.push({
+      this.letters_sorted.push({
         letter: letter,
         color: this.getRandomColor()
       });
     }
-
-    for (let e of letters_sorted) {
-      console.log(e);
-    }
   }
 
   getRandomColor() {
-    var color = "";
+    var color = "#";
 
     for (var i = 0; i < 3; ++i) {
       var part = Math.round(Math.random() * 255).toString(16);

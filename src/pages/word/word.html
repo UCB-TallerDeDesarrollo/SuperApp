@@ -13,3 +13,11 @@
         <img src={{image_route}} class="product">        
     </div>
 </ion-content>
+
+<ion-footer>
+    <ul>
+        <li class="letter_container" *ngFor="let letter of letters_sorted">
+            <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
+        </li>
+    </ul>
+</ion-footer>
