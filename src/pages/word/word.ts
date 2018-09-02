@@ -17,6 +17,11 @@ export class WordPage {
     this.product=ProductManager.get_product();
     this.color=ColorsManager.get_color_style();
     this.image_route="assets/imgs/Products/"+this.product+".jpg";
+    let letters = this.product.toUpperCase().split('');
+
+    for (let letter of letters) {
+      console.log(letter);
+    }
   }
 }
 
