@@ -6,11 +6,18 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { ListaPage } from '../pages/lista/lista';
+import { WordPage } from '../pages/word/word';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+
+
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    ListaPage,
+    WordPage
   ],
   imports: [
     BrowserModule,
@@ -19,11 +26,14 @@ import { HomePage } from '../pages/home/home';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    ListaPage,
+    WordPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    ScreenOrientation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
