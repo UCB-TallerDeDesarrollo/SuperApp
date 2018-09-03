@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 
 /**
  * Generated class for the ProductsPage page.
@@ -15,7 +16,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProductsPage {
 
+  products: Array<{id: number, title: string, image: string}> = [];
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.products = FakeProducts.getProducts();
+    console.log(this.products);
   }
 
   ionViewDidLoad() {
