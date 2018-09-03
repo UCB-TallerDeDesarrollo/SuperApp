@@ -4,6 +4,7 @@ import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { ColorsManager } from './Managers/ColorsManager';
 import { ArrayManager } from './Managers/ArrayManager';
+import { DragulaService } from 'ng2-dragula';
 
 @Component({
   selector: 'page-word',
@@ -11,11 +12,13 @@ import { ArrayManager } from './Managers/ArrayManager';
 })
 
 export class WordPage {
+
   product:string;
   letters_color: any = [];
   color:string;
   image_route:string;
-  constructor(public navCtrl: NavController) {
+
+  constructor(public navCtrl: NavController, private dragula: DragulaService) {
     this.product=ProductManager.get_product();
     this.color=ColorsManager.get_color_style();
     this.image_route="/assets/imgs/Products/"+this.product.toLowerCase()+".jpg";
