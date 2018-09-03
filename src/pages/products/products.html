@@ -14,5 +14,17 @@
 
 
 <ion-content padding>
-
+  <ion-list>
+    <div ion-item *ngFor="let product of products">
+      <ion-img item-left src="{{product.image}}"> </ion-img>
+      <ion-fab right top>
+        <button ion-fab>
+          <ion-icon ios="ios-close" md="md-close"></ion-icon> 
+        </button>
+      </ion-fab>
+      <div class="item-note" item-right>
+        <h2>{{product.title}}</h2>
+      </div>
+    </div>
+  </ion-list>
 </ion-content>
