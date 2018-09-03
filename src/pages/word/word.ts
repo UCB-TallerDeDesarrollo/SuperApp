@@ -21,22 +21,29 @@ export class WordPage {
     this.image_route="/assets/imgs/Products/"+this.product.toLowerCase()+".jpg";
     let letters = this.product.toUpperCase().split('');
     let letters_sorted: any = [];
+    let letters_cloned: any = [];
 
-    for (let letter of letters) {
-      letters_sorted.push({
-        letter: letter,
-        color: this.getRandomColor()
-      });
-    }
+    do {
+      this.letters_color = [];
+      
+      for (let letter of letters) {
+        letters_sorted.push({
+          letter: letter,
+          color: this.getRandomColor()
+        });
+      }
 
-    while (letters_sorted.length > 0) {
-      let data: any = ArrayManager.get_random_element(letters_sorted);
-      this.letters_color.push({
-        letter: data.letter,
-        color: data.color
-      });
-      letters_sorted.splice(letters_sorted.indexOf(data), 1);
-    }
+      letters_cloned = letters_sorted.map(data => ({letter: data.letter, color: data.color}));
+      
+      while (letters_sorted.length > 0) {
+        let data: any = ArrayManager.get_random_element(letters_sorted);
+        this.letters_color.push({
+          letter: data.letter,
+          color: data.color
+        });
+        letters_sorted.splice(letters_sorted.indexOf(data), 1);
+      }
+    } while (JSON.stringify(letters_cloned) === JSON.stringify(this.letters_color));
   }
 
   getRandomColor() {
