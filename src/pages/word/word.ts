@@ -1,5 +1,5 @@
 import { ProductManager } from './Managers/ProductManager';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { ColorsManager } from './Managers/ColorsManager';
@@ -11,12 +11,14 @@ import { DragulaService } from 'ng2-dragula';
   templateUrl: 'word.html'
 })
 
-export class WordPage implements OnInit {
+export class WordPage implements OnInit, AfterViewInit  {
 
   product:string;
   letters_color: any = [];
   color:string;
   image_route:string;
+  actualSelectedElement:any;
+  actualSelectedContainer:any;
 
   constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
     this.product = ProductManager.get_product();
@@ -51,18 +53,32 @@ export class WordPage implements OnInit {
   }
 
   ngOnInit() {
-
     for (let letter of this.letters_color) {
       this.dragulaService.createGroup(letter.index, {
         revertOnSpill: false
       });
-  
+    }
+  }
+
+  ngAfterViewInit() {
+    for (let letter of this.letters_color) {
+
       this.dragulaService.drag(letter.index).subscribe(({ name, el, source }) => {
-  
+        this.actualSelectedContainer = source;
       });
   
-      this.dragulaService.drop(letter.index).subscribe(({ name, el, source }) => {
-  
+      this.dragulaService.dragend(letter.index).subscribe(({ name, el }) => {
+        //console.log(parseFloat(this.actualSelectedElement.style.left));
+        //console.log(parseFloat(this.offset(el).left));
+        //console.log(parseFloat(this.actualSelectedElement.style.top));
+        //console.log(parseFloat(this.offset(el).top));
+        let posLeft = parseFloat(this.actualSelectedElement.style.left) - parseFloat(this.offset(this.actualSelectedContainer).left);
+        let posTop = parseFloat(this.actualSelectedElement.style.top) - parseFloat(this.offset(this.actualSelectedContainer).top);
+        el.setAttribute('style', `top: ${posTop}px;left: ${posLeft}px;`);
+      });
+
+      this.dragulaService.cloned(letter.index).subscribe(({ clone, original, cloneType }) => {
+        this.actualSelectedElement = clone;
       });
     }
   }
@@ -76,6 +92,14 @@ export class WordPage implements OnInit {
     }
 
     return color;
+  }
+
+
+  offset(el) {
+    var rect = el.getBoundingClientRect(),
+    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
   }
 
 }

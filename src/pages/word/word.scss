@@ -41,6 +41,12 @@
     top: 30%;
 }
 
+.relative-container {
+    min-width: 53px;
+    min-height: 45px;
+    position: relative;
+}
+
 .letter_container {
     width: 45px;
     height: 45px;
@@ -51,6 +57,9 @@
     margin-left: 4px;
     margin-right: 4px;
     font-family: "Arial Black";
+    position: absolute;
+    left: 0px;
+    top: 0px;
 }
 
 .letter {
@@ -68,7 +77,7 @@
 // ===========================================================
 
 .gu-mirror {
-    position: fixed !important;
+    position: absolute;
     margin: 0 !important;
     z-index: 9999 !important;
     opacity: 1;

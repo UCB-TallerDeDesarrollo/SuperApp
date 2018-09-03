@@ -6,7 +6,7 @@
 
 <ion-content padding class={{color}}>
         
-    <h1 style="text-align:center">{{product}}</h1>      
+    <h1 id="asda" style="text-align:center">{{product}}</h1>      
   
     <div class="product-image"> 
         <img src={{image_route}} class="product">        
@@ -15,7 +15,7 @@
 
 <ion-footer style="text-align: center">
     <ul class="item-container" >
-        <div *ngFor="let letter of letters_color" dragula={{letter.index}} > 
+        <div class="relative-container" *ngFor="let letter of letters_color" dragula={{letter.index}} id={{letter.index}}> 
             <div class="letter_container">
                 <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
             </div>

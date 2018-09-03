@@ -9,7 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { ListaPage } from '../pages/lista/lista';
 import { WordPage } from '../pages/word/word';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
-import { DragulaModule } from 'ng2-dragula';
+import { DragulaModule, DragulaService } from 'ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -34,6 +34,7 @@ import { DragulaModule } from 'ng2-dragula';
     StatusBar,
     SplashScreen,
     ScreenOrientation,
+    DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
