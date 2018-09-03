@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListaPage } from '../pages/lista/lista';
 import { WordPage } from '../pages/word/word';
+import { ProductsPage } from '../pages/products/products';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 
@@ -17,7 +18,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
     MyApp,
     HomePage,
     ListaPage,
-    WordPage
+    WordPage,
+    ProductsPage
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
     MyApp,
     HomePage,
     ListaPage,
-    WordPage
+    WordPage,
+    ProductsPage
   ],
   providers: [
     StatusBar,
