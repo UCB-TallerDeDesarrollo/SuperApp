@@ -1,0 +1,26 @@
+page-lista {}
+
+.main-list {
+    background-image: linear-gradient( 135deg, #3ce761 10%, #00ff9d 100%);
+}
+
+.main-title {
+    color: #fff;
+    font-size: 3em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.product-store {
+    object-fit: fill;
+    width: 256px;
+    height: 150px;
+    border-radius: 8px;
+}
+
+.product-name {
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+}
