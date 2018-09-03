@@ -18,13 +18,23 @@ export class WordPage {
   color:string;
   image_route:string;
 
-  constructor(public navCtrl: NavController, private dragula: DragulaService) {
-    this.product=ProductManager.get_product();
-    this.color=ColorsManager.get_color_style();
-    this.image_route="/assets/imgs/Products/"+this.product.toLowerCase()+".jpg";
+  constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
+    this.product = ProductManager.get_product();
+    this.color = ColorsManager.get_color_style();
+    this.image_route = `/assets/imgs/Products/${this.product.toLowerCase()}.jpg`;
     let letters = this.product.toUpperCase().split('');
     let letters_sorted: any = [];
     let letters_cloned: any = [];
+
+    this.dragulaService.createGroup("LETTERS", {
+      removeOnSpill: false
+    });
+
+    this.dragulaService.drag("LETTERS").subscribe(({ name, el, source }) => {
+      console.log(name);
+      console.log(el);
+      console.log(source);
+    })
 
     do {
       this.letters_color = [];
@@ -61,5 +71,3 @@ export class WordPage {
   }
 
 }
-
-

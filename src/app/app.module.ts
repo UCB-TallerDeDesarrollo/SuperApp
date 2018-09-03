@@ -21,7 +21,7 @@ import { DragulaModule } from 'ng2-dragula';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    DragulaModule
+    DragulaModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
