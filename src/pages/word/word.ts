@@ -1,5 +1,5 @@
 import { ProductManager } from './Managers/ProductManager';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { ColorsManager } from './Managers/ColorsManager';
@@ -11,7 +11,7 @@ import { DragulaService } from 'ng2-dragula';
   templateUrl: 'word.html'
 })
 
-export class WordPage {
+export class WordPage implements OnInit {
 
   product:string;
   letters_color: any = [];
@@ -26,41 +26,45 @@ export class WordPage {
     let letters_sorted: any = [];
     let letters_cloned: any = [];
 
-    this.dragulaService.createGroup("LETTERS", {
-      removeOnSpill: false
-    });
-
-    this.dragulaService.drag("LETTERS").subscribe(({ name, el, source }) => {
-      el.classList.add('not-visible');
-      return null;
-    });
-
-    this.dragulaService.drop("LETTERS").subscribe(({ name, el, source }) => {
-      el.classList.remove('not-visible');
-      return null;
-    });
-
     do {
+
       this.letters_color = [];
-      
       for (let letter of letters) {
         letters_sorted.push({
           letter: letter,
-          color: this.getRandomColor()
+          color: this.getRandomColor(),
         });
       }
 
       letters_cloned = letters_sorted.map(data => ({letter: data.letter, color: data.color}));
-      
+      let index = 0;
       while (letters_sorted.length > 0) {
         let data: any = ArrayManager.get_random_element(letters_sorted);
         this.letters_color.push({
           letter: data.letter,
-          color: data.color
+          color: data.color,
+          index: `letter-${index++}`
         });
         letters_sorted.splice(letters_sorted.indexOf(data), 1);
       }
     } while (JSON.stringify(letters_cloned) === JSON.stringify(this.letters_color));
+  }
+
+  ngOnInit() {
+
+    for (let letter of this.letters_color) {
+      this.dragulaService.createGroup(letter.index, {
+        revertOnSpill: false
+      });
+  
+      this.dragulaService.drag(letter.index).subscribe(({ name, el, source }) => {
+  
+      });
+  
+      this.dragulaService.drop(letter.index).subscribe(({ name, el, source }) => {
+  
+      });
+    }
   }
 
   getRandomColor() {

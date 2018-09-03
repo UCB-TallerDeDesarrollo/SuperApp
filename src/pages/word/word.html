@@ -14,9 +14,11 @@
 </ion-content>
 
 <ion-footer style="text-align: center">
-    <ul style="padding-left: 0%" dragula="LETTERS">
-        <li class="letter_container" *ngFor="let letter of letters_color" >
-            <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
-        </li>
+    <ul class="item-container" >
+        <div *ngFor="let letter of letters_color" dragula={{letter.index}} > 
+            <div class="letter_container">
+                <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
+            </div>
+        </div>
     </ul>
 </ion-footer>
