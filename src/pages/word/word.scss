@@ -53,6 +53,10 @@
     font-size: 30px;
 }
 
+.not-visible {
+    visibility: hidden;
+}
+
 // ===========================================================
 
 .gu-mirror {
@@ -62,6 +66,7 @@
     opacity: 1;
     filter: alpha(opacity=80);
     pointer-events: none;
+    visibility: initial;
 }
 /* high-performance display:none; helper */
 .gu-hide {

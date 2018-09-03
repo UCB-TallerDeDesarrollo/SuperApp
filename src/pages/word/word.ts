@@ -31,10 +31,14 @@ export class WordPage {
     });
 
     this.dragulaService.drag("LETTERS").subscribe(({ name, el, source }) => {
-      console.log(name);
-      console.log(el);
-      console.log(source);
-    })
+      el.classList.add('not-visible');
+      return null;
+    });
+
+    this.dragulaService.drop("LETTERS").subscribe(({ name, el, source }) => {
+      el.classList.remove('not-visible');
+      return null;
+    });
 
     do {
       this.letters_color = [];
