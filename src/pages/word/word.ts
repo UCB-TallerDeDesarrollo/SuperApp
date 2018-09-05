@@ -57,9 +57,14 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.dragulaService.createGroup('LETTER', {
       revertOnSpill: false,
-      moves: function (el, container, handle) {
-        console.log(el);
-        return !container.classList.contains('no-move');
+      moves: (el, container, handle) => {
+        return !(container.children.length > 0 && container.children[0].classList.contains('no-move'));
+      },
+      accepts: (el, target, source, sibling) => {
+        if(target.children.length > 0) {
+          return false;
+        }
+        return true;
       }
     });
   }
@@ -77,8 +82,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     this.dragulaService.drop('LETTER').subscribe(({ el, target, source, sibling }) => {
       el.setAttribute('style', `top: 0px;left: 0px;border: initial;background-color: initial;`);
-      console.log('Se agrego a ');
-      console.log(el);
+      el.classList.add('no-move');
       this.recentlyMove = true;
     });
 
