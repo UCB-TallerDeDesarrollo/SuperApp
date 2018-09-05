@@ -59,6 +59,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('SE construyo');
     this.dragulaService.createGroup('LETTER', {
       revertOnSpill: false,
       moves: (el, container, handle) => {
@@ -81,6 +82,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.dragulaService.destroy('LETTER');
+    console.log('SE destruyo');
   }
 
   ngAfterViewInit() {
@@ -132,11 +134,14 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showEndView() {
+    console.log(this.count);
     ++this.count;
     if(this.count >= this.letter_response.length) {
       console.log('GANASTE');
-      location.reload();
     }
   }
 
+  ionViewWillLeave() {
+    
+  }
 }
