@@ -87,11 +87,11 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getRandomColor() {
-    let color = "#";
+    let color = '#';
 
     for (let i = 0; i < 3; ++i) {
       let part = Math.round(Math.random() * 255).toString(16);
-      color += (part.length > 1) ? part : "0" + part;
+      color += (part.length > 1) ? part : '0' + part;
     }
 
     return color;
