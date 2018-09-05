@@ -14,7 +14,7 @@ import { DragulaService } from 'ng2-dragula';
 export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   product:string;
-  letters_color: any = [];
+  messy_letters: any = [];
   color:string;
   image_route:string;
   actualSelectedElement:any;
@@ -30,7 +30,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     do {
 
-      this.letters_color = [];
+      this.messy_letters = [];
       for (let letter of letters) {
         letters_sorted.push({
           letter: letter,
@@ -42,18 +42,18 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
       let index = 0;
       while (letters_sorted.length > 0) {
         let data: any = ArrayManager.get_random_element(letters_sorted);
-        this.letters_color.push({
+        this.messy_letters.push({
           letter: data.letter,
           color: data.color,
           index: `letter-${index++}`
         });
         letters_sorted.splice(letters_sorted.indexOf(data), 1);
       }
-    } while (JSON.stringify(letters_cloned) === JSON.stringify(this.letters_color));
+    } while (JSON.stringify(letters_cloned) === JSON.stringify(this.messy_letters));
   }
 
   ngOnInit() {
-    for (let letter of this.letters_color) {
+    for (let letter of this.messy_letters) {
       this.dragulaService.createGroup(letter.index, {
         revertOnSpill: false
       });
@@ -61,14 +61,14 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    for (let letter of this.letters_color) {
+    for (let letter of this.messy_letters) {
       this.dragulaService.destroy(letter.index);
     }
   }
 
   ngAfterViewInit() {
     const marginLeft : number = 4;
-    for (let letter of this.letters_color) {
+    for (let letter of this.messy_letters) {
 
       this.dragulaService.drag(letter.index).subscribe(({ name, el, source }) => {
         this.actualSelectedContainer = source;

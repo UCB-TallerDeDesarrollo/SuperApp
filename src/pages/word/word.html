@@ -23,7 +23,7 @@
 
 <ion-footer style="text-align: center">
     <ul class="item-container" >
-        <div class="relative-container" *ngFor="let letter of letters_color" dragula={{letter.index}} id={{letter.index}}> 
+        <div class="relative-container" *ngFor="let letter of messy_letters" dragula={{letter.index}} id={{letter.index}}> 
             <div class="letter_container">
                 <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
             </div>
