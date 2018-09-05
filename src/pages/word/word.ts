@@ -68,10 +68,6 @@ export class WordPage implements OnInit, AfterViewInit  {
       });
   
       this.dragulaService.dragend(letter.index).subscribe(({ name, el }) => {
-        //console.log(parseFloat(this.actualSelectedElement.style.left));
-        //console.log(parseFloat(this.offset(el).left));
-        //console.log(parseFloat(this.actualSelectedElement.style.top));
-        //console.log(parseFloat(this.offset(el).top));
         let posLeft = parseFloat(this.actualSelectedElement.style.left) - parseFloat(this.offset(this.actualSelectedContainer).left);
         let posTop = parseFloat(this.actualSelectedElement.style.top) - parseFloat(this.offset(this.actualSelectedContainer).top);
         el.setAttribute('style', `top: ${posTop}px;left: ${posLeft}px;`);
