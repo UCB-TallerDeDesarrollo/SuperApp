@@ -15,6 +15,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   product:string;
   messy_letters: any = [];
+  letters_color: any = [];
   color:string;
   image_route:string;
   actualSelectedElement:any;
@@ -28,13 +29,16 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     let letters_sorted: any = [];
     let letters_cloned: any = [];
 
+    this.generateLettersWithColor();
+
     do {
 
       this.messy_letters = [];
+
       for (let letter of letters) {
         letters_sorted.push({
           letter: letter,
-          color: this.getRandomColor(),
+          color: this.letters_color[letter],
         });
       }
 
@@ -97,6 +101,11 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     return color;
   }
 
+  generateLettersWithColor() {
+    for (let letter of this.product) {
+      this.letters_color[letter] = this.getRandomColor();
+    }
+  }
 
   offset(el) {
     let rect = el.getBoundingClientRect(),
