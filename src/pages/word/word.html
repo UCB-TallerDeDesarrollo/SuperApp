@@ -9,7 +9,7 @@
     <h1 id="asda" style="text-align:center">{{product}}</h1>      
   
     <ul class="item-container">
-        <div class="relative-container objetive-container" *ngFor="let letter of letters_color" dragula="LETTER" id={{letter.index}}>
+        <div *ngFor="let letter of letter_response" class="{{letter.name}} relative-container objetive-container" dragula="LETTER">
         </div>
     </ul>
 
@@ -20,7 +20,7 @@
 
 <ion-footer style="text-align: center">
     <ul class="item-container" >
-        <div class="relative-container" *ngFor="let letter of letters_color" dragula="LETTER" id={{letter.index}}> 
+        <div class="{{letter.name}} relative-container" *ngFor="let letter of letters_color" dragula="LETTER"> 
             <div class="letter_container">
                 <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
             </div>

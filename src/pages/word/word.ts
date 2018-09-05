@@ -15,11 +15,13 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   product:string;
   letters_color: any = [];
+  letter_response: any = [];
   color:string;
   image_route:string;
   actualSelectedElement:any;
   actualSelectedContainer:any;
   recentlyMove:boolean;
+  count: number;
 
   constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
     this.product = ProductManager.get_product();
@@ -29,7 +31,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     let letters = this.product.toUpperCase().split('');
     let letters_sorted: any = [];
     let letters_cloned: any = [];
-
+    this.count = 0;
     do {
 
       this.letters_color = [];
@@ -37,21 +39,23 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         letters_sorted.push({
           letter: letter,
           color: this.getRandomColor(),
+          name: `letter-${letter}`
         });
       }
 
-      letters_cloned = letters_sorted.map(data => ({letter: data.letter, color: data.color}));
+      letters_cloned = letters_sorted.map(data => ({letter: data.letter, color: data.color, name: data.name}));
       let index = 0;
       while (letters_sorted.length > 0) {
         let data: any = ArrayManager.get_random_element(letters_sorted);
         this.letters_color.push({
           letter: data.letter,
           color: data.color,
-          index: `letter-${index++}`
+          name: `letter-${data.letter}`
         });
         letters_sorted.splice(letters_sorted.indexOf(data), 1);
       }
     } while (JSON.stringify(letters_cloned) === JSON.stringify(this.letters_color));
+    this.letter_response = letters_cloned;
   }
 
   ngOnInit() {
@@ -61,7 +65,13 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         return !(container.children.length > 0 && container.children[0].classList.contains('no-move'));
       },
       accepts: (el, target, source, sibling) => {
+        if(!target.classList.contains('objetive-container')) {
+          return false;
+        }
         if(target.children.length > 0) {
+          return false;
+        }
+        if(target.classList[0] !== source.classList[0]) {
           return false;
         }
         return true;
@@ -84,6 +94,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
       el.setAttribute('style', `top: 0px;left: 0px;border: initial;background-color: initial;`);
       el.classList.add('no-move');
       this.recentlyMove = true;
+      this.showEndView();
     });
 
     this.dragulaService.dragend('LETTER').subscribe(({ name, el }) => {
@@ -118,6 +129,14 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
     scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+  }
+
+  showEndView() {
+    ++this.count;
+    if(this.count >= this.letter_response.length) {
+      console.log('GANASTE');
+      location.reload();
+    }
   }
 
 }
