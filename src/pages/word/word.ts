@@ -1,5 +1,5 @@
 import { ProductManager } from './Managers/ProductManager';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { ColorsManager } from './Managers/ColorsManager';
@@ -11,7 +11,7 @@ import { DragulaService } from 'ng2-dragula';
   templateUrl: 'word.html'
 })
 
-export class WordPage implements OnInit, AfterViewInit  {
+export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   product:string;
   letters_color: any = [];
@@ -57,6 +57,12 @@ export class WordPage implements OnInit, AfterViewInit  {
       this.dragulaService.createGroup(letter.index, {
         revertOnSpill: false
       });
+    }
+  }
+
+  ngOnDestroy() {
+    for (let letter of this.letters_color) {
+      this.dragulaService.destroy(letter.index);
     }
   }
 
