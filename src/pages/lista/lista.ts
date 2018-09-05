@@ -7,7 +7,7 @@ import { DataBaseService } from '../../providers/database-service/database-servi
 })
 export class ListaPage {
 
-  public products:any;
+  products:any;
   constructor(public navCtrl: NavController) {
     this.products=DataBaseService.getProducts();
   }
