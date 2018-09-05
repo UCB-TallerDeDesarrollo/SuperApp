@@ -86,10 +86,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getRandomColor() {
-    var color = "#";
+    let color = "#";
 
-    for (var i = 0; i < 3; ++i) {
-      var part = Math.round(Math.random() * 255).toString(16);
+    for (let i = 0; i < 3; ++i) {
+      let part = Math.round(Math.random() * 255).toString(16);
       color += (part.length > 1) ? part : "0" + part;
     }
 
@@ -98,7 +98,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
 
   offset(el) {
-    var rect = el.getBoundingClientRect(),
+    let rect = el.getBoundingClientRect(),
     scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
     scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
