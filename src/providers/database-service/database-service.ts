@@ -10,7 +10,11 @@ export class DataBaseService{
         {name: 'CAFE', image: path_images+'cafe.jpg'}
     ];
 
-    static getProducts(){
+	static getProducts(){
         return this.products;
+    }
+
+    static getProductById(id: number){
+        return this.products[id];
     }
 }
