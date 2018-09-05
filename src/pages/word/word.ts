@@ -19,11 +19,13 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   image_route:string;
   actualSelectedElement:any;
   actualSelectedContainer:any;
+  recentlyMove:boolean;
 
   constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
     this.product = ProductManager.get_product();
     this.color = ColorsManager.get_color_style();
     this.image_route = `/assets/imgs/Products/${this.product.toLowerCase()}.jpg`;
+    this.recentlyMove = false;
     let letters = this.product.toUpperCase().split('');
     let letters_sorted: any = [];
     let letters_cloned: any = [];
@@ -53,37 +55,46 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    for (let letter of this.letters_color) {
-      this.dragulaService.createGroup(letter.index, {
-        revertOnSpill: false
-      });
-    }
+    this.dragulaService.createGroup('LETTER', {
+      revertOnSpill: false,
+      moves: function (el, container, handle) {
+        console.log(el);
+        return !container.classList.contains('no-move');
+      }
+    });
   }
 
   ngOnDestroy() {
-    for (let letter of this.letters_color) {
-      this.dragulaService.destroy(letter.index);
-    }
+    this.dragulaService.destroy('LETTER');
   }
 
   ngAfterViewInit() {
     const marginLeft : number = 4;
-    for (let letter of this.letters_color) {
 
-      this.dragulaService.drag(letter.index).subscribe(({ name, el, source }) => {
-        this.actualSelectedContainer = source;
-      });
-  
-      this.dragulaService.dragend(letter.index).subscribe(({ name, el }) => {
+    this.dragulaService.drag('LETTER').subscribe(({ name, el, source }) => {
+      this.actualSelectedContainer = source;
+    });
+
+    this.dragulaService.drop('LETTER').subscribe(({ el, target, source, sibling }) => {
+      el.setAttribute('style', `top: 0px;left: 0px;border: initial;background-color: initial;`);
+      console.log('Se agrego a ');
+      console.log(el);
+      this.recentlyMove = true;
+    });
+
+    this.dragulaService.dragend('LETTER').subscribe(({ name, el }) => {
+      if(!this.recentlyMove) {
         let posLeft = parseFloat(this.actualSelectedElement.style.left) - parseFloat(this.offset(this.actualSelectedContainer).left) - marginLeft;
         let posTop = parseFloat(this.actualSelectedElement.style.top) - parseFloat(this.offset(this.actualSelectedContainer).top);
-        el.setAttribute('style', `top: ${posTop}px;left: ${posLeft}px;`);
-      });
+        el.setAttribute('style', `top: ${posTop}px;left: ${posLeft}px;`);  
+      }
+      this.recentlyMove = false;
+    });
 
-      this.dragulaService.cloned(letter.index).subscribe(({ clone, original, cloneType }) => {
-        this.actualSelectedElement = clone;
-      });
-    }
+    this.dragulaService.cloned('LETTER').subscribe(({ clone, original, cloneType }) => {
+      this.actualSelectedElement = clone;
+    });
+
   }
 
   getRandomColor() {
