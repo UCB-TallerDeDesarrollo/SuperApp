@@ -1,6 +1,22 @@
 <ion-header>
     <ion-navbar>
-      <ion-title>Palabras</ion-title>
+        <ion-title>NIVEL</ion-title>
     </ion-navbar>
-  </ion-header>
-  <ion-content>Soy el juego de palabras!</ion-content>
+</ion-header>
+
+<ion-content padding class={{color}}>
+        
+    <h1 style="text-align:center">{{product}}</h1>      
+  
+    <div class="product-image"> 
+        <img src={{image_route}} class="product">        
+    </div>
+</ion-content>
+
+<ion-footer style="text-align: center">
+    <ul style="padding-left: 0%">
+        <li class="letter_container" *ngFor="let letter of letters_color">
+            <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
+        </li>
+    </ul>
+</ion-footer>
