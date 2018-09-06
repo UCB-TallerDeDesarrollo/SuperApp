@@ -1,6 +1,6 @@
 import { ProductManager } from './Managers/ProductManager';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { ColorsManager } from './Managers/ColorsManager';
 import { ArrayManager } from './Managers/ArrayManager';
 import { DragulaService } from 'ng2-dragula';
@@ -25,9 +25,9 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   subs = new Subscription();
 
-  selectorName : string = 'LETTER-';
+  selectorName : string = 'LETTER';
 
-  constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private dragulaService: DragulaService) {
     this.product = ProductManager.get_product();
     this.color = ColorsManager.get_color_style();
     this.image_route = `/assets/imgs/Products/${this.product.toLowerCase()}.jpg`;
@@ -143,8 +143,13 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
       console.log('GANASTE');
       //this.navCtrl.push(WordPage);
       //this.navCtrl.remove(this.navCtrl.length() - 1);
-      this.navCtrl.pop();
-      this.navCtrl.push(WordPage);
+      const prontm = this.alertCtrl.create({
+        'title': 'My first modal',
+        'message': 'Ganaste :D'
+      });
+      prontm.present();
+      //this.navCtrl.pop();
+      //this.navCtrl.push(WordPage);
     }
   }
 }
