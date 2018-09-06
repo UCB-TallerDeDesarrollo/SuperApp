@@ -1,10 +1,10 @@
 import { ProductManager } from './Managers/ProductManager';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { NavParams } from 'ionic-angular';
 import { ColorsManager } from './Managers/ColorsManager';
 import { ArrayManager } from './Managers/ArrayManager';
 import { DragulaService } from 'ng2-dragula';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'page-word',
@@ -22,6 +22,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   actualSelectedContainer:any;
   recentlyMove:boolean;
   count: number;
+
+  subs = new Subscription();
+
+  selectorName : string = 'LETTER-';
 
   constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
     this.product = ProductManager.get_product();
@@ -44,7 +48,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
       }
 
       letters_cloned = letters_sorted.map(data => ({letter: data.letter, color: data.color, name: data.name}));
-      let index = 0;
       while (letters_sorted.length > 0) {
         let data: any = ArrayManager.get_random_element(letters_sorted);
         this.letters_color.push({
@@ -59,8 +62,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('SE construyo');
-    this.dragulaService.createGroup('LETTER', {
+    this.dragulaService.createGroup(this.selectorName, {
       revertOnSpill: false,
       moves: (el, container, handle) => {
         return !(container.children.length > 0 && container.children[0].classList.contains('no-move'));
@@ -81,36 +83,37 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.dragulaService.destroy('LETTER');
-    console.log('SE destruyo');
+    console.log('SE DESTRUYO');
+    this.subs.unsubscribe();
+    this.dragulaService.destroy(this.selectorName);
   }
 
   ngAfterViewInit() {
     const marginLeft : number = 4;
 
-    this.dragulaService.drag('LETTER').subscribe(({ name, el, source }) => {
+    this.subs.add(this.dragulaService.drag(this.selectorName).subscribe(({ name, el, source }) => {
       this.actualSelectedContainer = source;
-    });
+    }));
 
-    this.dragulaService.drop('LETTER').subscribe(({ el, target, source, sibling }) => {
+    this.subs.add(this.dragulaService.drop(this.selectorName).subscribe(({ el, target, source, sibling }) => {
       el.setAttribute('style', `top: 0px;left: 0px;border: initial;background-color: initial;`);
       el.classList.add('no-move');
       this.recentlyMove = true;
       this.showEndView();
-    });
+    }));
 
-    this.dragulaService.dragend('LETTER').subscribe(({ name, el }) => {
+    this.subs.add(this.dragulaService.dragend(this.selectorName).subscribe(({ name, el }) => {
       if(!this.recentlyMove) {
         let posLeft = parseFloat(this.actualSelectedElement.style.left) - parseFloat(this.offset(this.actualSelectedContainer).left) - marginLeft;
         let posTop = parseFloat(this.actualSelectedElement.style.top) - parseFloat(this.offset(this.actualSelectedContainer).top);
         el.setAttribute('style', `top: ${posTop}px;left: ${posLeft}px;`);  
       }
       this.recentlyMove = false;
-    });
+    }));
 
-    this.dragulaService.cloned('LETTER').subscribe(({ clone, original, cloneType }) => {
+    this.subs.add(this.dragulaService.cloned(this.selectorName).subscribe(({ clone, original, cloneType }) => {
       this.actualSelectedElement = clone;
-    });
+    }));
 
   }
 
@@ -138,10 +141,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     ++this.count;
     if(this.count >= this.letter_response.length) {
       console.log('GANASTE');
+      //this.navCtrl.push(WordPage);
+      //this.navCtrl.remove(this.navCtrl.length() - 1);
+      this.navCtrl.pop();
+      this.navCtrl.push(WordPage);
     }
-  }
-
-  ionViewWillLeave() {
-    
   }
 }

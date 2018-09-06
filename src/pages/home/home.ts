@@ -12,7 +12,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 export class HomePage {
 
   constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation) {
-    
+
     platform.ready().then(() => {
       if (platform.is('cordova')){
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
@@ -26,8 +26,8 @@ export class HomePage {
   
   pushPageList(){
     this.navCtrl.push(ListaPage);
-    
   }
+
   pushPageWord(){
     this.navCtrl.push(WordPage);
   }
