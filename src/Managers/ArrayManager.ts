@@ -1,6 +1,6 @@
 export class ArrayManager {
 
-    static get_random_element(array:string[]) {
+    static get_random_element(array:any[]) {
         let index = this.random_int(0, array.length - 1);
         return array[index];   
     }

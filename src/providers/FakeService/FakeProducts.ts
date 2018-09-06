@@ -1,3 +1,5 @@
+import { ArrayManager } from "../../Managers/ArrayManager";
+
 let path_images = '../../assets/imgs/Products/'
 
 export class FakeProducts{
