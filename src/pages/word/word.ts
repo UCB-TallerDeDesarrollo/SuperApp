@@ -14,6 +14,8 @@ import { Subscription } from 'rxjs';
 export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   product:string;
+  messy_letters: any = [];
+  sorted_letters: any = [];
   letters_color: any = [];
   letter_response: any = [];
   color:string;
@@ -22,6 +24,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   actualSelectedContainer:any;
   recentlyMove:boolean;
   count: number;
+  colors: any = [];
 
   subs = new Subscription();
 
@@ -33,32 +36,46 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     this.image_route = `/assets/imgs/Products/${this.product.toLowerCase()}.jpg`;
     this.recentlyMove = false;
     let letters = this.product.toUpperCase().split('');
-    let letters_sorted: any = [];
-    let letters_cloned: any = [];
     this.count = 0;
+    let auxilary_letters: any = [];
+
+    this.colors.push("#B73D19");
+    this.colors.push("#E7E41C");
+    this.colors.push("#4CD10A");
+    this.colors.push("#23A547");
+    this.colors.push("#24AD81");
+    this.colors.push("#2473AD");
+    this.colors.push("#2433AD");
+    this.colors.push("#1C818F");
+    this.colors.push("#280D97");
+    this.colors.push("#8C1D87");
+
+    this.generateLettersWithColor();
+
     do {
 
-      this.letters_color = [];
+      this.messy_letters = [];
+      
       for (let letter of letters) {
-        letters_sorted.push({
+        auxilary_letters.push({
           letter: letter,
-          color: this.getRandomColor(),
+          color: this.letters_color[letter],
           name: `letter-${letter}`
         });
       }
 
-      letters_cloned = letters_sorted.map(data => ({letter: data.letter, color: data.color, name: data.name}));
-      while (letters_sorted.length > 0) {
-        let data: any = ArrayManager.get_random_element(letters_sorted);
-        this.letters_color.push({
+      this.sorted_letters = auxilary_letters.map(data => ({letter: data.letter, color: data.color, name: data.name}));
+      while (auxilary_letters.length > 0) {
+        let data: any = ArrayManager.get_random_element(auxilary_letters);
+        this.messy_letters.push({
           letter: data.letter,
           color: data.color,
           name: `letter-${data.letter}`
         });
-        letters_sorted.splice(letters_sorted.indexOf(data), 1);
+        auxilary_letters.splice(auxilary_letters.indexOf(data), 1);
       }
-    } while (JSON.stringify(letters_cloned) === JSON.stringify(this.letters_color));
-    this.letter_response = letters_cloned;
+    } while (JSON.stringify(this.sorted_letters) === JSON.stringify(this.messy_letters));
+    this.letter_response = this.sorted_letters;
   }
 
   ngOnInit() {
@@ -128,6 +145,11 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     return color;
   }
 
+  generateLettersWithColor() {
+    for (let letter of this.product) {
+      this.letters_color[letter] = ArrayManager.get_random_element(this.colors);
+    }
+  }
 
   offset(el) {
     let rect = el.getBoundingClientRect(),
