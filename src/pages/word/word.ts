@@ -1,5 +1,4 @@
 import { FakeProducts } from './../../providers/FakeService/FakeProducts';
-import { ProductManager } from '../../Managers/ProductManager';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { ColorsManager } from '../../Managers/ColorsManager';
