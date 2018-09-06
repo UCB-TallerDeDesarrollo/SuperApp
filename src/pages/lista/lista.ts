@@ -8,8 +8,10 @@ import { DataBaseService } from '../../providers/database-service/database-servi
 export class ListaPage {
 
   products:any;
+  cantproducts:string;
   constructor(public navCtrl: NavController) {
     this.products=DataBaseService.getProducts();
+    this.cantproducts='' + this.products.length;
   }
  
 }
