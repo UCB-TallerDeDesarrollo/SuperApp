@@ -31,16 +31,11 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   selectorName : string = 'LETTER';
 
   constructor(public navCtrl: NavController, private alertCtrl: AlertController, private dragulaService: DragulaService) {
-    let product_information=FakeProducts.get_random_product();
-    this.product=product_information.title;
-    //this.product = ProductManager.get_product();
-    this.color = ColorsManager.get_color_style();
-    this.image_route = product_information.image;
-    this.recentlyMove = false;
+    this.prepare_binding_items();
     let letters = this.product.split('');
     this.count = 0;
     let auxilary_letters: any = [];
-
+    this.recentlyMove = false;
     this.colors.push("#B73D19");
     this.colors.push("#E7E41C");
     this.colors.push("#4CD10A");
@@ -78,6 +73,13 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
       }
     } while (JSON.stringify(this.sorted_letters) === JSON.stringify(this.messy_letters));
     this.letter_response = this.sorted_letters;
+  }
+
+  private prepare_binding_items() {
+    let product_information = FakeProducts.get_random_product();
+    this.product = product_information.title;
+    this.color = ColorsManager.get_color_style();
+    this.image_route = product_information.image;
   }
 
   ngOnInit() {
