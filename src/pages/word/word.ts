@@ -33,11 +33,12 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(public navCtrl: NavController, private alertCtrl: AlertController, private dragulaService: DragulaService) {
     let product_information=FakeProducts.get_random_product();
-    this.product = ProductManager.get_product();
+    this.product=product_information.title;
+    //this.product = ProductManager.get_product();
     this.color = ColorsManager.get_color_style();
-    this.image_route = `/assets/imgs/Products/${this.product.toLowerCase()}.jpg`;
+    this.image_route = product_information.image;
     this.recentlyMove = false;
-    let letters = this.product.toUpperCase().split('');
+    let letters = this.product.split('');
     this.count = 0;
     let auxilary_letters: any = [];
 
