@@ -6,17 +6,31 @@
 
 <ion-content padding class={{color}}>
         
-    <h1 style="text-align:center">{{product}}</h1>      
+    <!--<h1 id="asda" style="text-align:center">{{product}}</h1>-->
+    <ul class="item-container" >
+        <div class="relative-container" *ngFor="let letter of sorted_letters" dragula={{letter.index}} id={{letter.index}}> 
+            <div>
+                <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
+            </div>
+        </div>
+    </ul>
   
+    <ul class="item-container item-container--shortest">
+        <div *ngFor="let letter of letter_response" class="{{letter.name}} relative-container objetive-container" dragula="{{selectorName}}">
+        </div>
+    </ul>
+
     <div class="product-image"> 
         <img src={{image_route}} class="product">        
     </div>
 </ion-content>
 
 <ion-footer style="text-align: center">
-    <ul style="padding-left: 0%">
-        <li class="letter_container" *ngFor="let letter of letters_color">
-            <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
-        </li>
+    <ul class="item-container" >
+        <div class="{{letter.name}} relative-container" *ngFor="let letter of messy_letters" dragula="{{selectorName}}"> 
+            <div class="letter_container">
+                <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
+            </div>
+        </div>
     </ul>
 </ion-footer>
