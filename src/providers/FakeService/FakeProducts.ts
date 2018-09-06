@@ -1,6 +1,7 @@
 let path_images = '../../assets/imgs/Products/'
 
 export class FakeProducts{
+  
     static products: Array<{id: number, title: string, image: string}>= [
         {id: 1, title: 'ARROZ', image: path_images+'arroz.jpg'},
         {id: 2, title: 'ATUN', image: path_images+'atun.jpg'},
@@ -22,5 +23,8 @@ export class FakeProducts{
 
     static getProductById(id: number){
         return this.products[id];
+    }
+    static get_random_product(): any {
+    
     }
 }

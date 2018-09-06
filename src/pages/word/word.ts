@@ -1,3 +1,4 @@
+import { FakeProducts } from './../../providers/FakeService/FakeProducts';
 import { ProductManager } from './Managers/ProductManager';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
@@ -31,6 +32,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   selectorName : string = 'LETTER';
 
   constructor(public navCtrl: NavController, private alertCtrl: AlertController, private dragulaService: DragulaService) {
+    let product_information=FakeProducts.get_random_product();
     this.product = ProductManager.get_product();
     this.color = ColorsManager.get_color_style();
     this.image_route = `/assets/imgs/Products/${this.product.toLowerCase()}.jpg`;
