@@ -15,19 +15,31 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   product:string;
   messy_letters: any = [];
+  sorted_letters: any = [];
   letters_color: any = [];
   color:string;
   image_route:string;
   actualSelectedElement:any;
   actualSelectedContainer:any;
+  colors: any = [];
 
   constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
     this.product = ProductManager.get_product();
     this.color = ColorsManager.get_color_style();
     this.image_route = `/assets/imgs/Products/${this.product.toLowerCase()}.jpg`;
     let letters = this.product.toUpperCase().split('');
-    let letters_sorted: any = [];
-    let letters_cloned: any = [];
+    let auxilary_letters: any = [];
+
+    this.colors.push("#B73D19");
+    this.colors.push("#E7E41C");
+    this.colors.push("#4CD10A");
+    this.colors.push("#23A547");
+    this.colors.push("#24AD81");
+    this.colors.push("#2473AD");
+    this.colors.push("#2433AD");
+    this.colors.push("#1C818F");
+    this.colors.push("#280D97");
+    this.colors.push("#8C1D87");
 
     this.generateLettersWithColor();
 
@@ -36,24 +48,24 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
       this.messy_letters = [];
 
       for (let letter of letters) {
-        letters_sorted.push({
+        auxilary_letters.push({
           letter: letter,
           color: this.letters_color[letter],
         });
       }
 
-      letters_cloned = letters_sorted.map(data => ({letter: data.letter, color: data.color}));
+      this.sorted_letters = auxilary_letters.map(data => ({letter: data.letter, color: data.color}));
       let index = 0;
-      while (letters_sorted.length > 0) {
-        let data: any = ArrayManager.get_random_element(letters_sorted);
+      while (auxilary_letters.length > 0) {
+        let data: any = ArrayManager.get_random_element(auxilary_letters);
         this.messy_letters.push({
           letter: data.letter,
           color: data.color,
           index: `letter-${index++}`
         });
-        letters_sorted.splice(letters_sorted.indexOf(data), 1);
+        auxilary_letters.splice(auxilary_letters.indexOf(data), 1);
       }
-    } while (JSON.stringify(letters_cloned) === JSON.stringify(this.messy_letters));
+    } while (JSON.stringify(this.sorted_letters) === JSON.stringify(this.messy_letters));
   }
 
   ngOnInit() {
@@ -103,7 +115,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   generateLettersWithColor() {
     for (let letter of this.product) {
-      this.letters_color[letter] = this.getRandomColor();
+      this.letters_color[letter] = ArrayManager.get_random_element(this.colors);
     }
   }
 

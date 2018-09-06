@@ -6,7 +6,14 @@
 
 <ion-content padding class={{color}}>
         
-    <h1 id="asda" style="text-align:center">{{product}}</h1>      
+    <!--<h1 id="asda" style="text-align:center">{{product}}</h1>-->
+    <ul class="item-container" >
+        <div class="relative-container" *ngFor="let letter of sorted_letters" dragula={{letter.index}} id={{letter.index}}> 
+            <div>
+                <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
+            </div>
+        </div>
+    </ul>
   
     <ul class="item-container" style="border: 1px solid red;">
         <div class="relative-container" *ngFor="let letter of letters_color" dragula={{letter.index}} id={{letter.index}}> 
