@@ -10,6 +10,7 @@ import { ListaPage } from '../pages/lista/lista';
 import { WordPage } from '../pages/word/word';
 import { ProductsPage } from '../pages/products/products';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { DragulaModule, DragulaService } from 'ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    DragulaModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -35,6 +37,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
     StatusBar,
     SplashScreen,
     ScreenOrientation,
+    DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
