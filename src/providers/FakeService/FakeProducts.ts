@@ -25,6 +25,6 @@ export class FakeProducts{
         return this.products[id];
     }
     static get_random_product(): any {
-    
+        return ArrayManager.get_random_element(this.products);
     }
 }
