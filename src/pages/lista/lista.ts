@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { ProductsPage } from '../products/products';
 
-import { DataBaseService } from '../../providers/database-service/database-service';
+import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 @Component({
   selector: 'page-lista',
   templateUrl: 'lista.html'
@@ -11,14 +11,13 @@ import { DataBaseService } from '../../providers/database-service/database-servi
 export class ListaPage {
   
 
-  products:any;
+  products: Array<{id: number, title: string, image: string}> = [];
   constructor(public navCtrl: NavController) {
-    this.products=DataBaseService.getProducts();
+    this.products=FakeProducts.getProducts();
   }
 
   pushProducts(){
     this.navCtrl.push(ProductsPage);
   }
 
- 
 }
