@@ -16,11 +16,10 @@
 <ion-content padding class="main">
     <button ion-button color="danger" (click)="onClickDeleteList()">Borrar lista</button>
     <ion-list>
-        <div class="main" ion-item *ngFor="let product of products">
+        <div class="main" ion-item *ngFor="let product of products; let i = index">
             <ion-img item-left src="{{product.image}}"></ion-img>
-            <button ion-button-right menuClose>X</button>
+            <button ion-button-right color="danger" (click)="onClickDeleteAProduct(product,i)">X</button>
             <h2 ion-text color="dark">{{product.title}}</h2>
-
         </div>
     </ion-list>
 </ion-content>

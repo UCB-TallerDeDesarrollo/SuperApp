@@ -27,15 +27,16 @@ export class ProductsPage {
     console.log('ionViewDidLoad ProductsPage');
   }
 
+  
   setProductsInListToStore(){ 
     FakeProducts.setStateOfSomeProducts(this.products,0);
     FakeProducts.updateProducts(this.products);
   } 
-
+  
   deleteListOfProducts(){
     this.setProductsInListToStore()
   }
-
+  
   onClickDeleteList(){
     let alert = this.alertCtrl.create({
       title: 'Borrar toda la lista',
@@ -59,5 +60,11 @@ export class ProductsPage {
     });
     alert.present();
   }
+  
+  onClickDeleteAProduct(product,index){
+    //let productToDelete = [product];
+    //console.log(productToDelete);  
+    this.products.splice(index,1);
 
+  }
 }

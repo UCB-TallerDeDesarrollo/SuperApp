@@ -26,7 +26,7 @@ export class FakeProducts{
         return this.products;
     }
 
-    static updateProducts(newProducts: Array<any>){ 
+    static updateProducts(newProducts: any){ 
         for(let newProduct in newProducts){
                 for(let product in this.products){ 
                     if(this.products[product].id===newProducts[newProduct].id){ 
