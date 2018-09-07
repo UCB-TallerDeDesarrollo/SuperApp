@@ -6,7 +6,7 @@
 <ion-content padding class="main-list">
     <button ion-button color="dark" (click)="pushProducts()">Ver Productos</button>
     <ion-title class="main-title">Almacen</ion-title>
-    <ion-grid class="main-list">
+    <ion-grid>
         <ion-row justify-content-center>
             <ion-col *ngFor="let product of products">
                 <ion-img class="product-store" src="{{product.image}}"></ion-img>
