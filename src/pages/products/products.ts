@@ -62,9 +62,10 @@ export class ProductsPage {
   }
   
   onClickDeleteAProduct(product,index){
-    //let productToDelete = [product];
-    //console.log(productToDelete);  
+    let productToDelete = [product];
+    console.log(productToDelete);  
     this.products.splice(index,1);
 
+    FakeProducts.setStateOfSomeProducts(productToDelete,0); 
   }
 }
