@@ -31,4 +31,27 @@ export class ProductsPage {
     this.products=[];
   }
 
+  onClickDeleteList(){
+    let alert = this.alertCtrl.create({
+      title: 'Borrar toda la lista',
+      message: '¿Quieres borrar toda la lista de productos?',
+      buttons: [
+        {
+          text: 'Si',
+          handler: () => {
+            this.deleteListOfProducts();
+          }
+        },
+        {
+          text: 'No',
+          role: 'no',
+          handler: () => {
+            console.log('no clicked');
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 }
