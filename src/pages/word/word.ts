@@ -171,7 +171,14 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         'title': 'MUY BIEN!!',
         'message': 'PRÓXIMO NIVEL',
         cssClass:'show-message',
-       
+        buttons: [
+          {
+            text: 'JUGAR',
+            handler: () => {
+              console.log('JUGAR clicked');
+            }
+          },
+        ]
       });
       alert.present();
     }
