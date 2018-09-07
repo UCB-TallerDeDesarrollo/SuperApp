@@ -24,18 +24,7 @@ export class FakeProducts{
 
     static getProducts(){
         return this.products;
-    }
-
-    static updateProducts(newProducts: any){ 
-        for(let newProduct in newProducts){
-                for(let product in this.products){ 
-                    if(this.products[product].id===newProducts[newProduct].id){ 
-                        this.products[product]==newProducts[newProduct]; 
-                }
-            }
-        }
-        console.log(this.products); 
-    }
+    } 
 
     static setStateOfSomeProducts(products: any,newState: number){
         for(let product in products){

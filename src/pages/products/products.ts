@@ -29,8 +29,7 @@ export class ProductsPage {
 
   
   setProductsInListToStore(){ 
-    FakeProducts.setStateOfSomeProducts(this.products,0);
-    FakeProducts.updateProducts(this.products);
+    FakeProducts.setStateOfSomeProducts(this.products,0); 
   } 
   
   deleteListOfProducts(){
@@ -65,7 +64,6 @@ export class ProductsPage {
     let productToDelete = [product];
     console.log(productToDelete);  
     this.products.splice(index,1);
-
     FakeProducts.setStateOfSomeProducts(productToDelete,0); 
   }
 }
