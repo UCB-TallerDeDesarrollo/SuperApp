@@ -27,4 +27,8 @@ export class ProductsPage {
     console.log('ionViewDidLoad ProductsPage');
   }
 
+  deleteListOfProducts(){
+    this.products=[];
+  }
+
 }
