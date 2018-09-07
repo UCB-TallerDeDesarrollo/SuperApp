@@ -120,7 +120,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
       el.setAttribute('style', `top: 0px;left: 0px;border: initial;background-color: initial;`);
       el.classList.add('no-move');
       this.recentlyMove = true;
-      this.showEndView();
+      this.showEndView();  //Aqui
     }));
 
     this.subs.add(this.dragulaService.dragend(this.selectorName).subscribe(({ name, el }) => {
@@ -167,15 +167,13 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     ++this.count;
     if(this.count >= this.letter_response.length) {
       console.log('GANASTE');
-      //this.navCtrl.push(WordPage);
-      //this.navCtrl.remove(this.navCtrl.length() - 1);
-      const prontm = this.alertCtrl.create({
-        'title': 'My first modal',
-        'message': 'Ganaste :D'
+      const alert = this.alertCtrl.create({
+        'title': 'MUY BIEN!!',
+        'message': 'PRÓXIMO NIVEL',
+        cssClass:'show-message',
+       
       });
-      prontm.present();
-      //this.navCtrl.pop();
-      //this.navCtrl.push(WordPage);
+      alert.present();
     }
   }
 }

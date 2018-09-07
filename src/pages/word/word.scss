@@ -114,3 +114,20 @@
 .gu-transit {
     visibility: hidden;
 }
+
+/* Show message */
+.show-message {
+    .alert-wrapper{
+        background-color: rgb(11, 175, 230);
+        border-style: solid;
+    }
+    color: white;
+    .button-inner{
+        color: white;
+        background-color: rgb(114, 190, 114);
+        width: 30%;
+        height: 50%;
+        margin-left: 60%;
+        border-radius: 15px;
+    }
+}
