@@ -16,10 +16,10 @@ import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 })
 export class ProductsPage {
 
-  products: Array<{id: number, title: string, image: string}> = [];
+  products: Array<{id: number, title: string, image: string,state:number}> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController) {
-    this.products = FakeProducts.getProducts();
+    this.products = FakeProducts.getProductsInShoppingCar();
     console.log(this.products);
   }
 
@@ -27,8 +27,13 @@ export class ProductsPage {
     console.log('ionViewDidLoad ProductsPage');
   }
 
+  setProductsInListToStore(){ 
+    FakeProducts.setStateOfSomeProducts(this.products,0);
+    FakeProducts.updateProducts(this.products);
+  } 
+
   deleteListOfProducts(){
-    this.products=[];
+    this.setProductsInListToStore()
   }
 
   onClickDeleteList(){
@@ -40,6 +45,7 @@ export class ProductsPage {
           text: 'Si',
           handler: () => {
             this.deleteListOfProducts();
+            this.products=[];
           }
         },
         {
