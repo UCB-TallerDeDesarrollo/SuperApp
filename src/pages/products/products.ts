@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 
 /**
@@ -18,7 +18,7 @@ export class ProductsPage {
 
   products: Array<{id: number, title: string, image: string}> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController) {
     this.products = FakeProducts.getProducts();
     console.log(this.products);
   }
