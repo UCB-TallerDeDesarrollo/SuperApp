@@ -24,6 +24,10 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
     this.count = 0;
   }
 
+  ionViewWillEnter(){
+    this.products = FakeProducts.getProductsInStore();
+  }
+
   ngOnInit() {
     console.log("ngOnInit()");
     this.dragulaService.createGroup("PRODUCT", {
