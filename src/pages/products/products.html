@@ -16,11 +16,48 @@
 <ion-content padding class="main">
 
   <ion-list>
-    <div class="main" ion-item *ngFor="let product of products">
-      <ion-img item-left src="{{product.image}}"></ion-img>
-      <button ion-button-right menuClose>X</button>
-      <h2 ion-text color="dark">{{product.title}}</h2>
+    <div class="row_blank" *ngFor="let product of products">
+      <div>
+        <table>
+          <thead>
+              <th>
+                  
+              </th>
+              <th>
+                
+                </th>
+                <th>
+                    <div class="exit">
+                        <img src="assets/imgs/exit.png">
+                      </div>
+                    </th>
+          </thead>
+          <tbody>
+            <td>
+              <div class="product_image">
+                <img  src="{{product.image}}">
+              </div>
+            </td>
+            <td>
+              <div class="product_name">
+                  <h2 color="dark">{{product.title}}</h2>
+              </div>
+                
+              </td>
+             <td>
 
+             </td>
+          </tbody>
+        </table>
+          
+          <div  class="product_name">
+              
+          </div>
+          
+      </div>
+      
+      
+      
     </div>
   </ion-list>
 </ion-content>
