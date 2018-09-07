@@ -28,7 +28,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   subs = new Subscription();
 
-  selectorName : string = 'LETTER';
+  selectorName : string = 'LETTER-' + Math.random();
 
   constructor(public navCtrl: NavController, private alertCtrl: AlertController, private dragulaService: DragulaService) {
     this.product = ProductManager.get_product();
@@ -100,7 +100,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('SE DESTRUYO');
     this.subs.unsubscribe();
     this.dragulaService.destroy(this.selectorName);
   }
@@ -159,19 +158,20 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showEndView() {
-    console.log(this.count);
     ++this.count;
     if(this.count >= this.letter_response.length) {
-      console.log('GANASTE');
-      //this.navCtrl.push(WordPage);
-      //this.navCtrl.remove(this.navCtrl.length() - 1);
       const prontm = this.alertCtrl.create({
         'title': 'My first modal',
-        'message': 'Ganaste :D'
+        'message': 'Ganaste :D',
+        'buttons': [{
+          text: 'Siguiente nivel',
+          handler: data => {
+            this.navCtrl.push(WordPage);
+            this.navCtrl.remove(this.navCtrl.length() - 1);
+          }
+        }]
       });
       prontm.present();
-      //this.navCtrl.pop();
-      //this.navCtrl.push(WordPage);
     }
   }
 }

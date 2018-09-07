@@ -8,7 +8,7 @@
         
     <!--<h1 id="asda" style="text-align:center">{{product}}</h1>-->
     <ul class="item-container" >
-        <div class="relative-container" *ngFor="let letter of sorted_letters" dragula={{letter.index}} id={{letter.index}}> 
+        <div class="relative-container" *ngFor="let letter of sorted_letters"> 
             <div>
                 <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
             </div>
