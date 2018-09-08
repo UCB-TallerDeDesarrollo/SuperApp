@@ -4,60 +4,57 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header >
+<ion-header>
 
-  <ion-navbar>
-    <ion-title>Lista de compras</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Lista de compras</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding class="main">
+    <button ion-button color="danger" (click)="onClickDeleteList()">Borrar lista</button>
+    <ion-list>
+        <div class="row_blank" *ngFor="let product of products; let i = index">
+            <div>
+                <table>
+                    <thead>
+                        <th>
 
-  <ion-list>
-    <div class="row_blank" *ngFor="let product of products">
-      <div>
-        <table>
-          <thead>
-              <th>
-                  
-              </th>
-              <th>
-                
-                </th>
-                <th>
-                    <div class="exit">
-                        <img src="assets/imgs/exit.png">
-                      </div>
-                    </th>
-          </thead>
-          <tbody>
-            <td>
-              <div class="product_image">
-                <img  src="{{product.image}}">
-              </div>
-            </td>
-            <td>
-              <div class="product_name">
-                  <h2 color="dark">{{product.title}}</h2>
-              </div>
-                
-              </td>
-             <td>
+                        </th>
+                        <th>
 
-             </td>
-          </tbody>
-        </table>
-          
-          <div  class="product_name">
-              
-          </div>
-          
-      </div>
-      
-      
-      
-    </div>
-  </ion-list>
+                        </th>
+                        <th>
+                            <div class="exit">
+                                <button ion-button-right color="danger" (click)="onClickDeleteAProduct(product,i)">
+                                  <img src="assets/imgs/exit.png">
+                                </button>
+                            </div>
+                        </th>
+                    </thead>
+                    <tbody>
+                        <td>
+                            <div class="product_image">
+                                <img src="{{product.image}}">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="product_name">
+                                <h2 color="dark">{{product.title}}</h2>
+                            </div>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tbody>
+                </table>
+
+                <div class="product_name">
+                </div>
+            </div>
+        </div>
+    </ion-list>
 </ion-content>
