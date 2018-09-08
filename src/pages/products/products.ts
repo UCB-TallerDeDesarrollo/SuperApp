@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
+import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 
 /**
  * Generated class for the ProductsPage page.
@@ -19,7 +20,8 @@ export class ProductsPage {
   products: Array<{id: number, title: string, image: string}> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.products = FakeProducts.getProducts();
+    this.products = FakeListProducts.getProducts();
+    console.log(navParams.get("message"));
     console.log(this.products);
   }
 
@@ -27,4 +29,7 @@ export class ProductsPage {
     console.log('ionViewDidLoad ProductsPage');
   }
 
+  public addProduct(product: any){
+    console.log(product);
+  }
 }
