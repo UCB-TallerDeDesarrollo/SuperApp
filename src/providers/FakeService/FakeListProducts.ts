@@ -11,7 +11,11 @@ export class FakeListProducts {
         this.products.push(product);
     }
     
-    static deleteProduct(product_id: number){
-        this.products.splice(product_id);
+    static removeProduct(indexProduct: number){
+        this.products.splice(indexProduct,1);
     }
+
+    static deleteAllProducts(){
+        this.products=[];
+    } 
 }
