@@ -43,4 +43,5 @@ import { DragulaModule, DragulaService } from 'ng2-dragula';
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
-export class AppModule {}
+export class AppModule {
+}
