@@ -44,7 +44,6 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       el.remove();
     });
-
   }
 
   pushProducts(){
