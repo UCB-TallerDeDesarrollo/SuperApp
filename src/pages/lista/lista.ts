@@ -49,6 +49,6 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   pushProducts(){
-    this.navCtrl.push(ProductsPage, {message:"Hello"});
+    this.navCtrl.push(ProductsPage);
   }
 }

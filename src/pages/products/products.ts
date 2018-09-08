@@ -20,15 +20,9 @@ export class ProductsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.products = FakeListProducts.getProducts();
-    console.log(navParams.get("message"));
-    console.log(this.products);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductsPage');
-  }
-
-  public addProduct(product: any){
-    console.log(product);
   }
 }
