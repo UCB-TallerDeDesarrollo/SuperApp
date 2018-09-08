@@ -37,14 +37,16 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
+    this.dragulaService.destroy("PRODUCT");
   }
 
   ngAfterViewInit() { 
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       let product_id = +(el.id.split("-")[1]);
-      let product = FakeProducts.getProductById(product_id-1);
-      FakeListProducts.addProduct(product);
+      let product = FakeProducts.getProductById(product_id);
+      FakeListProducts.addProduct(product);  
       el.remove();
+      FakeProducts.removeProduct(this.products.indexOf(product));
     });
   }
 
