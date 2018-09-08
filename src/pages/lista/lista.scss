@@ -33,8 +33,6 @@
     padding-top: 5%;
 }
 
-// ===========================================================
-
 .gu-mirror {
     position: absolute;
     margin: 0 !important;
@@ -44,15 +42,15 @@
     pointer-events: none;
     visibility: initial;
 }
-/* high-performance display:none; helper */
+
 .gu-hide {
     left: -9999px !important;
 }
-/* added to mirrorContainer (default = body) while dragging */
+
 .gu-unselectable {
     user-select: none !important;
 }
-/* added to the source element while its mirror is dragged */
+
 .gu-transit {
     visibility: hidden;
 }
