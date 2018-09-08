@@ -4,9 +4,9 @@
     </ion-navbar>
 </ion-header>
 <ion-content padding class="main-list">
-    <ion-title class="main-title">Almacen</ion-title>
     <ion-row>
         <ion-col col-8>
+            <ion-title class="main-title">Almacen</ion-title>
             <ion-grid class="main-list">
                 <ion-row justify-content-center>
                     <ion-col *ngFor="let product of products" col-3 class="{{product.title}}" dragula="PRODUCT">
@@ -18,10 +18,10 @@
                 </ion-row>
             </ion-grid>
         </ion-col>
-        <ion-col col-4 class="ignore-item relative-container objetive-container" dragula="PRODUCT">
+        <ion-col col-4 id="ignore-item" class="relative-container objetive-container" dragula="PRODUCT">
             <div>
-                <button ion-button color="dark" (click)="pushProducts()" class="ignore-item no-move">Ver Productos</button>
-                <ion-img src="../../assets/imgs/carrito.png" class="shopping-cart no-move ignore-item"></ion-img>
+                <button ion-button color="dark" (click)="pushProducts()">Ver Productos</button>
+                <ion-img src="../../assets/imgs/carrito.png" class="shopping-cart"></ion-img>
             </div>
         </ion-col>
     </ion-row>

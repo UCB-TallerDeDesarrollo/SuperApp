@@ -26,8 +26,7 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
     this.dragulaService.createGroup("PRODUCT", {
       revertOnSpill: false,
       moves: (element, container, handle) => {
-        console.log(container.classList);
-        return !(container.children[0].classList.contains('no-move')) || !container.classList.contains('ignore-item');
+        return !(container.id==='ignore-item');
       },
       accepts: (element, target, source, sibling) => {
         if(!target.classList.contains('objetive-container')) {
@@ -39,12 +38,9 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    console.log("ngOnDestroy()");
   }
 
   ngAfterViewInit() { 
-    console.log("ngAfterViewInit()");
-
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       el.remove();
     });
