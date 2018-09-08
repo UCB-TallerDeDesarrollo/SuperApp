@@ -7,13 +7,13 @@
     <ion-row>
         <ion-col col-8>
             <ion-title class="main-title">Almacen</ion-title>
-            <ion-grid class="main-list">
+            <ion-grid>
                 <ion-row justify-content-center>
                     <ion-col *ngFor="let product of products" col-3 class="{{product.title}}" dragula="PRODUCT">
                         <div id="product-{{product.id}}">
-                            <img class="product-store" src="{{product.image}}"/>
-                            <ion-label style="height:2%;" class="product-name">{{product.title}}</ion-label>       
-                        </div>  
+                            <img class="product-store" src="{{product.image}}" />
+                            <ion-label style="height:2%;" class="product-name">{{product.title}}</ion-label>
+                        </div>
                     </ion-col>
                 </ion-row>
             </ion-grid>
