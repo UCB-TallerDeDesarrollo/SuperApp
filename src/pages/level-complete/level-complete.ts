@@ -1,5 +1,6 @@
+import { WordPage } from './../word/word';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, ViewController } from 'ionic-angular';
 import { LoadingPage } from '../loading/loading';
 
 /**
@@ -15,13 +16,13 @@ import { LoadingPage } from '../loading/loading';
 })
 export class LevelCompletePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LevelCompletePage');
   }
   nextLevel(){
-    this.navCtrl.push(LoadingPage);
+    this.viewCtrl.dismiss();
   }
 }

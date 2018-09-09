@@ -1,4 +1,3 @@
-import { LoadingPage } from './../pages/loading/loading';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule, Loading } from 'ionic-angular';
@@ -22,7 +21,6 @@ import { LevelCompletePage } from '../pages/level-complete/level-complete';
     WordPage,
     ProductsPage, 
     LevelCompletePage,
-    LoadingPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +35,6 @@ import { LevelCompletePage } from '../pages/level-complete/level-complete';
     WordPage,
     ProductsPage, 
     LevelCompletePage,
-    LoadingPage
   ],
   providers: [
     StatusBar,

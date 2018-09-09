@@ -1,3 +1,4 @@
+import { ListaPage } from './../lista/lista';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { FakeProducts } from './../../providers/FakeService/FakeProducts';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
@@ -6,6 +7,7 @@ import { ColorsManager } from '../../Managers/ColorsManager';
 import { ArrayManager } from '../../Managers/ArrayManager';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
+import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-word',
@@ -172,9 +174,15 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
       //this.navCtrl.push(WordPage);
       //this.navCtrl.remove(this.navCtrl.length() - 1);
       const levelCompleteModal = this.modalCtrl.create(LevelCompletePage);
+      levelCompleteModal.onDidDismiss(data => {
+        /*this.navCtrl.pop();
+        this.navCtrl.push(WordPage);*/
+        this.navCtrl.remove(this.navCtrl.length()-1);
+        this.navCtrl.push(WordPage, null, {animate:false});
+        
 
+      });
       levelCompleteModal.present();
-      //this.navCtrl.pop();
       //this.navCtrl.push(WordPage);
     }
   }
