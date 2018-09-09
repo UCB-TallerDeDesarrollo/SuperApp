@@ -1,3 +1,4 @@
+import { LevelCompletePage } from './../level-complete/level-complete';
 import { FakeProducts } from './../../providers/FakeService/FakeProducts';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NavController, AlertController, ModalController } from 'ionic-angular';
@@ -170,7 +171,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
       console.log('GANASTE');
       //this.navCtrl.push(WordPage);
       //this.navCtrl.remove(this.navCtrl.length() - 1);
-      const levelCompleteModal = this.modalCtrl.create('LevelCompletePage');
+      const levelCompleteModal = this.modalCtrl.create(LevelCompletePage);
 
       levelCompleteModal.present();
       //this.navCtrl.pop();

@@ -1,6 +1,7 @@
+import { LoadingPage } from './../pages/loading/loading';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, Loading } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -11,6 +12,7 @@ import { WordPage } from '../pages/word/word';
 import { ProductsPage } from '../pages/products/products';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
+import { LevelCompletePage } from '../pages/level-complete/level-complete';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { DragulaModule, DragulaService } from 'ng2-dragula';
     HomePage,
     ListaPage,
     WordPage,
-    ProductsPage
+    ProductsPage, 
+    LevelCompletePage,
+    LoadingPage
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,9 @@ import { DragulaModule, DragulaService } from 'ng2-dragula';
     HomePage,
     ListaPage,
     WordPage,
-    ProductsPage
+    ProductsPage, 
+    LevelCompletePage,
+    LoadingPage
   ],
   providers: [
     StatusBar,

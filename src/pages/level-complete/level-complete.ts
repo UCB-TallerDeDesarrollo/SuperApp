@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading } from 'ionic-angular';
+import { LoadingPage } from '../loading/loading';
 
 /**
  * Generated class for the LevelCompletePage page.
@@ -8,7 +9,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-level-complete',
   templateUrl: 'level-complete.html',
@@ -21,5 +21,7 @@ export class LevelCompletePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LevelCompletePage');
   }
-
+  nextLevel(){
+    this.navCtrl.push(LoadingPage);
+  }
 }
