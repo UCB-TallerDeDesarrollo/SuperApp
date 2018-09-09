@@ -1,0 +1,109 @@
+.color-background-1 {
+    background-color: #D8F781;
+}
+
+.color-background-2 {
+    background-color: rgb(190, 129, 247);
+}
+
+.color-background-3 {
+    background-color: rgb(129, 194, 247);
+}
+
+.color-background-4 {
+    background-color: rgb(247, 129, 168);
+}
+
+.color-background-5 {
+    background-color: rgb(129, 247, 149);
+}
+
+.product{
+    position: absolute;
+    border-radius: 20%;
+    border: 2.5px solid black;
+    top: 30%;
+    right: 5%;
+    width: 23%;
+}
+
+.box{
+    visibility: visible;
+    right: 1%;
+}
+
+
+
+.relative-container {
+    min-width: 53px;
+    min-height: 45px;
+    position: relative;
+}
+
+.letter_container {
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    border: solid 1px #888;
+    line-height: 45px;
+    background-color: white;
+    margin-left: 4px;
+    margin-right: 4px;
+    font-family: "Arial Black";
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.letter {
+    display: block;
+    font-size: 30px;
+}
+
+.item-container {
+    display: flex;
+    justify-content: center;
+    padding-left: 0%;
+    position: relative;
+    &--shortest{
+        width: 60%;
+        margin-top: 15%;
+        margin-left: 40px;
+    }
+}
+
+.objetive-container {
+    border-bottom: 1px solid black;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.product_name {
+    text-align: center;
+    display: block;
+    font-size: 30px;
+}
+
+// ===========================================================
+
+.gu-mirror {
+    position: absolute;
+    margin: 0 !important;
+    z-index: 9999 !important;
+    opacity: 1;
+    filter: alpha(opacity=80);
+    pointer-events: none;
+    visibility: initial;
+}
+/* high-performance display:none; helper */
+.gu-hide {
+    left: -9999px !important;
+}
+/* added to mirrorContainer (default = body) while dragging */
+.gu-unselectable {
+    user-select: none !important;
+}
+/* added to the source element while its mirror is dragged */
+.gu-transit {
+    visibility: hidden;
+}

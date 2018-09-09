@@ -1,6 +1,17 @@
 <ion-header>
     <ion-navbar>
-      <ion-title>Other Page</ion-title>
+        <ion-title>Menu Principal</ion-title>
     </ion-navbar>
-  </ion-header>
-  <ion-content>Soy el juego de lista de compras!</ion-content>
+</ion-header>
+<ion-content padding class="main-list">
+    <button ion-button color="dark" (click)="pushProducts()">Ver Productos</button>
+    <ion-title class="main-title">Almacen</ion-title>
+    <ion-grid class="main-list">
+        <ion-row justify-content-center>
+            <ion-col *ngFor="let product of products">
+                <ion-img class="product-store" src="{{product.image}}"></ion-img>
+                <ion-label class="product-name">{{product.title}}</ion-label>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

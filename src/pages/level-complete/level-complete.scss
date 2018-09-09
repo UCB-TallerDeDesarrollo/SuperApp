@@ -1,0 +1,139 @@
+*{
+    margin:0;
+    padding:0;
+    
+}
+
+html, body{
+    height:100%;
+    
+}
+
+.heading{
+    width:600px;
+    height:300px;
+    margin:auto;
+    position:absolute;
+    top:0px; bottom:0px; right:0px; left:0px;
+}
+
+/* MODAL */
+
+.modal_container{
+    width:100%;
+    height:100%;
+    position:fixed;
+    background:rgba(2, 70, 88, 0.8);
+    transition:all 500ms ease;
+}
+
+.modal_container:target{
+    opacity:1;
+    pointer-events: auto;
+}
+
+.modal_container > div{
+    transform: translate(0px, -50px);
+	transition: all 500ms ease;
+}
+
+.modal_container:target > div{
+    transform: translate(0px, 0px);
+}
+
+
+.modal{
+    /*width:613px;
+    height:413px;*/
+    width: 50%;
+    height: 50%;
+    margin:auto;
+    position: absolute;
+    top:26%; bottom:0px;
+    right:0px; left:0px;
+    background:#1E90FF;
+    border:2px solid #222;
+    padding:20px;
+    /*box-shadow: 0px 0px 50px 5px black;*/
+}
+
+.modal_heading{
+    color:white;
+    text-align: center;
+    font-size:15pt;
+    font-family: big john;
+}
+
+.modal_body{
+	
+}
+
+.smiley{
+    position: absolute;
+	width: 30%;
+	height: 30%;
+	display:inline-block;
+	float:left;
+    top: 35%
+}
+
+.levelGame{
+	width: 50%;
+	height: 100%;
+	display:inline-block;
+	float: right;
+	margin-top:15px;
+}
+
+.modal_footer{
+	height: 30%;
+	width: 100%;
+}
+
+.modal_heading2{
+
+    display: inline;
+    color:white;
+    text-align: right;
+    font-size:120%;
+    font-family: big john;
+    float: right;
+}
+
+.newGameButton{
+    position: absolute;
+    top: 75%;
+    right: 1%;
+    width:30%;
+    height:20%;
+    border:3px solid white;
+    background-color:rgba(114,191,68,1);
+    color: white;
+    font-family:sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 1000ms, color 1000ms;
+    float:right;
+}
+
+.newGameButton:hover{
+    background-color:rgba(114,191,68,0.5);
+    color:#222;
+    cursor:pointer;
+    transition: background-color 1000ms, color 1000ms;
+}
+
+.newGameLink{
+    color:white;
+    transition: color 1000ms;
+    font-size: 100%;
+}
+
+.newGameLink:hover{
+    color:white;
+}
+
+.level{
+	
+}
+
