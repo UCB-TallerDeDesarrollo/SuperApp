@@ -1,6 +1,6 @@
 import { WordPage } from './../word/word';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the LoadingPage page.
@@ -21,7 +21,7 @@ export class LoadingPage {
   ionViewDidEnter(){
     setTimeout(() => {
       this.init()
-    }, 4000);
+    }, 500);
   }
   init()
   {

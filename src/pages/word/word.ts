@@ -1,14 +1,13 @@
 import { LoadingPage } from './../loading/loading';
-import { ListaPage } from './../lista/lista';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { FakeProducts } from './../../providers/FakeService/FakeProducts';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController, AlertController, ModalController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { ColorsManager } from '../../Managers/ColorsManager';
 import { ArrayManager } from '../../Managers/ArrayManager';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
-import { HomePage } from '../home/home';
+
 
 @Component({
   selector: 'page-word',
@@ -34,7 +33,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   selectorName : string = 'LETTER';
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, 
+  constructor(public navCtrl: NavController,
               private dragulaService: DragulaService, private modalCtrl: ModalController) {
     this.prepare_binding_items();
     let letters = this.product.split('');
@@ -172,12 +171,9 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     ++this.count;
     if(this.count >= this.letter_response.length) {
       console.log('GANASTE');
-      //this.navCtrl.push(WordPage);
-      //this.navCtrl.remove(this.navCtrl.length() - 1);
       const levelCompleteModal = this.modalCtrl.create(LevelCompletePage);
       levelCompleteModal.onDidDismiss(data => {
-        /*this.navCtrl.pop();
-        this.navCtrl.push(WordPage);*/
+
         this.navCtrl.push(LoadingPage, null, {animate:false});
         this.navCtrl.remove(this.navCtrl.length()-1);
         
@@ -185,7 +181,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
       });
       levelCompleteModal.present();
-      //this.navCtrl.push(WordPage);
     }
   }
 }

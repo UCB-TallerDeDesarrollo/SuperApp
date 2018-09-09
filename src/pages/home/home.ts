@@ -1,4 +1,3 @@
-import { LoadingPage } from './../loading/loading';
 import { WordPage } from './../word/word';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';

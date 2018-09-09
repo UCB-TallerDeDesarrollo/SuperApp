@@ -1,7 +1,6 @@
-import { WordPage } from './../word/word';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, ViewController } from 'ionic-angular';
-import { LoadingPage } from '../loading/loading';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
+
 
 /**
  * Generated class for the LevelCompletePage page.
