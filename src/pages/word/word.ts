@@ -170,11 +170,9 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
       console.log('GANASTE');
       //this.navCtrl.push(WordPage);
       //this.navCtrl.remove(this.navCtrl.length() - 1);
-      const prontm = this.alertCtrl.create({
-        'title': 'My first modal',
-        'message': 'Ganaste :D'
-      });
-      prontm.present();
+      const levelCompleteModal = this.modalCtrl.create('LevelCompletePage');
+
+      levelCompleteModal.present();
       //this.navCtrl.pop();
       //this.navCtrl.push(WordPage);
     }
