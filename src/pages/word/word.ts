@@ -73,106 +73,99 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.letter_response = this.sorted_letters;
     }
 
-  private prepare_binding_items() {
-    let product_information = FakeProducts.get_random_product();
-    this.product = product_information.title;
-    this.color = ColorsManager.get_color_style();
-    this.image_route = product_information.image;
-  }
-
-  ngOnInit() {
-    this.dragulaService.createGroup(this.selectorName, {
-      revertOnSpill: false,
-      moves: (el, container, handle) => {
-        return !(container.children.length > 0 && container.children[0].classList.contains('no-move'));
-      },
-      accepts: (el, target, source, sibling) => {
-        if(!target.classList.contains('objetive-container')) {
-          return false;
-        }
-        if(target.children.length > 0) {
-          return false;
-        }
-        if(target.classList[0] !== source.classList[0]) {
-          return false;
-        }
-        return true;
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.subs.unsubscribe();
-    this.dragulaService.destroy(this.selectorName);
-  }
-
-  ngAfterViewInit() {
-    const marginLeft : number = 4;
-
-    this.subs.add(this.dragulaService.drag(this.selectorName).subscribe(({ name, el, source }) => {
-      this.actualSelectedContainer = source;
-    }));
-
-    this.subs.add(this.dragulaService.drop(this.selectorName).subscribe(({ el, target, source, sibling }) => {
-      el.setAttribute('style', `top: 0px;left: 0px;border: initial;background-color: initial;`);
-      el.classList.add('no-move');
-      this.recentlyMove = true;
-      this.showEndView();
-    }));
-
-    this.subs.add(this.dragulaService.dragend(this.selectorName).subscribe(({ name, el }) => {
-      if(!this.recentlyMove) {
-        let posLeft = parseFloat(this.actualSelectedElement.style.left) - parseFloat(this.offset(this.actualSelectedContainer).left) - marginLeft;
-        let posTop = parseFloat(this.actualSelectedElement.style.top) - parseFloat(this.offset(this.actualSelectedContainer).top);
-        el.setAttribute('style', `top: ${posTop}px;left: ${posLeft}px;`);  
-      }
-      this.recentlyMove = false;
-    }));
-
-    this.subs.add(this.dragulaService.cloned(this.selectorName).subscribe(({ clone, original, cloneType }) => {
-      this.actualSelectedElement = clone;
-    }));
-
-  }
-
-  getRandomColor() {
-    let color = '#';
-
-    for (let i = 0; i < 3; ++i) {
-      let part = Math.round(Math.random() * 255).toString(16);
-      color += (part.length > 1) ? part : '0' + part;
+    private prepare_binding_items() {
+        let product_information = FakeProducts.get_random_product();
+        this.product = product_information.title;
+        this.color = ColorsManager.get_color_style();
+        this.image_route = product_information.image;
     }
 
-    return color;
-  }
-
-  generateLettersWithColor() {
-    for (let letter of this.product) {
-      this.letters_color[letter] = ArrayManager.get_random_element(this.colors);
+    ngOnInit() {
+        this.dragulaService.createGroup(this.selectorName, {
+            revertOnSpill: false,
+            moves: (el, container, handle) => {
+                return !(container.children.length > 0 && container.children[0].classList.contains('no-move'));
+            },
+            accepts: (el, target, source, sibling) => {
+                if(!target.classList.contains('objetive-container')) {
+                    return false;
+                }
+                if(target.children.length > 0) {
+                    return false;
+                }
+                if(target.classList[0] !== source.classList[0]) {
+                    return false;
+                }
+                return true;
+            }
+        });
     }
-  }
 
-  offset(el) {
-    let rect = el.getBoundingClientRect(),
-    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
-  }
-
-  showEndView() {
-    ++this.count;
-    if(this.count >= this.letter_response.length) {
-      console.log('GANASTE');
-      const levelCompleteModal = this.modalCtrl.create(LevelCompletePage);
-      levelCompleteModal.onDidDismiss(data => {
-
-        this.navCtrl.push(LoadingPage, null, {animate:false});
-        this.navCtrl.remove(this.navCtrl.length()-1);
-        
-        
-
-      });
-      levelCompleteModal.present();
+    ngOnDestroy() {
+        this.subs.unsubscribe();
+        this.dragulaService.destroy(this.selectorName);
     }
-  }
+
+    ngAfterViewInit() {
+        const marginLeft : number = 4;
+        this.subs.add(this.dragulaService.drag(this.selectorName).subscribe(({ name, el, source }) => {
+            this.actualSelectedContainer = source;
+        }));
+
+        this.subs.add(this.dragulaService.drop(this.selectorName).subscribe(({ el, target, source, sibling }) => {
+            el.setAttribute('style', `top: 0px;left: 0px;border: initial;background-color: initial;`);
+            el.classList.add('no-move');
+            this.recentlyMove = true;
+            this.showEndView();
+        }));
+
+        this.subs.add(this.dragulaService.dragend(this.selectorName).subscribe(({ name, el }) => {
+            if(!this.recentlyMove) {
+                let posLeft = parseFloat(this.actualSelectedElement.style.left) - parseFloat(this.offset(this.actualSelectedContainer).left) - marginLeft;
+                let posTop = parseFloat(this.actualSelectedElement.style.top) - parseFloat(this.offset(this.actualSelectedContainer).top);
+                el.setAttribute('style', `top: ${posTop}px;left: ${posLeft}px;`);  
+            }
+            this.recentlyMove = false;
+        }));
+
+        this.subs.add(this.dragulaService.cloned(this.selectorName).subscribe(({ clone, original, cloneType }) => {
+            this.actualSelectedElement = clone;
+        }));
+    }
+
+    getRandomColor() {
+        let color = '#';
+
+        for (let i = 0; i < 3; ++i) {
+            let part = Math.round(Math.random() * 255).toString(16);
+            color += (part.length > 1) ? part : '0' + part;
+        }
+
+        return color;
+    }
+
+    generateLettersWithColor() {
+        for (let letter of this.product) {
+            this.letters_color[letter] = ArrayManager.get_random_element(this.colors);
+        }
+    }
+
+    offset(el) {
+        let rect = el.getBoundingClientRect(),
+        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+    }
+
+    showEndView() {
+        ++this.count;
+        if(this.count >= this.letter_response.length) {
+            const levelCompleteModal = this.modalCtrl.create(LevelCompletePage);
+            levelCompleteModal.onDidDismiss(data => {
+                this.navCtrl.push(LoadingPage, null, {animate:false});
+                this.navCtrl.remove(this.navCtrl.length()-1);
+            });
+            levelCompleteModal.present();
+        }
+    }
 }
