@@ -85,5 +85,9 @@
     "platforms": [
       "ios"
     ]
+  },
+  "config": {
+    "ionic_bundler": "webpack",
+    "ionic_webpack": "./config/webpack.config.js"
   }
 }
