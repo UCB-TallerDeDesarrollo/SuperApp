@@ -1,3 +1,4 @@
+import { LoadingPage } from './../loading/loading';
 import { ListaPage } from './../lista/lista';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { FakeProducts } from './../../providers/FakeService/FakeProducts';
@@ -177,8 +178,9 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
       levelCompleteModal.onDidDismiss(data => {
         /*this.navCtrl.pop();
         this.navCtrl.push(WordPage);*/
+        this.navCtrl.push(LoadingPage, null, {animate:false});
         this.navCtrl.remove(this.navCtrl.length()-1);
-        this.navCtrl.push(WordPage, null, {animate:false});
+        
         
 
       });
