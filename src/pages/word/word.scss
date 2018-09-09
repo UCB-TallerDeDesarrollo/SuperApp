@@ -19,10 +19,12 @@
 }
 
 .product{
-    position: relative;
-    top: 8%;
-    left: 10%;
-    width: 80%;
+    position: absolute;
+    border-radius: 20%;
+    border: 2.5px solid black;
+    top: 30%;
+    right: 5%;
+    width: 23%;
 }
 
 .box{
@@ -30,16 +32,7 @@
     right: 1%;
 }
 
-.product-image{
-    position: absolute;
-    visibility: visible;
-    background: url("/assets/imgs/bigsquare.png") no-repeat;
-    background-size: cover;
-    width: 150px;
-    height: 150px;
-    right: 1%;
-    top: 30%;
-}
+
 
 .relative-container {
     min-width: 53px;

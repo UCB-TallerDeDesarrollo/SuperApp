@@ -1,10 +1,13 @@
-import { ProductManager } from './Managers/ProductManager';
+import { LoadingPage } from './../loading/loading';
+import { LevelCompletePage } from './../level-complete/level-complete';
+import { FakeProducts } from './../../providers/FakeService/FakeProducts';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
-import { ColorsManager } from './Managers/ColorsManager';
-import { ArrayManager } from './Managers/ArrayManager';
+import { NavController, ModalController } from 'ionic-angular';
+import { ColorsManager } from '../../Managers/ColorsManager';
+import { ArrayManager } from '../../Managers/ArrayManager';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'page-word',
@@ -30,15 +33,13 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   selectorName : string = 'LETTER-' + Math.random();
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private dragulaService: DragulaService) {
-    this.product = ProductManager.get_product();
-    this.color = ColorsManager.get_color_style();
-    this.image_route = `/assets/imgs/Products/${this.product.toLowerCase()}.jpg`;
-    this.recentlyMove = false;
-    let letters = this.product.toUpperCase().split('');
+  constructor(public navCtrl: NavController,
+              private dragulaService: DragulaService, private modalCtrl: ModalController) {
+    this.prepare_binding_items();
+    let letters = this.product.split('');
     this.count = 0;
     let auxilary_letters: any = [];
-
+    this.recentlyMove = false;
     this.colors.push("#B73D19");
     this.colors.push("#E7E41C");
     this.colors.push("#4CD10A");
@@ -76,6 +77,13 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
       }
     } while (JSON.stringify(this.sorted_letters) === JSON.stringify(this.messy_letters));
     this.letter_response = this.sorted_letters;
+  }
+
+  private prepare_binding_items() {
+    let product_information = FakeProducts.get_random_product();
+    this.product = product_information.title;
+    this.color = ColorsManager.get_color_style();
+    this.image_route = product_information.image;
   }
 
   ngOnInit() {
@@ -160,18 +168,17 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
   showEndView() {
     ++this.count;
     if(this.count >= this.letter_response.length) {
-      const prontm = this.alertCtrl.create({
-        'title': 'My first modal',
-        'message': 'Ganaste :D',
-        'buttons': [{
-          text: 'Siguiente nivel',
-          handler: data => {
-            this.navCtrl.push(WordPage);
-            this.navCtrl.remove(this.navCtrl.length() - 1);
-          }
-        }]
+      console.log('GANASTE');
+      const levelCompleteModal = this.modalCtrl.create(LevelCompletePage);
+      levelCompleteModal.onDidDismiss(data => {
+
+        this.navCtrl.push(LoadingPage, null, {animate:false});
+        this.navCtrl.remove(this.navCtrl.length()-1);
+        
+        
+
       });
-      prontm.present();
+      levelCompleteModal.present();
     }
   }
 }
