@@ -1,6 +1,6 @@
 import { FakeProducts } from './../../providers/FakeService/FakeProducts';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ModalController } from 'ionic-angular';
 import { ColorsManager } from '../../Managers/ColorsManager';
 import { ArrayManager } from '../../Managers/ArrayManager';
 import { DragulaService } from 'ng2-dragula';
@@ -30,7 +30,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   selectorName : string = 'LETTER';
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private dragulaService: DragulaService) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, 
+              private dragulaService: DragulaService, private modalCtrl: ModalController) {
     this.prepare_binding_items();
     let letters = this.product.split('');
     this.count = 0;
