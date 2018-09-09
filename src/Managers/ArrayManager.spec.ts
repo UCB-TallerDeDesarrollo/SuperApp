@@ -1,13 +1,12 @@
 import { ArrayManager } from './ArrayManager';
 
-describe("A suite", function() {
+describe("Test ArrayManager static functions", function() {
     
-    it("contains spec with an expectation", function() {
-        expect(true).toBe(true);
-    });
-
-    it("contains spec with an error", function() {
-        expect(true).toBe(true);
+    it("ArrayManager must return a number from the array", function() {
+        let array = [1, 2, 3, 4, 5];
+        expect(array).toContain(ArrayManager.get_random_element(array));
+        expect(array).toContain(ArrayManager.get_random_element(array));
+        expect(array).toContain(ArrayManager.get_random_element(array));
     });
 
 });
