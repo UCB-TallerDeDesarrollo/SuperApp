@@ -11,10 +11,12 @@ import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 })
 export class ProductsPage {
 
-  products: Array<{id: number, title: string, image: string}> = [];
+  products: Array<{ id: number, title: string, image: string }> = [];
+  numberOfProducts: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController) {
     this.products = FakeListProducts.getProducts().reverse();
+    this.numberOfProducts = this.products.length;
   }
 
   ionViewDidLoad() {
@@ -24,6 +26,7 @@ export class ProductsPage {
   deleteListOfProducts() {
     FakeListProducts.deleteAllProducts();
     this.products = FakeListProducts.getProducts();
+    this.numberOfProducts = this.products.length;
   }
   
   onClickDeleteList(){
@@ -48,11 +51,13 @@ export class ProductsPage {
       ]
     });
     alert.present();
+    this.numberOfProducts = this.products.length;
   }
 
   onClickDeleteAProduct(product,indexOfProduct){ 
     console.log(product);    
     FakeListProducts.removeProduct(indexOfProduct);
     FakeProducts.addProduct(product);
+    this.numberOfProducts = this.products.length;
   }
 }
