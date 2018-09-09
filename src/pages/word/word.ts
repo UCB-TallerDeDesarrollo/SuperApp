@@ -166,21 +166,22 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
   }
 
+
   showEndView() {
     console.log(this.count);
     ++this.count;
     if(this.count >= this.letter_response.length) {
       console.log('GANASTE');
-      const levelCompleteModal = this.modalCtrl.create(LevelCompletePage);
-      levelCompleteModal.onDidDismiss(data => {
-
-        this.navCtrl.push(LoadingPage, null, {animate:false});
-        this.navCtrl.remove(this.navCtrl.length()-1);
-        
-        
-
-      });
-      levelCompleteModal.present();
+      this.showModalWin();
     }
+  }
+
+  private showModalWin() {
+    const levelCompleteModal = this.modalCtrl.create(LevelCompletePage);
+    levelCompleteModal.onDidDismiss(data => {
+      this.navCtrl.push(LoadingPage, null, { animate: false });
+      this.navCtrl.remove(this.navCtrl.length() - 1);
+    });
+    levelCompleteModal.present();
   }
 }
