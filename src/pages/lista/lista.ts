@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { ProductsPage } from '../products/products';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
+import { DataBaseService } from '../../providers/database-service/database-service';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
 
@@ -16,9 +17,13 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
   actualSelectedElement:any;
   actualSelectedContainer:any;
   products: Array<{id: number, title: string, image: string}> = [];
+  quantityproductsString:string;
+  quantityOfProducts: number;
 
   constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
     this.products = FakeProducts.getProducts();
+    this.quantityOfProducts = 0;
+    this.quantityproductsString = this.quantityOfProducts.toString();
   }
 
   ngOnInit() {
@@ -44,7 +49,9 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       let product_id = +(el.id.split("-")[1]);
       let product = FakeProducts.getProductById(product_id);
-      FakeListProducts.addProduct(product);  
+      FakeListProducts.addProduct(product);
+      this.quantityOfProducts += 1;
+      this.quantityproductsString = this.quantityOfProducts.toString();
       el.remove();
       FakeProducts.removeProduct(this.products.indexOf(product));
     });

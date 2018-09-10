@@ -1,10 +1,13 @@
+import { LoadingPage } from './../loading/loading';
+import { LevelCompletePage } from './../level-complete/level-complete';
 import { FakeProducts } from './../../providers/FakeService/FakeProducts';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { ColorsManager } from '../../Managers/ColorsManager';
 import { ArrayManager } from '../../Managers/ArrayManager';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'page-word',
@@ -30,7 +33,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
   selectorName : string = 'LETTER';
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private dragulaService: DragulaService) {
+  constructor(public navCtrl: NavController,
+              private dragulaService: DragulaService, private modalCtrl: ModalController) {
     this.prepare_binding_items();
     let letters = this.product.split('');
     this.count = 0;
@@ -162,20 +166,22 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
   }
 
+
   showEndView() {
     console.log(this.count);
     ++this.count;
     if(this.count >= this.letter_response.length) {
       console.log('GANASTE');
-      //this.navCtrl.push(WordPage);
-      //this.navCtrl.remove(this.navCtrl.length() - 1);
-      const prontm = this.alertCtrl.create({
-        'title': 'My first modal',
-        'message': 'Ganaste :D'
-      });
-      prontm.present();
-      //this.navCtrl.pop();
-      //this.navCtrl.push(WordPage);
+      this.showModalWin();
     }
+  }
+
+  private showModalWin() {
+    const levelCompleteModal = this.modalCtrl.create(LevelCompletePage);
+    levelCompleteModal.onDidDismiss(data => {
+      this.navCtrl.push(LoadingPage, null, { animate: false });
+      this.navCtrl.remove(this.navCtrl.length() - 1);
+    });
+    levelCompleteModal.present();
   }
 }
