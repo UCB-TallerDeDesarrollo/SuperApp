@@ -1,3 +1,4 @@
+import { LoadingPage } from './../pages/loading/loading';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -11,6 +12,7 @@ import { WordPage } from '../pages/word/word';
 import { ProductsPage } from '../pages/products/products';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
+import { LevelCompletePage } from '../pages/level-complete/level-complete';
 
 
 
@@ -20,7 +22,9 @@ import { DragulaModule, DragulaService } from 'ng2-dragula';
     HomePage,
     ListaPage,
     WordPage,
-    ProductsPage
+    ProductsPage, 
+    LevelCompletePage,
+    LoadingPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,9 @@ import { DragulaModule, DragulaService } from 'ng2-dragula';
     HomePage,
     ListaPage,
     WordPage,
-    ProductsPage
+    ProductsPage, 
+    LevelCompletePage,
+    LoadingPage
   ],
   providers: [
     StatusBar,
