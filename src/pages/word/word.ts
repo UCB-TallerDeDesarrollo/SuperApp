@@ -16,24 +16,28 @@ import { Subscription } from 'rxjs';
 
 export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
-    product:string;
-    messy_letters: any = [];
-    sorted_letters: any = [];
-    letters_color: any = [];
-    letter_response: any = [];
-    color:string;
-    image_route:string;
-    actualSelectedElement:any;
-    actualSelectedContainer:any;
-    recentlyMove:boolean;
-    count: number;
-    colors: any = [];
+    product         : string;
+    messy_letters   : any = [];
+    sorted_letters  : any = [];
+    letters_color   : any = [];
+    letter_response : any = [];
+    color           : string;
+    image_route     : string;
+    actualSelectedElement   : any;
+    actualSelectedContainer : any;
+    recentlyMove   : boolean;
+    count          : number;
+    colors         : any = [];
 
-    subs = new Subscription();
+    subs : Subscription = new Subscription();
 
     selectorName : string = 'LETTER-' + Math.random();
 
-    constructor(public navCtrl: NavController, private dragulaService: DragulaService, private modalCtrl: ModalController) {
+    constructor(
+        private navController   : NavController, 
+        private dragulaService  : DragulaService, 
+        private modalController : ModalController
+    ) {
         this.prepare_binding_items();
         let letters = this.product.split('');
         this.count = 0;
@@ -80,7 +84,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.image_route = product_information.image;
     }
 
-    ngOnInit() {
+    ngOnInit() : void {
         this.dragulaService.createGroup(this.selectorName, {
             revertOnSpill: false,
             moves: (el, container, handle) => {
@@ -101,12 +105,12 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         });
     }
 
-    ngOnDestroy() {
+    ngOnDestroy() : void {
         this.subs.unsubscribe();
         this.dragulaService.destroy(this.selectorName);
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit() : void {
         const marginLeft : number = 4;
         this.subs.add(this.dragulaService.drag(this.selectorName).subscribe(({ name, el, source }) => {
             this.actualSelectedContainer = source;
@@ -133,7 +137,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         }));
     }
 
-    getRandomColor() {
+    getRandomColor() : string {
         let color = '#';
 
         for (let i = 0; i < 3; ++i) {
@@ -144,7 +148,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         return color;
     }
 
-    generateLettersWithColor() {
+    generateLettersWithColor() : void {
         for (let letter of this.product) {
             this.letters_color[letter] = ArrayManager.get_random_element(this.colors);
         }
@@ -157,7 +161,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
     }
 
-    showEndView() {
+    showEndView() : void {
         console.log(this.count);
         ++this.count;
         if(this.count >= this.letter_response.length) {
@@ -166,11 +170,11 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    showModalWin() {
-        const levelCompleteModal = this.modalCtrl.create(LevelCompletePage);
+    showModalWin() : void {
+        const levelCompleteModal = this.modalController.create(LevelCompletePage);
         levelCompleteModal.onDidDismiss(data => {
-            this.navCtrl.push(LoadingPage, null, { animate: false });
-            this.navCtrl.remove(this.navCtrl.length() - 1);
+            this.navController.push(LoadingPage, null, { animate: false });
+            this.navController.remove(this.navController.length() - 1);
         });
         levelCompleteModal.present();
     }
