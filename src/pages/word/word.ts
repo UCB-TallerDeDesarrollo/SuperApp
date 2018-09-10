@@ -7,7 +7,7 @@ import { ColorsManager } from '../../Managers/ColorsManager';
 import { ArrayManager } from '../../Managers/ArrayManager';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
-
+import { Letter } from '../../interfaces/letter';
 
 @Component({
     selector: 'page-word',
@@ -20,7 +20,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     product        : string;      // PRODUCTO
     messy_letters   : any = [];   // LETRAS DESORDENADAS
     sorted_letters  : any = [];   // LETRAS ORDENADAS
-    
     image_route     : string;    // SRC DE LA IMAGEN
 
     letters_color   : any = [];  // ARRAY DE COLORES
