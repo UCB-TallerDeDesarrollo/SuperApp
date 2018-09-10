@@ -11,7 +11,7 @@ import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 export class ListaPage {
   
 
-  products: Array<{id: number, title: string, image: string}> = [];
+  products: any = [];
   constructor(public navCtrl: NavController) {
     this.products=FakeProducts.getProducts();
   }

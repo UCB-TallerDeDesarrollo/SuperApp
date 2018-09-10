@@ -23,7 +23,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     messy_letters   : any = [];   // LETRAS DESORDENADAS
     sorted_letters  : any = [];   // LETRAS ORDENADAS
     
-    letters_color   : any = [];  // ARRAY DE COLORES
     color           : string;    // ESTABLECE EL COLOR DE FONDO
     
     actualSelectedElement   : any;  // DRAGULAR NEEDED
@@ -54,12 +53,12 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.colors.push("#1C818F");
         this.colors.push("#280D97");
         this.colors.push("#8C1D87");
-        this.generateLettersWithColor();
+        let lettersColor = this.generateLettersWithColor();
         do {
             for (let letter of this.game.ResponseWord) {
                 auxilary_letters.push({
                     letter: letter,
-                    color: this.letters_color[letter],
+                    color: lettersColor[letter],
                     name: `letter-${letter}`
                 });
             }
@@ -76,10 +75,12 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         } while (JSON.stringify(this.sorted_letters) === JSON.stringify(this.messy_letters));
     }
 
-    generateLettersWithColor() : void {
+    generateLettersWithColor() {
+        let response : any = [];
         for (let letter of this.game.ResponseWord) {
-            this.letters_color[letter] = ArrayManager.get_random_element(this.colors);
+            response[letter] = ArrayManager.get_random_element(this.colors);
         }
+        return response;
     }
 
     private prepare_binding_items() {
