@@ -23,10 +23,30 @@ export class FakeProducts{
         return this.products;
     }
 
-    static getProductById(id: number){
-        return this.products[id];
+    static getProductById(id: number){ 
+        for(let product in this.products){
+            if(this.products[product].id===id){
+                return this.products[product];
+            }
+        } 
+        return null;
     }
+
     static get_random_product(): any {
         return ArrayManager.get_random_element(this.products);
+    }
+
+    static addProduct(product: {id: number, title: string, image:string}){
+        this.products.push(product);
+    }
+
+    static removeProduct(indexProduct: number){
+        this.products.splice(indexProduct,1);
+    }
+
+    static addManyProducts(products: Array<{id: number, title: string, image: string}>){
+        for(let product in products){
+            this.addProduct(products[product]);
+        }
     }
 }
