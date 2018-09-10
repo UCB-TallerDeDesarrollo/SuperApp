@@ -7,9 +7,7 @@ import { ColorsManager } from '../../Managers/ColorsManager';
 import { ArrayManager } from '../../Managers/ArrayManager';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
-import { Letter } from '../../interfaces/letter';
 import { SortWordGame } from '../../shared/models/sortWordGame.model';
-import { Product } from '../../shared/models/product.model';
 
 @Component({
     selector: 'page-word',
@@ -90,7 +88,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnInit() : void {
         this.dragulaService.createGroup(this.selectorName, {
-            revertOnSpill: false,
+            revertOnSpill: true,
             moves: (el, container, handle) => {
                 return !(container.children.length > 0 && container.children[0].classList.contains('no-move'));
             },
@@ -99,7 +97,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
                     return false;
                 }
                 if(target.children.length > 0) {
-                    return false;
+                    return target.children[0].classList.contains('gu-transit');
                 }
                 if(target.classList[0] !== source.classList[0]) {
                     return false;
@@ -131,13 +129,18 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
             if(!this.recentlyMove) {
                 let posLeft = parseFloat(this.actualSelectedElement.style.left) - parseFloat(this.offset(this.actualSelectedContainer).left) - marginLeft;
                 let posTop = parseFloat(this.actualSelectedElement.style.top) - parseFloat(this.offset(this.actualSelectedContainer).top);
-                el.setAttribute('style', `top: ${posTop}px;left: ${posLeft}px;`);  
+                el.setAttribute('style', `top: ${posTop}px;left: ${posLeft}px;`);
             }
             this.recentlyMove = false;
         }));
 
         this.subs.add(this.dragulaService.cloned(this.selectorName).subscribe(({ clone, original, cloneType }) => {
             this.actualSelectedElement = clone;
+        }));
+
+        this.subs.add(this.dragulaService.cancel(this.selectorName).subscribe(({ el, container, source }) => {
+            console.log('SE ELIMINO EL EVENTO');
+            return true;
         }));
     }
 
