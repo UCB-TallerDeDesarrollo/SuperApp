@@ -1,5 +1,3 @@
-page-lista {}
-
 .main-list {
     background-image: linear-gradient( #3ce761 10%, #00ff9d 100%);
 }
@@ -26,7 +24,6 @@ page-lista {}
     width: 80px;
     height: 80px;
 }
-
 .cant-product {
     position: absolute;
     visibility: visible;
@@ -45,4 +42,33 @@ page-lista {}
     width: 80%;
     font-size: 100px;
     text-align: center;
+}
+.shopping-cart {
+    background: transparent !important;
+}
+
+.objetive-container{
+    padding-top: 5%;
+}
+
+.gu-mirror {
+    position: absolute;
+    margin: 0 !important;
+    z-index: 9999 !important;
+    opacity: 1;
+    filter: alpha(opacity=80);
+    pointer-events: none;
+    visibility: initial;
+}
+
+.gu-hide {
+    left: -9999px !important;
+}
+
+.gu-unselectable {
+    user-select: none !important;
+}
+
+.gu-transit {
+    visibility: hidden;
 }

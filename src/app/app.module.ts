@@ -14,6 +14,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { LevelCompletePage } from '../pages/level-complete/level-complete';
 
+
+
 @NgModule({
   declarations: [
     MyApp,
