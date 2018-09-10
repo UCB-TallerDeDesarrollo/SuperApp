@@ -7,6 +7,7 @@ import { ColorsManager } from '../../Managers/ColorsManager';
 import { ArrayManager } from '../../Managers/ArrayManager';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
+import { Letter } from '../../interfaces/letter';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { Subscription } from 'rxjs';
 export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     product         : string;
-    messy_letters   : any = [];
+    messy_letters   : Letter[];
     sorted_letters  : any = [];
     letters_color   : any = [];
     letter_response : any = [];
