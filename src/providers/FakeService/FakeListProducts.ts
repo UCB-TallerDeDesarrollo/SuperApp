@@ -18,4 +18,8 @@ export class FakeListProducts {
     static deleteAllProducts(){
         this.products=[];
     } 
+
+    static getQuantityOfProducts() {
+        return this.products.length;
+    }
 }

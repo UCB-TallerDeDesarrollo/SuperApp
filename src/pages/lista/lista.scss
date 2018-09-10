@@ -24,7 +24,25 @@
     width: 80px;
     height: 80px;
 }
+.cant-product {
+    position: absolute;
+    visibility: visible;
+    background: url("../../assets/imgs/bigsquare.png") no-repeat;
+    background-size: cover;
+    width: 150px;
+    height: 150px;
+    right: 1%;
+    top: 30%;
+}
 
+.number {
+    position: relative;
+    top: 8%;
+    left: 10%;
+    width: 80%;
+    font-size: 100px;
+    text-align: center;
+}
 .shopping-cart {
     background: transparent !important;
 }
@@ -55,3 +73,6 @@
     visibility: hidden;
 }
 
+.customIcon {
+    font-size: 1.7em;
+}

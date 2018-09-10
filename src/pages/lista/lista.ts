@@ -8,7 +8,8 @@ import { DragulaService } from 'ng2-dragula';
 
 @Component({
   selector: 'page-lista',
-  templateUrl: 'lista.html'
+  templateUrl: 'lista.html',
+  viewProviders: [DragulaService]
 })
 export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
   
@@ -16,9 +17,13 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
   actualSelectedElement:any;
   actualSelectedContainer:any;
   products: Array<{id: number, title: string, image: string}> = [];
+  quantityproductsString:string;
+  quantityOfProducts: number;
 
   constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
     this.products = FakeProducts.getProducts();
+    this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
+    this.quantityproductsString = this.quantityOfProducts.toString();
   }
 
   ngOnInit() {
@@ -34,23 +39,31 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
         return true;
       }
     });
+      
   }
 
   ngOnDestroy() {
     this.dragulaService.destroy("PRODUCT");
   }
 
-  ngAfterViewInit() { 
+  ngAfterViewInit() {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       let product_id = +(el.id.split("-")[1]);
       let product = FakeProducts.getProductById(product_id);
-      FakeListProducts.addProduct(product);  
+      FakeListProducts.addProduct(product);
+      this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
+      this.quantityproductsString = this.quantityOfProducts.toString();
       el.remove();
       FakeProducts.removeProduct(this.products.indexOf(product));
     });
   }
 
   pushProducts(){
+    this.navCtrl.pop();
     this.navCtrl.push(ProductsPage);
+  }
+
+  goToRoot() {
+    this.navCtrl.popToRoot();
   }
 }

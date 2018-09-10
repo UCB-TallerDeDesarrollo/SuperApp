@@ -6,8 +6,14 @@
 -->
 <ion-header>
 
-    <ion-navbar>
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+            <button ion-button (click)="goToProducts()">
+                <ion-icon class="customIcon" name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
         <ion-title>Lista de compras</ion-title>
+        <ion-title end>Cantidad de productos: {{numberOfProducts}}</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -21,10 +27,8 @@
                 <table>
                     <thead>
                         <th>
-
                         </th>
                         <th>
-
                         </th>
                         <th>
                             <div class="exit">
@@ -34,7 +38,7 @@
                             </div>
                         </th>
                     </thead>
-                    <tbody>
+                     <tbody>                     
                         <td>
                             <div class="product_image">
                                 <img src="{{product.image}}">

@@ -2,7 +2,9 @@ import { FakeProducts } from './../../providers/FakeService/FakeProducts';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts'; 
-
+import { ListaPage } from '../lista/lista';
+import { DragulaService } from 'ng2-dragula';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -11,10 +13,12 @@ import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 })
 export class ProductsPage {
 
-  products: Array<{id: number, title: string, image: string}> = [];
+  products: Array<{ id: number, title: string, image: string }> = [];
+  numberOfProducts: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private dragulaService: DragulaService) {
     this.products = FakeListProducts.getProducts().reverse();
+    this.numberOfProducts = this.products.length;
   }
 
   ionViewDidLoad() {
@@ -24,6 +28,7 @@ export class ProductsPage {
   deleteListOfProducts() {
     FakeListProducts.deleteAllProducts();
     this.products = FakeListProducts.getProducts();
+    this.numberOfProducts = this.products.length;
   }
   
   onClickDeleteList(){
@@ -48,11 +53,17 @@ export class ProductsPage {
       ]
     });
     alert.present();
+    this.numberOfProducts = this.products.length;
   }
 
   onClickDeleteAProduct(product,indexOfProduct){ 
-    console.log(product);    
     FakeListProducts.removeProduct(indexOfProduct);
     FakeProducts.addProduct(product);
+    this.numberOfProducts = this.products.length;
+  }
+  
+  goToProducts() {
+    this.navCtrl.popToRoot();
+    this.navCtrl.push(ListaPage);
   }
 }
