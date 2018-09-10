@@ -19,7 +19,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     product         : string;
     messy_letters   : Letter[];
-    sorted_letters  : any = [];
+    sorted_letters  : Letter[];
     letters_color   : any = [];
     letter_response : any = [];
     color           : string;
