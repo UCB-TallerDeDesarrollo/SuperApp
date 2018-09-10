@@ -16,22 +16,23 @@ import { Subscription } from 'rxjs';
 
 export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
-    product         : string;
-    messy_letters   : any = [];
-    sorted_letters  : any = [];
-    letters_color   : any = [];
-    letter_response : any = [];
-    color           : string;
-    image_route     : string;
-    actualSelectedElement   : any;
-    actualSelectedContainer : any;
-    recentlyMove   : boolean;
-    count          : number;
-    colors         : any = [];
+    count          : number;      // CONTADOR DE RESPONDIDOS
+    product        : string;      // PRODUCTO
+    messy_letters   : any = [];   // LETRAS DESORDENADAS
+    sorted_letters  : any = [];   // LETRAS ORDENADAS
+    
+    image_route     : string;    // SRC DE LA IMAGEN
 
-    subs : Subscription = new Subscription();
+    letters_color   : any = [];  // ARRAY DE COLORES
+    color           : string;    // ESTABLECE EL COLOR DE FONDO
+    
+    actualSelectedElement   : any;  // DRAGULAR NEEDED
+    actualSelectedContainer : any;  // DRAGULAR NEEDED
+    recentlyMove   : boolean;       // DRAGULAR NEEDED
+    subs : Subscription = new Subscription(); // DRAGULAR NEEDED
+    selectorName : string = 'LETTER-' + Math.random(); // DRAGULAR NEEDED
 
-    selectorName : string = 'LETTER-' + Math.random();
+    colors: any = [];      // ARRAY ESTATICO
 
     constructor(
         private navController   : NavController, 
@@ -74,7 +75,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
                 auxilary_letters.splice(auxilary_letters.indexOf(data), 1);
             }
         } while (JSON.stringify(this.sorted_letters) === JSON.stringify(this.messy_letters));
-        this.letter_response = this.sorted_letters;
     }
 
     private prepare_binding_items() {
@@ -164,7 +164,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     showEndView() : void {
         console.log(this.count);
         ++this.count;
-        if(this.count >= this.letter_response.length) {
+        if(this.count >= this.sorted_letters.length) {
             console.log('GANASTE');
             this.showModalWin();
         }
