@@ -5,7 +5,7 @@ const path_images = '../../assets/imgs/Products/'
 
 export class FakeProducts {
   
-    static products: Array<Product> = [
+    static products: Product[] = [
         Product.createProduct(1, 'ARROZ', path_images+'arroz.jpg'),
         Product.createProduct(2, 'ATUN', path_images+'atun.jpg'),
         Product.createProduct(3, 'AZUCAR', path_images+'azucar.jpg'),
@@ -20,7 +20,7 @@ export class FakeProducts {
         Product.createProduct(12, 'COCA', path_images+'coca.jpg')
     ];
 
-    public static getProducts(): Array<Product> {
+    public static getProducts(): Product[] {
         return this.products;
     }
 

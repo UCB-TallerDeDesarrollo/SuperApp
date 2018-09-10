@@ -82,9 +82,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private prepare_binding_items() {
-        let product_information: Product = FakeProducts.get_random_product();
-        this.product = product_information.Title;
         this.color = ColorsManager.get_color_style();
+        let product_information: Product = FakeProducts.get_random_product();
+        this.game.Product = product_information;
+        this.product = product_information.Title;
         this.image_route = product_information.ImageURL;
     }
 
