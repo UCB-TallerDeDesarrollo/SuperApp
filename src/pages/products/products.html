@@ -6,7 +6,12 @@
 -->
 <ion-header>
 
-    <ion-navbar>
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+            <button ion-button (click)="goToProducts()">
+                <ion-icon class="customIcon" name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
         <ion-title>Lista de compras</ion-title>
     </ion-navbar>
 

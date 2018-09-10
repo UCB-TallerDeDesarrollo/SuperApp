@@ -49,8 +49,4 @@ export class FakeProducts{
             this.addProduct(products[product]);
         }
     }
-
-    static getQuantityOfProducts() {
-        return this.products.length;
-    }
 }

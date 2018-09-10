@@ -3,13 +3,13 @@ import { NavController } from 'ionic-angular';
 
 import { ProductsPage } from '../products/products';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
-import { DataBaseService } from '../../providers/database-service/database-service';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
 
 @Component({
   selector: 'page-lista',
-  templateUrl: 'lista.html'
+  templateUrl: 'lista.html',
+  viewProviders: [DragulaService]
 })
 export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
   
@@ -22,7 +22,7 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
     this.products = FakeProducts.getProducts();
-    this.quantityOfProducts = 0;
+    this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
   }
 
@@ -39,18 +39,19 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
         return true;
       }
     });
+      
   }
 
   ngOnDestroy() {
     this.dragulaService.destroy("PRODUCT");
   }
 
-  ngAfterViewInit() { 
+  ngAfterViewInit() {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       let product_id = +(el.id.split("-")[1]);
       let product = FakeProducts.getProductById(product_id);
       FakeListProducts.addProduct(product);
-      this.quantityOfProducts += 1;
+      this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
       this.quantityproductsString = this.quantityOfProducts.toString();
       el.remove();
       FakeProducts.removeProduct(this.products.indexOf(product));
@@ -58,6 +59,11 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   pushProducts(){
+    this.navCtrl.pop();
     this.navCtrl.push(ProductsPage);
+  }
+
+  goToRoot() {
+    this.navCtrl.popToRoot();
   }
 }
