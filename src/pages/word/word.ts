@@ -40,8 +40,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private modalController : ModalController
     ) {
         this.game = new SortWordGame();
+        this.messy_letters = [];
         this.prepare_binding_items();
-        let letters = this.game.Product.Title;
         let auxilary_letters: any = [];
         this.recentlyMove = false;
         this.colors.push("#B73D19");
@@ -56,8 +56,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.colors.push("#8C1D87");
         this.generateLettersWithColor();
         do {
-            this.messy_letters = [];
-            for (let letter of letters) {
+            for (let letter of this.game.ResponseWord) {
                 auxilary_letters.push({
                     letter: letter,
                     color: this.letters_color[letter],
@@ -77,10 +76,15 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         } while (JSON.stringify(this.sorted_letters) === JSON.stringify(this.messy_letters));
     }
 
+    generateLettersWithColor() : void {
+        for (let letter of this.game.ResponseWord) {
+            this.letters_color[letter] = ArrayManager.get_random_element(this.colors);
+        }
+    }
+
     private prepare_binding_items() {
         this.color = ColorsManager.get_color_style();
-        let product_information: Product = FakeProducts.get_random_product();
-        this.game.Product = product_information;
+        this.game.Product = FakeProducts.get_random_product();
     }
 
     ngOnInit() : void {
@@ -147,11 +151,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         return color;
     }
 
-    generateLettersWithColor() : void {
-        for (let letter of this.game.Product.Title) {
-            this.letters_color[letter] = ArrayManager.get_random_element(this.colors);
-        }
-    }
+    
 
     offset(el) {
         let rect = el.getBoundingClientRect(),
@@ -175,5 +175,5 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         });
         levelCompleteModal.present();
     }
-  
+
 }

@@ -18,15 +18,15 @@ export class Product {
         return response;
     }
 
-    public get Id() {
+    public get Id(): number {
         return this.id;
     }
 
-    public get Title() {
+    public get Title(): string {
         return this.title;
     }
 
-    public get ImageURL() {
+    public get ImageURL(): string {
         return this.image;
     }
     

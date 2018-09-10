@@ -24,8 +24,12 @@ export class SortWordGame {
         return this.count >= this.product.Title.length;
     }
 
-    public get Product() {
+    public get Product(): Product {
         return this.product;
+    }
+
+    public get ResponseWord(): string {
+        return this.product.Title;
     }
 
     public set Product(product: Product) {
