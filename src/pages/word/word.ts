@@ -20,12 +20,9 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     game : SortWordGame;
     
-    count          : number;      // CONTADOR DE RESPONDIDOS
-    product        : string;      // PRODUCTO
     messy_letters   : any = [];   // LETRAS DESORDENADAS
     sorted_letters  : any = [];   // LETRAS ORDENADAS
-    image_route     : string;    // SRC DE LA IMAGEN
-
+    
     letters_color   : any = [];  // ARRAY DE COLORES
     color           : string;    // ESTABLECE EL COLOR DE FONDO
     
@@ -44,8 +41,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     ) {
         this.game = new SortWordGame();
         this.prepare_binding_items();
-        let letters = this.product.split('');
-        this.count = 0;
+        let letters = this.game.Product.Title;
         let auxilary_letters: any = [];
         this.recentlyMove = false;
         this.colors.push("#B73D19");
@@ -85,8 +81,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.color = ColorsManager.get_color_style();
         let product_information: Product = FakeProducts.get_random_product();
         this.game.Product = product_information;
-        this.product = product_information.Title;
-        this.image_route = product_information.ImageURL;
     }
 
     ngOnInit() : void {
@@ -154,7 +148,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     generateLettersWithColor() : void {
-        for (let letter of this.product) {
+        for (let letter of this.game.Product.Title) {
             this.letters_color[letter] = ArrayManager.get_random_element(this.colors);
         }
     }
@@ -167,10 +161,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     showEndView() : void {
-        console.log(this.count);
-        ++this.count;
-        if(this.count >= this.sorted_letters.length) {
-            console.log('GANASTE');
+        this.game.addCount();
+        if(this.game.isGameOver()) {
             this.showModalWin();
         }
     }

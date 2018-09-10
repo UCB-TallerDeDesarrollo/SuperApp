@@ -21,7 +21,7 @@ export class SortWordGame {
     }
 
     public isGameOver() : boolean {
-        return this.count >= this.sorted_letters.length;
+        return this.count >= this.product.Title.length;
     }
 
     public get Product() {
