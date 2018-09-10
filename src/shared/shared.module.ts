@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SortWordGame } from './models/sortWordGame.model';
+import { Product } from './models/product.model';
 
 @NgModule({
     imports: [
         CommonModule
     ],
     declarations: [
-        SortWordGame
+        SortWordGame,
+        Product
     ],
     exports: [
-        SortWordGame
+        SortWordGame,
+        Product
     ]
 })
 export class SharedModule { }

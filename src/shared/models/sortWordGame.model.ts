@@ -8,10 +8,10 @@ export class SortWordGame {
     
     public constructor() {
         this.count = 0;
-        this.product = "";
+        this.product = '';
         this.messy_letters = [];
         this.sorted_letters = [];
-        this.image_route = "";
+        this.image_route = '';
     }
 
     public addCount() : void {

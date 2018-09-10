@@ -8,6 +8,8 @@ import { ArrayManager } from '../../Managers/ArrayManager';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 import { Letter } from '../../interfaces/letter';
+import { SortWordGame } from '../../shared/models/sortWordGame.model';
+import { Product } from '../../shared/models/product.model';
 
 @Component({
     selector: 'page-word',
@@ -16,6 +18,8 @@ import { Letter } from '../../interfaces/letter';
 
 export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
+    game : SortWordGame;
+    
     count          : number;      // CONTADOR DE RESPONDIDOS
     product        : string;      // PRODUCTO
     messy_letters   : any = [];   // LETRAS DESORDENADAS
@@ -38,6 +42,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private dragulaService  : DragulaService, 
         private modalController : ModalController
     ) {
+        this.game = new SortWordGame();
         this.prepare_binding_items();
         let letters = this.product.split('');
         this.count = 0;
@@ -77,10 +82,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private prepare_binding_items() {
-        let product_information = FakeProducts.get_random_product();
-        this.product = product_information.title;
+        let product_information: Product = FakeProducts.get_random_product();
+        this.product = product_information.Title;
         this.color = ColorsManager.get_color_style();
-        this.image_route = product_information.image;
+        this.image_route = product_information.ImageURL;
     }
 
     ngOnInit() : void {

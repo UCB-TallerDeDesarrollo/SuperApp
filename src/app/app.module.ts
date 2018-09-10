@@ -13,6 +13,7 @@ import { ProductsPage } from '../pages/products/products';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { LevelCompletePage } from '../pages/level-complete/level-complete';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LevelCompletePage } from '../pages/level-complete/level-complete';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    DragulaModule.forRoot()
+    DragulaModule.forRoot(),
+    SharedModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
