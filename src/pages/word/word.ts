@@ -138,24 +138,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
             this.actualSelectedElement = clone;
         }));
 
-        this.subs.add(this.dragulaService.cancel(this.selectorName).subscribe(({ el, container, source }) => {
-            console.log('SE ELIMINO EL EVENTO');
-            return true;
-        }));
     }
-
-    getRandomColor() : string {
-        let color = '#';
-
-        for (let i = 0; i < 3; ++i) {
-            let part = Math.round(Math.random() * 255).toString(16);
-            color += (part.length > 1) ? part : '0' + part;
-        }
-
-        return color;
-    }
-
-    
 
     offset(el) {
         let rect = el.getBoundingClientRect(),
