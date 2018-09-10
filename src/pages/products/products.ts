@@ -13,10 +13,12 @@ import { HomePage } from '../home/home';
 })
 export class ProductsPage {
 
-  products: Array<{id: number, title: string, image: string}> = [];
+  products: Array<{ id: number, title: string, image: string }> = [];
+  numberOfProducts: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private dragulaService: DragulaService) {
     this.products = FakeListProducts.getProducts().reverse();
+    this.numberOfProducts = this.products.length;
   }
 
   ionViewDidLoad() {
@@ -26,6 +28,7 @@ export class ProductsPage {
   deleteListOfProducts() {
     FakeListProducts.deleteAllProducts();
     this.products = FakeListProducts.getProducts();
+    this.numberOfProducts = this.products.length;
   }
   
   onClickDeleteList(){
@@ -50,11 +53,13 @@ export class ProductsPage {
       ]
     });
     alert.present();
+    this.numberOfProducts = this.products.length;
   }
 
   onClickDeleteAProduct(product,indexOfProduct){ 
     FakeListProducts.removeProduct(indexOfProduct);
     FakeProducts.addProduct(product);
+    this.numberOfProducts = this.products.length;
   }
   
   goToProducts() {
