@@ -19,7 +19,7 @@ export class LevelCompletePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LevelCompletePage');
+    //console.log('ionViewDidLoad LevelCompletePage');
   }
   nextLevel(){
     this.viewCtrl.dismiss();

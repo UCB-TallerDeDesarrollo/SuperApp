@@ -15,6 +15,7 @@ import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { LevelCompletePage } from '../pages/level-complete/level-complete';
 import { SharedModule } from '../shared/shared.module';
 import { ArrayProductProvider } from '../providers/Array/ArrayProductProvider';
+import { ColorService } from '../shared/services/ColorService';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ArrayProductProvider } from '../providers/Array/ArrayProductProvider';
     ScreenOrientation,
     DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ArrayProductProvider
+    ArrayProductProvider,
+    ColorService
   ]
 })
 export class AppModule {

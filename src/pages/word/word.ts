@@ -8,6 +8,7 @@ import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 import { SortWordGame } from '../../shared/models/sortWordGame.model';
 import { ArrayProductProvider } from '../../providers/Array/ArrayProductProvider';
+import { ColorService } from '../../shared/services/ColorService';
 
 @Component({
     selector: 'page-word',
@@ -26,35 +27,24 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     subs : Subscription = new Subscription(); // DRAGULAR NEEDED
     selectorName : string = 'LETTER-' + Math.random(); // DRAGULAR NEEDED
 
-    colors: any = [];      // ARRAY ESTATICO
-
     constructor(
         private navController    : NavController, 
         private dragulaService   : DragulaService, 
         private modalController  : ModalController,
-        private productsProdiver : ArrayProductProvider
+        private productsProdiver : ArrayProductProvider,
+        private colorService     : ColorService
     ) {
         this.game = new SortWordGame();
         this.prepare_binding_items();
         
         this.recentlyMove = false;
-        this.colors.push("#B73D19");
-        this.colors.push("#E7E41C");
-        this.colors.push("#4CD10A");
-        this.colors.push("#23A547");
-        this.colors.push("#24AD81");
-        this.colors.push("#2473AD");
-        this.colors.push("#2433AD");
-        this.colors.push("#1C818F");
-        this.colors.push("#280D97");
-        this.colors.push("#8C1D87");
         this.game.buildLetters(this.generateLettersWithColor());
     }
 
     generateLettersWithColor() {
         let response : any = [];
         for (let letter of this.game.ResponseWord) {
-            response[letter] = ArrayManager.get_random_element(this.colors);
+            response[letter] = this.colorService.getRandomColor();
         }
         return response;
     }
