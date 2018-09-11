@@ -1,6 +1,5 @@
 import { LoadingPage } from './../loading/loading';
 import { LevelCompletePage } from './../level-complete/level-complete';
-import { FakeProducts } from './../../providers/FakeService/FakeProducts';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { ColorsManager } from '../../Managers/ColorsManager';
@@ -8,6 +7,7 @@ import { ArrayManager } from '../../Managers/ArrayManager';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 import { SortWordGame } from '../../shared/models/sortWordGame.model';
+import { ArrayProductProvider } from '../../providers/Array/ArrayProductProvider';
 
 @Component({
     selector: 'page-word',
@@ -32,9 +32,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     colors: any = [];      // ARRAY ESTATICO
 
     constructor(
-        private navController   : NavController, 
-        private dragulaService  : DragulaService, 
-        private modalController : ModalController
+        private navController    : NavController, 
+        private dragulaService   : DragulaService, 
+        private modalController  : ModalController,
+        private productsProdiver : ArrayProductProvider
     ) {
         this.game = new SortWordGame();
         this.messy_letters = [];
@@ -83,7 +84,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     private prepare_binding_items() {
         this.color = ColorsManager.get_color_style();
-        this.game.Product = FakeProducts.get_random_product();
+        this.game.Product = this.productsProdiver.get_random_product();
     }
 
     ngOnInit() : void {

@@ -3,7 +3,7 @@ import { Product } from "../../shared/models/product.model";
 
 const path_images = '../../assets/imgs/Products/'
 
-export class FakeProducts {
+export class ArrayProductProvider {
   
     static products: Product[] = [
         Product.createProduct(1, 'ARROZ', path_images+'arroz.jpg'),
@@ -20,15 +20,15 @@ export class FakeProducts {
         Product.createProduct(12, 'COCA', path_images+'coca.jpg')
     ];
 
-    public static getProducts(): Product[] {
-        return this.products;
+    public getProducts(): Product[] {
+        return ArrayProductProvider.products;
     }
 
-    public static getProductById(id: number): Product {
-        return this.products[id];
+    public getProductById(id: number): Product {
+        return ArrayProductProvider.products[id];
     }
 
-    static get_random_product(): Product {
-        return ArrayManager.get_random_element(this.products);
+    public get_random_product(): Product {
+        return ArrayManager.get_random_element(ArrayProductProvider.products);
     }
 }
