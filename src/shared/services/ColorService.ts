@@ -2,7 +2,7 @@ import { ArrayManager } from '../../Managers/ArrayManager';
 
 export class ColorService {
 
-    static COLORS: string[] = [
+    private static COLORS: string[] = [
         '#B73D19',
         '#E7E41C',
         '#4CD10A',
@@ -15,7 +15,19 @@ export class ColorService {
         '#8C1D87'
     ];
 
+    private static BACKGROUND_COLORS: string[] = [
+        'color-background-1',
+        'color-background-2', 
+        'color-background-3',
+        'color-background-4',
+        'color-background-5'
+    ];
+
     public getRandomColor() : string {
         return ArrayManager.get_random_element(ColorService.COLORS);
+    }
+
+    public getRandomBackgroundColor() : string {
+        return ArrayManager.get_random_element(ColorService.BACKGROUND_COLORS);
     }
 }

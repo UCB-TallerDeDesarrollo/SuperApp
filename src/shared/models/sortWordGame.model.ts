@@ -8,9 +8,9 @@ export class SortWordGame {
     private messyLetters  : any;
     private sortedLetters : any;
     
-    public constructor() {
+    public constructor(product: Product) {
         this.count = 0;
-        this.product = null;
+        this.product = product;
         this.messyLetters = [];
         this.sortedLetters = [];
     }
