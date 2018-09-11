@@ -5,7 +5,7 @@ import { ProductProvider } from "../../shared/providers/ProductProvider";
 const path_images = '../../assets/imgs/Products/'
 
 export class ArrayProductProvider extends ProductProvider {
-  
+    
     static products: Product[] = [
         Product.createProduct(1, 'ARROZ', path_images+'arroz.jpg'),
         Product.createProduct(2, 'ATUN', path_images+'atun.jpg'),
