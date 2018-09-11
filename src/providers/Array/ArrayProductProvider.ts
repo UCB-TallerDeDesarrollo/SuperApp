@@ -1,9 +1,10 @@
 import { ArrayManager } from "../../Managers/ArrayManager";
 import { Product } from "../../shared/models/product.model";
+import { ProductProvider } from "../../shared/providers/ProductProvider";
 
 const path_images = '../../assets/imgs/Products/'
 
-export class ArrayProductProvider {
+export class ArrayProductProvider extends ProductProvider {
   
     static products: Product[] = [
         Product.createProduct(1, 'ARROZ', path_images+'arroz.jpg'),

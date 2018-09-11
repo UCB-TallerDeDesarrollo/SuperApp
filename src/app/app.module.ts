@@ -14,6 +14,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { LevelCompletePage } from '../pages/level-complete/level-complete';
 import { SharedModule } from '../shared/shared.module';
+import { ProductProvider } from '../shared/providers/ProductProvider';
 import { ArrayProductProvider } from '../providers/Array/ArrayProductProvider';
 import { ColorService } from '../shared/services/ColorService';
 
@@ -49,9 +50,8 @@ import { ColorService } from '../shared/services/ColorService';
     ScreenOrientation,
     DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ArrayProductProvider,
+    {provide: ProductProvider, useClass: ArrayProductProvider},
     ColorService
   ]
 })
-export class AppModule {
-}
+export class AppModule { }

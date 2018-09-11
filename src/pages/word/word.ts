@@ -5,8 +5,9 @@ import { NavController, ModalController } from 'ionic-angular';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 import { SortWordGame } from '../../shared/models/sortWordGame.model';
-import { ArrayProductProvider } from '../../providers/Array/ArrayProductProvider';
+// import { ArrayProductProvider } from '../../providers/Array/ArrayProductProvider';
 import { ColorService } from '../../shared/services/ColorService';
+import { ProductProvider } from '../../shared/providers/ProductProvider';
 
 @Component({
     selector: 'page-word',
@@ -15,20 +16,20 @@ import { ColorService } from '../../shared/services/ColorService';
 
 export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
-    game : SortWordGame;
+    game            : SortWordGame;
     backgroundColor : string;
     
     actualSelectedElement   : any;  // DRAGULAR NEEDED
     actualSelectedContainer : any;  // DRAGULAR NEEDED
     recentlyMove   : boolean;       // DRAGULAR NEEDED
     subs : Subscription = new Subscription(); // DRAGULAR NEEDED
-    selectorName : string = 'LETTER-' + Math.random(); // DRAGULAR NEEDED
+    selectorName : string = 'LETTER-' + Math.random(); // DRAGULAR
 
     constructor(
-        private navController    : NavController, 
-        private dragulaService   : DragulaService, 
+        private navController    : NavController,
+        private dragulaService   : DragulaService,
         private modalController  : ModalController,
-        private productsProdiver : ArrayProductProvider,
+        private productsProdiver : ProductProvider,
         private colorService     : ColorService
     ) {
         this.prepareGame();
