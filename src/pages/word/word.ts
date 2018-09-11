@@ -18,10 +18,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     game : SortWordGame;
     
-    messy_letters   : any = [];   // LETRAS DESORDENADAS
-    sorted_letters  : any = [];   // LETRAS ORDENADAS
-    
-    color           : string;    // ESTABLECE EL COLOR DE FONDO
+    color : string;    // ESTABLECE EL COLOR DE FONDO
     
     actualSelectedElement   : any;  // DRAGULAR NEEDED
     actualSelectedContainer : any;  // DRAGULAR NEEDED
@@ -38,9 +35,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private productsProdiver : ArrayProductProvider
     ) {
         this.game = new SortWordGame();
-        this.messy_letters = [];
         this.prepare_binding_items();
-        let auxilary_letters: any = [];
+        
         this.recentlyMove = false;
         this.colors.push("#B73D19");
         this.colors.push("#E7E41C");
@@ -52,26 +48,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.colors.push("#1C818F");
         this.colors.push("#280D97");
         this.colors.push("#8C1D87");
-        let lettersColor = this.generateLettersWithColor();
-        do {
-            for (let letter of this.game.ResponseWord) {
-                auxilary_letters.push({
-                    letter: letter,
-                    color: lettersColor[letter],
-                    name: `letter-${letter}`
-                });
-            }
-            this.sorted_letters = auxilary_letters.map(data => ({letter: data.letter, color: data.color, name: data.name}));
-            while (auxilary_letters.length > 0) {
-                let data: any = ArrayManager.get_random_element(auxilary_letters);
-                this.messy_letters.push({
-                    letter: data.letter,
-                    color: data.color,
-                    name: `letter-${data.letter}`
-                });
-                auxilary_letters.splice(auxilary_letters.indexOf(data), 1);
-            }
-        } while (JSON.stringify(this.sorted_letters) === JSON.stringify(this.messy_letters));
+        this.game.buildLetters(this.generateLettersWithColor());
     }
 
     generateLettersWithColor() {
@@ -84,7 +61,23 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     private prepare_binding_items() {
         this.color = ColorsManager.get_color_style();
-        this.game.Product = this.productsProdiver.get_random_product();
+        this.game.Product = this.productsProdiver.getRandomProduct();
+    }
+
+    showEndView() : void {
+        this.game.addCount();
+        if(this.game.isGameOver()) {
+            this.showModalWin();
+        }
+    }
+
+    showModalWin() : void {
+        const levelCompleteModal = this.modalController.create(LevelCompletePage);
+        levelCompleteModal.onDidDismiss(data => {
+            this.navController.push(LoadingPage, null, { animate: false });
+            this.navController.remove(this.navController.length() - 1);
+        });
+        levelCompleteModal.present();
     }
 
     ngOnInit() : void {
@@ -146,22 +139,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
         scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
-    }
-
-    showEndView() : void {
-        this.game.addCount();
-        if(this.game.isGameOver()) {
-            this.showModalWin();
-        }
-    }
-
-    showModalWin() : void {
-        const levelCompleteModal = this.modalController.create(LevelCompletePage);
-        levelCompleteModal.onDidDismiss(data => {
-            this.navController.push(LoadingPage, null, { animate: false });
-            this.navController.remove(this.navController.length() - 1);
-        });
-        levelCompleteModal.present();
     }
 
 }

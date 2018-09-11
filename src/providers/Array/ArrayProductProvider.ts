@@ -28,7 +28,7 @@ export class ArrayProductProvider {
         return ArrayProductProvider.products[id];
     }
 
-    public get_random_product(): Product {
+    public getRandomProduct(): Product {
         return ArrayManager.get_random_element(ArrayProductProvider.products);
     }
 }
