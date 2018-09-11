@@ -1,35 +1,52 @@
 import { ArrayManager } from "../../Managers/ArrayManager";
-import { Product } from "../../shared/models/product.model";
 
 const path_images = '../../assets/imgs/Products/'
 
 export class FakeProducts {
   
-    static products: Product[] = [
-        Product.createProduct(1, 'ARROZ', path_images+'arroz.jpg'),
-        Product.createProduct(2, 'ATUN', path_images+'atun.jpg'),
-        Product.createProduct(3, 'AZUCAR', path_images+'azucar.jpg'),
-        Product.createProduct(4, 'BANANA', path_images+'banana.jpg'),
-        Product.createProduct(5, 'CARNE', path_images+'carne.jpg'),
-        Product.createProduct(6, 'CAFE', path_images+'cafe.jpg'),
-        Product.createProduct(7, 'ARVEJA', path_images+'arveja.jpg'),
-        Product.createProduct(8, 'BROCOLI', path_images+'brocoli.jpg'),
-        Product.createProduct(9, 'BATATA', path_images+'batata.jpg'),
-        Product.createProduct(10, 'CEBOLLA', path_images+'cebolla.jpg'),
-        Product.createProduct(11, 'CEREAL', path_images+'cereal.jpg'),
-        Product.createProduct(12, 'COCA', path_images+'coca.jpg')
+    static products: Array<{id: number, title: string, image: string}>= [
+        {id: 1, title: 'ARROZ', image: path_images+'arroz.jpg'},
+        {id: 2, title: 'ATUN', image: path_images+'atun.jpg'},
+        {id: 3, title: 'AZUCAR', image: path_images+'azucar.jpg'},
+        {id: 4, title: 'BANANA', image: path_images+'banana.jpg'},
+        {id: 5, title: 'CARNE', image: path_images+'carne.jpg'},
+        {id: 6, title: 'CAFE', image: path_images+'cafe.jpg'},
+        {id: 7, title: 'ARVEJA', image: path_images+'arveja.jpg'},
+        {id: 8, title: 'BROCOLI', image: path_images+'brocoli.jpg'},
+        {id: 9, title: 'BATATA', image: path_images+'batata.jpg'},
+        {id: 10, title: 'CEBOLLA', image: path_images+'cebolla.jpg'},
+        {id: 11, title: 'CEREAL', image: path_images+'cereal.jpg'},
+        {id: 12, title: 'COCA', image: path_images+'coca.jpg'}
     ];
 
-    public static getProducts(): Product[] {
+    static getProducts(){
         return this.products;
     }
 
-    public static getProductById(id: number): Product {
-        return this.products[id];
+    static getProductById(id: number){ 
+        for(let product in this.products){
+            if(this.products[product].id===id){
+                return this.products[product];
+            }
+        } 
+        return null;
     }
 
-    public static get_random_product(): Product {
+    static get_random_product(): any {
         return ArrayManager.get_random_element(this.products);
     }
 
+    static addProduct(product: {id: number, title: string, image:string}){
+        this.products.push(product);
+    }
+
+    static removeProduct(indexProduct: number){
+        this.products.splice(indexProduct,1);
+    }
+
+    static addManyProducts(products: Array<{id: number, title: string, image: string}>){
+        for(let product in products){
+            this.addProduct(products[product]);
+        }
+    }
 }

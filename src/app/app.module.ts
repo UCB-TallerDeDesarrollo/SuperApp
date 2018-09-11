@@ -15,6 +15,8 @@ import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { LevelCompletePage } from '../pages/level-complete/level-complete';
 import { SharedModule } from '../shared/shared.module';
 
+
+
 @NgModule({
   declarations: [
     MyApp,
