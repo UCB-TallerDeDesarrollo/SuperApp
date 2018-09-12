@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+            <button ion-button (click)="goToRoot()">
+                <ion-icon class="customIcon" name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Menu Principal</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding class="main-list">
+  <ion-row>
+    <ion-col col-8>
+      <ion-title class="main-title">Almacen</ion-title>
+      <ion-grid>
+        <ion-row justify-content-center>
+          <ion-col *ngFor="let product of products" col-3 class="{{product.title}}" dragula="PRODUCT">
+            <div id="product-{{product.id}}">
+              <img class="product-store" src="{{product.image}}" />
+              <ion-label style="height:2%;" class="product-name">{{product.title}}</ion-label>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-col>
+    <ion-col col-3 id="ignore-item" class="relative-container objetive-container" dragula="PRODUCT">
+      <div>
+        <ion-img src="../../assets/imgs/carrito.png" class="shopping-cart"></ion-img>
+        <button ion-button color="dark" (click)="pushProducts()">Ver Productos</button>
+      </div>
+      <ion-card>
+        <ion-card-content>
+          <h1 class="number">{{quantityproductsString}}</h1>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>  
+</ion-content>
