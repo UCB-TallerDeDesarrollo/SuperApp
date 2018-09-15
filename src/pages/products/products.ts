@@ -1,10 +1,7 @@
 import { FakeProducts } from './../../providers/FakeService/FakeProducts';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
-import { FakeListProducts } from '../../providers/FakeService/FakeListProducts'; 
-import { ListaPage } from '../lista/lista';
-import { DragulaService } from 'ng2-dragula';
-import { HomePage } from '../home/home';
+import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 
 @IonicPage()
 @Component({

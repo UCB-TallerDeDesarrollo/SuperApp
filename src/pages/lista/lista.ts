@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { ProductsPage } from '../products/products';
