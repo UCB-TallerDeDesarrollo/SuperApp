@@ -16,14 +16,10 @@ export class ProductsPage {
   products: Array<{ id: number, title: string, image: string }> = [];
   numberOfProducts: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private dragulaService: DragulaService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController) {
     this.products = FakeListProducts.getProducts().reverse();
     this.numberOfProducts = this.products.length;
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProductsPage');
-  } 
   
   deleteListOfProducts() {
     FakeListProducts.deleteAllProducts();
@@ -63,7 +59,6 @@ export class ProductsPage {
   }
   
   goToProducts() {
-    this.navCtrl.popToRoot();
-    this.navCtrl.push(ListaPage);
+    this.navCtrl.pop();
   }
 }
