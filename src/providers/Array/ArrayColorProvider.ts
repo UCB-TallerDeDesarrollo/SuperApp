@@ -1,6 +1,7 @@
 import { ArrayManager } from '../../Managers/ArrayManager';
+import { ColorProvider } from '../../shared/providers/ColorProvider';
 
-export class ArrayColorProvider {
+export class ArrayColorProvider implements ColorProvider {
 
     private static COLORS: string[] = [
         '#B73D19',
