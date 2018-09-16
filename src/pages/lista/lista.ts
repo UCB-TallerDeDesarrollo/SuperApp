@@ -76,4 +76,10 @@ export class ListaPage implements OnInit, AfterViewInit {
   goToRoot() {
     this.navCtrl.pop();
   }
+
+  
+  onSelectCategory(category){ 
+    this.selectedCategory=category; 
+    this.products=FakeProducts.getProductsByCategory(category.id)
+  }
 }
