@@ -14,14 +14,19 @@ import { DragulaService } from 'ng2-dragula';
 export class ListaPage implements OnInit, AfterViewInit {
   
   path_images = '../../assets/imgs/Products/';
+  defaultCategoryId:number = 1;
   actualSelectedElement:any;
   actualSelectedContainer:any;
-  products: Array<{id: number, title: string, image: string}> = [];
+  products: Array<{id: number, title: string, image: string, categoryId: number}> = [];
+  categories: Array<{id: number, name: string}>=[];
+  selectedCategory: {id: number, name: string};
   quantityproductsString:string;
   quantityOfProducts: number;
 
   constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
-    this.products = FakeProducts.getProducts();
+    this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
+    this.categories=Categories.getCategories();
+    this.products = FakeProducts.getProductsByCategory(this.defaultCategoryId);
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
   }
