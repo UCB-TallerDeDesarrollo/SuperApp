@@ -53,7 +53,7 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
                 let posLeftActual= parseFloat(this.actualSelectedElement.style.left);
                 let posTopActual=parseFloat(this.actualSelectedElement.style.top);
                 let limitRigth=document.body.clientWidth-45;
-                let limitTop=document.body.clientHeight-23;
+                let limitTop=document.body.clientHeight-45;
                 if (posLeftActual<0)
                 {
                     posLeftActual=0;
@@ -65,6 +65,10 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
                 if (posTopActual<56)
                 {
                     posTopActual=56;
+                }
+                if (posTopActual>limitTop)
+                {
+                    posTopActual=limitTop;
                 }
                 let posLeft = posLeftActual - parseFloat(this.offset(this.actualSelectedContainer).left) - MARGIN_LEFT;
                 let posTop = posTopActual - parseFloat(this.offset(this.actualSelectedContainer).top);
