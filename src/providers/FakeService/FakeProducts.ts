@@ -50,4 +50,14 @@ export class FakeProducts{
             this.addProduct(products[product]);
         }
     }
+
+    static getProductsByCategory(categoryId: number): any{
+        let products: any=[];
+        for(let product in this.products){
+            if(this.products[product].categoryId===categoryId){
+                products.push(this.products[product]);
+            }
+        } 
+        return products;
+    }
 }
