@@ -12,7 +12,7 @@ import { HomePage } from '../home/home';
   templateUrl: 'products.html',
 })
 export class ProductsPage {
-
+  public soundClic: boolean = false;
   products: Array<{ id: number, title: string, image: string }> = [];
   numberOfProducts: number;
 
@@ -24,7 +24,15 @@ export class ProductsPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductsPage');
   } 
-  
+  changeSoundClicToFalse(){
+    this.soundClic = false;
+  }
+  changeSoundClicToTrue(){
+    this.soundClic = true;
+  }
+  getSoundClic(){
+    return this.soundClic;
+  }
   deleteListOfProducts() {
     FakeListProducts.deleteAllProducts();
     this.products = FakeListProducts.getProducts();

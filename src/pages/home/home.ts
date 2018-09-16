@@ -32,7 +32,6 @@ export class HomePage {
     
   }
   pushPageList(){
-    this.playSound();
     this.navCtrl.push(ListaPage);    
   }
 
