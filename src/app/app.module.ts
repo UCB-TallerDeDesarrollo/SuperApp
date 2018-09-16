@@ -13,6 +13,7 @@ import { ProductsPage } from '../pages/products/products';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { LevelCompletePage } from '../pages/level-complete/level-complete';
+import { SmartAudioProvider } from '../providers/smart-audio/smart-audio';
 
 
 
@@ -46,7 +47,8 @@ import { LevelCompletePage } from '../pages/level-complete/level-complete';
     SplashScreen,
     ScreenOrientation,
     DragulaService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    SmartAudioProvider
   ]
 })
 export class AppModule {
