@@ -50,7 +50,7 @@ import { ColorProvider } from '../shared/providers/ColorProvider';
     DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: ProductProvider, useClass: ArrayProductProvider},
-    {provide: ColorProvider, useClass: ArrayColorProvider},
+    {provide: ColorProvider, useClass: ArrayColorProvider}
   ]
 })
 export class AppModule { }

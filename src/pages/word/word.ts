@@ -22,7 +22,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     actualSelectedContainer : any;  // DRAGULAR NEEDED
     recentlyMove   : boolean;       // DRAGULAR NEEDED
     subs : Subscription = new Subscription(); // DRAGULAR NEEDED
-    selectorName : string = 'LETTER-' + Math.random(); // DRAGULAR
+    selectorName : string;
 
     constructor(
         private navController    : NavController,
@@ -32,6 +32,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private colorService     : ColorProvider
     ) {
         this.prepareGame();
+        this.selectorName = 'LETTER-' + Math.random();
         this.recentlyMove = false;
         this.game.buildLetters(this.generateLettersWithColor());
     }

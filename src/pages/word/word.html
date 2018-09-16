@@ -14,8 +14,7 @@
     </ul>
   
     <ul class="item-container item-container--shortest">
-        <div *ngFor="let letter of game.SortedWord" class="{{letter.name}} relative-container objetive-container" dragula="{{selectorName}}">
-        </div>
+        <div *ngFor="let letter of game.SortedWord" class="{{letter.name}} relative-container objetive-container" dragula="{{selectorName}}"></div>
     </ul>
 
         <img src={{game.Product.ImageURL}} class="product">        
