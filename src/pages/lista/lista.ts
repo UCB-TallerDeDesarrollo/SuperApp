@@ -32,9 +32,8 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.quantityproductsString = this.quantityOfProducts.toString();
   }
 
-  ionViewDidEnter() {
-    this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId);
-    this.products = FakeProducts.getProductsByCategory(this.defaultCategoryId);
+  ionViewDidEnter() { 
+    this.products = FakeProducts.getProductsByCategory(this.selectedCategory.id);
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
   }
