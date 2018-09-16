@@ -3,6 +3,7 @@ import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 
 const SIZE_LETTER=45;
+const SIZE_NAVIGATION = 56;
 const LIMIT_RIGTH: number = document.body.clientWidth - SIZE_LETTER;
 const LIMIT_TOP: number = document.body.clientHeight - SIZE_LETTER;
 
@@ -89,9 +90,10 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
         return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
     }
 }
+
 function getTopPositionFixed(posTopActual: number) {
-    if (posTopActual < 56) {
-        posTopActual = 56;
+    if (posTopActual < SIZE_NAVIGATION) {
+        posTopActual = SIZE_NAVIGATION;
     }
     if (posTopActual > LIMIT_TOP) {
         posTopActual = LIMIT_TOP;
