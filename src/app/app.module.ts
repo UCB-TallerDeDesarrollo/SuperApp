@@ -16,7 +16,8 @@ import { LevelCompletePage } from '../pages/level-complete/level-complete';
 import { SmartAudioProvider } from '../providers/smart-audio/smart-audio';
 
 
-
+import { SmartAudio } from '../providers/smart-audio/smart-audio';
+import { NativeAudio } from '@ionic-native/native-audio';
 @NgModule({
   declarations: [
     MyApp,
@@ -46,6 +47,8 @@ import { SmartAudioProvider } from '../providers/smart-audio/smart-audio';
     StatusBar,
     SplashScreen,
     ScreenOrientation,
+    SmartAudio,
+    NativeAudio,
     DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SmartAudioProvider
