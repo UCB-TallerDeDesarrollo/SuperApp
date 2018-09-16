@@ -50,7 +50,7 @@ module.exports = function(config) {
     },
 
     //reporters: config.coverage ? ['kjhtml', 'dots', 'coverage-istanbul'] : ['kjhtml', 'dots'],
-    reporters: config.coverage ? ['kjhtml', 'dots', 'coverage-istanbul'] : (config.singleRun ? ['spec'] : ['kjhtml', 'dots']),
+    reporters: config.coverage ? ['coverage-istanbul'] : (config.singleRun ? ['spec'] : ['kjhtml', 'dots']),
     specReporter: {
       maxLogLines: 5,             // limit number of lines logged per test
       suppressErrorSummary: true, // do not print error summary
@@ -66,7 +66,7 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
-    singleRun: config.singleRun,
+    singleRun: config.singleRun || config.coverage,
     failOnEmptyTestSuite: false
   };
   config.set(_config);
