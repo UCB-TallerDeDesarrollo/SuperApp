@@ -15,7 +15,7 @@ import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { LevelCompletePage } from '../pages/level-complete/level-complete';
 import { ProductProvider } from '../shared/providers/ProductProvider';
 import { ArrayProductProvider } from '../providers/Array/ArrayProductProvider';
-import { ArrayColorProvider } from '../shared/services/ColorService';
+import { ArrayColorProvider } from '../providers/Array/ArrayColorProvider';
 
 @NgModule({
   declarations: [

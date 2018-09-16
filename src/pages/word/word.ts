@@ -5,7 +5,7 @@ import { NavController, ModalController } from 'ionic-angular';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 import { SortWordGame } from '../../shared/models/sortWordGame.model';
-import { ArrayColorProvider } from '../../shared/services/ColorService';
+import { ArrayColorProvider } from '../../providers/Array/ArrayColorProvider';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
 
 @Component({
