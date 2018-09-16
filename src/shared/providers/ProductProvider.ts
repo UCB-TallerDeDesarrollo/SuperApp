@@ -1,4 +1,4 @@
-import { Product } from "../models/product.model";
+import { Product } from "../models/Product.model";
 
 export abstract class ProductProvider {
     abstract getProducts(): Product[];

@@ -1,5 +1,5 @@
 import { ArrayManager } from "../../Managers/ArrayManager";
-import { Product } from "../../shared/models/product.model";
+import { Product } from "../../shared/models/Product.model";
 import { ProductProvider } from "../../shared/providers/ProductProvider";
 
 const path_images = '../../assets/imgs/Products/'

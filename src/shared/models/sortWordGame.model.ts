@@ -1,4 +1,4 @@
-import { Product } from "./product.model";
+import { Product } from "./Product.model";
 import { ArrayManager } from "../../Managers/ArrayManager";
 
 export class SortWordGame {
