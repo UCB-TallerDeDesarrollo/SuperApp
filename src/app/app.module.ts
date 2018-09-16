@@ -16,6 +16,7 @@ import { LevelCompletePage } from '../pages/level-complete/level-complete';
 import { ProductProvider } from '../shared/providers/ProductProvider';
 import { ArrayProductProvider } from '../providers/Array/ArrayProductProvider';
 import { ArrayColorProvider } from '../providers/Array/ArrayColorProvider';
+import { ColorProvider } from '../shared/providers/ColorProvider';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { ArrayColorProvider } from '../providers/Array/ArrayColorProvider';
     DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: ProductProvider, useClass: ArrayProductProvider},
-    ArrayColorProvider
+    {provide: ColorProvider, useClass: ArrayColorProvider},
   ]
 })
 export class AppModule { }
