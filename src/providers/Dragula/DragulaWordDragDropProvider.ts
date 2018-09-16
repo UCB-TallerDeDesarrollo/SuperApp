@@ -51,7 +51,9 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
         this.subs[selectorName].add(this.dragulaService.dragend(selectorName).subscribe(({ name, el }) => {
             if(!this.recentlyMove) {
                 let posLeftActual= parseFloat(this.actualSelectedElement.style.left);
+                let posTopActual=parseFloat(this.actualSelectedElement.style.top);
                 let limitRigth=document.body.clientWidth-45;
+                let limitTop=document.body.clientHeight-23;
                 if (posLeftActual<0)
                 {
                     posLeftActual=0;
@@ -60,8 +62,12 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
                 {
                     posLeftActual=limitRigth;
                 }
+                if (posTopActual<56)
+                {
+                    posTopActual=56;
+                }
                 let posLeft = posLeftActual - parseFloat(this.offset(this.actualSelectedContainer).left) - MARGIN_LEFT;
-                let posTop = parseFloat(this.actualSelectedElement.style.top) - parseFloat(this.offset(this.actualSelectedContainer).top);
+                let posTop = posTopActual - parseFloat(this.offset(this.actualSelectedContainer).top);
                 el.setAttribute('style', `top: ${posTop}px;left: ${posLeft}px;`);
             }
             this.recentlyMove = false;
