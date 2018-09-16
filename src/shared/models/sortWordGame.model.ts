@@ -24,8 +24,8 @@ export class SortWordGame {
     }
 
     public buildLetters(lettersColor: any) : void {
-        let auxilaryLetters: any = [];
         do {
+            let auxilaryLetters: any = [];
             for (let letter of this.ResponseWord) {
                 auxilaryLetters.push({
                     letter: letter,
@@ -34,6 +34,7 @@ export class SortWordGame {
                 });
             }
             this.sortedLetters = auxilaryLetters.map(data => ({letter: data.letter, color: data.color, name: data.name}));
+            this.messyLetters = [];
             while (auxilaryLetters.length > 0) {
                 let data: any = ArrayManager.get_random_element(auxilaryLetters);
                 this.messyLetters.push({
