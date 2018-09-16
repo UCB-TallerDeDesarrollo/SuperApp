@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { ProductsPage } from '../products/products';
@@ -11,7 +11,7 @@ import { DragulaService } from 'ng2-dragula';
   templateUrl: 'lista.html',
   viewProviders: [DragulaService]
 })
-export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
+export class ListaPage implements OnInit, AfterViewInit {
   
   path_images = '../../assets/imgs/Products/';
   actualSelectedElement:any;
@@ -22,6 +22,11 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
     this.products = FakeProducts.getProducts();
+    this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
+    this.quantityproductsString = this.quantityOfProducts.toString();
+  }
+
+  ionViewDidEnter() {
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
   }
@@ -42,10 +47,6 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
       
   }
 
-  ngOnDestroy() {
-    this.dragulaService.destroy("PRODUCT");
-  }
-
   ngAfterViewInit() {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       let product_id = +(el.id.split("-")[1]);
@@ -59,11 +60,10 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   pushProducts(){
-    this.navCtrl.pop();
     this.navCtrl.push(ProductsPage);
   }
 
   goToRoot() {
-    this.navCtrl.popToRoot();
+    this.navCtrl.pop();
   }
 }
