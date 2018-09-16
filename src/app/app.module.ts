@@ -13,10 +13,9 @@ import { ProductsPage } from '../pages/products/products';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { LevelCompletePage } from '../pages/level-complete/level-complete';
-import { SharedModule } from '../shared/shared.module';
 import { ProductProvider } from '../shared/providers/ProductProvider';
 import { ArrayProductProvider } from '../providers/Array/ArrayProductProvider';
-import { ColorService } from '../shared/services/ColorService';
+import { ArrayColorProvider } from '../shared/services/ColorService';
 
 @NgModule({
   declarations: [
@@ -31,8 +30,7 @@ import { ColorService } from '../shared/services/ColorService';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    DragulaModule.forRoot(),
-    SharedModule
+    DragulaModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -51,7 +49,7 @@ import { ColorService } from '../shared/services/ColorService';
     DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: ProductProvider, useClass: ArrayProductProvider},
-    ColorService
+    ArrayColorProvider
   ]
 })
 export class AppModule { }

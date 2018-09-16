@@ -5,7 +5,7 @@ import { NavController, ModalController } from 'ionic-angular';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 import { SortWordGame } from '../../shared/models/sortWordGame.model';
-import { ColorService } from '../../shared/services/ColorService';
+import { ArrayColorProvider } from '../../shared/services/ColorService';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
 
 @Component({
@@ -29,7 +29,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private dragulaService   : DragulaService,
         private modalController  : ModalController,
         private productsProdiver : ProductProvider,
-        private colorService     : ColorService
+        private colorService     : ArrayColorProvider
     ) {
         this.prepareGame();
         this.recentlyMove = false;

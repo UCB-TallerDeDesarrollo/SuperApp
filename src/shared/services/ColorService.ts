@@ -1,6 +1,6 @@
 import { ArrayManager } from '../../Managers/ArrayManager';
 
-export class ColorService {
+export class ArrayColorProvider {
 
     private static COLORS: string[] = [
         '#B73D19',
@@ -24,10 +24,10 @@ export class ColorService {
     ];
 
     public getRandomColor() : string {
-        return ArrayManager.get_random_element(ColorService.COLORS);
+        return ArrayManager.get_random_element(ArrayColorProvider.COLORS);
     }
 
     public getRandomBackgroundColor() : string {
-        return ArrayManager.get_random_element(ColorService.BACKGROUND_COLORS);
+        return ArrayManager.get_random_element(ArrayColorProvider.BACKGROUND_COLORS);
     }
 }
