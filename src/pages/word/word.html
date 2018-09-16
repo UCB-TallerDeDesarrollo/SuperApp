@@ -6,7 +6,7 @@
 
 <ion-content padding class={{backgroundColor}}>
     <ul class="item-container" >
-        <div class="relative-container" *ngFor="let letter of sorted_letters"> 
+        <div class="relative-container" *ngFor="let letter of game.SortedWord"> 
             <div>
                 <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
             </div>

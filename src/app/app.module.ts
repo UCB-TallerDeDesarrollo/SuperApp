@@ -17,6 +17,8 @@ import { ProductProvider } from '../shared/providers/ProductProvider';
 import { ArrayProductProvider } from '../providers/Array/ArrayProductProvider';
 import { ArrayColorProvider } from '../providers/Array/ArrayColorProvider';
 import { ColorProvider } from '../shared/providers/ColorProvider';
+import { WordDragDropProvider } from '../shared/providers/WordDragDropProvider';
+import { DragulaWordDragDropProvider } from '../providers/Dragula/DragulaWordDragDropProvider';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { ColorProvider } from '../shared/providers/ColorProvider';
     DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: ProductProvider, useClass: ArrayProductProvider},
-    {provide: ColorProvider, useClass: ArrayColorProvider}
+    {provide: ColorProvider, useClass: ArrayColorProvider},
+    {provide: WordDragDropProvider, useClass: DragulaWordDragDropProvider, deps: [DragulaService]}
   ]
 })
 export class AppModule { }

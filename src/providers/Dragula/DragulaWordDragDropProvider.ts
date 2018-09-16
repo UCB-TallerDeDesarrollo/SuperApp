@@ -4,8 +4,7 @@ import { Subscription } from 'rxjs';
 
 export class DragulaWordDragDropProvider implements WordDragDropProvider {
 
-    private subs: Subscription = new Subscription();
-    private selectorName: string;
+    private subs: {[key: string]: Subscription} = {};
     private actualSelectedElement   : any;
     private actualSelectedContainer : any;
     private recentlyMove   : boolean;
@@ -13,8 +12,9 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
     public constructor(private dragulaService: DragulaService) { }
     
     public initialize(selectorName: string): void {
-        this.selectorName = selectorName;
-        this.dragulaService.createGroup(this.selectorName, {
+        this.subs[selectorName] = new Subscription();
+        this.recentlyMove = false;
+        this.dragulaService.createGroup(selectorName, {
             revertOnSpill: true,
             moves: (el, container, handle) => {
                 return !(container.children.length > 0 && container.children[0].classList.contains('no-move'));
@@ -34,20 +34,21 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
         });
     }
 
-    public startEvents(dropCallBack: any): void {
+    public startEvents(selectorName: string, wordPage: any): void {
         const MARGIN_LEFT : number = 4;
-        this.subs.add(this.dragulaService.drag(this.selectorName).subscribe(({ name, el, source }) => {
+
+        this.subs[selectorName].add(this.dragulaService.drag(selectorName).subscribe(({ name, el, source }) => {
             this.actualSelectedContainer = source;
         }));
 
-        this.subs.add(this.dragulaService.drop(this.selectorName).subscribe(({ el, target, source, sibling }) => {
+        this.subs[selectorName].add(this.dragulaService.drop(selectorName).subscribe(({ el, target, source, sibling }) => {
             el.setAttribute('style', `top: 0px;left: 0px;border: initial;background-color: initial;`);
             el.classList.add('no-move');
             this.recentlyMove = true;
-            dropCallBack();
+            wordPage.showEndView();
         }));
 
-        this.subs.add(this.dragulaService.dragend(this.selectorName).subscribe(({ name, el }) => {
+        this.subs[selectorName].add(this.dragulaService.dragend(selectorName).subscribe(({ name, el }) => {
             if(!this.recentlyMove) {
                 let posLeft = parseFloat(this.actualSelectedElement.style.left) - parseFloat(this.offset(this.actualSelectedContainer).left) - MARGIN_LEFT;
                 let posTop = parseFloat(this.actualSelectedElement.style.top) - parseFloat(this.offset(this.actualSelectedContainer).top);
@@ -56,14 +57,15 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
             this.recentlyMove = false;
         }));
 
-        this.subs.add(this.dragulaService.cloned(this.selectorName).subscribe(({ clone, original, cloneType }) => {
+        this.subs[selectorName].add(this.dragulaService.cloned(selectorName).subscribe(({ clone, original, cloneType }) => {
             this.actualSelectedElement = clone;
         }));
     }
 
-    public finalize(): void {
-        this.subs.unsubscribe();
-        this.dragulaService.destroy(this.selectorName);
+    public finalize(selectorName: string): void {
+        this.subs[selectorName].unsubscribe();
+        this.subs[selectorName] = undefined;
+        this.dragulaService.destroy(selectorName);
     }
 
     private offset(el) {
