@@ -5,6 +5,7 @@ import { ProductsPage } from '../products/products';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
+import { Categories } from '../../providers/FakeService/Categories';
 
 @Component({
   selector: 'page-lista',
@@ -32,6 +33,8 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   ionViewDidEnter() {
+    this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId);
+    this.products = FakeProducts.getProductsByCategory(this.defaultCategoryId);
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
   }
@@ -60,7 +63,9 @@ export class ListaPage implements OnInit, AfterViewInit {
       this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
       this.quantityproductsString = this.quantityOfProducts.toString();
       el.remove();
-      FakeProducts.removeProduct(this.products.indexOf(product));
+      console.log("producto removido: "+product.title);
+      FakeProducts.removeProduct(product);
+      console.log(FakeProducts.getProducts());
     });
   }
 
