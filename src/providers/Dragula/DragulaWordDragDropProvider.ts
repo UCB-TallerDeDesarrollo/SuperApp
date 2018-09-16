@@ -2,6 +2,10 @@ import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvide
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 
+const SIZE_LETTER=45;
+const LIMIT_RIGTH: number = document.body.clientWidth - SIZE_LETTER;
+const LIMIT_TOP: number = document.body.clientHeight - SIZE_LETTER;
+
 export class DragulaWordDragDropProvider implements WordDragDropProvider {
 
     private subs: {[key: string]: Subscription} = {};
@@ -50,26 +54,7 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
 
         this.subs[selectorName].add(this.dragulaService.dragend(selectorName).subscribe(({ name, el }) => {
             if(!this.recentlyMove) {
-                let posLeftActual= parseFloat(this.actualSelectedElement.style.left);
-                let posTopActual=parseFloat(this.actualSelectedElement.style.top);
-                let limitRigth=document.body.clientWidth-45;
-                let limitTop=document.body.clientHeight-45;
-                if (posLeftActual<0)
-                {
-                    posLeftActual=0;
-                }
-                if (posLeftActual>limitRigth)
-                {
-                    posLeftActual=limitRigth;
-                }
-                if (posTopActual<56)
-                {
-                    posTopActual=56;
-                }
-                if (posTopActual>limitTop)
-                {
-                    posTopActual=limitTop;
-                }
+                let { posLeftActual, posTopActual } = this.getFixedPosition();
                 let posLeft = posLeftActual - parseFloat(this.offset(this.actualSelectedContainer).left) - MARGIN_LEFT;
                 let posTop = posTopActual - parseFloat(this.offset(this.actualSelectedContainer).top);
                 el.setAttribute('style', `top: ${posTop}px;left: ${posLeft}px;`);
@@ -80,6 +65,15 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
         this.subs[selectorName].add(this.dragulaService.cloned(selectorName).subscribe(({ clone, original, cloneType }) => {
             this.actualSelectedElement = clone;
         }));
+    }
+
+    private getFixedPosition() {
+
+        let posLeftActual = parseFloat(this.actualSelectedElement.style.left);
+        let posTopActual = parseFloat(this.actualSelectedElement.style.top);
+        posLeftActual = getLeftPositionFixed(posLeftActual);
+        posTopActual = getTopPositionFixed(posTopActual);
+        return { posLeftActual, posTopActual };
     }
 
     public finalize(selectorName: string): void {
@@ -95,3 +89,23 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
         return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
     }
 }
+function getTopPositionFixed(posTopActual: number) {
+    if (posTopActual < 56) {
+        posTopActual = 56;
+    }
+    if (posTopActual > LIMIT_TOP) {
+        posTopActual = LIMIT_TOP;
+    }
+    return posTopActual;
+}
+
+function getLeftPositionFixed(posLeftActual: number) {
+    if (posLeftActual < 0) {
+        posLeftActual = 0;
+    }
+    if (posLeftActual > LIMIT_RIGTH) {
+        posLeftActual = LIMIT_RIGTH;
+    }
+    return posLeftActual;
+}
+
