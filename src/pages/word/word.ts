@@ -13,9 +13,9 @@ import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvide
 })
 export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
-    private game            : SortWordGame;
-    private backgroundColor : string;
-    private selectorName    : string;
+    public game            : SortWordGame;
+    public backgroundColor : string;
+    public selectorName    : string;
 
     constructor(
         private navController    : NavController,
