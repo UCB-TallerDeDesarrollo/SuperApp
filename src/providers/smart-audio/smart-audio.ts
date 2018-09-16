@@ -52,11 +52,12 @@ export class SmartAudio {
         if(audio.type === 'html5'){
  
             let audioAsset = new Audio(audio.asset);
+            audioAsset.loop = true;
             audioAsset.play();
  
         } else {
  
-            this.nativeAudio.play(audio.asset).then((res) => {
+            this.nativeAudio.loop(audio.asset).then((res) => {
                 console.log(res);
             }, (err) => {
                 console.log(err);
@@ -65,5 +66,26 @@ export class SmartAudio {
         }
  
     }
+    stop(key){
  
+        let audio = this.sounds.find((sound) => {
+            return sound.key === key;
+        });
+ 
+        if(audio.type === 'html5'){
+ 
+            let audioAsset = new Audio(audio.asset);
+            audioAsset.currentTime=0;   
+            audioAsset.pause();
+        } else {
+ 
+            this.nativeAudio.stop(audio.asset).then((res) => {
+                console.log(res);
+            }, (err) => {
+                console.log(err);
+            });
+ 
+        }
+ 
+    }
 }
