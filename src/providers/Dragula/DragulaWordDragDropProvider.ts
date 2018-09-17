@@ -1,11 +1,14 @@
 import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvider';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
+import { Platform } from 'ionic-angular';
 
-const SIZE_LETTER=45;
+const SIZE_LETTER_WIDTH=45;
+const SIZE_LETTER_HEIGHT=45;
 const SIZE_NAVIGATION = 56;
-const LIMIT_RIGTH: number = document.body.clientWidth - SIZE_LETTER;
-const LIMIT_TOP: number = document.body.clientHeight - SIZE_LETTER;
+const LIMIT_RIGTH: number = document.body.clientWidth - SIZE_LETTER_WIDTH;
+const LIMIT_TOP: number = document.body.clientHeight - SIZE_LETTER_HEIGHT;
+
 
 export class DragulaWordDragDropProvider implements WordDragDropProvider {
 
@@ -13,8 +16,9 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
     private actualSelectedElement   : any;
     private actualSelectedContainer : any;
     private recentlyMove   : boolean;
+    public constructor(private dragulaService: DragulaService, private platform: Platform) {
 
-    public constructor(private dragulaService: DragulaService) { }
+     }
     
     public initialize(selectorName: string): void {
         this.subs[selectorName] = new Subscription();
@@ -72,8 +76,8 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
 
         let posLeftActual = parseFloat(this.actualSelectedElement.style.left);
         let posTopActual = parseFloat(this.actualSelectedElement.style.top);
-        posLeftActual = getLeftPositionFixed(posLeftActual);
-        posTopActual = getTopPositionFixed(posTopActual);
+        posLeftActual = this.getLeftPositionFixed(posLeftActual);
+        posTopActual = this.getTopPositionFixed(posTopActual);
         return { posLeftActual, posTopActual };
     }
 
@@ -89,25 +93,26 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
         scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
     }
+    private getTopPositionFixed(posTopActual: number) {
+        if (posTopActual < SIZE_NAVIGATION) {
+            posTopActual = SIZE_NAVIGATION;
+        }
+        if (posTopActual > LIMIT_TOP) {
+            posTopActual = LIMIT_TOP;
+        }
+        return posTopActual;
+    }
+    
+    private getLeftPositionFixed(posLeftActual: number) {
+        if (posLeftActual < 0) {
+            posLeftActual = 0;
+        }
+        if (posLeftActual > LIMIT_RIGTH) {
+            posLeftActual = LIMIT_RIGTH;
+        }
+        return posLeftActual;
+    }
+    
 }
 
-function getTopPositionFixed(posTopActual: number) {
-    if (posTopActual < SIZE_NAVIGATION) {
-        posTopActual = SIZE_NAVIGATION;
-    }
-    if (posTopActual > LIMIT_TOP) {
-        posTopActual = LIMIT_TOP;
-    }
-    return posTopActual;
-}
-
-function getLeftPositionFixed(posLeftActual: number) {
-    if (posLeftActual < 0) {
-        posLeftActual = 0;
-    }
-    if (posLeftActual > LIMIT_RIGTH) {
-        posLeftActual = LIMIT_RIGTH;
-    }
-    return posLeftActual;
-}
 

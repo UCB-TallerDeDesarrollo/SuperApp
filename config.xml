@@ -23,7 +23,6 @@
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="SplashMaintainAspectRatio" value="true" />
-    <preference name="Fullscreen" value="true" />
     <preference name="Orientation" value="landscape" />
     <platform name="android">
         <allow-intent href="market:*" />

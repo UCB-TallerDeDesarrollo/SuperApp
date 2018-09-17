@@ -1,7 +1,7 @@
 import { LoadingPage } from './../loading/loading';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, Platform } from 'ionic-angular';
 import { SortWordGame } from '../../shared/models/sortWordGame.model';
 import { ColorProvider } from '../../shared/providers/ColorProvider';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
@@ -22,9 +22,11 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private modalController  : ModalController,
         private productsProdiver : ProductProvider,
         private colorService     : ColorProvider,
-        private dragDropProvider : WordDragDropProvider
+        private dragDropProvider : WordDragDropProvider,
+        
     ) {
         this.prepareGame();
+     
     }
 
     private generateLettersWithColor() {
