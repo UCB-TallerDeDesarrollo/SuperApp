@@ -23,8 +23,10 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
     public initialize(selectorName: string): void {
         this.subs[selectorName] = new Subscription();
         this.recentlyMove = false;
-        this.dragulaService.createGroup(selectorName, {
+        this.dragulaService.createGroup(selectorName, { 
             revertOnSpill: true,
+            ignoreInputTextSelection: false,
+            direction: 'mixed',
             moves: (el, container, handle) => {
                 return !(container.children.length > 0 && container.children[0].classList.contains('no-move'));
             },
