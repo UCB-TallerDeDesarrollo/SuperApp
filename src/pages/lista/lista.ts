@@ -35,7 +35,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.dragulaService.createGroup("PRODUCT", {
       revertOnSpill: false,
       moves: (element, container, handle) => {
-        return !(container.id==='ignore-item');
+        return (container.id !=='ignore-item');
       },
       accepts: (element, target, source, sibling) => {
         if(!target.classList.contains('objetive-container')) {
