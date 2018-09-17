@@ -6,6 +6,7 @@ import { SortWordGame } from '../../shared/models/sortWordGame.model';
 import { ColorProvider } from '../../shared/providers/ColorProvider';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
 import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvider';
+import { AudioProvider } from '../../shared/providers/AudioProvider';
 
 @Component({
     selector: 'page-word',
@@ -22,7 +23,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private modalController  : ModalController,
         private productsProdiver : ProductProvider,
         private colorService     : ColorProvider,
-        private dragDropProvider : WordDragDropProvider
+        private dragDropProvider : WordDragDropProvider,
+        private audioProvider    : AudioProvider
     ) {
         this.prepareGame();
     }
@@ -46,6 +48,9 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.game.addCount();
         if(this.game.isGameOver()) {
             this.showModalWin();
+        }
+        else {
+            this.audioProvider.playCorrectLetterSound();
         }
     }
 

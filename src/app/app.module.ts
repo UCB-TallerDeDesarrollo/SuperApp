@@ -19,6 +19,9 @@ import { ArrayColorProvider } from '../providers/Array/ArrayColorProvider';
 import { ColorProvider } from '../shared/providers/ColorProvider';
 import { WordDragDropProvider } from '../shared/providers/WordDragDropProvider';
 import { DragulaWordDragDropProvider } from '../providers/Dragula/DragulaWordDragDropProvider';
+import { NativeAudio } from '@ionic-native/native-audio';
+import { AudioProvider } from '../shared/providers/AudioProvider';
+import { NativeAudioProvider } from '../providers/Native/NativeAudioProvider';
 
 @NgModule({
   declarations: [
@@ -50,10 +53,12 @@ import { DragulaWordDragDropProvider } from '../providers/Dragula/DragulaWordDra
     SplashScreen,
     ScreenOrientation,
     DragulaService,
+    NativeAudio,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: ProductProvider, useClass: ArrayProductProvider},
     {provide: ColorProvider, useClass: ArrayColorProvider},
-    {provide: WordDragDropProvider, useClass: DragulaWordDragDropProvider, deps: [DragulaService]}
+    {provide: WordDragDropProvider, useClass: DragulaWordDragDropProvider, deps: [DragulaService]},
+    {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio]}
   ]
 })
 export class AppModule { }
