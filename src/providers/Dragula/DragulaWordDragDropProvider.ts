@@ -6,9 +6,11 @@ import { Platform } from 'ionic-angular';
 const SIZE_LETTER_WIDTH=45;
 const SIZE_LETTER_HEIGHT=45;
 const SIZE_NAVIGATION = 56;
-const LIMIT_RIGTH: number = document.body.clientWidth - SIZE_LETTER_WIDTH;
-const LIMIT_TOP: number = document.body.clientHeight - SIZE_LETTER_HEIGHT;
 
+const SIZE_LETTER_HEIGHT_ANDROID=21;
+
+const LIMIT_RIGTH: number = document.body.clientWidth - SIZE_LETTER_WIDTH;
+const LIMIT_TOP: number = document.body.clientHeight - SIZE_LETTER_HEIGHT_ANDROID;
 
 export class DragulaWordDragDropProvider implements WordDragDropProvider {
 
@@ -16,6 +18,7 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
     private actualSelectedElement   : any;
     private actualSelectedContainer : any;
     private recentlyMove   : boolean;
+    private :Position;
     public constructor(private dragulaService: DragulaService, private platform: Platform) {
 
      }
