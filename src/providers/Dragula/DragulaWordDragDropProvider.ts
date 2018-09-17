@@ -2,12 +2,14 @@ import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvide
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 import { Platform } from 'ionic-angular';
+import { Coordinate } from './Coordinate';
 
 const SIZE_LETTER_WIDTH=45;
+const SIZE_LETTER_HEIGHT_ANDROID=21;
 const SIZE_LETTER_HEIGHT=45;
 const SIZE_NAVIGATION = 56;
 
-const SIZE_LETTER_HEIGHT_ANDROID=21;
+
 
 const LIMIT_RIGTH: number = document.body.clientWidth - SIZE_LETTER_WIDTH;
 const LIMIT_TOP: number = document.body.clientHeight - SIZE_LETTER_HEIGHT_ANDROID;
@@ -18,9 +20,9 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
     private actualSelectedElement   : any;
     private actualSelectedContainer : any;
     private recentlyMove   : boolean;
-    private :Position;
+    private size_of_screen:Coordinate;
     public constructor(private dragulaService: DragulaService, private platform: Platform) {
-
+        this.size_of_screen=new Coordinate(platform.width(), platform.height());
      }
     
     public initialize(selectorName: string): void {

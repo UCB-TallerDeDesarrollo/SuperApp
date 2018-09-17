@@ -1,3 +1,5 @@
+import { platform } from 'os';
+import { Platform } from 'ionic-angular';
 export class Coordinate{
     axis_x:number;
     axis_y:number;
