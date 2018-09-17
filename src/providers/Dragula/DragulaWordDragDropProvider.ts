@@ -3,16 +3,8 @@ import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 import { Platform } from 'ionic-angular';
 import { Coordinate } from './Coordinate';
+import { Limits } from './Limits';
 
-const SIZE_LETTER_WIDTH=45;
-const SIZE_LETTER_HEIGHT_ANDROID=21;
-const SIZE_LETTER_HEIGHT=45;
-const SIZE_NAVIGATION = 56;
-
-
-
-const LIMIT_RIGTH: number = document.body.clientWidth - SIZE_LETTER_WIDTH;
-const LIMIT_TOP: number = document.body.clientHeight - SIZE_LETTER_HEIGHT_ANDROID;
 
 export class DragulaWordDragDropProvider implements WordDragDropProvider {
 
@@ -20,9 +12,9 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
     private actualSelectedElement   : any;
     private actualSelectedContainer : any;
     private recentlyMove   : boolean;
-    private size_of_screen:Coordinate;
+    private limits:Limits;
     public constructor(private dragulaService: DragulaService, private platform: Platform) {
-        this.size_of_screen=new Coordinate(platform.width(), platform.height());
+        this.limits=new Limits(platform);
      }
     
     public initialize(selectorName: string): void {
@@ -83,8 +75,9 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
 
         let posLeftActual = parseFloat(this.actualSelectedElement.style.left);
         let posTopActual = parseFloat(this.actualSelectedElement.style.top);
-        posLeftActual = this.getLeftPositionFixed(posLeftActual);
-        posTopActual = this.getTopPositionFixed(posTopActual);
+        let position:Coordinate=this.limits.getAxisFixed(posTopActual, posLeftActual);
+        posLeftActual = position.axis_x;
+        posTopActual = position.axis_y;
         return { posLeftActual, posTopActual };
     }
 
@@ -100,25 +93,7 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
         scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
     }
-    private getTopPositionFixed(posTopActual: number) {
-        if (posTopActual < SIZE_NAVIGATION) {
-            posTopActual = SIZE_NAVIGATION;
-        }
-        if (posTopActual > LIMIT_TOP) {
-            posTopActual = LIMIT_TOP;
-        }
-        return posTopActual;
-    }
-    
-    private getLeftPositionFixed(posLeftActual: number) {
-        if (posLeftActual < 0) {
-            posLeftActual = 0;
-        }
-        if (posLeftActual > LIMIT_RIGTH) {
-            posLeftActual = LIMIT_RIGTH;
-        }
-        return posLeftActual;
-    }
+
     
 }
 

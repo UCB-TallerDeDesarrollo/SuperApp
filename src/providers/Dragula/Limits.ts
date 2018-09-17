@@ -3,8 +3,9 @@ import { Platform } from 'ionic-angular';
 
 const SIZE_LETTER_WIDTH=45;
 const SIZE_LETTER_HEIGHT_ANDROID=21;
-const SIZE_LETTER_HEIGHT_OTHER=45;
+const SIZE_LETTER_HEIGHT_OTHER=SIZE_LETTER_HEIGHT_ANDROID+3;
 const SIZE_LETTER_HEIGHT_IOS=21;
+const SIZE_NAVIGATION = 56;
 
 export class Limits{
     sizes:Coordinate;
@@ -23,10 +24,37 @@ export class Limits{
         if (platform.is("ios")) {
             y -= SIZE_LETTER_HEIGHT_IOS;
         }
-        else {
+        if (platform.is("mobileweb")) {
             y -= SIZE_LETTER_HEIGHT_OTHER;
         }
         x -= SIZE_LETTER_WIDTH;
         this.sizes = new Coordinate(x, y);
+    }
+
+    public getAxisFixed(topPosition:number, leftPosition:number)
+    {
+        let axis:Coordinate;
+        axis=new Coordinate(this.getLeftPositionFixed(leftPosition), this.getTopPositionFixed(topPosition));
+        return axis;
+    }
+
+    private getTopPositionFixed(posTopActual: number) {
+        if (posTopActual < SIZE_NAVIGATION) {
+            posTopActual = SIZE_NAVIGATION;
+        }
+        if (posTopActual > this.sizes.axis_y) {
+            posTopActual = this.sizes.axis_y;
+        }
+        return posTopActual;
+    }
+
+    private getLeftPositionFixed(posLeftActual: number) {
+        if (posLeftActual < 0) {
+            posLeftActual = 0;
+        }
+        if (posLeftActual > this.sizes.axis_x) {
+            posLeftActual = this.sizes.axis_x;
+        }
+        return posLeftActual;
     }
 }
