@@ -1,11 +1,14 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>NIVEL</ion-title>
+        <div class="level-header">
+                <h1 class="change-level" (click)="changeLevel()">NIVEL 30</h1>
+        </div>
+            
     </ion-navbar>
 </ion-header>
 
 <ion-content padding class={{backgroundColor}}>
-    <a (click)="changeLevel()">Cambiar nivel</a>
+    
     <ul class="item-container" >
         <div class="relative-container" *ngFor="let letter of game.SortedWord"> 
             <div>
