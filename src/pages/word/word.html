@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content padding class={{backgroundColor}}>
+    <a (click)="changeLevel()">Cambiar nivel</a>
     <ul class="item-container" >
         <div class="relative-container" *ngFor="let letter of game.SortedWord"> 
             <div>
@@ -17,7 +18,12 @@
         <div *ngFor="let letter of game.SortedWord" class="{{letter.name}} relative-container objetive-container" dragula="{{selectorName}}"></div>
     </ul>
 
-        <img src={{game.Product.ImageURL}} class="product">        
+        <img src={{game.Product.ImageURL}} class="product"> 
+        
+        
+
+      
+      
 </ion-content>
 
 <ion-footer style="text-align: center">

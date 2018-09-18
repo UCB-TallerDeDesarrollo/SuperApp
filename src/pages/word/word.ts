@@ -1,3 +1,4 @@
+import { SelectLevelPage } from './../select-level/select-level';
 import { LoadingPage } from './../loading/loading';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
@@ -70,5 +71,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.dragDropProvider.finalize(this.selectorName);
+    }
+
+    public changeLevel(){
+        const changeLevel=this.modalController.create(SelectLevelPage);
+        changeLevel.present();
     }
 }
