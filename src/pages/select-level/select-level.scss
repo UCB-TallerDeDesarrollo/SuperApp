@@ -1,21 +1,58 @@
 .modal-back{
     width:100%;
     height:100%;
-    position:fixed;
+    position:absolute;
     background:rgba(56, 56, 56, 0.8);
     transition:all 500ms ease;
 }
 .modal-level-complete {
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-image: linear-gradient( 135deg, #3C8CE7 10%, #00EAFF 100%);
   border-radius: 8%;
-  width: 30%;
-  height: 30%;
-  
+  width: 50%;
+  height: 50%;
 }
+.modal-level-message
+{
+  position: absolute;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-level-message h2{
+  color: white;  
+  text-align: center;
+  font-size: 6vw;
+}
+.modal-level{
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  height: 100%;
+}
+.modal-level h2{
+  color: white;  
+  text-align: center;
+  font-size: 6vw;
+}
+.modal-level-button-play{
+  position: absolute;
+  text-align: center;
+  background-color:rgb(89, 202, 89);
+  border-radius: 10%;
+  border:2px solid white;
+  color: white;
+  width: 50%;
+  height: 25%;
+  left: 25%;
+  bottom:2%;
+  font-size: 100%;
+}
+
 
 
 
