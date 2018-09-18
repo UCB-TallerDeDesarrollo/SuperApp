@@ -19,6 +19,7 @@ import { ArrayColorProvider } from '../providers/Array/ArrayColorProvider';
 import { ColorProvider } from '../shared/providers/ColorProvider';
 import { WordDragDropProvider } from '../shared/providers/WordDragDropProvider';
 import { DragulaWordDragDropProvider } from '../providers/Dragula/DragulaWordDragDropProvider';
+import { SelectLevelPage } from '../pages/select-level/select-level';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DragulaWordDragDropProvider } from '../providers/Dragula/DragulaWordDra
     WordPage,
     ProductsPage, 
     LevelCompletePage,
-    LoadingPage
+    LoadingPage,
+    SelectLevelPage
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,8 @@ import { DragulaWordDragDropProvider } from '../providers/Dragula/DragulaWordDra
     WordPage,
     ProductsPage, 
     LevelCompletePage,
-    LoadingPage
+    LoadingPage,
+    SelectLevelPage
   ],
   providers: [
     StatusBar,
