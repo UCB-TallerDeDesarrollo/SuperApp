@@ -136,13 +136,63 @@
         padding: 2px;
 
         .product-card-title {
-            font-size: 1.2em;
+            font-size: 1.5em;
             text-align: center;
+
+            @media screen and (max-width: 1367px) and (min-width: 1360px) {
+                font-size: 3.6em;
+                padding-top: 5px;
+            }
+
+            @media screen and (max-width: 1025px) and (min-width: 1000px) {
+                font-size: 2.6em;
+                padding-top: 5px;
+            }
+
+            @media screen and (max-width: 668px) {
+                font-size: 1.4em;
+            }
+            
+            @media screen and (max-width: 640px) {
+                font-size: 1.3em;
+            }
+
+            @media screen and (max-width: 569px) {
+                font-size: 1em;
+            }
+
         }
 
         .product-card-info {
             font-size: 1.5em;
             text-align: center;
+
+            
+            @media screen and (max-width: 1367px) and (min-width: 1360px) {
+                font-size: 4.6em;
+                padding-top: 5px;
+            }
+
+            @media screen and (max-width: 1025px) and (min-width: 1000px) {
+                font-size: 3em;
+                padding-top: 5px;
+            }
+
+            @media screen and (max-width: 824px) {
+                font-size: 2em;
+            }
+
+            @media screen and (max-width: 668px) {
+                font-size: 1.6em;
+            }
+            
+            @media screen and (max-width: 640px) {
+                font-size: 1.6em;
+            }
+
+            @media screen and (max-width: 569px) {
+                font-size: 1.3em;
+            }
         }
 
         .button-product-card {
@@ -150,9 +200,53 @@
             color: white;
             padding: 5px;
             border-radius: 8px;
-            border: solid black 1px;
             margin: auto;
             display: inherit;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+            &:active {
+                background-color: #488aff;
+                box-shadow: none;
+            }
+
+            @media screen and (max-width: 1367px) and (min-width: 1360px) {
+                padding: 20px;
+                margin: auto;
+                font-size: 2em;
+            }
+
+            @media screen and (max-width: 1025px) and (min-width: 1000px) {
+                padding: 13px;
+                margin: auto;
+                font-size: 2em;
+            }
+
+            @media screen and (max-width: 824px) {
+                font-size: 1.2em;
+            }
+
+            @media screen and (max-width: 813px) {
+                font-size: 1em;
+            }
+
+            @media screen and (max-width: 737px) {
+                font-size: 1.3em;
+            }
+
+            @media screen and (max-width: 668px) {
+                padding: 8px;
+                font-size: 1em;
+            }
+            
+            @media screen and (max-width: 640px) {
+                padding: 5px;
+                font-size: 1.2em;
+            }
+
+            @media screen and (max-width: 569px) {
+                padding: 6px;
+                font-size: 1em;
+            }
         }
     }
 
