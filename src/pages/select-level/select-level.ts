@@ -14,12 +14,13 @@ export class SelectLevelPage {
     this.level=this.navParams.get("level");
     this.lastNav=this.navParams.get("lastNav");
     this.actualLevel=this.level;
+    this.navCtrl=this.lastNav;
   }
   goToLevel()
   {
-    this.navCtrl.push(LoadingPage, {level:this.level});
     this.viewCtrl.dismiss();
-    this.lastNav.pop();
+    this.navCtrl.push(LoadingPage, {lastNav:this.navCtrl});
+    this.navCtrl.remove(this.navCtrl.length()-1);
   }
   ionViewDidLoad() {
     
