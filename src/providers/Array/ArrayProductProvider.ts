@@ -5,6 +5,7 @@ import { ProductProvider } from "../../shared/providers/ProductProvider";
 const path_images = '../../assets/imgs/Products/'
 
 export class ArrayProductProvider implements ProductProvider {
+   
     
     static products: Product[] = [
         Product.createProduct(1, 'ARROZ', path_images+'arroz.jpg',1),
@@ -22,5 +23,8 @@ export class ArrayProductProvider implements ProductProvider {
     ];
     public getProductOfLevel(level:number):Product{
         return ArrayProductProvider.products.find((x)=>x.Level==level);
+    }
+    public getQuantityOfProducts(): number {
+        return ArrayProductProvider.products.length;
     }
 }
