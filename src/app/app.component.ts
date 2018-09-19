@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { createConnection } from 'typeorm';
 
 import { HomePage } from '../pages/home/home';
-import { createConnection } from 'typeorm';
+
 import { Product } from '../entities/product';
 import { Category } from '../entities/category';
 
@@ -45,7 +46,6 @@ export class MyApp {
           ]
         });
       }
-
     });
   }
 
@@ -54,6 +54,6 @@ export class MyApp {
       setTimeout(() => {
         splashScreen.hide();
       }, 100);
-     }
     }
+  }
 }
