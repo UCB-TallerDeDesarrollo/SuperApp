@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { WordPage } from './../word/word';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -22,4 +23,11 @@ export class MenuGamesPage {
     console.log('ionViewDidLoad MenuGamesPage');
   }
 
+  pushPageWord(){
+    this.navCtrl.push(WordPage);
+  }
+
+  popPage(){
+    this.navCtrl.pop();
+  }
 }
