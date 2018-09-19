@@ -15,6 +15,7 @@ import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { LevelCompletePage } from '../pages/level-complete/level-complete';
 import { ProductProvider } from '../providers/product/product';
 import { CreateProductPage } from '../pages/create-product/create-product';
+import { CategoryProvider } from '../providers/category/category';
 
 
 
@@ -51,7 +52,8 @@ import { CreateProductPage } from '../pages/create-product/create-product';
     ScreenOrientation,
     DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ProductProvider
+    ProductProvider,
+    CategoryProvider
   ]
 })
 export class AppModule {

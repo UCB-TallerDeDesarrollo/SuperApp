@@ -24,15 +24,16 @@ export class ProductProvider {
 
   async getProducts() {
     let products = await this.productRepository.createQueryBuilder('product')
-                                                .orderBy('product.id', 'DESC')
+                                                .orderBy('product.id', 'ASC')
                                                 .getMany();
     return products;
   }
 
-  /*async getProductsByCategory(category: Category) {
-    let products = await this.productRepository.createQueryBuilder('product')
-                                                .innerJoinAndSelect('product.category', 'category')
-                                                .where("product.category = :categoy")
-  }*/
-
+  async setStatusProduct(state_: boolean, product_id: number){
+    await this.productRepository.createQueryBuilder()
+                                  .update('product')
+                                  .set({ state: state_ })
+                                  .where("id = :id", {id: product_id})
+                                  .execute();
+  } 
 }
