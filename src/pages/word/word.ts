@@ -60,7 +60,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     public showModalWin(): void {
         let nextLevel:number=this.level+1;
-        const levelCompleteModal = this.modalController.create(LevelCompletePage, {level: this.level, lastNav:this.navController});
+        const levelCompleteModal = this.modalController.create(LevelCompletePage, {level: nextLevel, lastNav:this.navController});
         levelCompleteModal.present();
     }
 
