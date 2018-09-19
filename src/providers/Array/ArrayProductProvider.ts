@@ -20,18 +20,6 @@ export class ArrayProductProvider implements ProductProvider {
         Product.createProduct(11, 'CEREAL', path_images+'cereal.jpg',11),
         Product.createProduct(12, 'COCA', path_images+'coca.jpg',12)
     ];
-
-    public getProducts(): Product[] {
-        return ArrayProductProvider.products;
-    }
-
-    public getProductById(id: number): Product {
-        return ArrayProductProvider.products[id];
-    }
-
-    public getRandomProduct(): Product {
-        return ArrayManager.get_random_element(ArrayProductProvider.products);
-    }
     public getProductOfLevel(level:number):Product{
         return ArrayProductProvider.products.find((x)=>x.Level==level);
     }
