@@ -10,7 +10,7 @@ import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 })
 export class ProductsPage {
 
-  products: Array<{ id: number, title: string, image: string }> = [];
+  products: Array<{ id: number, title: string, image: string, categoryId: number }> = [];
   numberOfProducts: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController) {
@@ -32,6 +32,7 @@ export class ProductsPage {
         {
           text: 'Si',
           handler: () => {
+            console.log(FakeProducts.getProducts());
             FakeProducts.addManyProducts(this.products)
             this.deleteListOfProducts();
           }

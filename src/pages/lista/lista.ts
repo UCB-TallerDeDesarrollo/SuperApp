@@ -5,6 +5,7 @@ import { ProductsPage } from '../products/products';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
+import { Categories } from '../../providers/FakeService/Categories';
 
 @Component({
   selector: 'page-lista',
@@ -14,21 +15,27 @@ import { DragulaService } from 'ng2-dragula';
 export class ListaPage implements OnInit, AfterViewInit {
   
   path_images = '../../assets/imgs/Products/';
+  defaultCategoryId:number = 1;
   actualSelectedElement:any;
   actualSelectedContainer:any;
-  products: Array<{id: number, title: string, image: string}> = [];
+  products: Array<{id: number, title: string, image: string, categoryId: number}> = [];
+  categories: Array<{id: number, name: string}>=[];
+  selectedCategory: {id: number, name: string};
   quantityproductsString:string;
   quantityOfProducts: number;
 
   constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
-    this.products = FakeProducts.getProducts();
+    this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
+    this.categories=Categories.getCategories();
+    this.products = FakeProducts.getProductsByCategory(this.defaultCategoryId);
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter() { 
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
+    this.products = FakeProducts.getProductsByCategory(this.selectedCategory.id);
   }
 
   ngOnInit() {
@@ -55,7 +62,9 @@ export class ListaPage implements OnInit, AfterViewInit {
       this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
       this.quantityproductsString = this.quantityOfProducts.toString();
       el.remove();
-      FakeProducts.removeProduct(this.products.indexOf(product));
+      console.log("producto removido: "+product.title);
+      FakeProducts.removeProduct(product);
+      console.log(FakeProducts.getProducts());
     });
   }
 
@@ -65,5 +74,11 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   goToRoot() {
     this.navCtrl.pop();
+  }
+
+  
+  onSelectCategory(category){ 
+    this.selectedCategory=category; 
+    this.products=FakeProducts.getProductsByCategory(category.id)
   }
 }
