@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { getRepository, Repository } from 'typeorm';
+import { Category } from '../../entities/category';
 
 /*
   Generated class for the CategoryProvider provider.
@@ -10,8 +12,21 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CategoryProvider {
 
-  constructor(public http: HttpClient) {
+  categoryRepository: any;
+
+  constructor() {
+    this.categoryRepository = getRepository('category') as Repository<Category>;
     console.log('Hello CategoryProvider Provider');
   }
 
+  async saveCategory(category: Category) {
+    await this.categoryRepository.save(category);
+  }
+
+  async getCategories() {
+    let categories = this.categoryRepository.createQueryBuilder('category')
+                                            .orderBy('category.id', 'ASC')
+                                            .getMany();
+    return categories;
+  }
 }

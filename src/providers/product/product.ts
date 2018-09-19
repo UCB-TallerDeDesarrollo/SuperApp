@@ -29,7 +29,7 @@ export class ProductProvider {
     return products;
   }
 
-  async setStatusProduct(state_: boolean, product_id: number){
+  async updateStateProduct(state_: boolean, product_id: number){
     await this.productRepository.createQueryBuilder()
                                   .update('product')
                                   .set({ state: state_ })
