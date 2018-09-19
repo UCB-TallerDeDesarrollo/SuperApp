@@ -1,11 +1,30 @@
-import { ArrayManager } from "../../Managers/ArrayManager";
 import { Product } from "../../shared/models/Product.model";
 import { ProductProvider } from "../../shared/providers/ProductProvider";
 
 const path_images = '../../assets/imgs/Products/'
 
 export class ArrayProductProvider implements ProductProvider {
-   
+    public setLevel(level:number): void {
+        if (level == undefined) {
+                this.Continue();
+        }
+        else{
+            this.level=level;
+        }
+        
+    }
+    private level:number;
+    constructor()
+    {
+        this.level=1;
+    }
+    public nextLevel(): void {
+        let maxLevel=this.getQuantityOfProducts()-1;
+        (this.level>maxLevel)?this.level==maxLevel:this.level++;      
+    }
+    public getActualLevel(): number {
+        return this.level;
+    }
     
     static products: Product[] = [
         Product.createProduct(1, 'ARROZ', path_images+'arroz.jpg',1),
@@ -21,10 +40,14 @@ export class ArrayProductProvider implements ProductProvider {
         Product.createProduct(11, 'CEREAL', path_images+'cereal.jpg',11),
         Product.createProduct(12, 'COCA', path_images+'coca.jpg',12)
     ];
-    public getProductOfLevel(level:number):Product{
-        return ArrayProductProvider.products.find((x)=>x.Level==level);
+    public getProductOfActualLevel():Product{
+        return ArrayProductProvider.products.find((x)=>x.Level==this.level);
     }
     public getQuantityOfProducts(): number {
         return ArrayProductProvider.products.length;
+    }
+    private Continue()
+    {
+        return this.level=1;
     }
 }

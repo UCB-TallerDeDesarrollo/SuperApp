@@ -1,5 +1,4 @@
 import { SelectLevelPage } from './../select-level/select-level';
-import { LoadingPage } from './../loading/loading';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NavController, ModalController, Platform, NavParams } from 'ionic-angular';
@@ -18,7 +17,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public backgroundColor : string;
     public selectorName    : string;
     public level           : number;
-    public maxLevel        : number;
+
     constructor(
         public navController     : NavController,
         private modalController  : ModalController,
@@ -42,7 +41,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     private prepareGame(): void {
         this.prepareLevel();
-        this.game = new SortWordGame(this.productsProdiver.getProductOfLevel(this.level));
+        this.game = new SortWordGame(this.productsProdiver.getProductOfActualLevel());
         this.selectorName = 'LETTER-' + Math.random();
         this.backgroundColor = this.colorService.getRandomBackgroundColor();
         this.game.buildLetters(this.generateLettersWithColor());
@@ -51,11 +50,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private prepareLevel() {
-        this.level = this.navParams.get("level");
-        if (this.level == undefined) {
-            this.level = 1;
-        }
-        this.maxLevel = this.productsProdiver.getQuantityOfProducts();;
+        this.productsProdiver.setLevel(this.navParams.get("level"));
+        this.level = this.productsProdiver.getActualLevel();
     }
 
     public showEndView(): void {
@@ -66,8 +62,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public showModalWin(): void {
-        let nextLevel:number=this.level+1;
-        const levelCompleteModal = this.modalController.create(LevelCompletePage, {level: nextLevel, lastNav:this.navController});
+        this.productsProdiver.nextLevel();
+        const levelCompleteModal = this.modalController.create(LevelCompletePage, {level: this.productsProdiver.getActualLevel(), lastNav:this.navController});
         levelCompleteModal.present();
     }
 
@@ -84,7 +80,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public changeLevel(){
-        const changeLevel=this.modalController.create(SelectLevelPage, {level: this.level, lastNav: this.navController, maxLevel: this.maxLevel});
+        const changeLevel=this.modalController.create(SelectLevelPage, {level: this.level, lastNav: this.navController, maxLevel: this.productsProdiver.getQuantityOfProducts()});
         changeLevel.present();
     }
 }
