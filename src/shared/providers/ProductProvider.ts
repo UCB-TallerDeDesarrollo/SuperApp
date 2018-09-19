@@ -4,4 +4,5 @@ export abstract class ProductProvider {
     abstract getProducts(): Product[];
     abstract getProductById(id: number): Product;
     abstract getRandomProduct(): Product;
+    abstract getProductOfLevel(level:number):Product;
 }

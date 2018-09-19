@@ -41,16 +41,19 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private prepareGame(): void {
-        this.game = new SortWordGame(this.productsProdiver.getRandomProduct());
-        this.selectorName = 'LETTER-' + Math.random();
-        this.backgroundColor = this.colorService.getRandomBackgroundColor();
-        this.game.buildLetters(this.generateLettersWithColor());
         this.level=this.navParams.get("level");
         if(this.level==undefined)
         {
             this.level=1;
         }
+        
         this.maxLevel=10;
+        this.game = new SortWordGame(this.productsProdiver.getProductOfLevel(this.level));
+        this.selectorName = 'LETTER-' + Math.random();
+        this.backgroundColor = this.colorService.getRandomBackgroundColor();
+        this.game.buildLetters(this.generateLettersWithColor());
+        
+      
     }
 
     public showEndView(): void {
