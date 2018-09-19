@@ -62,10 +62,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public showModalWin(): void {
-        this.level++;
+        let nextLevel:number=this.level++;
         const levelCompleteModal = this.modalController.create(LevelCompletePage);
         levelCompleteModal.onDidDismiss(data => {
-            this.navController.push(LoadingPage, {data: this.level}, { animate: false });
+            this.navController.push(LoadingPage, {level: nextLevel}, { animate: false });
             this.navController.remove(this.navController.length() - 1);
         });
         levelCompleteModal.present();
@@ -84,7 +84,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public changeLevel(){
-        const changeLevel=this.modalController.create(SelectLevelPage, {level: this.level});
+        const changeLevel=this.modalController.create(SelectLevelPage, {level: this.level, lastNav: this.navController});
+        
         changeLevel.present();
     }
 }

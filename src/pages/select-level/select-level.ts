@@ -8,13 +8,16 @@ import { IonicPage, NavController, NavParams, ModalController, ViewController } 
 })
 export class SelectLevelPage {
   public level:number;
+  private lastNav:NavController;
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController) {
     this.level=this.navParams.get("level");
+    this.lastNav=this.navParams.get("lastNav");
   }
   goToLevel()
   {
-    this.viewCtrl.dismiss();
     this.navCtrl.push(LoadingPage, this.level);
+    this.viewCtrl.dismiss();
+    this.lastNav.pop();
   }
   ionViewDidLoad() {
     
