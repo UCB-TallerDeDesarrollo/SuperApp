@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListaPage } from '../pages/lista/lista';
 import { WordPage } from '../pages/word/word';
+import { MenuGamesPage } from '../pages/menu-games/menu-games';
 import { ProductsPage } from '../pages/products/products';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
@@ -28,6 +29,7 @@ import { SelectLevelPage } from '../pages/select-level/select-level';
   declarations: [
     MyApp,
     HomePage,
+    MenuGamesPage,
     ListaPage,
     WordPage,
     ProductsPage, 
@@ -44,6 +46,7 @@ import { SelectLevelPage } from '../pages/select-level/select-level';
   entryComponents: [
     MyApp,
     HomePage,
+    MenuGamesPage,
     ListaPage,
     WordPage,
     ProductsPage, 
