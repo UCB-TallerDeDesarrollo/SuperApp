@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { getRepository, Repository } from 'typeorm';
 import { Level } from '../../entities/level';
@@ -22,5 +21,4 @@ export class LevelProvider {
   async saveLevel(level: Level) {
     await this.levelRepository.save(level);
   }
-
 }

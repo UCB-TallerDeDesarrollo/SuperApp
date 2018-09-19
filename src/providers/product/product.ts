@@ -36,4 +36,11 @@ export class ProductProvider {
                                   .where("id = :id", {id: product_id})
                                   .execute();
   } 
+  
+  async countProducts() {
+    let count = await this.productRepository.createQueryBuilder('product')
+                                                .orderBy('product.id', 'ASC')
+                                                .getCount();
+    return count;
+  }
 }

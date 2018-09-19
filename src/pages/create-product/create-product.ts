@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Product } from '../../entities/product';
 import { ProductProvider } from '../../providers/product/product';
-import { getRepository, Repository } from 'typeorm';
 /**
  * Generated class for the CreateProductPage page.
  *
@@ -39,13 +38,16 @@ export class CreateProductPage {
     product.image = "Imagen Arroz";
     product.state = true;
     product.title = "Arroz";
-    
+
     console.log("PRODUCT-> " + JSON.stringify(product));
    
     await this.productProvider.saveProduct(product);
-
+    
+    const count = await this.productProvider.countProducts();
+    console.log("COUNT-> " + count);
+/*
     let p = await this.productProvider.getProducts();
-    console.log("OBJECTS GET-> " + JSON.stringify(p));
+    console.log("OBJECTS GET-> " + JSON.stringify(p));*/
   }
 
   ionViewDidLoad() {

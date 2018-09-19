@@ -11,6 +11,6 @@ export class Level {
     name: string;
 
     @ManyToMany(type => Product)
-    @JoinTable()
+    @JoinTable({ name: "product_level" })
     products: Product[];
 }
