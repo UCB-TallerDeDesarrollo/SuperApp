@@ -26,6 +26,6 @@ export class LoadingPage {
   }
   init()
   {
-    this.navCtrl.push(WordPage, this.level);
+    this.navCtrl.push(WordPage, {level: this.level});
     this.navCtrl.remove(this.navCtrl.length()-1);}
 }

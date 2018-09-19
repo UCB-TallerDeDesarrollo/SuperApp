@@ -15,7 +15,7 @@ export class SelectLevelPage {
   }
   goToLevel()
   {
-    this.navCtrl.push(LoadingPage, this.level);
+    this.navCtrl.push(LoadingPage, {level:this.level});
     this.viewCtrl.dismiss();
     this.lastNav.pop();
   }

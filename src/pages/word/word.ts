@@ -47,11 +47,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.level=this.navParams.get("level");
         if(this.level==undefined)
         {
-            this.level=0;
+            this.level=1;
         }
-        
-        
-
     }
 
     public showEndView(): void {
@@ -62,7 +59,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public showModalWin(): void {
-        let nextLevel:number=this.level++;
+        let nextLevel:number=this.level+1;
         const levelCompleteModal = this.modalController.create(LevelCompletePage);
         levelCompleteModal.onDidDismiss(data => {
             this.navController.push(LoadingPage, {level: nextLevel}, { animate: false });
