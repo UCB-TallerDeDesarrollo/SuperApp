@@ -16,6 +16,7 @@ import { LevelCompletePage } from '../pages/level-complete/level-complete';
 import { ProductProvider } from '../providers/product/product';
 import { CreateProductPage } from '../pages/create-product/create-product';
 import { CategoryProvider } from '../providers/category/category';
+import { LevelProvider } from '../providers/level/level';
 
 
 
@@ -53,7 +54,8 @@ import { CategoryProvider } from '../providers/category/category';
     DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProductProvider,
-    CategoryProvider
+    CategoryProvider,
+    LevelProvider
   ]
 })
 export class AppModule {
