@@ -1,5 +1,10 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar hideBackButton>
+            <ion-buttons left >
+                    <button ion-button icon-only (click)="navController.pop()">
+                        <ion-icon name="arrow-back"></ion-icon>
+                    </button>
+                </ion-buttons>
         <div class="level-header">
                 <h1 class="change-level" (click)="changeLevel()">NIVEL {{level}}</h1>
         </div>

@@ -20,7 +20,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public level           : number;
     public maxLevel        : number;
     constructor(
-        private navController    : NavController,
+        public navController     : NavController,
         private modalController  : ModalController,
         private productsProdiver : ProductProvider,
         private colorService     : ColorProvider,
