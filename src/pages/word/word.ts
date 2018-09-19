@@ -1,7 +1,7 @@
-import { LoadingPage } from './../loading/loading';
+import { SelectLevelPage } from './../select-level/select-level';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController, ModalController, Platform } from 'ionic-angular';
+import { NavController, ModalController, Platform, NavParams } from 'ionic-angular';
 import { SortWordGame } from '../../shared/models/sortWordGame.model';
 import { ColorProvider } from '../../shared/providers/ColorProvider';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
@@ -17,16 +17,20 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public game            : SortWordGame;
     public backgroundColor : string;
     public selectorName    : string;
+    public level           : number;
 
     constructor(
-        private navController    : NavController,
+        public navController     : NavController,
         private modalController  : ModalController,
         private productsProdiver : ProductProvider,
         private colorService     : ColorProvider,
         private dragDropProvider : WordDragDropProvider,
-        private audioProvider    : AudioProvider
+        private audioProvider    : AudioProvider,
+        private navParams        : NavParams
     ) {
         this.prepareGame();
+       
+        
     }
 
     private generateLettersWithColor() {
@@ -38,10 +42,18 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private prepareGame(): void {
-        this.game = new SortWordGame(this.productsProdiver.getRandomProduct());
+        this.prepareLevel();
+        this.game = new SortWordGame(this.productsProdiver.getProductOfActualLevel());
         this.selectorName = 'LETTER-' + Math.random();
         this.backgroundColor = this.colorService.getRandomBackgroundColor();
         this.game.buildLetters(this.generateLettersWithColor());
+        
+      
+    }
+
+    private prepareLevel() {
+        this.productsProdiver.setLevel(this.navParams.get("level"));
+        this.level = this.productsProdiver.getActualLevel();
     }
 
     public showEndView(): void {
@@ -55,11 +67,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public showModalWin(): void {
-        const levelCompleteModal = this.modalController.create(LevelCompletePage);
-        levelCompleteModal.onDidDismiss(data => {
-            this.navController.push(LoadingPage, null, { animate: false });
-            this.navController.remove(this.navController.length() - 1);
-        });
+        this.productsProdiver.nextLevel();
+        const levelCompleteModal = this.modalController.create(LevelCompletePage, {level: this.productsProdiver.getActualLevel(), lastNav:this.navController});
         levelCompleteModal.present();
     }
 
@@ -73,5 +82,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.dragDropProvider.finalize(this.selectorName);
+    }
+
+    public changeLevel(){
+        const changeLevel=this.modalController.create(SelectLevelPage, {level: this.level, lastNav: this.navController, maxLevel: this.productsProdiver.getQuantityOfProducts()});
+        changeLevel.present();
     }
 }

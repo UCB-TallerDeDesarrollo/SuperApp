@@ -23,6 +23,7 @@ import { DragulaWordDragDropProvider } from '../providers/Dragula/DragulaWordDra
 import { NativeAudio } from '@ionic-native/native-audio';
 import { AudioProvider } from '../shared/providers/AudioProvider';
 import { NativeAudioProvider } from '../providers/Native/NativeAudioProvider';
+import { SelectLevelPage } from '../pages/select-level/select-level';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NativeAudioProvider } from '../providers/Native/NativeAudioProvider';
     WordPage,
     ProductsPage, 
     LevelCompletePage,
-    LoadingPage
+    LoadingPage,
+    SelectLevelPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { NativeAudioProvider } from '../providers/Native/NativeAudioProvider';
     WordPage,
     ProductsPage, 
     LevelCompletePage,
-    LoadingPage
+    LoadingPage,
+    SelectLevelPage
   ],
   providers: [
     StatusBar,
