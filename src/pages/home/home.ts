@@ -4,6 +4,7 @@ import { NavController } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 import { ListaPage } from '../lista/lista';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { MenuGamesPage } from './../menu-games/menu-games';
 
 @Component({
   selector: 'page-home',
@@ -30,6 +31,10 @@ export class HomePage {
 
   pushPageWord(){
     this.navCtrl.push(WordPage);
+  }
+
+  pushPageMenuGames(){
+    this.navCtrl.push(MenuGamesPage);
   }
 
 }

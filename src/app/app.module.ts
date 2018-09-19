@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListaPage } from '../pages/lista/lista';
 import { WordPage } from '../pages/word/word';
+import { MenuGamesPage } from '../pages/menu-games/menu-games';
 import { ProductsPage } from '../pages/products/products';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
@@ -27,6 +28,7 @@ import { NativeAudioProvider } from '../providers/Native/NativeAudioProvider';
   declarations: [
     MyApp,
     HomePage,
+    MenuGamesPage,
     ListaPage,
     WordPage,
     ProductsPage, 
@@ -42,6 +44,7 @@ import { NativeAudioProvider } from '../providers/Native/NativeAudioProvider';
   entryComponents: [
     MyApp,
     HomePage,
+    MenuGamesPage,
     ListaPage,
     WordPage,
     ProductsPage, 
