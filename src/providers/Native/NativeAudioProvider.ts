@@ -11,7 +11,7 @@ export class NativeAudioProvider implements AudioProvider {
         }
         else {
             this.correctLetterSound = new Audio('../../assets/sounds/correctLetterSound.mp3');
-            this.correctLetterSound.volume = 0.2;
+            this.correctLetterSound.volume = 0.8;
         }
     }
 
@@ -21,6 +21,15 @@ export class NativeAudioProvider implements AudioProvider {
         }
         else {
             this.correctLetterSound.play();
+        }
+    }
+
+    public playWinGameSound(): void {
+        if(this.isRealDevice()) {
+            
+        }
+        else {
+            
         }
     }
 

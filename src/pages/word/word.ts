@@ -1,7 +1,7 @@
 import { LoadingPage } from './../loading/loading';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, Platform } from 'ionic-angular';
 import { SortWordGame } from '../../shared/models/sortWordGame.model';
 import { ColorProvider } from '../../shared/providers/ColorProvider';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
@@ -14,9 +14,9 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 })
 export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
-    private game            : SortWordGame;
-    private backgroundColor : string;
-    private selectorName    : string;
+    public game            : SortWordGame;
+    public backgroundColor : string;
+    public selectorName    : string;
 
     constructor(
         private navController    : NavController,
