@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 
 import { Product } from '../entities/product';
 import { Category } from '../entities/category';
+import { Level } from '../entities/level';
 
 @Component({
   templateUrl: 'app.html'
@@ -30,7 +31,8 @@ export class MyApp {
           synchronize: true,
           entities: [
             Category,
-            Product
+            Product,
+            Level
           ]
         }); 
       } else {
@@ -42,7 +44,8 @@ export class MyApp {
           synchronize: true,
           entities: [
             Category,
-            Product
+            Product,
+            Level
           ]
         });
       }

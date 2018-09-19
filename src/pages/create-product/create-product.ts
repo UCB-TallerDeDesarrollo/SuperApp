@@ -33,8 +33,6 @@ export class CreateProductPage {
   }
 
   async demo() {
-    
-    const prodRepository = getRepository('product') as Repository<Product>;
 
     let product = new Product();
 
@@ -43,20 +41,11 @@ export class CreateProductPage {
     product.title = "Arroz";
     
     console.log("PRODUCT-> " + JSON.stringify(product));
-    
-    /*await prodRepository.save(product);
-
-    const products = await prodRepository.createQueryBuilder('product')
-                                        .orderBy('product.id', 'DESC')
-                                        .getMany();
-
-    console.log("PRODUCTS-> " + JSON.stringify(products));
-    */
    
-      await this.productProvider.saveProduct(product);
+    await this.productProvider.saveProduct(product);
 
-      let p = await this.productProvider.getProducts();
-      console.log("OBJECTS GET-> " + JSON.stringify(p));
+    let p = await this.productProvider.getProducts();
+    console.log("OBJECTS GET-> " + JSON.stringify(p));
   }
 
   ionViewDidLoad() {

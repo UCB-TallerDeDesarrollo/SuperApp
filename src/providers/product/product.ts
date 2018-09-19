@@ -24,7 +24,6 @@ export class ProductProvider {
 
   async getProducts() {
     let products = await this.productRepository.createQueryBuilder('product')
-                                                //.innerJoinAndSelect('product.category', 'category')
                                                 .orderBy('product.id', 'DESC')
                                                 .getMany();
     return products;
