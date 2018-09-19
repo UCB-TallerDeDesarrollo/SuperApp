@@ -6,7 +6,7 @@
             </button>
         </ion-buttons>
         <div class="level-header">
-                <h1 class="change-level">NIVEL {{level}}</h1>
+                <h1 class="change-level">NIVEL {{actualLevel}}</h1>
         </div>
             
     </ion-navbar>
@@ -25,11 +25,11 @@
   </div>
   <div>
   <div class="previus">
-      <img src="/assets/imgs/prevlevel.png">
+      <img src="/assets/imgs/prevlevel.png" (click)="previus()">
   </div>
 
   <div class="next">
-      <img src="/assets/imgs/nextlevel.png">
+      <img src="/assets/imgs/nextlevel.png" (click)="next()">
   </div>
 </div>
   <button class="modal-level-button-play" (click)="goToLevel()">JUGAR</button>
