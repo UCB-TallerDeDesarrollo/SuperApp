@@ -5,37 +5,31 @@
                 <ion-icon class="customIcon" name="arrow-back"></ion-icon>
             </button>
         </ion-buttons>
-        <ion-title>Menu Principal</ion-title>
+        <ion-title>Carrito de compras</ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content padding class="main-list">
-  <ion-row>
-    <ion-col col-8>
-      <ion-title class="main-title">Almacen</ion-title>
-      <ion-grid>
-        <ion-row justify-content-center>
-          <ion-col *ngFor="let product of products" col-3 class="{{product.title}}" dragula="PRODUCT">
-            <div id="product-{{product.id}}">
-              <img class="product-store" src="{{product.image}}" />
-              <ion-label style="height:2%;" class="product-name">{{product.title}}</ion-label>
+
+<ion-content no-bounce padding class="main-list">
+    <h2 class="main-title">{{selectedCategory.name}}</h2>
+    <ion-list class="stand-products">
+        <ion-row>
+            <div class="product-block" *ngFor="let product of products" id="{{product.title}}" dragula="PRODUCT">
+                <div id="product-{{product.id}}" class="product-info">
+                    <img class="product-store" src="{{product.image}}" />
+                    <p class="product-name">{{product.title}}</p>
+                </div>
             </div>
-          </ion-col>
         </ion-row>
-      </ion-grid>
-    </ion-col>
-    <ion-col col-3 id="ignore-item" class="relative-container objetive-container" dragula="PRODUCT">
-      <div>
-        <ion-img src="../../assets/imgs/carrito.png" class="shopping-cart"></ion-img>
-        <button ion-button color="dark" (click)="pushProducts()">Ver Productos</button>
-      </div>
-      <div>
-        <button ion-button color="dark" (click)="pushProduct()">Crear Productos</button>
-      </div>
-      <ion-card>
-        <ion-card-content>
-          <h1 class="number">{{quantityproductsString}}</h1>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>  
+        <ion-row>
+            <ion-col *ngFor="let category of categories" col-3>
+                <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+    <div id="ignore-item" class="objetive-container" dragula="PRODUCT"></div>
+    <div class="products-card">
+        <p class="product-card-title">Productos en el carrito</p>
+        <p class="product-card-info">{{quantityproductsString}}</p>
+        <button class="button-product-card" (click)="pushProducts()">Ver Productos</button>
+    </div>
 </ion-content>
