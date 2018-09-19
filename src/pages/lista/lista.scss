@@ -8,6 +8,10 @@
         font-size: 2em;
         font-weight: bold;
         text-align: center;
+
+        @media screen and (min-width: 1023px) and (max-width: 1367px) {
+            font-size: 3em;
+        }
     }
 
     .stand-products {
