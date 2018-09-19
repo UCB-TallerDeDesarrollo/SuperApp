@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Category } from './category';
 
 @Entity('product')
 export class Product {
@@ -14,4 +15,7 @@ export class Product {
 
     @Column()
     state: boolean;
+
+    @ManyToOne(type => Category, category => category.products, { cascade: ['insert'] })
+    category: Category;
 }
