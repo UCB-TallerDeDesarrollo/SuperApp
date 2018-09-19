@@ -35,7 +35,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.dragulaService.createGroup("PRODUCT", {
       revertOnSpill: false,
       moves: (element, container, handle) => {
-        return !(container.id==='ignore-item');
+        return (container.id !=='ignore-item');
       },
       accepts: (element, target, source, sibling) => {
         if(!target.classList.contains('objetive-container')) {
@@ -49,7 +49,7 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
-      let product_id = +(el.id.split("-")[1]);
+      let product_id = + (el.id.split("-")[1]);
       let product = FakeProducts.getProductById(product_id);
       FakeListProducts.addProduct(product);
       this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
