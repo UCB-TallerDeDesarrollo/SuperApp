@@ -14,8 +14,9 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'loading.html',
 })
 export class LoadingPage {
-
+  public level:number;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.level=navParams.get("level");
   }
 
   ionViewDidEnter(){
@@ -25,6 +26,6 @@ export class LoadingPage {
   }
   init()
   {
-    this.navCtrl.push(WordPage);
+    this.navCtrl.push(WordPage, this.level);
     this.navCtrl.remove(this.navCtrl.length()-1);}
 }

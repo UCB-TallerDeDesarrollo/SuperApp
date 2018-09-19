@@ -2,7 +2,7 @@ import { SelectLevelPage } from './../select-level/select-level';
 import { LoadingPage } from './../loading/loading';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController, ModalController, Platform } from 'ionic-angular';
+import { NavController, ModalController, Platform, NavParams } from 'ionic-angular';
 import { SortWordGame } from '../../shared/models/sortWordGame.model';
 import { ColorProvider } from '../../shared/providers/ColorProvider';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
@@ -17,17 +17,18 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public game            : SortWordGame;
     public backgroundColor : string;
     public selectorName    : string;
-
+    public level           : number;
     constructor(
         private navController    : NavController,
         private modalController  : ModalController,
         private productsProdiver : ProductProvider,
         private colorService     : ColorProvider,
         private dragDropProvider : WordDragDropProvider,
+        private navParams        : NavParams
         
     ) {
         this.prepareGame();
-     
+        
     }
 
     private generateLettersWithColor() {
@@ -43,6 +44,14 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.selectorName = 'LETTER-' + Math.random();
         this.backgroundColor = this.colorService.getRandomBackgroundColor();
         this.game.buildLetters(this.generateLettersWithColor());
+        this.level=this.navParams.get("level");
+        if(this.level==undefined)
+        {
+            this.level=0;
+        }
+        
+        
+
     }
 
     public showEndView(): void {
@@ -53,9 +62,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public showModalWin(): void {
+        this.level++;
         const levelCompleteModal = this.modalController.create(LevelCompletePage);
         levelCompleteModal.onDidDismiss(data => {
-            this.navController.push(LoadingPage, null, { animate: false });
+            this.navController.push(LoadingPage, {data: this.level}, { animate: false });
             this.navController.remove(this.navController.length() - 1);
         });
         levelCompleteModal.present();
@@ -74,7 +84,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public changeLevel(){
-        const changeLevel=this.modalController.create(SelectLevelPage);
+        const changeLevel=this.modalController.create(SelectLevelPage, {level: this.level});
         changeLevel.present();
     }
 }
