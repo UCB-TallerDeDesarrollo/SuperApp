@@ -19,7 +19,7 @@ export class SelectLevelPage {
   goToLevel()
   {
     this.viewCtrl.dismiss();
-    this.navCtrl.push(LoadingPage, {lastNav:this.navCtrl});
+    this.navCtrl.push(LoadingPage, {lastNav:this.navCtrl, level:this.level});
     this.navCtrl.remove(this.navCtrl.length()-1);
   }
   ionViewDidLoad() {
