@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../../entities/product';
 import { getRepository, Repository } from 'typeorm';
@@ -14,7 +13,7 @@ export class ProductProvider {
 
   productRepository: any;
 
-  constructor(public http: HttpClient) {
+  constructor() {
     this.productRepository = getRepository('product') as Repository<Product>;
     console.log('Hello ProductProvider Provider');
   }
