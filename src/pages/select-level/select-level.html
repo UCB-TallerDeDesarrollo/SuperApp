@@ -28,7 +28,7 @@
       <img src="/assets/imgs/prevlevel.png" (click)="previus()">
   </div>
 
-  <div class="next">
+  <div class="next" *ngIf="level<maxLevel">
       <img src="/assets/imgs/nextlevel.png" (click)="next()">
   </div>
 </div>

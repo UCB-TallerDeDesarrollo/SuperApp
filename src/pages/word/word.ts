@@ -18,6 +18,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public backgroundColor : string;
     public selectorName    : string;
     public level           : number;
+    public maxLevel        : number;
     constructor(
         private navController    : NavController,
         private modalController  : ModalController,
@@ -49,6 +50,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         {
             this.level=1;
         }
+        this.maxLevel=10;
     }
 
     public showEndView(): void {
@@ -77,7 +79,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public changeLevel(){
-        const changeLevel=this.modalController.create(SelectLevelPage, {level: this.level, lastNav: this.navController});   
+        const changeLevel=this.modalController.create(SelectLevelPage, {level: this.level, lastNav: this.navController, maxLevel: this.maxLevel});
         changeLevel.present();
     }
 }

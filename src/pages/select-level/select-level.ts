@@ -10,9 +10,11 @@ export class SelectLevelPage {
   public level:number;
   public actualLevel:number;
   private lastNav:NavController;
+  public maxLevel: number;
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController) {
     this.level=this.navParams.get("level");
     this.lastNav=this.navParams.get("lastNav");
+    this.maxLevel=this.navParams.get("maxLevel");
     this.actualLevel=this.level;
     this.navCtrl=this.lastNav;
   }
