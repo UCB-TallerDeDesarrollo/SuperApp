@@ -20,12 +20,27 @@ export class ArrayProductProvider implements ProductProvider {
         this.level=1;
     }
     public nextLevel(): void {
-        let maxLevel=this.getQuantityOfProducts()-1;
-        (this.level>maxLevel)?this.level==maxLevel:this.level++;      
+        this.level++;
     }
     public getActualLevel(): number {
         return this.level;
     }
+    
+    public getProductOfActualLevel():Product{
+        if (this.level>60)
+        {
+         return ArrayManager.get_random_element(ArrayProductProvider.products);   
+        }
+        return ArrayProductProvider.products.find((x)=>x.Level==this.level);
+    }
+    public getQuantityOfProducts(): number {
+        return ArrayProductProvider.products.length;
+    }
+    private Continue()
+    {
+        return this.level=1;
+    }
+
     
     static products: Product[] = [
         Product.createProduct(1, 'AJO', path_images+'ajo.jpg',1),
@@ -89,19 +104,4 @@ export class ArrayProductProvider implements ProductProvider {
         Product.createProduct(59, 'MANZANA', path_images+'manzana.jpg',59),
         Product.createProduct(60, 'ZAPALLO', path_images+'zapallo.jpg',60),
     ];
-    public getProductOfActualLevel():Product{
-        if (this.level>60)
-        {
-         return ArrayManager.get_random_element(ArrayProductProvider.products);   
-        }
-        return ArrayProductProvider.products.find((x)=>x.Level==this.level);
-    }
-    public getQuantityOfProducts(): number {
-        //return ArrayProductProvider.products.length;
-        return 60;
-    }
-    private Continue()
-    {
-        return this.level=1;
-    }
 }
