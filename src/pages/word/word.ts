@@ -84,8 +84,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public changeLevel(){
-        const changeLevel=this.modalController.create(SelectLevelPage, {level: this.level, lastNav: this.navController});
-        
+        const changeLevel=this.modalController.create(SelectLevelPage, {level: this.level, lastNav: this.navController});   
         changeLevel.present();
     }
 }
