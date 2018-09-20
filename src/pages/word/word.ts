@@ -2,7 +2,7 @@ import { SelectLevelPage } from './../select-level/select-level';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NavController, ModalController, NavParams } from 'ionic-angular';
-import { SortWordGame } from '../../shared/models/sortWordGame.model';
+import { SortWordGame } from '../../shared/models/SortWordGame.model';
 import { ColorProvider } from '../../shared/providers/ColorProvider';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
 import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvider';
