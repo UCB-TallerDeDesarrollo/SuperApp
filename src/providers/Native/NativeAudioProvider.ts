@@ -28,10 +28,10 @@ export class NativeAudioProvider implements AudioProvider {
 
     public playWinGameSound(): void {
         if(this.isRealDevice()) {
-            
+            this.nativeAudio.play('levelComplete');
         }
         else {
-            
+            this.levelComplete.play();
         }
     }
 

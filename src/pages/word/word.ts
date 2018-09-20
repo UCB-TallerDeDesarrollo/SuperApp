@@ -1,7 +1,7 @@
 import { SelectLevelPage } from './../select-level/select-level';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController, ModalController, Platform, NavParams } from 'ionic-angular';
+import { NavController, ModalController, NavParams } from 'ionic-angular';
 import { SortWordGame } from '../../shared/models/sortWordGame.model';
 import { ColorProvider } from '../../shared/providers/ColorProvider';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
@@ -29,8 +29,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private navParams        : NavParams
     ) {
         this.prepareGame();
-       
-        
     }
 
     private generateLettersWithColor() {
@@ -47,8 +45,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.selectorName = 'LETTER-' + Math.random();
         this.backgroundColor = this.colorService.getRandomBackgroundColor();
         this.game.buildLetters(this.generateLettersWithColor());
-        
-      
     }
 
     private prepareLevel() {
@@ -59,6 +55,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public showEndView(): void {
         this.game.addCount();
         if(this.game.isGameOver()) {
+            
             this.showModalWin();
         }
         else {
