@@ -31,28 +31,8 @@ export class CreateProductPage {
 
   }
 
-  async demo() {
-
-    let product = new Product();
-
-    product.image = "Imagen Arroz";
-    product.state = true;
-    product.title = "Arroz";
-
-    console.log("PRODUCT-> " + JSON.stringify(product));
-   
-    await this.productProvider.saveProduct(product);
-    
-    const count = await this.productProvider.countProducts();
-    console.log("COUNT-> " + count);
-/*
-    let p = await this.productProvider.getProducts();
-    console.log("OBJECTS GET-> " + JSON.stringify(p));*/
-  }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad CreateProductPage');
-    this.demo();
   }
 
 }

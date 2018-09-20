@@ -23,9 +23,23 @@ export class CategoryProvider {
   }
 
   async getCategories() {
-    let categories = this.categoryRepository.createQueryBuilder('category')
+    let categories = await this.categoryRepository.createQueryBuilder('category')
                                             .orderBy('category.id', 'ASC')
                                             .getMany();
     return categories;
+  }
+
+  async getCategoryById(category_id: number) {
+    let category = await this.categoryRepository.createQueryBuilder('category')
+                                          .where("category.id = :id", {id: category_id})
+                                          .getOne();
+    return category;                                          
+  }
+  
+  async countProducts() {
+    let count = await this.categoryRepository.createQueryBuilder('category')
+                                                .orderBy('category.id', 'ASC')
+                                                .getCount();
+    return count;
   }
 }
