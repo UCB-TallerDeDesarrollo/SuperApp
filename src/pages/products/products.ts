@@ -5,7 +5,7 @@ import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { ListaPage } from '../lista/lista';
 import { DragulaService } from 'ng2-dragula';
 import { HomePage } from '../home/home';
-
+import { SmartAudio } from '../../providers/smart-audio/smart-audio';
 @IonicPage()
 @Component({
   selector: 'page-products',
@@ -16,7 +16,7 @@ export class ProductsPage {
   products: Array<{ id: number, title: string, image: string }> = [];
   numberOfProducts: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private dragulaService: DragulaService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private dragulaService: DragulaService, public smartAudio: SmartAudio) {
     this.products = FakeListProducts.getProducts().reverse();
     this.numberOfProducts = this.products.length;
   }

@@ -7,7 +7,7 @@ import { ColorProvider } from '../../shared/providers/ColorProvider';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
 import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvider';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
-
+import { SmartAudio } from '../../providers/smart-audio/smart-audio';
 @Component({
     selector: 'page-word',
     templateUrl: 'word.html'
@@ -26,7 +26,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private colorService     : ColorProvider,
         private dragDropProvider : WordDragDropProvider,
         private audioProvider    : AudioProvider,
-        private navParams        : NavParams
+        private navParams        : NavParams, 
+        public smartAudio: SmartAudio
     ) {
         this.prepareGame();
        

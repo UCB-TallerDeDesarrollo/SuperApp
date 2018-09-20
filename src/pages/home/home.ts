@@ -23,14 +23,20 @@ export class HomePage {
    }).catch(err=>{
      console.log('Error while loading platform', err);
    });
-    
+   
+  }
+  ionViewDidEnter(){
+    this.smartAudio.play('mainSong');
   }
   playSound() {
     this.smartAudio.play('mainSong');
   }
   stopSound(){
     this.smartAudio.stop('mainSong');
-    
+  }
+  changeState()
+  {
+    this.smartAudio.changeState();
   }
   pushPageList(){
     this.navCtrl.push(ListaPage);    

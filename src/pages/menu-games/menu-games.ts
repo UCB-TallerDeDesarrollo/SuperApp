@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { WordPage } from './../word/word';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { SmartAudio } from '../../providers/smart-audio/smart-audio';
 /**
  * Generated class for the MenuGamesPage page.
  *
@@ -16,7 +16,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MenuGamesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public smartAudio: SmartAudio) {
   }
 
   ionViewDidLoad() {

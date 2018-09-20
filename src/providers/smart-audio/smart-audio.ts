@@ -7,7 +7,7 @@ export class SmartAudio {
  
     audioType: string = 'html5';
     sounds: any = [];
- 
+    public static isMuted:boolean=false;   
     constructor(public nativeAudio: NativeAudio, platform: Platform) {
  
         if(platform.is('cordova')){
@@ -15,7 +15,8 @@ export class SmartAudio {
         }
  
     }
- 
+    
+
     preload(key, asset) {
  
         if(this.audioType === 'html5'){
@@ -44,7 +45,8 @@ export class SmartAudio {
     }
  
     play(key){
- 
+        if (!SmartAudio.isMuted)
+        {
         let audio = this.sounds.find((sound) => {
             return sound.key === key;
         });
@@ -64,7 +66,7 @@ export class SmartAudio {
             });
  
         }
- 
+    }
     }
     stop(key){
  
@@ -87,5 +89,27 @@ export class SmartAudio {
  
         }
  
+    }
+
+    mute()
+    {
+        this.stop("mainSong");
+        SmartAudio.isMuted=true;
+    }
+    unmuted()
+    {
+        this.play("mainSong");
+        SmartAudio.isMuted=false;
+    }
+
+    changeState():void{
+        if (SmartAudio.isMuted)
+        {
+            this.unmuted();
+        }    
+        else
+        {
+            this.mute();
+        }
     }
 }

@@ -5,7 +5,7 @@ import { ProductsPage } from '../products/products';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
-
+import { SmartAudio } from '../../providers/smart-audio/smart-audio';
 @Component({
   selector: 'page-lista',
   templateUrl: 'lista.html',
@@ -20,7 +20,7 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
   quantityproductsString:string;
   quantityOfProducts: number;
 
-  constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
+  constructor(public navCtrl: NavController, private dragulaService: DragulaService,public smartAudio: SmartAudio) {
     this.products = FakeProducts.getProducts();
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
@@ -56,6 +56,13 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
       el.remove();
       FakeProducts.removeProduct(this.products.indexOf(product));
     });
+  }
+  playSound() {
+    this.smartAudio.play('mainSong');
+  }
+  stopSound(){
+    this.smartAudio.stop('mainSong');
+    
   }
 
   pushProducts(){
