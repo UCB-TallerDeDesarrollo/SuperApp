@@ -37,6 +37,11 @@ export class NativeAudioProvider implements AudioProvider {
         }
         
     }
+
+    public isMuted(){
+        return NativeAudioProvider.isMuted;
+    }
+
     public stopMainSound(): void {
         if(this.isRealDevice()) {
             this.nativeAudio.stop('mainSound');

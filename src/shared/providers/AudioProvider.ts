@@ -3,4 +3,5 @@ export abstract class AudioProvider {
     abstract playMainSound(): void;
     abstract stopMainSound(): void;
     abstract changeState():void;
+    abstract isMuted():boolean;
 }

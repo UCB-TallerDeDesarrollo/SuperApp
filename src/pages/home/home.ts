@@ -14,6 +14,8 @@ import { MenuGamesPage } from './../menu-games/menu-games';
 })
 export class HomePage {
 
+  imageSound:String="assets/imgs/soundon.png";
+
   constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider    : AudioProvider, public smartAudio: SmartAudio) {
 
     platform.ready().then(() => {
@@ -32,10 +34,22 @@ export class HomePage {
   playSound() {
     this.audioProvider.playMainSound();
   }
+
   stopSound(){
     //this.audioProvider.stopMainSound();
     this.audioProvider.changeState();
+    this.changeSoundIcon();
   }
+
+  changeSoundIcon(){
+    if(this.audioProvider.isMuted()){
+      this.imageSound="assets/imgs/soundoff.png";
+    }
+    else{
+      this.imageSound="assets/imgs/soundon.png";
+    }
+  }
+
   changeState()
   {
     this.smartAudio.changeState();

@@ -98,9 +98,11 @@ export class SmartAudio {
         this.play("mainSong");
         SmartAudio.isMuted=false;
     }
-
+    isMuted(){
+        return SmartAudio.isMuted;
+    }
     changeState():void{
-        if (SmartAudio.isMuted)
+        if (this.isMuted())
         {
             this.unmuted();
         }    
