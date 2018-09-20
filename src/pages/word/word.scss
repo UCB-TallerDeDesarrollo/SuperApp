@@ -1,21 +1,21 @@
 .color-background-1 {
-    background-color: #D8F781;
+    background-color: rgb(237, 243, 219);
 }
 
 .color-background-2 {
-    background-color: rgb(190, 129, 247);
+    background-color: rgb(236, 229, 243);
 }
 
 .color-background-3 {
-    background-color: rgb(129, 194, 247);
+    background-color: rgb(225, 235, 243);
 }
 
 .color-background-4 {
-    background-color: rgb(247, 129, 168);
+    background-color: rgb(245, 224, 231);
 }
 
 .color-background-5 {
-    background-color: rgb(129, 247, 149);
+    background-color: rgb(225, 245, 228);
 }
 
 .product{
@@ -106,4 +106,12 @@
 /* added to the source element while its mirror is dragged */
 .gu-transit {
     visibility: hidden;
+}
+
+.change-level{
+    color: black;
+    text-align: center;
+}
+.level-header{
+    width: 90%;
 }

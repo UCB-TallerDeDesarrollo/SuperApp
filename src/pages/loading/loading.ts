@@ -14,8 +14,12 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'loading.html',
 })
 export class LoadingPage {
-
+  public level:number;
+  public lastNav:NavController;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.level=navParams.get("level");
+   this.lastNav=navParams.get("lastNav");
+   this.navCtrl=this.lastNav;
   }
 
   ionViewDidEnter(){
@@ -25,6 +29,7 @@ export class LoadingPage {
   }
   init()
   {
-    this.navCtrl.push(WordPage);
-    this.navCtrl.remove(this.navCtrl.length()-1);}
+    this.navCtrl.push(WordPage, {level: this.level});
+    this.navCtrl.remove(this.navCtrl.length()-1);
+  }
 }

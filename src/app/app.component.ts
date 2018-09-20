@@ -15,6 +15,7 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, smartAudio: SmartAudio) {
     platform.ready().then(() => {
       statusBar.styleDefault();
+      statusBar.hide();
       this.hideSplashScreen(splashScreen);
      smartAudio.preload('mainSong', 'assets/audio/music.mp3');
     });
