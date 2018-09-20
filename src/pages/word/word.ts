@@ -18,6 +18,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public backgroundColor : string;
     public selectorName    : string;
     public level           : number;
+    private imageSound     :String;
 
     constructor(
         public navController     : NavController,
@@ -30,8 +31,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         public smartAudio: SmartAudio
     ) {
         this.prepareGame();
-       
-        
+        this.changeSoundIcon();
     }
 
     private generateLettersWithColor() {
@@ -89,4 +89,22 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         const changeLevel=this.modalController.create(SelectLevelPage, {level: this.level, lastNav: this.navController, maxLevel: this.productsProdiver.getQuantityOfProducts()});
         changeLevel.present();
     }
+
+    public playSound() {
+        this.audioProvider.playMainSound();
+    }
+
+    public stopSound(){
+        this.audioProvider.changeState();
+        this.changeSoundIcon();
+    }
+
+    private changeSoundIcon(){
+        if(this.audioProvider.isMuted()){
+          this.imageSound="assets/imgs/soundoff.png";
+        }
+        else{
+          this.imageSound="assets/imgs/soundon.png";
+        }
+      }
 }

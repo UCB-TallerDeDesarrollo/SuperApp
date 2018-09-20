@@ -9,7 +9,7 @@
                 <h1 class="change-level" (click)="changeLevel()">NIVEL {{level}}</h1>
         </div>
         <div class="music-logo">
-                <img src="assets/imgs/soundoff.png" alt="" (click)="playSound()">
+                <img [src]="imageSound" alt="" (click)="stopSound()">
              </div>
     </ion-navbar>
 </ion-header>
