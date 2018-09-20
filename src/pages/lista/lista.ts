@@ -90,12 +90,9 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.products=FakeProducts.getProductsByCategory(category.id)
   }
 
-  
-  
-  
   async productsInitializer() {
     const count_product = await this.productProvider.countProducts();
-    const count_category = await this.productProvider.countProducts();
+    const count_category = await this.categoryProvider.countCategories();
     if(count_category < 4) {
       let categories = Categories.getCategories();
       for(const c in categories) {
@@ -113,10 +110,6 @@ export class ListaPage implements OnInit, AfterViewInit {
           product.category = await this.categoryProvider.getCategoryById(products[p].categoryId);
           await this.productProvider.saveProduct(product);
         }
-        let aux1 = await this.categoryProvider.getCategories(); 
-        let aux2 = await this.productProvider.getProducts(); 
-        console.log("CATEGORIES--> " + JSON.stringify(aux1));
-        console.log("PRODUCTS--> " + JSON.stringify(aux2));
       }
     }
   }

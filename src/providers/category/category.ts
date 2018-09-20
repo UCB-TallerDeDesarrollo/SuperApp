@@ -36,7 +36,7 @@ export class CategoryProvider {
     return category;                                          
   }
   
-  async countProducts() {
+  async countCategories() {
     let count = await this.categoryRepository.createQueryBuilder('category')
                                                 .orderBy('category.id', 'ASC')
                                                 .getCount();
