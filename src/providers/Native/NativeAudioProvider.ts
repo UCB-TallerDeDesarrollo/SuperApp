@@ -3,15 +3,17 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 
 export class NativeAudioProvider implements AudioProvider {
     
-    private correctLetterSound: HTMLAudioElement;
-
+    private correctLetterSound : HTMLAudioElement;
+    private levelComplete      : HTMLAudioElement;
+    
     public constructor(private nativeAudio: NativeAudio) {
         if(this.isRealDevice()) {
             nativeAudio.preloadSimple('correctLetterSound', '../../assets/sounds/correctLetterSound.mp3');
+            nativeAudio.preloadSimple('levelComplete', '../../assets/sounds/levelComplete.mp3');
         }
         else {
             this.correctLetterSound = new Audio('../../assets/sounds/correctLetterSound.mp3');
-            this.correctLetterSound.volume = 0.8;
+            this.levelComplete = new Audio('../../assets/sounds/levelComplete.mp3');
         }
     }
 
