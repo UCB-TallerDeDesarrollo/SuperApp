@@ -1,12 +1,13 @@
 import { NativeAudio } from '@ionic-native/native-audio';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
+import { Platform } from 'ionic-angular';
 
 export class NativeAudioProvider implements AudioProvider {
     
     private correctLetterSound : HTMLAudioElement;
     private levelComplete      : HTMLAudioElement;
     
-    public constructor(private nativeAudio: NativeAudio) {
+    public constructor(private nativeAudio: NativeAudio, private platform: Platform) {
         if(this.isRealDevice()) {
             nativeAudio.preloadSimple('correctLetterSound', '../../assets/sounds/correctLetterSound.mp3');
             nativeAudio.preloadSimple('levelComplete', '../../assets/sounds/levelComplete.mp3');
@@ -22,7 +23,7 @@ export class NativeAudioProvider implements AudioProvider {
             this.nativeAudio.play('correctLetterSound');
         }
         else {
-            this.correctLetterSound.play();
+            (<HTMLAudioElement>this.correctLetterSound.cloneNode(true)).play();
         }
     }
 
@@ -31,11 +32,11 @@ export class NativeAudioProvider implements AudioProvider {
             this.nativeAudio.play('levelComplete');
         }
         else {
-            this.levelComplete.play();
+            (<HTMLAudioElement>this.levelComplete.cloneNode(true)).play();
         }
     }
 
     private isRealDevice(): boolean {
-        return document.URL.indexOf('http') !== 0;
+        return this.platform.is('cordova');
     }
 }

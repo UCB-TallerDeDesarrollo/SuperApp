@@ -55,7 +55,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public showEndView(): void {
         this.game.addCount();
         if(this.game.isGameOver()) {
-            
+            this.audioProvider.playLevelCompleteSound();
             this.showModalWin();
         }
         else {
