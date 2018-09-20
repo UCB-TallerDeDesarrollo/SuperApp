@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { ProductLevel } from "./productLevel";
 
 @Entity('level')
@@ -10,6 +10,6 @@ export class Level {
     @Column()
     name: string;
 
-    @ManyToOne(type => ProductLevel, productLevel => productLevel.level)
+    @OneToMany(type => ProductLevel, productLevel => productLevel.level)
     productLevel: ProductLevel[];
 }
