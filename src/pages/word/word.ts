@@ -48,7 +48,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private prepareLevel() {
-        this.productsProdiver.setLevel(this.navParams.get("level"));
+        this.productsProdiver.setLevel(this.navParams.get('level'));
         this.level = this.productsProdiver.getActualLevel();
     }
 
@@ -82,7 +82,14 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public changeLevel(){
-        const changeLevel=this.modalController.create(SelectLevelPage, {level: this.level, lastNav: this.navController, maxLevel: this.productsProdiver.getQuantityOfProducts()});
+        const changeLevel = this.modalController.create(
+            SelectLevelPage, 
+            {
+                level    : this.level, 
+                lastNav  : this.navController, 
+                maxLevel : this.productsProdiver.getQuantityOfProducts()
+            }
+        );
         changeLevel.present();
     }
 }
