@@ -26,6 +26,7 @@ import { DragulaWordDragDropProvider } from '../providers/Dragula/DragulaWordDra
 import { AudioProvider } from '../shared/providers/AudioProvider';
 import { NativeAudioProvider } from '../providers/Native/NativeAudioProvider';
 import { SelectLevelPage } from '../pages/select-level/select-level';
+import { SoundsProvPage } from '../pages/sounds-prov/sounds-prov';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SelectLevelPage } from '../pages/select-level/select-level';
     ProductsPage, 
     LevelCompletePage,
     LoadingPage,
-    SelectLevelPage
+    SelectLevelPage,
+    SoundsProvPage
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ import { SelectLevelPage } from '../pages/select-level/select-level';
     ProductsPage, 
     LevelCompletePage,
     LoadingPage,
-    SelectLevelPage
+    SelectLevelPage,
+    SoundsProvPage
   ],
   providers: [
     StatusBar,
