@@ -5,6 +5,7 @@ import { Platform } from 'ionic-angular';
 import { ListaPage } from '../lista/lista';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { SmartAudio } from '../../providers/smart-audio/smart-audio';
+import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { MenuGamesPage } from './../menu-games/menu-games';
 
 @Component({
@@ -13,7 +14,7 @@ import { MenuGamesPage } from './../menu-games/menu-games';
 })
 export class HomePage {
 
-  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation, public smartAudio: SmartAudio) {
+  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider    : AudioProvider, public smartAudio: SmartAudio) {
 
     platform.ready().then(() => {
       if (platform.is('cordova')){
@@ -26,13 +27,14 @@ export class HomePage {
    
   }
   ionViewDidEnter(){
-    this.smartAudio.play('mainSong');
+    this.audioProvider.playMainSound();
   }
   playSound() {
-    this.smartAudio.play('mainSong');
+    this.audioProvider.playMainSound();
   }
   stopSound(){
-    this.smartAudio.stop('mainSong');
+    //this.audioProvider.stopMainSound();
+    this.audioProvider.changeState();
   }
   changeState()
   {

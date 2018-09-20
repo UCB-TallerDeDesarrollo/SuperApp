@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { WordPage } from './../word/word';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SmartAudio } from '../../providers/smart-audio/smart-audio';
+import { AudioProvider } from '../../shared/providers/AudioProvider';
 /**
  * Generated class for the MenuGamesPage page.
  *
@@ -16,13 +17,21 @@ import { SmartAudio } from '../../providers/smart-audio/smart-audio';
 })
 export class MenuGamesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public smartAudio: SmartAudio) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public smartAudio: SmartAudio,private audioProvider    : AudioProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MenuGamesPage');
+    this.audioProvider.playMainSound();
   }
 
+  playSound() {
+    this.audioProvider.playMainSound();
+  }
+  stopSound(){
+    //this.audioProvider.stopMainSound();
+    this.audioProvider.changeState();
+  }
   pushPageWord(){
     this.navCtrl.push(WordPage);
   }

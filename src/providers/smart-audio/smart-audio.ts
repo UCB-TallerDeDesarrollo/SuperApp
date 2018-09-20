@@ -5,7 +5,7 @@ import { NativeAudio } from '@ionic-native/native-audio';
 @Injectable()
 export class SmartAudio {
  
-    audioType: string = 'html5';
+    audioType: string = 'native';
     sounds: any = [];
     public static isMuted:boolean=false;   
     constructor(public nativeAudio: NativeAudio, platform: Platform) {
@@ -75,12 +75,9 @@ export class SmartAudio {
         });
  
         if(audio.type === 'html5'){
- 
-            let audioAsset = new Audio(audio.asset);
-            audioAsset.currentTime=0;   
-            audioAsset.pause();
+            let audioAsset = new Audio(audio.asset); 
+            audioAsset.muted;
         } else {
- 
             this.nativeAudio.stop(audio.asset).then((res) => {
                 console.log(res);
             }, (err) => {
