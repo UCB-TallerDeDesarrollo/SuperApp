@@ -90,7 +90,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.products=FakeProducts.getProductsByCategory(category.id)
   }
 
-  async productsInitializer() {
+  async databaseInitializer() {
     const count_product = await this.productProvider.countProducts();
     const count_category = await this.categoryProvider.countCategories();
     if(count_category < 4) {
@@ -116,6 +116,6 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CreateProductPage');
-    this.productsInitializer();
+    this.databaseInitializer();
   }
 }
