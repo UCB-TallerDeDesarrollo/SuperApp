@@ -64,7 +64,7 @@ import { SelectLevelPage } from '../pages/select-level/select-level';
     {provide: ProductProvider, useClass: ArrayProductProvider},
     {provide: ColorProvider, useClass: ArrayColorProvider},
     {provide: WordDragDropProvider, useClass: DragulaWordDragDropProvider, deps: [DragulaService, Platform]},
-    {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio]}
+    {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform]}
   ]
 })
 export class AppModule { }
