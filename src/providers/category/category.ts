@@ -2,12 +2,6 @@ import { Injectable } from '@angular/core';
 import { getRepository, Repository } from 'typeorm';
 import { Category } from '../../entities/category';
 
-/*
-  Generated class for the CategoryProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class CategoryProvider {
 
