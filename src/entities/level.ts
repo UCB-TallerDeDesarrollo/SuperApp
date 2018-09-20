@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from "typeorm";
-import { Product } from "./product";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { ProductLevel } from "./productLevel";
 
 @Entity('level')
 export class Level {
@@ -10,7 +10,6 @@ export class Level {
     @Column()
     name: string;
 
-    @ManyToMany(type => Product)
-    @JoinTable({ name: "product_level" })
-    products: Product[];
+    @ManyToOne(type => ProductLevel, productLevel => productLevel.level)
+    productLevel: ProductLevel;
 }

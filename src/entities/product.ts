@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Category } from './category';
+import { ProductLevel } from './productLevel';
 
 @Entity('product')
 export class Product {
@@ -18,4 +19,7 @@ export class Product {
 
     @ManyToOne(type => Category, category => category.products, { cascade: ['insert'] })
     category: Category;
+
+    @ManyToOne(type => ProductLevel, productLevel => productLevel.product)
+    productLevel: ProductLevel[];
 }
