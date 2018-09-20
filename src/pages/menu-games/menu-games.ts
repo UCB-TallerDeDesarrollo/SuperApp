@@ -17,8 +17,9 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 })
 export class MenuGamesPage {
 
-  imageSound:String="assets/imgs/soundon.png";
+  private imageSound:String;
   constructor(public navCtrl: NavController, public navParams: NavParams, public smartAudio: SmartAudio, private audioProvider: AudioProvider) {
+    this.changeSoundIcon();
   }
 
   ionViewDidLoad() {
@@ -29,11 +30,12 @@ export class MenuGamesPage {
   playSound() {
     this.audioProvider.playMainSound();
   }
+  
   stopSound(){
-    //this.audioProvider.stopMainSound();
     this.audioProvider.changeState();
     this.changeSoundIcon();
   }
+
   changeSoundIcon(){
     if(this.audioProvider.isMuted()){
       this.imageSound="assets/imgs/soundoff.png";
@@ -42,6 +44,7 @@ export class MenuGamesPage {
       this.imageSound="assets/imgs/soundon.png";
     }
   }
+
   pushPageWord(){
     this.navCtrl.push(WordPage);
   }

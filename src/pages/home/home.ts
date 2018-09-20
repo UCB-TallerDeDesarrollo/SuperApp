@@ -14,10 +14,9 @@ import { MenuGamesPage } from './../menu-games/menu-games';
 })
 export class HomePage {
 
-  imageSound:String="assets/imgs/soundon.png";
+  private imageSound:String;
 
   constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider    : AudioProvider, public smartAudio: SmartAudio) {
-
     platform.ready().then(() => {
       if (platform.is('cordova')){
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
@@ -26,7 +25,7 @@ export class HomePage {
    }).catch(err=>{
      console.log('Error while loading platform', err);
    });
-   
+    this.changeSoundIcon(); 
   }
   ionViewDidEnter(){
     this.audioProvider.playMainSound();
