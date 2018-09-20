@@ -11,5 +11,5 @@ export class Level {
     name: string;
 
     @ManyToOne(type => ProductLevel, productLevel => productLevel.level)
-    productLevel: ProductLevel;
+    productLevel: ProductLevel[];
 }
