@@ -17,7 +17,6 @@ export class MyApp {
       statusBar.styleDefault();
       this.hideSplashScreen(splashScreen);
      smartAudio.preload('mainSong', 'assets/audio/music.mp3');
-      smartAudio.nativeAudio.play('mainSong', () => console.log('uniqueId1 is done playing'));
     });
   }
   hideSplashScreen(splashScreen) {
