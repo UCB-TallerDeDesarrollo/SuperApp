@@ -26,7 +26,7 @@ export class NativeAudioProvider implements AudioProvider {
         }
     }
 
-    public playWinGameSound(): void {
+    public playLevelCompleteSound(): void {
         if(this.isRealDevice()) {
             this.nativeAudio.play('levelComplete');
         }
