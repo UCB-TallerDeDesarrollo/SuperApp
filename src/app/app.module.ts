@@ -17,6 +17,7 @@ import { ProductProvider } from '../providers/product/product';
 import { CreateProductPage } from '../pages/create-product/create-product';
 import { CategoryProvider } from '../providers/category/category';
 import { LevelProvider } from '../providers/level/level';
+import { ProductLevelProvider } from '../providers/product-level/product-level';
 
 
 
@@ -55,7 +56,8 @@ import { LevelProvider } from '../providers/level/level';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProductProvider,
     CategoryProvider,
-    LevelProvider
+    LevelProvider,
+    ProductLevelProvider
   ]
 })
 export class AppModule {
