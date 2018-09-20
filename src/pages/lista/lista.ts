@@ -6,6 +6,7 @@ import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
 import { SmartAudio } from '../../providers/smart-audio/smart-audio';
+import { AudioProvider } from '../../shared/providers/AudioProvider';
 @Component({
   selector: 'page-lista',
   templateUrl: 'lista.html',
@@ -19,11 +20,13 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
   products: Array<{id: number, title: string, image: string}> = [];
   quantityproductsString:string;
   quantityOfProducts: number;
+  imageSound: String;
 
-  constructor(public navCtrl: NavController, private dragulaService: DragulaService,public smartAudio: SmartAudio) {
+  constructor(public navCtrl: NavController, private dragulaService: DragulaService,public smartAudio: SmartAudio, private audioProvider: AudioProvider) {
     this.products = FakeProducts.getProducts();
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
+
   }
 
   ngOnInit() {
@@ -57,12 +60,31 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
       FakeProducts.removeProduct(this.products.indexOf(product));
     });
   }
+  
   playSound() {
-    this.smartAudio.play('mainSong');
+    this.audioProvider.playMainSound();
   }
+
   stopSound(){
-    this.smartAudio.stop('mainSong');
-    
+        this.audioProvider.changeState();
+    this.changeSoundIcon();
+  }
+
+  changeSoundIcon(){
+    if(this.audioProvider.isMuted()){
+      this.imageSound="assets/imgs/soundoff.png";
+    }
+    else{
+      this.imageSound="assets/imgs/soundon.png";
+    }
+  }
+
+  changeState()
+  {
+    this.smartAudio.changeState();
+  }
+  pushPageList(){
+    this.navCtrl.push(ListaPage);    
   }
 
   pushProducts(){

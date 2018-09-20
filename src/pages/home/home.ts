@@ -16,7 +16,7 @@ export class HomePage {
 
   private imageSound:String;
 
-  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider    : AudioProvider, public smartAudio: SmartAudio) {
+  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public smartAudio: SmartAudio) {
     platform.ready().then(() => {
       if (platform.is('cordova')){
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
@@ -30,13 +30,13 @@ export class HomePage {
   ionViewDidEnter(){
     this.audioProvider.playMainSound();
   }
+  
   playSound() {
     this.audioProvider.playMainSound();
   }
 
   stopSound(){
-    //this.audioProvider.stopMainSound();
-    this.audioProvider.changeState();
+        this.audioProvider.changeState();
     this.changeSoundIcon();
   }
 
