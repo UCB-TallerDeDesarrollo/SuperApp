@@ -5,7 +5,12 @@ import { ProductsPage } from '../products/products';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
+import { CreateProductPage } from '../create-product/create-product';
 import { Categories } from '../../providers/FakeService/Categories';
+import { ProductProvider } from '../../providers/product/product';
+import { Product } from '../../entities/product';
+import { Category } from '../../entities/category';
+import { CategoryProvider } from '../../providers/category/category';
 
 @Component({
   selector: 'page-lista',
@@ -24,7 +29,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   quantityproductsString:string;
   quantityOfProducts: number;
 
-  constructor(public navCtrl: NavController, private dragulaService: DragulaService) {
+  constructor(public navCtrl: NavController, private dragulaService: DragulaService, public productProvider: ProductProvider, public categoryProvider: CategoryProvider) {
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
     this.categories=Categories.getCategories();
     this.products = FakeProducts.getProductsByCategory(this.defaultCategoryId);
@@ -72,13 +77,45 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.navCtrl.push(ProductsPage);
   }
 
+  pushProduct() {
+    this.navCtrl.push(CreateProductPage);
+  }
+
   goToRoot() {
     this.navCtrl.pop();
   }
-
   
   onSelectCategory(category){ 
     this.selectedCategory=category; 
     this.products=FakeProducts.getProductsByCategory(category.id)
+  }
+
+  async databaseInitializer() {
+    const count_product = await this.productProvider.countProducts();
+    const count_category = await this.categoryProvider.countCategories();
+    if(count_category < 4) {
+      let categories = Categories.getCategories();
+      for(const c in categories) {
+        let category = new Category();
+        category.name = categories[c].name;
+        await this.categoryProvider.saveCategory(category);
+      }
+      if(count_product < 58) {
+        let products = FakeProducts.getProducts()
+        for (const p in products) {
+          let product = new Product();
+          product.image = products[p].image;
+          product.state = true;
+          product.title = products[p].title;
+          product.category = await this.categoryProvider.getCategoryById(products[p].categoryId);
+          await this.productProvider.saveProduct(product);
+        }
+      }
+    }
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CreateProductPage');
+    this.databaseInitializer();
   }
 }
