@@ -6,7 +6,7 @@ describe("Test Product model", function() {
 
     beforeEach(function() {
         emptyProduct = new Product();
-        notEmptyProduct = Product.createProduct(1, 'product1', 'image1', 1);
+        notEmptyProduct = Product.createProduct(1, 'title1', 'image1', 1);
     });
 
     afterEach(function() {
@@ -32,5 +32,9 @@ describe("Test Product model", function() {
 
     it('must return 1 as id', function() {
         expect(notEmptyProduct.Id).toBe(1);
+    });
+
+    it('must return title1 as title', function() {
+        expect(notEmptyProduct.Title).toBe('title1');
     });
 });
