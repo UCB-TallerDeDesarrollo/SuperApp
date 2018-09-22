@@ -41,4 +41,8 @@ describe("Test Product model", function() {
     it('must return image1 as image', function() {
         expect(notEmptyProduct.ImageURL).toBe('image1');
     });
+
+    it('must return 2 as level', function() {
+        expect(notEmptyProduct.Level).toBe(2);
+    });
 });
