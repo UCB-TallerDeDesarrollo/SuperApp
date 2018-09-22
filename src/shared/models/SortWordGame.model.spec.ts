@@ -53,4 +53,20 @@ describe("Test SortWordGame model", function() {
 
         expect(sortWordGame.MessyWord).not.toBe(sortWordGame.SortedWord);
     });
+
+    it('must return sorted letters of response word', function() {
+        let colorProvider: ColorProvider;
+        colorProvider = new ArrayColorProvider();
+
+        let response: any = [];
+        for (let letter of sortWordGame.ResponseWord) {
+            response[letter] = colorProvider.getRandomColor();
+        }
+        
+        sortWordGame.buildLetters(response);
+
+        for (let i = 0; i < product.Title.length; ++i) {
+            expect(product.Title[i]).toBe(sortWordGame.SortedWord[i].letter);
+        }
+    });
 });
