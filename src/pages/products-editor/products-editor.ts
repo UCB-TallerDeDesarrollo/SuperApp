@@ -1,40 +1,51 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProductProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
+import { Platform } from 'ionic-angular';
 import { Product } from '../../entities/product';
 import { CreateProductPage } from '../create-product/create-product';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
-/**
- * Generated class for the ProductsEditorPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
   selector: 'page-products-editor',
   templateUrl: 'products-editor.html',
 })
-export class ProductsEditorPage implements AfterViewInit{
+export class ProductsEditorPage implements OnDestroy{
 
   products: Array<Product>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public productProvider: ProductProvider, public categoryProvider: CategoryProvider) { 
+  constructor(private platform: Platform, 
+              public navCtrl: NavController, 
+              public navParams: NavParams, 
+              public productProvider: ProductProvider, 
+              public categoryProvider: CategoryProvider, 
+              private screenOrientation: ScreenOrientation) {
+    platform.ready()
+    .then(() => {
+      if (platform.is('cordova')){
+        this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+      }
+    }).catch(err=> {
+      console.log('Error while loading platform', err);
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductsEditorPage');
-  }
-
-  ngAfterViewInit() {
-    console.log('ngAfterViewInit ProductsEditorPage');
     this.productProvider.getProductsByCategory(this.navParams.data.data).then(products => {
       this.products = products;
     }).catch(error =>{
       console.log(error);
     });
+  }
+
+  ngOnDestroy(){
+    if (this.platform.is('cordova')){
+      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+    }
   }
 
   showProducts(){
