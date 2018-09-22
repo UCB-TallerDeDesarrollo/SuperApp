@@ -42,6 +42,6 @@ export class ProductsEditorPage implements AfterViewInit{
   }
 
   pushCreateProduct(){
-    this.navCtrl.push(CreateProductPage);
+    this.navCtrl.push(CreateProductPage, { data: this.navParams.data.data });
   }
 }
