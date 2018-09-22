@@ -18,24 +18,33 @@ export class CreateProductPage {
   path: any;
   product = new Product;
   category: Category;
+  categories: Array<Category>;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               public productProvider: ProductProvider, 
               public categoryProvider: CategoryProvider, 
               public camera: Camera) {    
+    
     categoryProvider.getCategoryById(navParams.data.data)
     .then(category => {
       this.category = category;
     }).catch(error => {
       console.log(error);
-    })
+    });
+
+    categoryProvider.getCategories()
+    .then(categories => {
+      this.categories = categories;
+    }).catch(error => {
+      console.log(error);
+    });
+
     this.Image = "../../assets/imgs/default-product.jpg";
   }
 
   async saveProductForm() {
     this.product.image = this.Image;
-    this.product.state = true;
-    this.product.category = this.category;
+    //this.product.category = this.category;
     await this.productProvider.saveProduct(this.product);
     this.afterSaveProduct();
   }

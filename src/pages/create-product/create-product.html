@@ -9,12 +9,21 @@
 <ion-content padding class="main-product">
   <form (ngSubmit)="saveProductForm()">
     <ion-item>
-        <!--<h1 ion-button primary (click)="callFunctionCamera()" name="image">Toca para seleccionar la imagen</h1><br/>-->
+      <ion-label>Categoria</ion-label>
+      <ion-select required [(ngModel)]="product.category" name="category">
+        <ion-option *ngFor="let c of categories" [value]="c">{{c.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
         <img (click)="callFunctionCamera()" src="{{Image}}" />
     </ion-item>
     <ion-item>
       <ion-label>Nombre del Item</ion-label>
-      <ion-input type="text" [(ngModel)]="product.title" name="title"></ion-input>
+      <ion-input type="text" required [(ngModel)]="product.title" name="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Activo</ion-label>
+      <ion-checkbox [(ngModel)]="product.state" name="state"></ion-checkbox>
     </ion-item>
     <button ion-button type="submit" block>Guardar</button>
   </form>
