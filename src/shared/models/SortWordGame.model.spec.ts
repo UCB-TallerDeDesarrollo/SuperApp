@@ -14,4 +14,8 @@ describe("Test SortWordGame model", function() {
         product = null;
         sortWordGame = null;
     });
+
+    it('must return false because is not game over', function() {
+        expect(sortWordGame.isGameOver()).toBe(false);
+    });
 });
