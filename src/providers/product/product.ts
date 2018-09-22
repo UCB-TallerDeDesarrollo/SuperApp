@@ -23,6 +23,13 @@ export class ProductProvider {
     return products;
   }
 
+  async getProductById(product_id: number) {
+    let product = await this.productRepository.createQueryBuilder('product')
+                                                .where("id = :id", {id: product_id})
+                                                .getOne();
+    return product;
+  }
+
   async updateStateProduct(state_: boolean, product_id: number){
     await this.productRepository.createQueryBuilder()
                                   .update('product')

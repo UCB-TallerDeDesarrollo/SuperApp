@@ -6,6 +6,7 @@ import { Platform } from 'ionic-angular';
 import { Product } from '../../entities/product';
 import { CreateProductPage } from '../create-product/create-product';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { EditProductPage } from '../edit-product/edit-product';
 
 @IonicPage()
 @Component({
@@ -59,5 +60,9 @@ export class ProductsEditorPage {
 
   pushCreateProduct(){
     this.navCtrl.push(CreateProductPage, { data: this.navParams.data.data });
+  }
+
+  editProduct(product_id: number){
+    this.navCtrl.push(EditProductPage, {data: product_id});
   }
 }
