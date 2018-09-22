@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProductProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
 import { Product } from '../../entities/product';
+import { CreateProductPage } from '../create-product/create-product';
 
 /**
  * Generated class for the ProductsEditorPage page.
@@ -38,5 +39,9 @@ export class ProductsEditorPage implements AfterViewInit{
 
   showProducts(){
     console.log(this.products);
+  }
+
+  pushCreateProduct(){
+    this.navCtrl.push(CreateProductPage);
   }
 }
