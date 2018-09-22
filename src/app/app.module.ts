@@ -19,7 +19,7 @@ import { CategoryProvider } from '../providers/category/category';
 import { LevelProvider } from '../providers/level/level';
 import { ProductLevelProvider } from '../providers/product-level/product-level';
 import { ProductsEditorPage } from '../pages/products-editor/products-editor';
-
+import { EditProductPage } from '../pages/edit-product/edit-product';
 
 
 @NgModule({
@@ -32,7 +32,8 @@ import { ProductsEditorPage } from '../pages/products-editor/products-editor';
     LevelCompletePage,
     LoadingPage,
     CreateProductPage,
-    ProductsEditorPage
+    ProductsEditorPage,
+    EditProductPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +50,8 @@ import { ProductsEditorPage } from '../pages/products-editor/products-editor';
     LevelCompletePage,
     LoadingPage,
     CreateProductPage,
-    ProductsEditorPage
+    ProductsEditorPage,
+    EditProductPage
   ],
   providers: [
     StatusBar,
