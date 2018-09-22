@@ -14,4 +14,8 @@ describe("Test Product model", function() {
     it('must return -1 as id', function() {
         expect(emptyProduct.Id).toBe(-1);
     });
+
+    it('must return empty as title', function() {
+        expect(emptyProduct.Title).toBe('');
+    });
 });
