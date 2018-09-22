@@ -29,4 +29,8 @@ describe("Test SortWordGame model", function() {
 
         expect(sortWordGame.isGameOver()).toBe(true);
     });
+
+    it('must return the product that was used in constructor', function() {
+        expect(sortWordGame.Product).toBe(product);
+    });
 });
