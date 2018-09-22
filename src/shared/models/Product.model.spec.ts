@@ -2,13 +2,16 @@ import { Product } from './product.model';
 
 describe("Test Product model", function() {
     let emptyProduct: Product;
+    let notEmptyProduct: Product;
 
     beforeEach(function() {
         emptyProduct = new Product();
+        notEmptyProduct = Product.createProduct(1, 'product1', 'image1', 1);
     });
 
     afterEach(function() {
         emptyProduct = null;
+        notEmptyProduct = null;
     });
 
     it('must return -1 as id', function() {
@@ -25,5 +28,9 @@ describe("Test Product model", function() {
 
     it('must return 0 as level', function() {
         expect(emptyProduct.Level).toBe(0);
+    });
+
+    it('must return 1 as id', function() {
+        expect(notEmptyProduct.Id).toBe(1);
     });
 });
