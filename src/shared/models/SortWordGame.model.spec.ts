@@ -61,4 +61,13 @@ describe("Test SortWordGame model", function() {
             expect(product.Title[i]).toBe(sortWordGame.SortedWord[i].letter);
         }
     });
+
+    it('must set a new product', function() {
+        let newProduct: Product;
+        newProduct = Product.createProduct(10, 'newTitle', 'newImage', 100);
+
+        sortWordGame.Product = newProduct;
+
+        expect(sortWordGame.Product).toBe(newProduct);
+    });
 });
