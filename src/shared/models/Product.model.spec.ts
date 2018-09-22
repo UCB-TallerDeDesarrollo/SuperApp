@@ -1,17 +1,17 @@
 import { Product } from './product.model';
 
 describe("Test Product model", function() {
-    let product: Product;
+    let emptyProduct: Product;
 
     beforeEach(function() {
-        product = new Product();
+        emptyProduct = new Product();
     });
 
     afterEach(function() {
-        product = null;
+        emptyProduct = null;
     });
 
     it('must return -1 as id', function() {
-        expect(product.Id).toBe(-1);
+        expect(emptyProduct.Id).toBe(-1);
     });
 });
