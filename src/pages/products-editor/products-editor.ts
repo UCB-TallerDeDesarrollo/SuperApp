@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ProductProvider } from '../../providers/product/product';
+import { CategoryProvider } from '../../providers/category/category';
+import { Product } from '../../entities/product';
 
 /**
  * Generated class for the ProductsEditorPage page.
@@ -13,14 +16,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-products-editor',
   templateUrl: 'products-editor.html',
 })
-export class ProductsEditorPage {
+export class ProductsEditorPage implements AfterViewInit{
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    console.log(navParams.data.data);
+  products: Array<Product>;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public productProvider: ProductProvider, public categoryProvider: CategoryProvider) { 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductsEditorPage');
   }
 
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit ProductsEditorPage');
+    this.productProvider.getProductsByCategory(this.navParams.data.data).then(products => {
+      this.products = products;
+    }).catch(error =>{
+      console.log(error);
+    });
+  }
+
+  showProducts(){
+    console.log(this.products);
+  }
 }
