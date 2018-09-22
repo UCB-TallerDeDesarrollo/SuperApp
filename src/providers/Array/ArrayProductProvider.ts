@@ -1,4 +1,4 @@
-import { Product } from "../../shared/models/Product.model";
+import { Product } from "../../shared/models/product.model";
 import { ProductProvider } from "../../shared/providers/ProductProvider";
 import { ArrayManager } from "../../Managers/ArrayManager";
 
