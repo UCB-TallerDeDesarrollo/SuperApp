@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProductProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
@@ -7,13 +7,12 @@ import { Product } from '../../entities/product';
 import { CreateProductPage } from '../create-product/create-product';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
-
 @IonicPage()
 @Component({
   selector: 'page-products-editor',
   templateUrl: 'products-editor.html',
 })
-export class ProductsEditorPage implements OnDestroy{
+export class ProductsEditorPage {
 
   products: Array<Product>;
 
@@ -41,15 +40,21 @@ export class ProductsEditorPage implements OnDestroy{
       console.log(error);
     });
   }
+  
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter ProductsEditorPage');
+    this.productProvider.getProductsByCategory(this.navParams.data.data).then(products => {
+      this.products = products;
+    }).catch(error =>{
+      console.log(error);
+    });
+  }
 
-  ngOnDestroy(){
+  goToRoot(){
     if (this.platform.is('cordova')){
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
     }
-  }
-
-  showProducts(){
-    console.log(this.products);
+    this.navCtrl.pop();
   }
 
   pushCreateProduct(){

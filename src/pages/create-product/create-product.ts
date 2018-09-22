@@ -24,11 +24,12 @@ export class CreateProductPage {
               public categoryProvider: CategoryProvider, 
               public camera: Camera) {    
     categoryProvider.getCategoryById(navParams.data.data)
-      .then(category => {
-        this.category = category;
-      }).catch(error => {
-        console.log(error);
-      })
+    .then(category => {
+      this.category = category;
+    }).catch(error => {
+      console.log(error);
+    })
+    this.Image = "../../assets/imgs/default-product.jpg";
   }
 
   async saveProductForm() {

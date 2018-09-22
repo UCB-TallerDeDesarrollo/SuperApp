@@ -6,19 +6,15 @@
   </ion-navbar>
 
 </ion-header>
-<ion-content padding>
-  <!--<button ion-button primary (click)="callFunctionCamera()">Seleccionar Imagen</button><br/>
-  <img src="{{Image}}" />
-  <p>{{path}}</p>
-  <p>{{err}}</p>-->
+<ion-content padding class="main-product">
   <form (ngSubmit)="saveProductForm()">
+    <ion-item>
+        <!--<h1 ion-button primary (click)="callFunctionCamera()" name="image">Toca para seleccionar la imagen</h1><br/>-->
+        <img (click)="callFunctionCamera()" src="{{Image}}" />
+    </ion-item>
     <ion-item>
       <ion-label>Nombre del Item</ion-label>
       <ion-input type="text" [(ngModel)]="product.title" name="title"></ion-input>
-    </ion-item>
-    <ion-item>
-      <h1 ion-button primary (click)="callFunctionCamera()" name="image">Toca para seleccionar la imagen</h1><br/>
-      <img src="{{Image}}" />
     </ion-item>
     <button ion-button type="submit" block>Guardar</button>
   </form>
