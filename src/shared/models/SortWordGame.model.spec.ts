@@ -6,10 +6,18 @@ import { ArrayColorProvider } from '../../providers/Array/ArrayColorProvider';
 describe("Test SortWordGame model", function() {
     let product: Product;
     let sortWordGame: SortWordGame;
+    let response: any = [];
 
     beforeEach(function() {
         product = Product.createProduct(1, 'title1', 'image1', 2);
         sortWordGame = new SortWordGame(product);
+
+        let colorProvider: ColorProvider;
+        colorProvider = new ArrayColorProvider();
+
+        for (let letter of sortWordGame.ResponseWord) {
+            response[letter] = colorProvider.getRandomColor();
+        }
     });
 
     afterEach(function() {
@@ -41,28 +49,12 @@ describe("Test SortWordGame model", function() {
     });
 
     it('must return messy letters of response word', function() {
-        let colorProvider: ColorProvider;
-        colorProvider = new ArrayColorProvider();
-
-        let response: any = [];
-        for (let letter of sortWordGame.ResponseWord) {
-            response[letter] = colorProvider.getRandomColor();
-        }
-        
         sortWordGame.buildLetters(response);
 
         expect(sortWordGame.MessyWord).not.toBe(sortWordGame.SortedWord);
     });
 
     it('must return sorted letters of response word', function() {
-        let colorProvider: ColorProvider;
-        colorProvider = new ArrayColorProvider();
-
-        let response: any = [];
-        for (let letter of sortWordGame.ResponseWord) {
-            response[letter] = colorProvider.getRandomColor();
-        }
-        
         sortWordGame.buildLetters(response);
 
         for (let i = 0; i < product.Title.length; ++i) {
