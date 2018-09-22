@@ -5,12 +5,12 @@ import { ProductsPage } from '../products/products';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
-import { CreateProductPage } from '../create-product/create-product';
 import { Categories } from '../../providers/FakeService/Categories';
 import { ProductProvider } from '../../providers/product/product';
 import { Product } from '../../entities/product';
 import { Category } from '../../entities/category';
 import { CategoryProvider } from '../../providers/category/category';
+import { ProductsEditorPage } from '../products-editor/products-editor';
 
 @Component({
   selector: 'page-lista',
@@ -77,8 +77,8 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.navCtrl.push(ProductsPage);
   }
 
-  pushProduct() {
-    this.navCtrl.push(CreateProductPage);
+  pushProduct(category_id: any) {
+    this.navCtrl.push(ProductsEditorPage, { data: category_id });
   }
 
   goToRoot() {

@@ -18,6 +18,7 @@ import { CreateProductPage } from '../pages/create-product/create-product';
 import { CategoryProvider } from '../providers/category/category';
 import { LevelProvider } from '../providers/level/level';
 import { ProductLevelProvider } from '../providers/product-level/product-level';
+import { ProductsEditorPage } from '../pages/products-editor/products-editor';
 
 
 
@@ -30,7 +31,8 @@ import { ProductLevelProvider } from '../providers/product-level/product-level';
     ProductsPage, 
     LevelCompletePage,
     LoadingPage,
-    CreateProductPage
+    CreateProductPage,
+    ProductsEditorPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import { ProductLevelProvider } from '../providers/product-level/product-level';
     ProductsPage, 
     LevelCompletePage,
     LoadingPage,
-    CreateProductPage
+    CreateProductPage,
+    ProductsEditorPage
   ],
   providers: [
     StatusBar,

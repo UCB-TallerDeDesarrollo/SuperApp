@@ -44,7 +44,7 @@ export class MyApp {
           location: 'browser',
           logging: ['error', 'query', 'schema'],
           synchronize: true,
-          dropSchema: true,
+          //dropSchema: true,
           entities: [
             Category,
             Product,
