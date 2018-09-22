@@ -18,4 +18,15 @@ describe("Test SortWordGame model", function() {
     it('must return false because is not game over', function() {
         expect(sortWordGame.isGameOver()).toBe(false);
     });
+
+    it('must return true because is game over', function() {
+        sortWordGame.addCount();
+        sortWordGame.addCount();
+        sortWordGame.addCount();
+        sortWordGame.addCount();
+        sortWordGame.addCount();
+        sortWordGame.addCount();
+
+        expect(sortWordGame.isGameOver()).toBe(true);
+    });
 });
