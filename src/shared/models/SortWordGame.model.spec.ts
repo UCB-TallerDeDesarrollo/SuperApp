@@ -33,4 +33,8 @@ describe("Test SortWordGame model", function() {
     it('must return the product that was used in constructor', function() {
         expect(sortWordGame.Product).toBe(product);
     });
+
+    it('must return the title of product', function() {
+        expect(sortWordGame.ResponseWord).toBe(product.Title);
+    });
 });
