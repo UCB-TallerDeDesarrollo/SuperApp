@@ -10,4 +10,8 @@ describe("Test Product model", function() {
     afterEach(function() {
         product = null;
     });
+
+    it('must return -1 as id', function() {
+        expect(product.Id).toBe(-1);
+    });
 });
