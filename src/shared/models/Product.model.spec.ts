@@ -19,7 +19,11 @@ describe("Test Product model", function() {
         expect(emptyProduct.Title).toBe('');
     });
 
-    it ('must return empty as image', function() {
+    it('must return empty as image', function() {
         expect(emptyProduct.ImageURL).toBe('');
+    });
+
+    it('must return 0 as level', function() {
+        expect(emptyProduct.Level).toBe(0);
     });
 });
