@@ -3,7 +3,7 @@ import { ColorProvider } from '../../shared/providers/ColorProvider';
 
 export class ArrayColorProvider implements ColorProvider {
 
-    private static COLORS: string[] = [
+    private static readonly COLORS = [
         '#B73D19',
         '#E7E41C',
         '#4CD10A',
@@ -16,9 +16,9 @@ export class ArrayColorProvider implements ColorProvider {
         '#8C1D87'
     ];
 
-    private static BACKGROUND_COLORS: string[] = [
+    private static readonly BACKGROUNDS_COLORS = [
         'color-background-1',
-        'color-background-2', 
+        'color-background-2',
         'color-background-3',
         'color-background-4',
         'color-background-5'
@@ -29,6 +29,6 @@ export class ArrayColorProvider implements ColorProvider {
     }
 
     public getRandomBackgroundColor() : string {
-        return ArrayManager.get_random_element(ArrayColorProvider.BACKGROUND_COLORS);
+        return ArrayManager.get_random_element(ArrayColorProvider.BACKGROUNDS_COLORS);
     }
 }
