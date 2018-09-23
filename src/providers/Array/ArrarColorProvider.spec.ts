@@ -17,7 +17,7 @@ describe("Test ArrayColorProvider static functions", function() {
         '#1C818F',
         '#280D97',
         '#8C1D87'];
-        expect(array).toContain(arrayColorProvider.getRandomColor(array));
+        expect(array).toContain(arrayColorProvider.getRandomColor());
 
     });
     it("must return a background color", function(){
@@ -28,7 +28,7 @@ describe("Test ArrayColorProvider static functions", function() {
             'color-background-4',
             'color-background-5'
         ];
-        expect(backgrounds).toContain(arrayColorProvider.getRandomBackgroundColor(backgrounds));
+        expect(backgrounds).toContain(arrayColorProvider.getRandomBackgroundColor());
     });
 
 });
