@@ -1,16 +1,16 @@
 <ion-header>
     <ion-navbar hideBackButton>
-            <ion-buttons left >
-                    <button ion-button icon-only (click)="navController.pop()">
-                        <ion-icon name="arrow-back"></ion-icon>
-                    </button>
-                </ion-buttons>
+        <ion-buttons left >
+            <button ion-button icon-only (click)="navController.pop()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
         <div class="level-header">
-                <h1 class="change-level" (click)="changeLevel()">NIVEL {{level}}</h1>
+            <h1 class="change-level" (click)="changeLevel()">NIVEL {{level}}</h1>
         </div>
         <div class="music-logo">
-                <img [src]="imageSound" alt="" (click)="stopSound()">
-             </div>
+            <img [src]="imageSound" alt="" (click)="stopSound()">
+        </div>
     </ion-navbar>
 </ion-header>
 

@@ -5,14 +5,13 @@
                 <ion-icon class="customIcon" name="arrow-back"></ion-icon>
             </button>
         </ion-buttons>
-        <ion-buttons right>
-            <div class="music-logo">
-                <img [src]="imageSound" alt="" (click)="stopSound()">
-             </div>
-        </ion-buttons>
-        <ion-title>Menu Principal</ion-title>
+        <div class="music-logo">
+            <img [src]="imageSound" alt="" (click)="stopSound()">
+        </div>
+        
     </ion-navbar>
 </ion-header>
+
 <ion-content padding class="main-list">
   <ion-row>
     <ion-col col-8>

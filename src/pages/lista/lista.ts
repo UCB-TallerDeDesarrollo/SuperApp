@@ -26,7 +26,7 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
     this.products = FakeProducts.getProducts();
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
-
+    this.changeSoundIcon();
   }
 
   ngOnInit() {
@@ -60,7 +60,7 @@ export class ListaPage implements OnInit, OnDestroy, AfterViewInit {
       FakeProducts.removeProduct(this.products.indexOf(product));
     });
   }
-  
+
   playSound() {
     this.audioProvider.playMainSound();
   }
