@@ -1,0 +1,24 @@
+
+.product-image {
+
+    border: solid 1px black;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 15%;
+    width: 15%;
+    max-height: 20%;
+    max-width: 20%;
+}
+
+.main-editor {
+    background-image: linear-gradient(135deg, #5da5f7 10%, #98e4eb 100%);
+}
+
+.button-create-product {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin: auto;
+    display: inherit;
+}
