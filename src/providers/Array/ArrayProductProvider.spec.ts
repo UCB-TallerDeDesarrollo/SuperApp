@@ -6,11 +6,6 @@ describe("Test ArrayProductProvider static functions", function() {
     beforeEach(function() {
         arrayProductProvider = new ArrayProductProvider();
     });
-    it("must return the correspondent product", function() {
-        let product: Product;
-        product = Product.createProduct(1, 'AJO', path_images+'ajo.jpg',1);
-        expect(arrayProductProvider.getProductOfActualLevel()).toEqual(product)
-    });
     it("must return the actual level", function() {
        expect(arrayProductProvider.getActualLevel()).toBe(1)
     });
@@ -27,6 +22,11 @@ describe("Test ArrayProductProvider static functions", function() {
     });
     it("must return quantity of products", function() {
         expect(arrayProductProvider.getQuantityOfProducts()).toBe(60)
+    });
+    it("must return the correspondent product", function() {
+        let product: Product;
+        product = Product.createProduct(1, 'AJO', path_images+'ajo.jpg',1);
+        expect(arrayProductProvider.getProductOfActualLevel()).toEqual(product)
     });
    
     
