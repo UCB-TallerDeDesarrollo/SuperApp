@@ -63,6 +63,6 @@ export class ProductsEditorPage {
   }
 
   editProduct(product_id: number){
-    this.navCtrl.push(EditProductPage, {data: product_id});
+    this.navCtrl.push(EditProductPage, {data: product_id, categoryId: this.navParams.data.data});
   }
 }

@@ -2,26 +2,49 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProductProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
+import { Camera } from '@ionic-native/camera';
 import { Product } from '../../entities/product';
+import { Category } from '../../entities/category';
 
 @IonicPage()
 @Component({
   selector: 'page-edit-product',
   templateUrl: 'edit-product.html',
+  providers: [[Camera]]
 })
 export class EditProductPage {
 
+  options: any;
+  Image: any;
+  path: any;
   product = new Product;
+  category: Category;
+  categories: Array<Category>;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               public productProvider: ProductProvider, 
-              public categoryProvider: CategoryProvider) {
-    console.log(navParams.data.data);
+              public categoryProvider: CategoryProvider,
+              public camera: Camera) {
+     
+    categoryProvider.getCategoryById(navParams.get('categoryId'))
+    .then(category => {
+      this.category = category;
+    }).catch(error => {
+      console.log(error);
+    });
+            
     this.productProvider.getProductById(navParams.data.data)
     .then(product => {
       this.product = product;
-      console.log(JSON.stringify(this.product));
+      this.Image = product.image;
+    }).catch(error => {
+      console.log(error);
+    });
+
+    this.categoryProvider.getCategories()
+    .then(categories => {
+      this.categories = categories;
     }).catch(error => {
       console.log(error);
     });
@@ -29,6 +52,29 @@ export class EditProductPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditProductPage');
+  }
+
+  callFunctionCamera(){
+    this.takePicture();
+  }
+
+  takePicture(){
+    this.options = {
+      quality: 100,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      saveToPhotoAlbum: true,
+      correctOrientation: true,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      mediaType: this.camera.MediaType.VIDEO
+    }
+    this.camera.getPicture(this.options)
+      .then((imageData)=>{
+        this.Image = "data:image/jpeg;base64,"+imageData;
+      }).then((path) => {
+        this.path = path;
+      }).catch((error) => {
+        console.log(error);
+      })
   }
 
 }

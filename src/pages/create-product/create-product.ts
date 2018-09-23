@@ -44,7 +44,6 @@ export class CreateProductPage {
 
   async saveProductForm() {
     this.product.image = this.Image;
-    //this.product.category = this.category;
     await this.productProvider.saveProduct(this.product);
     this.afterSaveProduct();
   }
