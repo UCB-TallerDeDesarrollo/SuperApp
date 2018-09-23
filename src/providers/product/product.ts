@@ -37,6 +37,14 @@ export class ProductProvider {
                                   .where("id = :id", {id: product_id})
                                   .execute();
   } 
+
+  async updateProduct(product: Product){
+    await this.productRepository.createQueryBuilder()
+                                .update('product')
+                                .set({ state: product.state, title: product.title, image: product.image, category: product.category })
+                                .where("id = :id", {id: product.id})
+                                .execute();
+  }
   
   async getProductsByCategory(category_id: number){
     let products = await this.productRepository.createQueryBuilder('product')

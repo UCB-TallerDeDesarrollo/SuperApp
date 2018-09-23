@@ -50,12 +50,22 @@ export class EditProductPage {
     });
   }
 
+  async saveProductForm() {
+    this.product.image = this.Image;
+    await this.productProvider.updateProduct(this.product);
+    this.afterSaveProduct();
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditProductPage');
   }
 
   callFunctionCamera(){
     this.takePicture();
+  }
+  
+  afterSaveProduct(){
+    this.navCtrl.pop();    
   }
 
   takePicture(){
