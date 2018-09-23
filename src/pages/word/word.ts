@@ -34,7 +34,11 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     private generateLettersWithColor() {
         let response: any = [];
         for (let letter of this.game.ResponseWord) {
-            response[letter] = this.colorService.getRandomColor();
+            if (this.level >= 31) {
+                response[letter] = '#000000';
+            } else {
+                response[letter] = this.colorService.getRandomColor();
+            }
         }
         return response;
     }
