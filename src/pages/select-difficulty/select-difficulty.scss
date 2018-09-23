@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Signika');
+
 page-select-difficulty{
 
 }
@@ -14,7 +16,21 @@ page-select-difficulty{
         border: 2px solid white;
         border-radius: 10%;
         color: white;
-        font-size: 1.3em;
+        font-size: 1.4em;
+        font-family: 'Signika', sans-serif;
+        font-weight: 400;
+        &--green{
+            background-color: rgb(114, 190, 66);
+        }
+        &--orange{
+            background-color: rgb(247, 146, 28);
+        }
+        &--red{
+            background-color: rgb(237, 27, 36);
+        }
+        &--purple{
+            background-color: rgb(148, 59, 149);
+        }
     }
     &:before{
         content: "";
