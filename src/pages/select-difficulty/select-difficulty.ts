@@ -15,14 +15,14 @@ export class SelectDifficultyPage {
     }
 
     openMediumMode() {
-        this.navCtrl.push(WordPage);
+        
     }
 
     openHardMode() {
-        this.navCtrl.push(WordPage);
+
     }
 
     openExpertMode() {
-        this.navCtrl.push(WordPage);
+
     }
 }
