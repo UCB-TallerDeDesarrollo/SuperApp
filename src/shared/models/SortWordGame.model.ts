@@ -9,7 +9,11 @@ export class SortWordGame {
     private sortedLetters : any;
     
     private static readonly LETTERS = [
-        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'
+        'A', 'B', 'C', 'D', 'E', 'F', 
+        'G', 'H', 'I', 'J', 'K', 'L', 
+        'M', 'N', 'O', 'P', 'Q', 'R', 
+        'S', 'T', 'U', 'V', 'W', 'X', 
+        'Y', 'Z'
     ]
 
     public constructor(product: Product) {
@@ -49,7 +53,13 @@ export class SortWordGame {
                 auxilaryLetters.splice(auxilaryLetters.indexOf(data), 1);
             }
             if(level >= 125) {
-                
+                let randomPosition = Math.floor(Math.random() * this.messyLetters.length);
+                let letter = SortWordGame.LETTERS[Math.floor(Math.random() * (SortWordGame.LETTERS.length))];
+                this.messyLetters.splice(randomPosition, 0, {
+                    letter: letter,
+                    color: '#000000',
+                    name: `letter-${letter}`
+                })
             }
         } while (JSON.stringify(this.sortedLetters) === JSON.stringify(this.messyLetters));
     }
