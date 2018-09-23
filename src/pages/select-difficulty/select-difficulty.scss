@@ -11,6 +11,11 @@ page-select-difficulty{
         padding-left: 3px;
         padding-right: 3px;
     }
+    &__star{
+        height: 40%;
+        display: flex;
+        justify-content: center;
+    }
     &__button{
         width: 100%;
         height: 60%;
@@ -54,4 +59,14 @@ page-select-difficulty{
     background-color: transparent;
     width: 48px;
     height: 48px;
+}
+
+.star{
+    font-size: 2em;
+    width: 20%;
+    text-align: center;
+    &:before{
+        content: "\2605";
+        color: yellow;
+    }
 }
