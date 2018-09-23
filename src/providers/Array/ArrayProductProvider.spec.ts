@@ -18,6 +18,10 @@ describe("Test ArrayProductProvider static functions", function() {
     it("must return the initial level", function() {
         expect(arrayProductProvider.Continue()).toBe(1)
     });
+    it("must return quantity of products", function() {
+        expect(arrayProductProvider.getQuantityOfProducts()).toBe(60)
+    });
+    
     
 
 });
