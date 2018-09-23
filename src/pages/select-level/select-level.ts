@@ -1,6 +1,6 @@
 import { LoadingPage } from './../loading/loading';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 
 @Component({
   selector: 'page-select-level',

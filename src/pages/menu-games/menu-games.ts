@@ -1,33 +1,25 @@
 import { Component } from '@angular/core';
-import { WordPage } from './../word/word';
+import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the MenuGamesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
-  selector: 'page-menu-games',
-  templateUrl: 'menu-games.html',
+    selector: 'page-menu-games',
+    templateUrl: 'menu-games.html',
 })
 export class MenuGamesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+    constructor(public navCtrl: NavController, public navParams: NavParams) { }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MenuGamesPage');
-  }
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad MenuGamesPage');
+    }
 
-  pushPageWord(){
-    this.navCtrl.push(WordPage);
-  }
+    pushPageWord(){
+        this.navCtrl.push(SelectDifficultyPage);
+    }
 
-  popPage(){
-    this.navCtrl.pop();
-  }
+    popPage(){
+        this.navCtrl.pop();
+    }
 }

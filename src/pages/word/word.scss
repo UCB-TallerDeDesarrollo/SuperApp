@@ -84,6 +84,15 @@
     font-size: 30px;
 }
 
+.change-level{
+    color: black;
+    text-align: center;
+}
+
+.level-header{
+    width: 90%;
+}
+
 // ===========================================================
 
 .gu-mirror {
@@ -106,12 +115,4 @@
 /* added to the source element while its mirror is dragged */
 .gu-transit {
     visibility: hidden;
-}
-
-.change-level{
-    color: black;
-    text-align: center;
-}
-.level-header{
-    width: 90%;
 }

@@ -46,17 +46,23 @@ describe("Test SortWordGame model", function() {
     });
 
     it('must return messy letters of response word', function() {
-        sortWordGame.buildLetters(response);
+        sortWordGame.buildLetters(response, 1);
 
         expect(sortWordGame.MessyWord).not.toBe(sortWordGame.SortedWord);
     });
 
     it('must return sorted letters of response word', function() {
-        sortWordGame.buildLetters(response);
+        sortWordGame.buildLetters(response, 1);
 
         for (let i = 0; i < product.Title.length; ++i) {
             expect(product.Title[i]).toBe(sortWordGame.SortedWord[i].letter);
         }
+    });
+
+    it('must return messy letters expert', function() {
+        sortWordGame.buildLetters(response, 125);
+
+        expect(sortWordGame.MessyWord.length).toEqual(sortWordGame.SortedWord.length + 1);
     });
 
     it('must set a new product', function() {

@@ -24,6 +24,7 @@ import { NativeAudio } from '@ionic-native/native-audio';
 import { AudioProvider } from '../shared/providers/AudioProvider';
 import { NativeAudioProvider } from '../providers/Native/NativeAudioProvider';
 import { SelectLevelPage } from '../pages/select-level/select-level';
+import { SelectDifficultyPage } from '../pages/select-difficulty/select-difficulty';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SelectLevelPage } from '../pages/select-level/select-level';
     ProductsPage, 
     LevelCompletePage,
     LoadingPage,
-    SelectLevelPage
+    SelectLevelPage,
+    SelectDifficultyPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { SelectLevelPage } from '../pages/select-level/select-level';
     ProductsPage, 
     LevelCompletePage,
     LoadingPage,
-    SelectLevelPage
+    SelectLevelPage,
+    SelectDifficultyPage
   ],
   providers: [
     StatusBar,
