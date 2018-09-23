@@ -9,7 +9,6 @@ export class ProductProvider {
 
   constructor() {
     this.productRepository = getRepository('product') as Repository<Product>;
-    console.log('Hello ProductProvider Provider');
   }
 
   async saveProduct(product: Product) {

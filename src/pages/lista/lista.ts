@@ -67,9 +67,7 @@ export class ListaPage implements OnInit, AfterViewInit {
       this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
       this.quantityproductsString = this.quantityOfProducts.toString();
       el.remove();
-      console.log("producto removido: "+product.title);
       FakeProducts.removeProduct(product);
-      console.log(FakeProducts.getProducts());
     });
   }
 
@@ -115,7 +113,6 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CreateProductPage');
     this.databaseInitializer();
   }
 }

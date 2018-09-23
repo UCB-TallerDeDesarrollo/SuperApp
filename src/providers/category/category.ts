@@ -9,7 +9,6 @@ export class CategoryProvider {
 
   constructor() {
     this.categoryRepository = getRepository('category') as Repository<Category>;
-    console.log('Hello CategoryProvider Provider');
   }
 
   async saveCategory(category: Category) {

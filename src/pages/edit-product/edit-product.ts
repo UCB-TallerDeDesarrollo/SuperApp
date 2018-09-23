@@ -64,10 +64,6 @@ export class EditProductPage {
     this.afterSaveProduct();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EditProductPage');
-  }
-
   callFunctionCamera(){
     this.takePicture();
   }

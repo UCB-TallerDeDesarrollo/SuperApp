@@ -34,7 +34,6 @@ export class ProductsEditorPage implements OnDestroy {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProductsEditorPage');
     this.productProvider.getProductsByCategory(this.navParams.data.data).then(products => {
       this.products = products;
     }).catch(error =>{
@@ -43,7 +42,6 @@ export class ProductsEditorPage implements OnDestroy {
   }
   
   ionViewDidEnter() {
-    console.log('ionViewDidEnter ProductsEditorPage');
     this.productProvider.getProductsByCategory(this.navParams.data.data).then(products => {
       this.products = products;
     }).catch(error =>{

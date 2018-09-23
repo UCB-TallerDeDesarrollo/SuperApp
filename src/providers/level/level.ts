@@ -9,7 +9,6 @@ export class LevelProvider {
 
   constructor() {
     this.levelRepository = getRepository('level') as Repository<Level>
-    console.log('Hello LevelProvider Provider');
   }
 
   async saveLevel(level: Level) {

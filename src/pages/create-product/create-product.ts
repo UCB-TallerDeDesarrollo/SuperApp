@@ -58,10 +58,6 @@ export class CreateProductPage {
     this.afterSaveProduct();
   }
 
-  ionViewDidLoad() {    
-    console.log('ionViewDidLoad CreateProductPage');
-  }
-
   callFunctionCamera(){
     this.takePicture();
   }
