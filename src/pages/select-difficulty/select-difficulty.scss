@@ -5,8 +5,11 @@ page-select-difficulty{
 .difficulty-container{
     display: flex;
     justify-content: space-around;
+    width: 100%;
     &__mode{
-        width: 23%;
+        width: 25%;
+        padding-left: 3px;
+        padding-right: 3px;
     }
     &__button{
         width: 100%;
