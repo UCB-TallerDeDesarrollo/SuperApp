@@ -8,6 +8,10 @@ export class SortWordGame {
     private messyLetters  : any;
     private sortedLetters : any;
     
+    private static readonly LETTERS = [
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'
+    ]
+
     public constructor(product: Product) {
         this.count = 0;
         this.product = product;
