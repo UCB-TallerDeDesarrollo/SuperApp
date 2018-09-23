@@ -123,4 +123,32 @@ export class ListaPage implements OnInit, AfterViewInit {
   ionViewDidLoad() {
     this.databaseInitializer();
   }
+
+  async databaseInitializer() {
+    const count_product = await this.productProvider.countProducts();
+    const count_category = await this.categoryProvider.countCategories();
+    if(count_category < 4) {
+      let categories = Categories.getCategories();
+      for(const c in categories) {
+        let category = new Category();
+        category.name = categories[c].name;
+        await this.categoryProvider.saveCategory(category);
+      }
+      if(count_product < 58) {
+        let products = FakeProducts.getProducts()
+        for (const p in products) {
+          let product = new Product();
+          product.image = products[p].image;
+          product.state = true;
+          product.title = products[p].title;
+          product.category = await this.categoryProvider.getCategoryById(products[p].categoryId);
+          await this.productProvider.saveProduct(product);
+        }
+      }
+    }
+  }
+
+  ionViewDidLoad() {
+    this.databaseInitializer();
+  }
 }
