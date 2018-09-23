@@ -18,7 +18,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public backgroundColor : string;
     public selectorName    : string;
     public level           : number;
-    public arrayColors = ['#B73D19',
+    public colors = ['#B73D19',
     '#E7E41C',
     '#4CD10A',
     '#23A547',
@@ -28,6 +28,13 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     '#1C818F',
     '#280D97',
     '#8C1D87'];
+    public backgrounds = [
+        'color-background-1',
+        'color-background-2', 
+        'color-background-3',
+        'color-background-4',
+        'color-background-5'
+    ];
 
     constructor(
         public navController     : NavController,
@@ -44,7 +51,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     private generateLettersWithColor() {
         let response: any = [];
         for (let letter of this.game.ResponseWord) {
-            response[letter] = this.colorService.getRandomColor(this.arrayColors);
+            response[letter] = this.colorService.getRandomColor(this.colors);
         }
         return response;
     }
@@ -53,7 +60,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.prepareLevel();
         this.game = new SortWordGame(this.productsProdiver.getProductOfActualLevel());
         this.selectorName = 'LETTER-' + Math.random();
-        this.backgroundColor = this.colorService.getRandomBackgroundColor();
+        this.backgroundColor = this.colorService.getRandomBackgroundColor(this.backgrounds);
         this.game.buildLetters(this.generateLettersWithColor());
     }
 
