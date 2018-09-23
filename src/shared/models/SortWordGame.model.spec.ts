@@ -7,7 +7,16 @@ describe("Test SortWordGame model", function() {
     let product: Product;
     let sortWordGame: SortWordGame;
     let response: any = [];
-
+    let arrayColor = ['#B73D19',
+    '#E7E41C',
+    '#4CD10A',
+    '#23A547',
+    '#24AD81',
+    '#2473AD',
+    '#2433AD',
+    '#1C818F',
+    '#280D97',
+    '#8C1D87'];
     beforeEach(function() {
         product = Product.createProduct(1, 'title1', 'image1', 2);
         sortWordGame = new SortWordGame(product);
@@ -16,7 +25,7 @@ describe("Test SortWordGame model", function() {
         colorProvider = new ArrayColorProvider();
 
         for (let letter of sortWordGame.ResponseWord) {
-            response[letter] = colorProvider.getRandomColor();
+            response[letter] = colorProvider.getRandomColor(arrayColor);
         }
     });
 

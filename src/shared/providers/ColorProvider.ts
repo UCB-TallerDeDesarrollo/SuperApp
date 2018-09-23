@@ -1,4 +1,4 @@
 export abstract class ColorProvider {
-    abstract getRandomColor(): string;
+    abstract getRandomColor(colors): string;
     abstract getRandomBackgroundColor(): string;
 }
