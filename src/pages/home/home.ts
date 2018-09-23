@@ -25,7 +25,6 @@ export class HomePage {
    }).catch(err=>{
      console.log('Error while loading platform', err);
    });
-    this.imageSound='assets/imgs/soundon.png';
     this.changeSoundIcon(); 
   }
   ionViewDidEnter(){
