@@ -59,7 +59,7 @@ export class SortWordGame {
                     letter: letter,
                     color: '#000000',
                     name: `letter-${letter}`
-                })
+                });
             }
         } while (JSON.stringify(this.sortedLetters) === JSON.stringify(this.messyLetters));
     }

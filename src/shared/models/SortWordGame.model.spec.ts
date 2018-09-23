@@ -59,6 +59,12 @@ describe("Test SortWordGame model", function() {
         }
     });
 
+    it('must return messy letters expert', function() {
+        sortWordGame.buildLetters(response, 125);
+
+        expect(sortWordGame.MessyWord.length).toEqual(sortWordGame.SortedWord.length + 1);
+    });
+
     it('must set a new product', function() {
         let newProduct: Product;
         newProduct = Product.createProduct(10, 'newTitle', 'newImage', 100);
