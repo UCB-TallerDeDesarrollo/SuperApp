@@ -23,7 +23,7 @@ export class SortWordGame {
         return this.count >= this.product.Title.length;
     }
 
-    public buildLetters(lettersColor: any) : void {
+    public buildLetters(lettersColor: any, level: number) : void {
         do {
             let auxilaryLetters: any = [];
             for (let letter of this.ResponseWord) {
@@ -43,6 +43,9 @@ export class SortWordGame {
                     name: `letter-${data.letter}`
                 });
                 auxilaryLetters.splice(auxilaryLetters.indexOf(data), 1);
+            }
+            if(level >= 125) {
+                
             }
         } while (JSON.stringify(this.sortedLetters) === JSON.stringify(this.messyLetters));
     }
