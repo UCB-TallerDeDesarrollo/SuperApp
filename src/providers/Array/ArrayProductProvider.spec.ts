@@ -17,6 +17,10 @@ describe("Test ArrayProductProvider static functions", function() {
         arrayProductProvider.setLevel(5)
         expect(arrayProductProvider.getActualLevel()).toBe(5)
     });
+    it("must set a undefined level", function() {
+        arrayProductProvider.setLevel(undefined)
+        expect(arrayProductProvider.getActualLevel()).toBe(1)
+    });
     it("must return the initial level", function() {
         expect(arrayProductProvider.Continue()).toBe(1)
     });
@@ -28,7 +32,11 @@ describe("Test ArrayProductProvider static functions", function() {
         product = Product.createProduct(1, 'AJO', path_images+'ajo.jpg',1);
         expect(arrayProductProvider.getProductOfActualLevel()).toEqual(product)
     });
-   
+    it("must return the correspondent product in level 61", function() {
+        let product: Product;
+        arrayProductProvider.setLevel(61);
+        expect(ArrayProductProvider.products).toContain(arrayProductProvider.getProductOfActualLevel());
+    });
     
 
 });
