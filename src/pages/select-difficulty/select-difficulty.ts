@@ -23,6 +23,6 @@ export class SelectDifficultyPage {
     }
 
     openExpertMode() {
-        this.navCtrl.push(WordPage);
+        this.navCtrl.push(WordPage, {'level':125});
     }
 }
