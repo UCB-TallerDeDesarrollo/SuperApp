@@ -17,6 +17,7 @@
     "e2e-update": "webdriver-manager update --standalone false --gecko false"
   },
   "config": {
+    "ionic_bundler": "webpack",
     "ionic_webpack": "./config/webpack.config.js"
   },
   "dependencies": {
@@ -96,9 +97,5 @@
     "platforms": [
       "ios"
     ]
-  },
-  "config": {
-    "ionic_bundler": "webpack",
-    "ionic_webpack": "./config/webpack.config.js"
   }
 }
