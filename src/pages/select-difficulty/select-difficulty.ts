@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { WordPage } from '../word/word';
 
 @Component({
     selector: 'page-select-difficulty',
@@ -13,4 +14,19 @@ export class SelectDifficultyPage {
         console.log('ionViewDidLoad SelectDifficultyPage');
     }
 
+    openEasyMode() {
+        this.navCtrl.push(WordPage);
+    }
+
+    openMediumMode() {
+        this.navCtrl.push(WordPage);
+    }
+
+    openHardMode() {
+        this.navCtrl.push(WordPage);
+    }
+
+    openExpertMode() {
+        this.navCtrl.push(WordPage);
+    }
 }
