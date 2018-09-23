@@ -14,6 +14,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
   providers: [[Camera]]
 })
 export class CreateProductPage {
+  
   options: any;
   Image: any;
   path: any;
@@ -30,7 +31,7 @@ export class CreateProductPage {
               private formBuilder: FormBuilder) {    
     
     this.productForm = this.formBuilder.group({
-      //title: ['', Validators.required],
+      title: ['', Validators.required],
       category: ['', Validators.required]
     });
 

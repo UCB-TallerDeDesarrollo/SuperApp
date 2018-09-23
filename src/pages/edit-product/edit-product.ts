@@ -5,6 +5,7 @@ import { CategoryProvider } from '../../providers/category/category';
 import { Camera } from '@ionic-native/camera';
 import { Product } from '../../entities/product';
 import { Category } from '../../entities/category';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -20,12 +21,19 @@ export class EditProductPage {
   product = new Product;
   category: Category;
   categories: Array<Category>;
+  productForm: FormGroup;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               public productProvider: ProductProvider, 
               public categoryProvider: CategoryProvider,
-              public camera: Camera) {
+              public camera: Camera,
+              private formBuilder: FormBuilder) {
+    
+    this.productForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      category: ['', Validators.required]
+    });
      
     categoryProvider.getCategoryById(navParams.get('categoryId'))
     .then(category => {
