@@ -15,7 +15,7 @@ export class Product {
     image: string;
 
     @Column()
-    state: boolean;
+    state: boolean = false;
 
     @ManyToOne(type => Category, category => category.products, { cascade: ['insert'] })
     category: Category;
