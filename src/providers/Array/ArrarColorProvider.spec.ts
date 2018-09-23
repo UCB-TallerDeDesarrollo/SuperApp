@@ -1,9 +1,12 @@
 import { ArrayColorProvider } from './ArrayColorProvider';
 
 describe("Test ArrayColorProvider static functions", function() {
-    it("ArrayColorProvider must return a color from the array", function() {
-        let arrayColorProvider: ArrayColorProvider;
+    let arrayColorProvider: ArrayColorProvider;
+    beforeEach(function() {
         arrayColorProvider = new ArrayColorProvider();
+    });
+    it("ArrayColorProvider must return a color from the array", function() {
+       
         let array = ['#B73D19',
         '#E7E41C',
         '#4CD10A',
@@ -25,8 +28,6 @@ describe("Test ArrayColorProvider static functions", function() {
             'color-background-4',
             'color-background-5'
         ];
-        let arrayColorProvider: ArrayColorProvider;
-        arrayColorProvider = new ArrayColorProvider();
         expect(backgrounds).toContain(arrayColorProvider.getRandomBackgroundColor(backgrounds));
     });
 
