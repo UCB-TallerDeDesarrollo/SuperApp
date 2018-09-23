@@ -89,6 +89,7 @@
   <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
   <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
   <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
+  <plugin name="cordova-plugin-camera" spec="^4.0.3" />
   <engine name="ios" spec="4.5.5" />
   <vs:toolsetVersion xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps">6.3.1</vs:toolsetVersion>
   <engine name="android" spec="5.2.1" />

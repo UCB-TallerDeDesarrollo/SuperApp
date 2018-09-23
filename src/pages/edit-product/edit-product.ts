@@ -9,12 +9,12 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @IonicPage()
 @Component({
-  selector: 'page-create-product',
-  templateUrl: 'create-product.html',
+  selector: 'page-edit-product',
+  templateUrl: 'edit-product.html',
   providers: [[Camera]]
 })
-export class CreateProductPage {
-  
+export class EditProductPage {
+
   options: any;
   Image: any;
   path: any;
@@ -26,42 +26,48 @@ export class CreateProductPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               public productProvider: ProductProvider, 
-              public categoryProvider: CategoryProvider, 
+              public categoryProvider: CategoryProvider,
               public camera: Camera,
-              private formBuilder: FormBuilder) {    
+              private formBuilder: FormBuilder) {
     
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
       category: ['', Validators.required]
     });
-
-    categoryProvider.getCategoryById(navParams.data.data)
+     
+    categoryProvider.getCategoryById(navParams.get('categoryId'))
     .then(category => {
       this.category = category;
     }).catch(error => {
       console.log(error);
     });
+            
+    this.productProvider.getProductById(navParams.data.data)
+    .then(product => {
+      this.product = product;
+      this.Image = product.image;
+    }).catch(error => {
+      console.log(error);
+    });
 
-    categoryProvider.getCategories()
+    this.categoryProvider.getCategories()
     .then(categories => {
       this.categories = categories;
     }).catch(error => {
       console.log(error);
     });
-
-    this.Image = "../../assets/imgs/default-product.jpg";
   }
 
   async saveProductForm() {
     this.product.image = this.Image;
-    await this.productProvider.saveProduct(this.product);
+    await this.productProvider.updateProduct(this.product);
     this.afterSaveProduct();
   }
 
   callFunctionCamera(){
     this.takePicture();
   }
-
+  
   afterSaveProduct(){
     this.navCtrl.pop();    
   }
@@ -84,4 +90,5 @@ export class CreateProductPage {
         console.log(error);
       })
   }
+
 }

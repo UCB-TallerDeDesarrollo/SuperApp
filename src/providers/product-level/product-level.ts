@@ -9,7 +9,6 @@ export class ProductLevelProvider {
 
   constructor() {
     this.productLevelRepository = getRepository('product_level') as Repository<ProductLevel>;
-    console.log('Hello ProductLevelProvider Provider');
   }
 
   async saveProductLevel(productLevel: ProductLevel) {

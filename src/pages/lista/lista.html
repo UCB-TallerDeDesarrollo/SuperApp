@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content no-bounce padding class="main-list">
-    <h2 class="main-title">{{selectedCategory.name}}</h2>
+    <h2 class="main-title" (click)="pushProduct(this.selectedCategory.id)" >{{selectedCategory.name}}</h2>
     <ion-list class="stand-products">
         <ion-row>
             <div class="product-block" *ngFor="let product of products" id="{{product.title}}" dragula="PRODUCT">
@@ -31,6 +31,5 @@
         <p class="product-card-title">Productos en el carrito</p>
         <p class="product-card-info">{{quantityproductsString}}</p>
         <button class="button-product-card" (click)="pushProducts()">Ver Productos</button>
-        <button class="button-product-card" (click)="pushProduct()">Ver Productos</button>
     </div>
 </ion-content>

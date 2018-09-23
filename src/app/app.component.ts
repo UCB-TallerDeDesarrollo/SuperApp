@@ -28,7 +28,7 @@ export class MyApp {
           type: 'cordova',
           database: 'test',
           location: 'default',
-          logging: ['error', 'query', 'schema'],
+          //logging: ['error', 'query', 'schema'],
           synchronize: true,
           entities: [
             Category,
@@ -42,9 +42,9 @@ export class MyApp {
           type: 'sqljs',
           autoSave: true,
           location: 'browser',
-          logging: ['error', 'query', 'schema'],
+          //logging: ['error', 'query', 'schema'],
           synchronize: true,
-          dropSchema: true,
+          //dropSchema: true,
           entities: [
             Category,
             Product,
