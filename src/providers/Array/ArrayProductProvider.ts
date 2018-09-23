@@ -4,44 +4,44 @@ import { ArrayManager } from "../../Managers/ArrayManager";
 
 export class ArrayProductProvider implements ProductProvider {
     
-    private static readonly PATH_IMAGES = '../../assets/imgs/Products/';
+    private static readonly PATH_IMAGES: string = '../../assets/imgs/Products/';
+    private level: number;
 
-    public setLevel(level:number): void {
+    constructor() {
+        this.level = 1;
+    }
+
+    public setLevel(level: number): void {
         if (level == undefined) {
-                this.Continue();
+            this.Continue();
         }
         else{
             this.level=level;
         }
-        
     }
-    private level:number;
-    constructor()
-    {
-        this.level=1;
-    }
+    
     public nextLevel(): void {
         this.level++;
     }
+
     public getActualLevel(): number {
         return this.level;
     }
     
-    public getProductOfActualLevel():Product{
-        if (this.level>60)
-        {
-         return ArrayManager.get_random_element(ArrayProductProvider.products);   
+    public getProductOfActualLevel(): Product{
+        if (this.level>60) {
+            return ArrayManager.get_random_element(ArrayProductProvider.products);   
         }
         return ArrayProductProvider.products.find((x)=>x.Level==this.level);
     }
+
     public getQuantityOfProducts(): number {
         return ArrayProductProvider.products.length;
     }
-    private Continue()
-    {
-        return this.level=1;
-    }
 
+    private Continue() {
+        return this.level = 1;
+    }
     
     private static readonly products: Product[] = [
         Product.createProduct(1, 'AJO', ArrayProductProvider.PATH_IMAGES+'ajo.jpg',1),
