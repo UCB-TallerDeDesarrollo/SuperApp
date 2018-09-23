@@ -15,11 +15,11 @@ export class SelectDifficultyPage {
     }
 
     openMediumMode() {
-        this.navCtrl.push(WordPage, {'level':31});
+        this.navCtrl.push(WordPage, {'level':16});
     }
 
     openHardMode() {
-        this.navCtrl.push(WordPage);
+        this.navCtrl.push(WordPage, {'level':31});
     }
 
     openExpertMode() {
