@@ -65,8 +65,12 @@ page-select-difficulty{
     font-size: 2em;
     width: 20%;
     text-align: center;
+    color: yellow;
     &:before{
         content: "\2605";
-        color: yellow;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    }
+    &__disabled{
+        color: gray;
     }
 }
