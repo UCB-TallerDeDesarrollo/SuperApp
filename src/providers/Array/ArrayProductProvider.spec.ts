@@ -15,6 +15,9 @@ describe("Test ArrayProductProvider static functions", function() {
         arrayProductProvider.setLevel(5)
         expect(arrayProductProvider.getActualLevel()).toBe(5)
     });
+    it("must return the initial level", function() {
+        expect(arrayProductProvider.Continue()).toBe(1)
+    });
     
 
 });

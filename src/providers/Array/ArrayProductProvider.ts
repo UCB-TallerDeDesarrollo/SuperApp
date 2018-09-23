@@ -36,7 +36,7 @@ export class ArrayProductProvider implements ProductProvider {
     public getQuantityOfProducts(): number {
         return ArrayProductProvider.products.length;
     }
-    private Continue()
+    public Continue()
     {
         return this.level=1;
     }
