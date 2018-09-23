@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProductProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
@@ -13,7 +13,7 @@ import { EditProductPage } from '../edit-product/edit-product';
   selector: 'page-products-editor',
   templateUrl: 'products-editor.html',
 })
-export class ProductsEditorPage {
+export class ProductsEditorPage implements OnDestroy {
 
   products: Array<Product>;
 
@@ -56,6 +56,12 @@ export class ProductsEditorPage {
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
     }
     this.navCtrl.pop();
+  }
+
+  ngOnDestroy(){
+    if (this.platform.is('cordova')){
+      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+    }
   }
 
   pushCreateProduct(){

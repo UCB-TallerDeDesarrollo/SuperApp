@@ -12,7 +12,7 @@
 
 <ion-content padding class="main-editor">
   <ion-list *ngFor="let product of products">
-    <ion-item>
+    <ion-item class="product-content">
       <img class="product-image" src="{{product.image}}" item-start>
       {{product.title}}
       <ion-icon name="md-create" item-end (click)="editProduct(product.id)"></ion-icon>
