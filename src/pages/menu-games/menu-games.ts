@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { WordPage } from '../word/word';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
