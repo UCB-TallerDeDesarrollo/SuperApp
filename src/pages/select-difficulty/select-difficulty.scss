@@ -44,3 +44,12 @@ page-select-difficulty{
     display: flex;
     justify-content: center;
 }
+
+.back-arrow{
+    display: flex;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    box-shadow: none;
+    background-color: transparent;
+}
