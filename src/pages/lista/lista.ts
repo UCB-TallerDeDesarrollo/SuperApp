@@ -66,7 +66,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   ionViewDidEnter() { 
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString(); 
-    this.productProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
       this.products = products;
     }).catch(error => {
       console.log(error);
@@ -133,7 +133,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   
   onSelectCategory(category){ 
     this.selectedCategory = category;
-    this.productProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
       this.products = products;
     }).catch(error => {
       console.log(error);
