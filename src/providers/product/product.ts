@@ -47,8 +47,16 @@ export class ProductsProvider {
   
   async getProductsByCategory(category_id: number){
     let products = await this.productRepository.createQueryBuilder('product')
-                                .where("categoryId = :categoryId", {categoryId: category_id})
+                                .where("categoryId = :categoryId", { categoryId: category_id })
                                 .getMany();
+    return products;
+  }
+
+  async getProductsByCategoryOnlyActive(category_id: number) {
+    let products = await this.productRepository.createQueryBuilder('product')
+      .where("categoryId = :categoryId", { categoryId: category_id })
+      .andWhere("state = :state", { state: true })
+      .getMany();
     return products;
   }
 

@@ -23,7 +23,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   defaultCategoryId:number = 1;
   actualSelectedElement:any;
   actualSelectedContainer:any;
-  products: Array<{id: number, title: string, image: string, categoryId: number}> = [];
+  products: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
   categories: Array<{id: number, name: string}>=[];
   selectedCategory: {id: number, name: string};
   quantityproductsString:string;
@@ -65,8 +65,12 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   ionViewDidEnter() { 
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-    this.quantityproductsString = this.quantityOfProducts.toString();
-    this.chargeProductsOfCategory(this.selectedCategory.id);
+    this.quantityproductsString = this.quantityOfProducts.toString(); 
+    this.productProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
+      this.products = products;
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   ngOnInit() {
@@ -128,8 +132,12 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
   
   onSelectCategory(category){ 
-    this.selectedCategory=category; 
-    this.products=FakeProducts.getProductsByCategory(category.id)
+    this.selectedCategory = category;
+    this.productProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
+      this.products = products;
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   async databaseInitializer() {
