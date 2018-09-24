@@ -3,7 +3,7 @@ import { Product } from '../../entities/product';
 import { getRepository, Repository } from 'typeorm';
 
 @Injectable()
-export class ProductProvider {
+export class ProductsProvider {
 
   productRepository: any;
 

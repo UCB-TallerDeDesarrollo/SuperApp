@@ -6,7 +6,7 @@ import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
 import { Categories } from '../../providers/FakeService/Categories';
-import { ProductProvider } from '../../providers/product/product';
+import { ProductsProvider } from '../../providers/product/product';
 import { Product } from '../../entities/product';
 import { Category } from '../../entities/category';
 import { CategoryProvider } from '../../providers/category/category';
@@ -31,7 +31,7 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   constructor(public navCtrl:           NavController, 
               private dragulaService:   DragulaService, 
-              public productProvider:   ProductProvider, 
+              public productsProvider:   ProductsProvider, 
               public categoryProvider:  CategoryProvider) {
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
     categoryProvider.getCategories()
@@ -41,7 +41,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     .catch(error => {
       console.log(error);
     });
-    productProvider.getProductsByCategory(this.defaultCategoryId)
+    productsProvider.getProductsByCategory(this.defaultCategoryId)
     .then(products => {
       this.products=products;
     })
@@ -54,7 +54,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   chargeProductsOfCategory(categoryId: number){
-    this.productProvider.getProductsByCategory(categoryId)
+    this.productsProvider.getProductsByCategory(categoryId)
     .then(products => {
       this.products=products;
     })
@@ -89,11 +89,28 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       let product_id = + (el.id.split("-")[1]);
       let product = FakeProducts.getProductById(product_id);
-      FakeListProducts.addProduct(product);
+      if(product !== null){
+        FakeListProducts.addProduct(product);
+      } else {
+        let currentProduct = new Product;
+        this.productsProvider.getProductById(product_id)
+        .then( p => {
+          currentProduct = p;
+        }).catch(error => {
+          console.log(error);
+        });
+        
+        FakeListProducts.addProduct({ id: currentProduct.id, 
+                                      title: currentProduct.title, 
+                                      image: currentProduct.image, 
+                                      categoryId: this.selectedCategory.id});
+      }
       this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
       this.quantityproductsString = this.quantityOfProducts.toString();
       el.remove();
-      FakeProducts.removeProduct(product);
+      if(product === null){ 
+        FakeProducts.removeProduct(product);
+      }
     });
   }
 
@@ -115,7 +132,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   async databaseInitializer() {
-    const count_product = await this.productProvider.countProducts();
+    const count_product = await this.productsProvider.countProducts();
     const count_category = await this.categoryProvider.countCategories();
     if(count_category < 4) {
       let categories = Categories.getCategories();
@@ -132,7 +149,7 @@ export class ListaPage implements OnInit, AfterViewInit {
           product.state = true;
           product.title = products[p].title;
           product.category = await this.categoryProvider.getCategoryById(products[p].categoryId);
-          await this.productProvider.saveProduct(product);
+          await this.productsProvider.saveProduct(product);
         }
       }
     }
