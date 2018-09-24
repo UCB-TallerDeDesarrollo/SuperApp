@@ -76,16 +76,16 @@ import { EditProductPage } from '../pages/edit-product/edit-product';
     NativeAudio,
     DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ProductProvider,
+    {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio]},
+    /*ProductProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: ProductProvider, useClass: ArrayProductProvider},
     {provide: ColorProvider, useClass: ArrayColorProvider},
     {provide: WordDragDropProvider, useClass: DragulaWordDragDropProvider, deps: [DragulaService, Platform]},
-    {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio]},
     ProductsProvider,
     CategoryProvider,
     LevelProvider,
-    ProductLevelProvider
+    ProductLevelProvider*/
   ]
 })
 export class AppModule { }

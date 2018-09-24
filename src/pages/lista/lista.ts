@@ -6,7 +6,6 @@ import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
 import { SmartAudio } from '../../providers/smart-audio/smart-audio';
-import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { Categories } from '../../providers/FakeService/Categories';
 import { ProductsProvider } from '../../providers/product/product';
 import { Product } from '../../entities/product';
@@ -35,7 +34,8 @@ export class ListaPage implements OnInit, AfterViewInit {
   constructor(public navCtrl:           NavController, 
               private dragulaService:   DragulaService, 
               public productsProvider:   ProductsProvider, 
-              public categoryProvider:  CategoryProvider) {
+              public categoryProvider:  CategoryProvider,
+              public smartAudio: SmartAudio) {
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
     categoryProvider.getCategories()
     .then(categories => {
@@ -125,12 +125,12 @@ export class ListaPage implements OnInit, AfterViewInit {
 
 
   stopSound(){
-        this.audioProvider.changeState();
+        this.smartAudio.changeState();
     this.changeSoundIcon();
   }
 
   changeSoundIcon(){
-    if(this.audioProvider.isMuted()){
+    if(this.smartAudio.isMuted()){
       this.imageSound="assets/imgs/soundOffDark.png";
     }
     else{
