@@ -1,0 +1,17 @@
+.main-product {
+    background-image: linear-gradient(135deg, #5da5f7 10%, #98e4eb 100%);
+}
+
+.product-form-top{
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+}
+
+.product-form-bottom{
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+}
+
+.item > ion-icon, .item-inner > ion-icon {
+  font-size: 4rem;
+}
