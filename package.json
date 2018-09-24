@@ -66,7 +66,11 @@
   "devDependencies": {
     "@ionic/app-scripts": "3.2.0",
     "@ionic/lab": "1.0.8",
+    "@types/jasmine": "^2.8.8",
     "@types/node": "^10.10.1",
+    "angular2-template-loader": "^0.6.2",
+    "html-loader": "^0.5.5",
+    "istanbul-instrumenter-loader": "^3.0.1",
     "jasmine": "^3.2.0",
     "jasmine-spec-reporter": "^4.2.1",
     "karma": "^3.0.0",
