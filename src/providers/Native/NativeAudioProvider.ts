@@ -8,11 +8,10 @@ export class NativeAudioProvider implements AudioProvider {
     public constructor(private nativeAudio: NativeAudio) {
         if(this.isRealDevice()) {
             nativeAudio.preloadSimple('correctLetterSound', '../../assets/sounds/correctLetterSound.mp3');
-            nativeAudio.preloadSimple('mainSound', '../../assets/sounds/correctLetterSound.mp3');
+
         }
         else {
             this.correctLetterSound = new Audio('../../assets/sounds/correctLetterSound.mp3');
-            this.correctLetterSound = new Audio('../../assets/sounds/music.mp3');
             this.correctLetterSound.volume = 0.8;
         }
     }
@@ -25,31 +24,13 @@ export class NativeAudioProvider implements AudioProvider {
             this.correctLetterSound.play();
         }
     }
-    public playMainSound(): void {
-        if(NativeAudioProvider.isMuted==false)
-        {
-            if(this.isRealDevice()) {
-                this.nativeAudio.play('mainSound');
-            }
-            else {
-                this.correctLetterSound.play();
-            }
-        }
-        
-    }
+   
 
     public isMuted(){
         return NativeAudioProvider.isMuted;
     }
 
-    public stopMainSound(): void {
-        if(this.isRealDevice()) {
-            this.nativeAudio.stop('mainSound');
-        }
-        else {
-            this.correctLetterSound.muted=true;
-        }
-    }
+    
     changeState():void{
         if (NativeAudioProvider.isMuted==true)
         {
