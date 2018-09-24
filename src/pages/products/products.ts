@@ -1,7 +1,10 @@
 import { FakeProducts } from './../../providers/FakeService/FakeProducts';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
-import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
+import { FakeListProducts } from '../../providers/FakeService/FakeListProducts'; 
+import { ListaPage } from '../lista/lista';
+import { DragulaService } from 'ng2-dragula';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -10,13 +13,17 @@ import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 })
 export class ProductsPage {
 
-  products: Array<{ id: number, title: string, image: string, categoryId: number }> = [];
+  products: Array<{ id: number, title: string, image: string }> = [];
   numberOfProducts: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private dragulaService: DragulaService) {
     this.products = FakeListProducts.getProducts().reverse();
     this.numberOfProducts = this.products.length;
   }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ProductsPage');
+  } 
   
   deleteListOfProducts() {
     FakeListProducts.deleteAllProducts();
@@ -32,7 +39,6 @@ export class ProductsPage {
         {
           text: 'Si',
           handler: () => {
-            console.log(FakeProducts.getProducts());
             FakeProducts.addManyProducts(this.products)
             this.deleteListOfProducts();
           }
@@ -57,6 +63,7 @@ export class ProductsPage {
   }
   
   goToProducts() {
-    this.navCtrl.pop();
+    this.navCtrl.popToRoot();
+    this.navCtrl.push(ListaPage);
   }
 }
