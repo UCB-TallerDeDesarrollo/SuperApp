@@ -1,7 +1,11 @@
 import { FakeProducts } from './../../providers/FakeService/FakeProducts';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
-import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
+import { FakeListProducts } from '../../providers/FakeService/FakeListProducts'; 
+import { ListaPage } from '../lista/lista';
+import { DragulaService } from 'ng2-dragula';
+import { HomePage } from '../home/home';
+import { SmartAudio } from '../../providers/smart-audio/smart-audio';
 
 @IonicPage()
 @Component({
@@ -9,11 +13,31 @@ import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
   templateUrl: 'products.html',
 })
 export class ProductsPage {
+  public soundClic: boolean = false;
+  
+
+  /*constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private dragulaService: DragulaService, public smartAudio: SmartAudio) {
+    this.products = FakeListProducts.getProducts().reverse();
+    this.numberOfProducts = this.products.length;
+  }*/
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ProductsPage');
+  } 
+  changeSoundClicToFalse(){
+    this.soundClic = false;
+  }
+  changeSoundClicToTrue(){
+    this.soundClic = true;
+  }
+  getSoundClic(){
+    return this.soundClic;
+  }
 
   products: Array<{ id: number, title: string, image: string, categoryId: number }> = [];
   numberOfProducts: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private dragulaService: DragulaService, public smartAudio: SmartAudio) {
     this.products = FakeListProducts.getProducts().reverse();
     this.numberOfProducts = this.products.length;
   }

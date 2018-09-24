@@ -1,3 +1,4 @@
+import { LoadingPage } from './../loading/loading';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 
@@ -14,11 +15,20 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
   templateUrl: 'level-complete.html',
 })
 export class LevelCompletePage {
-
+  private lastNav:NavController;
+  private level:number;
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController) {
+    this.lastNav=navParams.get("lastNav");
+    this.level=navParams.get("level");
+    this.navCtrl=this.lastNav;
   }
 
+  ionViewDidLoad() {
+    //console.log('ionViewDidLoad LevelCompletePage');
+  }
   nextLevel(){
     this.viewCtrl.dismiss();
+    this.navCtrl.push(LoadingPage, {lastNav:this.navCtrl, level:this.level});
+    this.navCtrl.remove(this.navCtrl.length()-1);
   }
 }

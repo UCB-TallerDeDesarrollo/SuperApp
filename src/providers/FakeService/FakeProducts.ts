@@ -1,8 +1,8 @@
 import { ArrayManager } from "../../Managers/ArrayManager";
 
-let path_images = '../../assets/imgs/Products/'
+const path_images = '../../assets/imgs/Products/'
 
-export class FakeProducts{
+export class FakeProducts {
   
     static products: Array<{id: number, title: string, image: string, categoryId: number}>= [
         {id: 1, title: 'ARROZ', image: path_images+'arroz.jpg',categoryId: 1},
