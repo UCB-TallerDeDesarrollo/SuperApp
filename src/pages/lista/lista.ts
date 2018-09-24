@@ -29,18 +29,44 @@ export class ListaPage implements OnInit, AfterViewInit {
   quantityproductsString:string;
   quantityOfProducts: number;
 
-  constructor(public navCtrl: NavController, private dragulaService: DragulaService, public productProvider: ProductProvider, public categoryProvider: CategoryProvider) {
+  constructor(public navCtrl:           NavController, 
+              private dragulaService:   DragulaService, 
+              public productProvider:   ProductProvider, 
+              public categoryProvider:  CategoryProvider) {
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
-    this.categories=Categories.getCategories();
-    this.products = FakeProducts.getProductsByCategory(this.defaultCategoryId);
+    categoryProvider.getCategories()
+    .then(categories => {
+      this.categories = categories;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    productProvider.getProductsByCategory(this.defaultCategoryId)
+    .then(products => {
+      this.products=products;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
+  }
+
+  chargeProductsOfCategory(categoryId: number){
+    this.productProvider.getProductsByCategory(categoryId)
+    .then(products => {
+      this.products=products;
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
   ionViewDidEnter() { 
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
-    this.products = FakeProducts.getProductsByCategory(this.selectedCategory.id);
+    this.chargeProductsOfCategory(this.selectedCategory.id);
   }
 
   ngOnInit() {
