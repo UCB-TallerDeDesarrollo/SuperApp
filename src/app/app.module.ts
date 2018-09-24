@@ -26,7 +26,6 @@ import { DragulaWordDragDropProvider } from '../providers/Dragula/DragulaWordDra
 import { AudioProvider } from '../shared/providers/AudioProvider';
 import { NativeAudioProvider } from '../providers/Native/NativeAudioProvider';
 import { SelectLevelPage } from '../pages/select-level/select-level';
-import { ProductsProvider } from '../providers/product/product';
 import { CreateProductPage } from '../pages/create-product/create-product';
 import { CategoryProvider } from '../providers/category/category';
 import { LevelProvider } from '../providers/level/level';
