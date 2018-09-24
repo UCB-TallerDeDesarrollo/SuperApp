@@ -100,6 +100,8 @@ export class ListaPage implements OnInit, AfterViewInit {
             title: currentProduct.title, 
             image: currentProduct.image, 
             categoryId: this.selectedCategory.id});
+          this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
+          this.quantityproductsString = this.quantityOfProducts.toString();
         }).catch(error => {
           console.log(error);
         });
