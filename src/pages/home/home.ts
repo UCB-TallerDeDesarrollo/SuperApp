@@ -27,13 +27,7 @@ export class HomePage {
    });
     this.changeSoundIcon(); 
   }
-  ionViewDidEnter(){
-    this.audioProvider.playMainSound();
-  }
-  
-  playSound() {
-    this.audioProvider.playMainSound();
-  }
+
 
   stopSound(){
         this.audioProvider.changeState();
