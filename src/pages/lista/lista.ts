@@ -96,14 +96,13 @@ export class ListaPage implements OnInit, AfterViewInit {
         this.productsProvider.getProductById(product_id)
         .then( p => {
           currentProduct = p;
+          FakeListProducts.addProduct({ id: currentProduct.id, 
+            title: currentProduct.title, 
+            image: currentProduct.image, 
+            categoryId: this.selectedCategory.id});
         }).catch(error => {
           console.log(error);
         });
-        
-        FakeListProducts.addProduct({ id: currentProduct.id, 
-                                      title: currentProduct.title, 
-                                      image: currentProduct.image, 
-                                      categoryId: this.selectedCategory.id});
       }
       this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
       this.quantityproductsString = this.quantityOfProducts.toString();
