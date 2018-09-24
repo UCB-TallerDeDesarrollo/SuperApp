@@ -13,9 +13,12 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
     private actualSelectedContainer : any;
     private recentlyMove   : boolean;
     private limits:Limits;
-    public constructor(private dragulaService: DragulaService, private platform: Platform) {
+    public constructor(
+        private dragulaService: DragulaService, 
+        platform: Platform
+    ) {
         this.limits=new Limits(platform);
-     }
+    }
     
     public initialize(selectorName: string): void {
         this.subs[selectorName] = new Subscription();

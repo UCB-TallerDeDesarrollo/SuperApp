@@ -1,4 +1,4 @@
-import { Product } from "./Product.model";
+import { Product } from "./product.model";
 import { ArrayManager } from "../../Managers/ArrayManager";
 
 export class SortWordGame {
@@ -8,6 +8,14 @@ export class SortWordGame {
     private messyLetters  : any;
     private sortedLetters : any;
     
+    private static readonly LETTERS = [
+        'A', 'B', 'C', 'D', 'E', 'F', 
+        'G', 'H', 'I', 'J', 'K', 'L', 
+        'M', 'N', 'O', 'P', 'Q', 'R', 
+        'S', 'T', 'U', 'V', 'W', 'X', 
+        'Y', 'Z'
+    ]
+
     public constructor(product: Product) {
         this.count = 0;
         this.product = product;
@@ -23,7 +31,7 @@ export class SortWordGame {
         return this.count >= this.product.Title.length;
     }
 
-    public buildLetters(lettersColor: any) : void {
+    public buildLetters(lettersColor: any, level: number) : void {
         do {
             let auxilaryLetters: any = [];
             for (let letter of this.ResponseWord) {
@@ -43,6 +51,15 @@ export class SortWordGame {
                     name: `letter-${data.letter}`
                 });
                 auxilaryLetters.splice(auxilaryLetters.indexOf(data), 1);
+            }
+            if(level >= 125) {
+                let randomPosition = Math.floor(Math.random() * this.messyLetters.length);
+                let letter = SortWordGame.LETTERS[Math.floor(Math.random() * (SortWordGame.LETTERS.length))];
+                this.messyLetters.splice(randomPosition, 0, {
+                    letter: letter,
+                    color: '#000000',
+                    name: `letter-${letter}`
+                });
             }
         } while (JSON.stringify(this.sortedLetters) === JSON.stringify(this.messyLetters));
     }

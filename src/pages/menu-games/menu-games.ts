@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WordPage } from './../word/word';
+import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SmartAudio } from '../../providers/smart-audio/smart-audio';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
@@ -12,8 +12,8 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 
 @IonicPage()
 @Component({
-  selector: 'page-menu-games',
-  templateUrl: 'menu-games.html',
+    selector: 'page-menu-games',
+    templateUrl: 'menu-games.html',
 })
 export class MenuGamesPage {
 
@@ -37,11 +37,11 @@ export class MenuGamesPage {
     }
   }
 
-  pushPageWord(){
-    this.navCtrl.push(WordPage);
-  }
+    pushPageWord(){
+        this.navCtrl.push(SelectDifficultyPage);
+    }
 
-  popPage(){
-    this.navCtrl.pop();
-  }
+    popPage(){
+        this.navCtrl.pop();
+    }
 }

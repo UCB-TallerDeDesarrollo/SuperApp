@@ -1,18 +1,21 @@
 import { NativeAudio } from '@ionic-native/native-audio';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
+import { Platform } from 'ionic-angular';
 
 export class NativeAudioProvider implements AudioProvider {
     
-    private correctLetterSound: HTMLAudioElement;
-    public static isMuted:boolean=false;   
-    public constructor(private nativeAudio: NativeAudio) {
+    private correctLetterSound : HTMLAudioElement;
+    private levelComplete      : HTMLAudioElement;
+    public static isMuted      : boolean = false;
+
+    public constructor(private nativeAudio: NativeAudio, private platform: Platform) {
         if(this.isRealDevice()) {
             nativeAudio.preloadSimple('correctLetterSound', '../../assets/sounds/correctLetterSound.mp3');
-
+            nativeAudio.preloadSimple('levelComplete', '../../assets/sounds/levelComplete.mp3');
         }
         else {
             this.correctLetterSound = new Audio('../../assets/sounds/correctLetterSound.mp3');
-            this.correctLetterSound.volume = 0.8;
+            this.levelComplete = new Audio('../../assets/sounds/levelComplete.mp3');
         }
     }
 
@@ -21,15 +24,13 @@ export class NativeAudioProvider implements AudioProvider {
             this.nativeAudio.play('correctLetterSound');
         }
         else {
-            this.correctLetterSound.play();
+            (<HTMLAudioElement>this.correctLetterSound.cloneNode(true)).play();
         }
     }
    
-
     public isMuted(){
         return NativeAudioProvider.isMuted;
     }
-
     
     changeState():void{
         if (NativeAudioProvider.isMuted==true)
@@ -46,16 +47,17 @@ export class NativeAudioProvider implements AudioProvider {
             NativeAudioProvider.isMuted=true;
         }
     }
-    public playWinGameSound(): void {
+
+    public playLevelCompleteSound(): void {
         if(this.isRealDevice()) {
-            
+            this.nativeAudio.play('levelComplete');
         }
         else {
-            
+            (<HTMLAudioElement>this.levelComplete.cloneNode(true)).play();
         }
     }
 
     private isRealDevice(): boolean {
-        return document.URL.indexOf('http') !== 0;
+        return this.platform.is('cordova');
     }
 }

@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar hideBackButton>
-        <ion-buttons left >
+        <ion-buttons left>
             <button ion-button icon-only (click)="navController.pop()">
                 <ion-icon name="arrow-back"></ion-icon>
             </button>
@@ -15,7 +15,6 @@
 </ion-header>
 
 <ion-content padding class={{backgroundColor}}>
-    
     <ul class="item-container" >
         <div class="relative-container" *ngFor="let letter of game.SortedWord"> 
             <div>
@@ -23,21 +22,14 @@
             </div>
         </div>
     </ul>
-  
     <ul class="item-container item-container--shortest">
         <div *ngFor="let letter of game.SortedWord" class="{{letter.name}} relative-container objetive-container" dragula="{{selectorName}}"></div>
     </ul>
-
-        <img src={{game.Product.ImageURL}} class="product"> 
-        
-        
-
-      
-      
+    <img src={{game.Product.ImageURL}} class="product">
 </ion-content>
 
 <ion-footer style="text-align: center">
-    <ul class="item-container" >
+    <ul class="item-container">
         <div class="{{letter.name}} relative-container" *ngFor="let letter of game.MessyWord" dragula="{{selectorName}}"> 
             <div class="letter_container">
                 <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
@@ -45,6 +37,3 @@
         </div>
     </ul>
 </ion-footer>
-
-
-

@@ -1,8 +1,8 @@
 import { SelectLevelPage } from './../select-level/select-level';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController, ModalController, Platform, NavParams } from 'ionic-angular';
-import { SortWordGame } from '../../shared/models/sortWordGame.model';
+import { NavController, ModalController, NavParams } from 'ionic-angular';
+import { SortWordGame } from '../../shared/models/SortWordGame.model';
 import { ColorProvider } from '../../shared/providers/ColorProvider';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
 import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvider';
@@ -37,7 +37,11 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     private generateLettersWithColor() {
         let response: any = [];
         for (let letter of this.game.ResponseWord) {
-            response[letter] = this.colorService.getRandomColor();
+            if (this.level >= 31) {
+                response[letter] = '#000000';
+            } else {
+                response[letter] = this.colorService.getRandomColor();
+            }
         }
         return response;
     }
@@ -47,19 +51,18 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.game = new SortWordGame(this.productsProdiver.getProductOfActualLevel());
         this.selectorName = 'LETTER-' + Math.random();
         this.backgroundColor = this.colorService.getRandomBackgroundColor();
-        this.game.buildLetters(this.generateLettersWithColor());
-        
-      
+        this.game.buildLetters(this.generateLettersWithColor(), this.level);
     }
 
     private prepareLevel() {
-        this.productsProdiver.setLevel(this.navParams.get("level"));
+        this.productsProdiver.setLevel(this.navParams.get('level'));
         this.level = this.productsProdiver.getActualLevel();
     }
 
     public showEndView(): void {
         this.game.addCount();
         if(this.game.isGameOver()) {
+            this.audioProvider.playLevelCompleteSound();
             this.showModalWin();
         }
         else {
@@ -86,7 +89,14 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public changeLevel(){
-        const changeLevel=this.modalController.create(SelectLevelPage, {level: this.level, lastNav: this.navController, maxLevel: this.productsProdiver.getQuantityOfProducts()});
+        const changeLevel = this.modalController.create(
+            SelectLevelPage, 
+            {
+                level    : this.level, 
+                lastNav  : this.navController, 
+                maxLevel : this.productsProdiver.getQuantityOfProducts()
+            }
+        );
         changeLevel.present();
     }
 

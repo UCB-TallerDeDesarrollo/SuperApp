@@ -32,6 +32,7 @@ import { LevelProvider } from '../providers/level/level';
 import { ProductLevelProvider } from '../providers/product-level/product-level';
 import { ProductsEditorPage } from '../pages/products-editor/products-editor';
 import { EditProductPage } from '../pages/edit-product/edit-product';
+import { SelectDifficultyPage } from '../pages/select-difficulty/select-difficulty';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { EditProductPage } from '../pages/edit-product/edit-product';
     SelectLevelPage,
     CreateProductPage,
     ProductsEditorPage,
-    EditProductPage
+    EditProductPage,
+    SelectDifficultyPage
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,8 @@ import { EditProductPage } from '../pages/edit-product/edit-product';
     SelectLevelPage,
     CreateProductPage,
     ProductsEditorPage,
-    EditProductPage
+    EditProductPage,
+    SelectDifficultyPage
   ],
   providers: [
     StatusBar,
@@ -76,14 +79,14 @@ import { EditProductPage } from '../pages/edit-product/edit-product';
     NativeAudio,
     DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio]},
     {provide: ProductProvider, useClass: ArrayProductProvider},
     {provide: ColorProvider, useClass: ArrayColorProvider},
     {provide: WordDragDropProvider, useClass: DragulaWordDragDropProvider, deps: [DragulaService, Platform]},
     ProductsProvider,
     CategoryProvider,
     LevelProvider,
-    ProductLevelProvider
+    ProductLevelProvider,
+    {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform]}
   ]
 })
 export class AppModule { }

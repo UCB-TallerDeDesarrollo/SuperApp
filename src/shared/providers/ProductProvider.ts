@@ -1,4 +1,4 @@
-import { Product } from "../models/Product.model";
+import { Product } from "../models/product.model";
 
 export abstract class ProductProvider {
     abstract getProductOfActualLevel():Product;
