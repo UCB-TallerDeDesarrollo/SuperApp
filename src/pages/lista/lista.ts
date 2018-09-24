@@ -25,28 +25,56 @@ export class ListaPage implements OnInit, AfterViewInit {
   defaultCategoryId:number = 1;
   actualSelectedElement:any;
   actualSelectedContainer:any;
-  products: Array<{id: number, title: string, image: string, categoryId: number}> = [];
+  products: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
   categories: Array<{id: number, name: string}>=[];
   selectedCategory: {id: number, name: string};
   quantityproductsString:string;
   quantityOfProducts: number;
   imageSound: String;
 
-  //constructor(public navCtrl: NavController, private dragulaService: DragulaService,public smartAudio: SmartAudio, private audioProvider: AudioProvider) {
-    //this.products = FakeProducts.getProducts();
-  constructor(public navCtrl: NavController, private dragulaService: DragulaService, public productsProvider: ProductsProvider, public categoryProvider: CategoryProvider,public smartAudio: SmartAudio, private audioProvider: AudioProvider) {
+  constructor(public navCtrl:           NavController, 
+              private dragulaService:   DragulaService, 
+              public productsProvider:   ProductsProvider, 
+              public categoryProvider:  CategoryProvider) {
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
-    this.categories=Categories.getCategories();
-    this.products = FakeProducts.getProductsByCategory(this.defaultCategoryId);
+    categoryProvider.getCategories()
+    .then(categories => {
+      this.categories = categories;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    productsProvider.getProductsByCategory(this.defaultCategoryId)
+    .then(products => {
+      this.products=products;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
     this.changeSoundIcon();
   }
 
+  chargeProductsOfCategory(categoryId: number){
+    this.productsProvider.getProductsByCategory(categoryId)
+    .then(products => {
+      this.products=products;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
   ionViewDidEnter() { 
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-    this.quantityproductsString = this.quantityOfProducts.toString();
-    this.products = FakeProducts.getProductsByCategory(this.selectedCategory.id);
+    this.quantityproductsString = this.quantityOfProducts.toString(); 
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
+      this.products = products;
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   ngOnInit() {
@@ -69,11 +97,29 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       let product_id = + (el.id.split("-")[1]);
       let product = FakeProducts.getProductById(product_id);
-      FakeListProducts.addProduct(product);
+      if(product !== null){
+        FakeListProducts.addProduct(product);
+      } else {
+        let currentProduct = new Product;
+        this.productsProvider.getProductById(product_id)
+        .then( p => {
+          currentProduct = p;
+          FakeListProducts.addProduct({ id: currentProduct.id, 
+            title: currentProduct.title, 
+            image: currentProduct.image, 
+            categoryId: this.selectedCategory.id});
+          this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
+          this.quantityproductsString = this.quantityOfProducts.toString();
+        }).catch(error => {
+          console.log(error);
+        });
+      }
       this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
       this.quantityproductsString = this.quantityOfProducts.toString();
       el.remove();
-      FakeProducts.removeProduct(product);
+      if(product === null){ 
+        FakeProducts.removeProduct(product);
+      }
     });
   }
 
@@ -113,8 +159,12 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
   
   onSelectCategory(category){ 
-    this.selectedCategory=category; 
-    this.products=FakeProducts.getProductsByCategory(category.id)
+    this.selectedCategory = category;
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
+      this.products = products;
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   async databaseInitializer() {

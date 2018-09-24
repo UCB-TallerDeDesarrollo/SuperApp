@@ -14,7 +14,7 @@ import { ProductsPage } from '../pages/products/products';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { LevelCompletePage } from '../pages/level-complete/level-complete';
-
+import { ProductsProvider } from '../providers/product/product';
 import { SmartAudio } from '../providers/smart-audio/smart-audio';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { ArrayProductProvider } from '../providers/Array/ArrayProductProvider';
@@ -77,7 +77,7 @@ import { EditProductPage } from '../pages/edit-product/edit-product';
     NativeAudio,
     DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    NativeAudio,
+    ProductProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: ProductProvider, useClass: ArrayProductProvider},
     {provide: ColorProvider, useClass: ArrayColorProvider},

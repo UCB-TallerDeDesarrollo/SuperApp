@@ -69,4 +69,11 @@ export class ProductsEditorPage implements OnDestroy {
   editProduct(product_id: number){
     this.navCtrl.push(EditProductPage, {data: product_id, categoryId: this.navParams.data.data});
   }
+
+  async changeState(product_id: number, product_state: boolean) {
+    await this.productsProvider.updateStateProduct(!product_state, product_id);
+    this.navCtrl.pop();
+    this.navCtrl.push(ProductsEditorPage, { data: this.navParams.data.data });
+  }
+
 }

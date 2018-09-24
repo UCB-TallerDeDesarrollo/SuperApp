@@ -33,3 +33,9 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+
+*.jsproj
+
+\.vs/
+
+*.sln
