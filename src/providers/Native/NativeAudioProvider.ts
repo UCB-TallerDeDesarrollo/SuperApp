@@ -34,16 +34,16 @@ export class NativeAudioProvider implements AudioProvider {
     changeState():void{
         if (NativeAudioProvider.isMuted==true)
         {
-            //this.playMainSound();
+
             this.correctLetterSound.muted=false;
             this.correctLetterSound.volume = 0.8;
             NativeAudioProvider.isMuted=false
         }    
         else
-        {
-            this.stopMainSound();
-            NativeAudioProvider.isMuted=true;
+        {   
+            this.correctLetterSound.muted=true;
             this.correctLetterSound.volume = 0.0;
+            NativeAudioProvider.isMuted=true;
         }
     }
     public playWinGameSound(): void {

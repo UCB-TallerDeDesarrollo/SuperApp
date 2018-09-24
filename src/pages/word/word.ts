@@ -90,9 +90,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         changeLevel.present();
     }
 
-    public playSound() {
-        this.audioProvider.playMainSound();
-    }
+   
 
     public stopSound(){
         this.audioProvider.changeState();

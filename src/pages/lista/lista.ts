@@ -77,9 +77,6 @@ export class ListaPage implements OnInit, AfterViewInit {
     });
   }
 
-  playSound() {
-    this.audioProvider.playMainSound();
-  }
 
   stopSound(){
         this.audioProvider.changeState();

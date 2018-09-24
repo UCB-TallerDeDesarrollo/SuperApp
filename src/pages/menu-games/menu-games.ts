@@ -22,14 +22,6 @@ export class MenuGamesPage {
     this.changeSoundIcon();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MenuGamesPage');
-    this.audioProvider.playMainSound();
-  }
-
-  playSound() {
-    this.audioProvider.playMainSound();
-  }
   
   stopSound(){
     this.audioProvider.changeState();
