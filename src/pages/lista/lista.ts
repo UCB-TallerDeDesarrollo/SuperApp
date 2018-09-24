@@ -31,11 +31,13 @@ export class ListaPage implements OnInit, AfterViewInit {
   quantityOfProducts: number;
   imageSound: String;
 
-  constructor(public navCtrl:           NavController, 
-              private dragulaService:   DragulaService, 
-              public productsProvider:   ProductsProvider, 
-              public categoryProvider:  CategoryProvider,
-              public smartAudio: SmartAudio) {
+  constructor(
+    public navCtrl:           NavController, 
+    private dragulaService:   DragulaService, 
+    public productsProvider:   ProductsProvider, 
+    public categoryProvider:  CategoryProvider,
+    public smartAudio: SmartAudio
+  ) {
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
     categoryProvider.getCategories()
     .then(categories => {
