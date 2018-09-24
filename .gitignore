@@ -35,8 +35,3 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 
 /package-lock.json
-*.jsproj
-
-\.vs/
-
-*.sln

@@ -21,6 +21,7 @@ export class HomePage {
    }).catch(err=>{
      console.log('Error while loading platform', err);
    });
+    
   }
   
   pushPageList(){
