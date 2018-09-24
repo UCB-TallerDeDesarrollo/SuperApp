@@ -1,13 +1,13 @@
 
 export class FakeListProducts {
 
-    static products: Array<{id: number, title: string, image: string, categoryId: number}>= [];
+    static products: Array<{id: number, title: string, image: string}>= [];
 
     static getProducts(){
         return this.products;
     }
 
-    static addProduct(product: {id: number, title: string, image:string, categoryId: number}){
+    static addProduct(product: {id: number, title: string, image:string}){
         this.products.push(product);
     }
     
