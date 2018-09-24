@@ -77,15 +77,13 @@ import { EditProductPage } from '../pages/edit-product/edit-product';
     DragulaService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio]},
-    /*ProductProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: ProductProvider, useClass: ArrayProductProvider},
     {provide: ColorProvider, useClass: ArrayColorProvider},
     {provide: WordDragDropProvider, useClass: DragulaWordDragDropProvider, deps: [DragulaService, Platform]},
     ProductsProvider,
     CategoryProvider,
     LevelProvider,
-    ProductLevelProvider*/
+    ProductLevelProvider
   ]
 })
 export class AppModule { }
