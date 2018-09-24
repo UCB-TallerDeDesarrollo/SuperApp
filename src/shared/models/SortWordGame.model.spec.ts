@@ -1,22 +1,19 @@
 import { SortWordGame } from './sortWordGame.model';
 import { Product } from './product.model';
-import { ColorProvider } from '../providers/ColorProvider';
-import { ArrayColorProvider } from '../../providers/Array/ArrayColorProvider';
 
 describe("Test SortWordGame model", function() {
     let product: Product;
     let sortWordGame: SortWordGame;
     let response: any = [];
+    let colorProviderMock;
 
     beforeEach(function() {
         product = Product.createProduct(1, 'title1', 'image1', 2);
         sortWordGame = new SortWordGame(product);
-
-        let colorProvider: ColorProvider;
-        colorProvider = new ArrayColorProvider();
+        colorProviderMock = jasmine.createSpyObj('ArrayColorProvider',['getRandomColor']);
 
         for (let letter of sortWordGame.ResponseWord) {
-            response[letter] = colorProvider.getRandomColor();
+            response[letter] = colorProviderMock.getRandomColor();
         }
     });
 
