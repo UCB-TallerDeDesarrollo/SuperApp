@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ProductProvider } from '../../providers/product/product';
+import { ProductsProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
 import { Camera } from '@ionic-native/camera';
 import { Product } from '../../entities/product';
@@ -25,7 +25,7 @@ export class CreateProductPage {
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
-              public productProvider: ProductProvider, 
+              public productsProvider: ProductsProvider, 
               public categoryProvider: CategoryProvider, 
               public camera: Camera,
               private formBuilder: FormBuilder) {    
@@ -54,7 +54,7 @@ export class CreateProductPage {
 
   async saveProductForm() {
     this.product.image = this.Image;
-    await this.productProvider.saveProduct(this.product);
+    await this.productsProvider.saveProduct(this.product);
     this.afterSaveProduct();
   }
 

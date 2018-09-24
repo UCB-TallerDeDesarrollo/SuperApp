@@ -8,7 +8,7 @@ import { DragulaService } from 'ng2-dragula';
 import { SmartAudio } from '../../providers/smart-audio/smart-audio';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { Categories } from '../../providers/FakeService/Categories';
-import { ProductProvider } from '../../providers/product/product';
+import { ProductsProvider } from '../../providers/product/product';
 import { Product } from '../../entities/product';
 import { Category } from '../../entities/category';
 import { CategoryProvider } from '../../providers/category/category';
@@ -34,7 +34,7 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   //constructor(public navCtrl: NavController, private dragulaService: DragulaService,public smartAudio: SmartAudio, private audioProvider: AudioProvider) {
     //this.products = FakeProducts.getProducts();
-  constructor(public navCtrl: NavController, private dragulaService: DragulaService, public productProvider: ProductProvider, public categoryProvider: CategoryProvider,public smartAudio: SmartAudio, private audioProvider: AudioProvider) {
+  constructor(public navCtrl: NavController, private dragulaService: DragulaService, public productsProvider: ProductsProvider, public categoryProvider: CategoryProvider,public smartAudio: SmartAudio, private audioProvider: AudioProvider) {
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
     this.categories=Categories.getCategories();
     this.products = FakeProducts.getProductsByCategory(this.defaultCategoryId);
@@ -121,7 +121,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   async databaseInitializer() {
-    const count_product = await this.productProvider.countProducts();
+    const count_product = await this.productsProvider.countProducts();
     const count_category = await this.categoryProvider.countCategories();
     if(count_category < 4) {
       let categories = Categories.getCategories();
@@ -138,7 +138,7 @@ export class ListaPage implements OnInit, AfterViewInit {
           product.state = true;
           product.title = products[p].title;
           product.category = await this.categoryProvider.getCategoryById(products[p].categoryId);
-          await this.productProvider.saveProduct(product);
+          await this.productsProvider.saveProduct(product);
         }
       }
     }

@@ -20,19 +20,19 @@ import { NativeAudio } from '@ionic-native/native-audio';
 import { ArrayProductProvider } from '../providers/Array/ArrayProductProvider';
 import { ArrayColorProvider } from '../providers/Array/ArrayColorProvider';
 import { ColorProvider } from '../shared/providers/ColorProvider';
+import { ProductProvider } from '../shared/providers/ProductProvider';
 import { WordDragDropProvider } from '../shared/providers/WordDragDropProvider';
 import { DragulaWordDragDropProvider } from '../providers/Dragula/DragulaWordDragDropProvider';
 import { AudioProvider } from '../shared/providers/AudioProvider';
 import { NativeAudioProvider } from '../providers/Native/NativeAudioProvider';
 import { SelectLevelPage } from '../pages/select-level/select-level';
-import { ProductProvider } from '../providers/product/product';
+import { ProductsProvider } from '../providers/product/product';
 import { CreateProductPage } from '../pages/create-product/create-product';
 import { CategoryProvider } from '../providers/category/category';
 import { LevelProvider } from '../providers/level/level';
 import { ProductLevelProvider } from '../providers/product-level/product-level';
 import { ProductsEditorPage } from '../pages/products-editor/products-editor';
 import { EditProductPage } from '../pages/edit-product/edit-product';
-
 
 @NgModule({
   declarations: [
@@ -83,7 +83,7 @@ import { EditProductPage } from '../pages/edit-product/edit-product';
     {provide: ColorProvider, useClass: ArrayColorProvider},
     {provide: WordDragDropProvider, useClass: DragulaWordDragDropProvider, deps: [DragulaService, Platform]},
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio]},
-    ProductProvider,
+    ProductsProvider,
     CategoryProvider,
     LevelProvider,
     ProductLevelProvider

@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ProductProvider } from '../../providers/product/product';
+import { ProductsProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
 import { Platform } from 'ionic-angular';
 import { Product } from '../../entities/product';
@@ -20,7 +20,7 @@ export class ProductsEditorPage implements OnDestroy {
   constructor(private platform: Platform, 
               public navCtrl: NavController, 
               public navParams: NavParams, 
-              public productProvider: ProductProvider, 
+              public productsProvider: ProductsProvider, 
               public categoryProvider: CategoryProvider, 
               private screenOrientation: ScreenOrientation) {
     platform.ready()
@@ -34,7 +34,7 @@ export class ProductsEditorPage implements OnDestroy {
   }
 
   ionViewDidLoad() {
-    this.productProvider.getProductsByCategory(this.navParams.data.data).then(products => {
+    this.productsProvider.getProductsByCategory(this.navParams.data.data).then(products => {
       this.products = products;
     }).catch(error =>{
       console.log(error);
@@ -42,7 +42,7 @@ export class ProductsEditorPage implements OnDestroy {
   }
   
   ionViewDidEnter() {
-    this.productProvider.getProductsByCategory(this.navParams.data.data).then(products => {
+    this.productsProvider.getProductsByCategory(this.navParams.data.data).then(products => {
       this.products = products;
     }).catch(error =>{
       console.log(error);
