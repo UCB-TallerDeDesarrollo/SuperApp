@@ -18,6 +18,9 @@ export class LevelCompletePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController) {
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad LevelCompletePage');
+  }
   nextLevel(){
     this.viewCtrl.dismiss();
   }
