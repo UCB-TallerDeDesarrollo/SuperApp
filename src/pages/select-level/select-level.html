@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="viewCtrl.dismiss()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <div class="level-header">
+                <h1 class="change-level">NIVEL {{actualLevel}}</h1>
+        </div>
+            
+    </ion-navbar>
+</ion-header>
+
+<div class="modal-back">
+<div class="modal-level-complete">
+  <div class="modal-level-message">
+    <h2>NIVEL</h2>
+  </div>
+ 
+  <div class="modal-level">
+    <h2>
+      {{level}}
+    </h2>
+  </div>
+  <div>
+  <div class="previus" *ngIf="level>1">
+      <img src="/assets/imgs/prevlevel.png" (click)="previus()">
+  </div>
+
+  <div class="next" *ngIf="level<maxLevel">
+      <img src="/assets/imgs/nextlevel.png" (click)="next()">
+  </div>
+</div>
+  <button class="modal-level-button-play" (click)="goToLevel()">JUGAR</button>
+</div>
+</div>

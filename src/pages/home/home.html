@@ -1,15 +1,19 @@
 <ion-header>  
-    
+  
 </ion-header>
 
 <ion-content padding class="main">
+ <div class="music-logo">
+    <img [src]="imageSound" alt="" (click)="stopSound()">
+ </div>
   
   <div class="logo">
-      <img src="assets/imgs/shopping.svg" class="superapp-logo" alt="">
+      <img src="assets/imgs/shopping.svg" class="superapp-logo">
   </div>
-  <h1 class="main-title">JUEGOS</h1>
   <div class="game-images">
-    <img src="assets/imgs/lista.png" class="list" alt="" (click)="pushPageList()">
-    <img src="assets/imgs/palabras.png" class="word" alt="" (click)="pushPageWord()">
+    <img src="assets/imgs/lista.png" class="option" (click)="pushPageList()">
+    <img src="assets/imgs/palabras.png" class="option" (click)="pushPageWord()">
   </div>
+  
+
 </ion-content>

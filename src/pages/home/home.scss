@@ -1,9 +1,5 @@
-page-home {
-    
-}
 .main {
     background-image: linear-gradient( 135deg, #3C8CE7 10%, #00EAFF 100%);
-   
 }
 .main-title {
     color: #fff;
@@ -11,22 +7,55 @@ page-home {
     font-weight: bold;
     text-align: center;
 
-    
+    @media screen and (min-width: 1365px) and (max-width: 1367px) {
+        font-size: 7em;
+    }
+
+    @media screen and (min-width: 1023px) and (max-width: 1365px) {
+        font-size: 5em;
+    }
 }
 .game-images{
     display: flex;
     justify-content: space-around;
+
+    .option {
+        height: 50%;
+        width: 25%;
+
+        @media screen and (min-width: 1023px) and (max-width: 1367px) {
+            height: 100%;
+            width: 30%;
+        }
+        
+    }
+
 }
-.main img{
-    height: 50%;
-    width: 25%;
-   
-    
-}
+
 .logo {
     display: flex;
     justify-content: center;
+
+    .superapp-logo {
+
+        height: 50%;
+        width: 25%;
+
+        @media screen and (min-width: 810px) and (max-width: 813px) {
+            height: 30%;
+            width: 20%;
+        }
+
+        @media screen and (min-width: 1023px) and (max-width: 1367px) {
+            height: 70%;
+            width: 40%;
+        }
+    }
 }
-.superapp-logo {
-    
+.music-logo{
+    position:absolute;
+    top:1%;
+    height: 20%;
+    width: 30%;
+ 
 }

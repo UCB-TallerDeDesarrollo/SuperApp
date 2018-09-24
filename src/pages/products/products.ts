@@ -5,6 +5,7 @@ import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { ListaPage } from '../lista/lista';
 import { DragulaService } from 'ng2-dragula';
 import { HomePage } from '../home/home';
+import { SmartAudio } from '../../providers/smart-audio/smart-audio';
 
 @IonicPage()
 @Component({
@@ -12,18 +13,34 @@ import { HomePage } from '../home/home';
   templateUrl: 'products.html',
 })
 export class ProductsPage {
+  public soundClic: boolean = false;
+  
 
-  products: Array<{ id: number, title: string, image: string }> = [];
-  numberOfProducts: number;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private dragulaService: DragulaService) {
+  /*constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private dragulaService: DragulaService, public smartAudio: SmartAudio) {
     this.products = FakeListProducts.getProducts().reverse();
     this.numberOfProducts = this.products.length;
-  }
+  }*/
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductsPage');
   } 
+  changeSoundClicToFalse(){
+    this.soundClic = false;
+  }
+  changeSoundClicToTrue(){
+    this.soundClic = true;
+  }
+  getSoundClic(){
+    return this.soundClic;
+  }
+
+  products: Array<{ id: number, title: string, image: string, categoryId: number }> = [];
+  numberOfProducts: number;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private dragulaService: DragulaService, public smartAudio: SmartAudio) {
+    this.products = FakeListProducts.getProducts().reverse();
+    this.numberOfProducts = this.products.length;
+  }
   
   deleteListOfProducts() {
     FakeListProducts.deleteAllProducts();
@@ -39,6 +56,7 @@ export class ProductsPage {
         {
           text: 'Si',
           handler: () => {
+            console.log(FakeProducts.getProducts());
             FakeProducts.addManyProducts(this.products)
             this.deleteListOfProducts();
           }
@@ -63,7 +81,6 @@ export class ProductsPage {
   }
   
   goToProducts() {
-    this.navCtrl.popToRoot();
-    this.navCtrl.push(ListaPage);
+    this.navCtrl.pop();
   }
 }

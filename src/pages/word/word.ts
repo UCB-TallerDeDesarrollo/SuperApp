@@ -1,187 +1,108 @@
-import { LoadingPage } from './../loading/loading';
+import { SelectLevelPage } from './../select-level/select-level';
 import { LevelCompletePage } from './../level-complete/level-complete';
-import { FakeProducts } from './../../providers/FakeService/FakeProducts';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
-import { ColorsManager } from '../../Managers/ColorsManager';
-import { ArrayManager } from '../../Managers/ArrayManager';
-import { DragulaService } from 'ng2-dragula';
-import { Subscription } from 'rxjs';
-
-
+import { NavController, ModalController, Platform, NavParams } from 'ionic-angular';
+import { SortWordGame } from '../../shared/models/sortWordGame.model';
+import { ColorProvider } from '../../shared/providers/ColorProvider';
+import { ProductProvider } from '../../shared/providers/ProductProvider';
+import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvider';
+import { AudioProvider } from '../../shared/providers/AudioProvider';
+import { SmartAudio } from '../../providers/smart-audio/smart-audio';
 @Component({
-  selector: 'page-word',
-  templateUrl: 'word.html'
+    selector: 'page-word',
+    templateUrl: 'word.html'
 })
-
 export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
-  product:string;
-  messy_letters: any = [];
-  sorted_letters: any = [];
-  letters_color: any = [];
-  letter_response: any = [];
-  color:string;
-  image_route:string;
-  actualSelectedElement:any;
-  actualSelectedContainer:any;
-  recentlyMove:boolean;
-  count: number;
-  colors: any = [];
+    public game            : SortWordGame;
+    public backgroundColor : string;
+    public selectorName    : string;
+    public level           : number;
+    private imageSound     :String;
 
-  subs = new Subscription();
+    constructor(
+        public navController     : NavController,
+        private modalController  : ModalController,
+        private productsProdiver : ProductProvider,
+        private colorService     : ColorProvider,
+        private dragDropProvider : WordDragDropProvider,
+        private audioProvider    : AudioProvider,
+        private navParams        : NavParams, 
+        public smartAudio: SmartAudio
+    ) {
+        this.prepareGame();
+        this.changeSoundIcon();
+    }
 
-  selectorName : string = 'LETTER';
+    private generateLettersWithColor() {
+        let response: any = [];
+        for (let letter of this.game.ResponseWord) {
+            response[letter] = this.colorService.getRandomColor();
+        }
+        return response;
+    }
 
-  constructor(public navCtrl: NavController,
-              private dragulaService: DragulaService, private modalCtrl: ModalController) {
-    this.prepare_binding_items();
-    let letters = this.product.split('');
-    this.count = 0;
-    let auxilary_letters: any = [];
-    this.recentlyMove = false;
-    this.colors.push("#B73D19");
-    this.colors.push("#E7E41C");
-    this.colors.push("#4CD10A");
-    this.colors.push("#23A547");
-    this.colors.push("#24AD81");
-    this.colors.push("#2473AD");
-    this.colors.push("#2433AD");
-    this.colors.push("#1C818F");
-    this.colors.push("#280D97");
-    this.colors.push("#8C1D87");
-
-    this.generateLettersWithColor();
-
-    do {
-
-      this.messy_letters = [];
+    private prepareGame(): void {
+        this.prepareLevel();
+        this.game = new SortWordGame(this.productsProdiver.getProductOfActualLevel());
+        this.selectorName = 'LETTER-' + Math.random();
+        this.backgroundColor = this.colorService.getRandomBackgroundColor();
+        this.game.buildLetters(this.generateLettersWithColor());
+        
       
-      for (let letter of letters) {
-        auxilary_letters.push({
-          letter: letter,
-          color: this.letters_color[letter],
-          name: `letter-${letter}`
-        });
-      }
-
-      this.sorted_letters = auxilary_letters.map(data => ({letter: data.letter, color: data.color, name: data.name}));
-      while (auxilary_letters.length > 0) {
-        let data: any = ArrayManager.get_random_element(auxilary_letters);
-        this.messy_letters.push({
-          letter: data.letter,
-          color: data.color,
-          name: `letter-${data.letter}`
-        });
-        auxilary_letters.splice(auxilary_letters.indexOf(data), 1);
-      }
-    } while (JSON.stringify(this.sorted_letters) === JSON.stringify(this.messy_letters));
-    this.letter_response = this.sorted_letters;
-  }
-
-  private prepare_binding_items() {
-    let product_information = FakeProducts.get_random_product();
-    this.product = product_information.title;
-    this.color = ColorsManager.get_color_style();
-    this.image_route = product_information.image;
-  }
-
-  ngOnInit() {
-    this.dragulaService.createGroup(this.selectorName, {
-      revertOnSpill: false,
-      moves: (el, container, handle) => {
-        return !(container.children.length > 0 && container.children[0].classList.contains('no-move'));
-      },
-      accepts: (el, target, source, sibling) => {
-        if(!target.classList.contains('objetive-container')) {
-          return false;
-        }
-        if(target.children.length > 0) {
-          return false;
-        }
-        if(target.classList[0] !== source.classList[0]) {
-          return false;
-        }
-        return true;
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    console.log('SE DESTRUYO');
-    this.subs.unsubscribe();
-    this.dragulaService.destroy(this.selectorName);
-  }
-
-  ngAfterViewInit() {
-    const marginLeft : number = 4;
-
-    this.subs.add(this.dragulaService.drag(this.selectorName).subscribe(({ name, el, source }) => {
-      this.actualSelectedContainer = source;
-    }));
-
-    this.subs.add(this.dragulaService.drop(this.selectorName).subscribe(({ el, target, source, sibling }) => {
-      el.setAttribute('style', `top: 0px;left: 0px;border: initial;background-color: initial;`);
-      el.classList.add('no-move');
-      this.recentlyMove = true;
-      this.showEndView();
-    }));
-
-    this.subs.add(this.dragulaService.dragend(this.selectorName).subscribe(({ name, el }) => {
-      if(!this.recentlyMove) {
-        let posLeft = parseFloat(this.actualSelectedElement.style.left) - parseFloat(this.offset(this.actualSelectedContainer).left) - marginLeft;
-        let posTop = parseFloat(this.actualSelectedElement.style.top) - parseFloat(this.offset(this.actualSelectedContainer).top);
-        el.setAttribute('style', `top: ${posTop}px;left: ${posLeft}px;`);  
-      }
-      this.recentlyMove = false;
-    }));
-
-    this.subs.add(this.dragulaService.cloned(this.selectorName).subscribe(({ clone, original, cloneType }) => {
-      this.actualSelectedElement = clone;
-    }));
-
-  }
-
-  getRandomColor() {
-    let color = '#';
-
-    for (let i = 0; i < 3; ++i) {
-      let part = Math.round(Math.random() * 255).toString(16);
-      color += (part.length > 1) ? part : '0' + part;
     }
 
-    return color;
-  }
-
-  generateLettersWithColor() {
-    for (let letter of this.product) {
-      this.letters_color[letter] = ArrayManager.get_random_element(this.colors);
+    private prepareLevel() {
+        this.productsProdiver.setLevel(this.navParams.get("level"));
+        this.level = this.productsProdiver.getActualLevel();
     }
-  }
 
-  offset(el) {
-    let rect = el.getBoundingClientRect(),
-    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
-  }
-
-
-  showEndView() {
-    console.log(this.count);
-    ++this.count;
-    if(this.count >= this.letter_response.length) {
-      console.log('GANASTE');
-      this.showModalWin();
+    public showEndView(): void {
+        this.game.addCount();
+        if(this.game.isGameOver()) {
+            this.showModalWin();
+        }
+        else {
+            this.audioProvider.playCorrectLetterSound();
+        }
     }
-  }
 
-  private showModalWin() {
-    const levelCompleteModal = this.modalCtrl.create(LevelCompletePage);
-    levelCompleteModal.onDidDismiss(data => {
-      this.navCtrl.push(LoadingPage, null, { animate: false });
-      this.navCtrl.remove(this.navCtrl.length() - 1);
-    });
-    levelCompleteModal.present();
-  }
+    public showModalWin(): void {
+        this.productsProdiver.nextLevel();
+        const levelCompleteModal = this.modalController.create(LevelCompletePage, {level: this.productsProdiver.getActualLevel(), lastNav:this.navController});
+        levelCompleteModal.present();
+    }
+
+    ngOnInit(): void {
+        this.dragDropProvider.initialize(this.selectorName);
+    }
+
+    ngAfterViewInit(): void {
+        this.dragDropProvider.startEvents(this.selectorName, this);
+    }
+
+    ngOnDestroy(): void {
+        this.dragDropProvider.finalize(this.selectorName);
+    }
+
+    public changeLevel(){
+        const changeLevel=this.modalController.create(SelectLevelPage, {level: this.level, lastNav: this.navController, maxLevel: this.productsProdiver.getQuantityOfProducts()});
+        changeLevel.present();
+    }
+
+   
+
+    public stopSound(){
+        this.audioProvider.changeState();
+        this.changeSoundIcon();
+    }
+
+    private changeSoundIcon(){
+        if(this.audioProvider.isMuted()){
+          this.imageSound="assets/imgs/soundoff.png";
+        }
+        else{
+          this.imageSound="assets/imgs/soundon.png";
+        }
+      }
 }
