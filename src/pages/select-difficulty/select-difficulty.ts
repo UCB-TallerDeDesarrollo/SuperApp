@@ -13,7 +13,24 @@ export class SelectDifficultyPage {
     openEasyMode() {
         this.navCtrl.push(WordPage);
     }
+    stopSound(){
+        this.audioProvider.changeState();
+    this.changeSoundIcon();
+  }
 
+  changeSoundIcon(){
+    if(this.audioProvider.isMuted()){
+      this.imageSound="assets/imgs/soundoff.png";
+    }
+    else{
+      this.imageSound="assets/imgs/soundon.png";
+    }
+  }
+
+  changeState()
+  {
+    this.smartAudio.changeState();
+  }
     openMediumMode() {
         this.navCtrl.push(WordPage, {'level':16});
     }

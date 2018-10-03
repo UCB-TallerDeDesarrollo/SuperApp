@@ -31,16 +31,31 @@ export class NativeAudioProvider implements AudioProvider {
     public isMuted(){
         return NativeAudioProvider.isMuted;
     }
-    
+    public leveCompleteMute(){
+       this.levelComplete.muted=true;
+       this.levelComplete.volume=0.0;
+    }
+    public leveCompleteUnMute(){
+        this.levelComplete.muted=false;
+        this.levelComplete.volume=0.8;
+     }
+     public correctLetterSoundUnmute(){
+        this.correctLetterSound.muted=false;
+        this.correctLetterSound.volume = 0.8;
+     }
+     public correctLetterSoundMute(){
+        this.correctLetterSound.muted=true;
+        this.correctLetterSound.volume = 0.0;
+     }
     changeState():void{
         if (NativeAudioProvider.isMuted==true) {
-            this.correctLetterSound.muted=false;
-            this.correctLetterSound.volume = 0.8;
+            this.correctLetterSoundUnmute();
+            this.leveCompleteUnMute();
             NativeAudioProvider.isMuted=false
         }    
         else {   
-            this.correctLetterSound.muted=true;
-            this.correctLetterSound.volume = 0.0;
+            this.correctLetterSoundMute();
+            this.leveCompleteMute();
             NativeAudioProvider.isMuted=true;
         }
     }
