@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { WordPage } from '../word/word';
-
+import { AudioProvider } from '../../shared/providers/AudioProvider';
 @Component({
     selector: 'page-select-difficulty',
     templateUrl: 'select-difficulty.html',
 })
 export class SelectDifficultyPage {
-
-    constructor(public navCtrl: NavController, public navParams: NavParams) {}
+    private imageSound:String;
+    constructor(public navCtrl: NavController, public navParams: NavParams,private audioProvider: AudioProvider) {}
 
     openEasyMode() {
         this.navCtrl.push(WordPage);
