@@ -29,7 +29,7 @@ export class SelectDifficultyPage {
 
   changeState()
   {
-    this.smartAudio.changeState();
+    this.audioProvider.changeState();
   }
     openMediumMode() {
         this.navCtrl.push(WordPage, {'level':16});
