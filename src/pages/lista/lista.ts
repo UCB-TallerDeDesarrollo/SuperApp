@@ -5,14 +5,13 @@ import { ProductsPage } from '../products/products';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
-import { SmartAudio } from '../../providers/smart-audio/smart-audio';
 import { Categories } from '../../providers/FakeService/Categories';
 import { ProductsProvider } from '../../providers/product/product';
 import { Product } from '../../entities/product';
 import { Category } from '../../entities/category';
 import { CategoryProvider } from '../../providers/category/category';
 import { ProductsEditorPage } from '../products-editor/products-editor';
-
+import { AudioProvider } from '../../shared/providers/AudioProvider';
 @Component({
   selector: 'page-lista',
   templateUrl: 'lista.html',
@@ -36,7 +35,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     private dragulaService:   DragulaService, 
     public productsProvider:   ProductsProvider, 
     public categoryProvider:  CategoryProvider,
-    public smartAudio: SmartAudio
+    private audioProvider: AudioProvider
   ) {
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
     categoryProvider.getCategories()
@@ -127,12 +126,12 @@ export class ListaPage implements OnInit, AfterViewInit {
 
 
   stopSound(){
-        this.smartAudio.changeState();
+        this.audioProvider.changeState();
     this.changeSoundIcon();
   }
 
   changeSoundIcon(){
-    if(this.smartAudio.isMuted()){
+    if(this.audioProvider.isMuted()){
       this.imageSound="assets/imgs/soundoffdark.png";
     }
     else{
@@ -140,10 +139,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     }
   }
 
-  changeState()
-  {
-    this.smartAudio.changeState();
-  }
+  
   pushPageList(){
     this.navCtrl.push(ListaPage);    
   }

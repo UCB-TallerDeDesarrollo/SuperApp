@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { SmartAudio } from '../../providers/smart-audio/smart-audio';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 /**
  * Generated class for the MenuGamesPage page.
@@ -18,7 +17,7 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 export class MenuGamesPage {
 
   private imageSound:String;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public smartAudio: SmartAudio, private audioProvider: AudioProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private audioProvider: AudioProvider) {
     this.changeSoundIcon();
   }
 

@@ -4,7 +4,6 @@ import { NavController } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 import { ListaPage } from '../lista/lista';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
-import { SmartAudio } from '../../providers/smart-audio/smart-audio';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { MenuGamesPage } from './../menu-games/menu-games';
 
@@ -16,7 +15,7 @@ export class HomePage {
 
   private imageSound:String;
 
-  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public smartAudio: SmartAudio) {
+  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider) {
     platform.ready().then(() => {
       if (platform.is('cordova')){
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
@@ -43,10 +42,7 @@ export class HomePage {
     }
   }
 
-  changeState()
-  {
-    this.smartAudio.changeState();
-  }
+
   pushPageList(){
     this.navCtrl.push(ListaPage);    
   }
