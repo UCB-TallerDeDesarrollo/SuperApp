@@ -20,12 +20,15 @@ export class NativeAudioProvider implements AudioProvider {
     }
 
     public playCorrectLetterSound(): void {
-        if(this.isRealDevice()) {
-            this.nativeAudio.play('correctLetterSound');
-        }
-        else {
-            (<HTMLAudioElement>this.correctLetterSound.cloneNode(true)).play();
-        }
+        if(NativeAudioProvider.muted == false)
+        {
+            if(this.isRealDevice()) {
+                this.nativeAudio.play('correctLetterSound');
+            }
+            else {
+                (<HTMLAudioElement>this.correctLetterSound.cloneNode(true)).play();
+            }   
+        } 
     }
    
     public isMuted(){
@@ -65,11 +68,14 @@ export class NativeAudioProvider implements AudioProvider {
     }
 
     public playLevelCompleteSound(): void {
-        if(this.isRealDevice()) {
-            this.nativeAudio.play('levelComplete');
-        }
-        else {
-            (<HTMLAudioElement>this.levelComplete.cloneNode(true)).play();
+        if(NativeAudioProvider.muted == false)
+        {
+            if(this.isRealDevice()) {
+                this.nativeAudio.play('levelComplete');
+            }
+            else {
+                (<HTMLAudioElement>this.levelComplete.cloneNode(true)).play();
+            }
         }
     }
 
