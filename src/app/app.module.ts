@@ -33,6 +33,7 @@ import { ProductLevelProvider } from '../providers/product-level/product-level';
 import { ProductsEditorPage } from '../pages/products-editor/products-editor';
 import { EditProductPage } from '../pages/edit-product/edit-product';
 import { SelectDifficultyPage } from '../pages/select-difficulty/select-difficulty';
+import { TextToSpeech } from '@ionic-native/text-to-speech'
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { SelectDifficultyPage } from '../pages/select-difficulty/select-difficul
     CategoryProvider,
     LevelProvider,
     ProductLevelProvider,
+    TextToSpeech,
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform]}
   ]
 })

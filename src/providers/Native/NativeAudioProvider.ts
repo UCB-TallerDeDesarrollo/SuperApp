@@ -1,6 +1,7 @@
 import { NativeAudio } from '@ionic-native/native-audio';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { Platform } from 'ionic-angular';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 export class NativeAudioProvider implements AudioProvider {
     
@@ -8,7 +9,7 @@ export class NativeAudioProvider implements AudioProvider {
     private levelComplete      : HTMLAudioElement;
     public static muted     : boolean = false;
 
-    public constructor(private nativeAudio: NativeAudio, private platform: Platform) {
+    public constructor(private nativeAudio: NativeAudio, private platform: Platform, private tts: TextToSpeech) {
         if(this.isRealDevice()) {
             nativeAudio.preloadSimple('correctLetterSound', 'assets/sounds/correctLetterSound.mp3');
             nativeAudio.preloadSimple('levelComplete', 'assets/sounds/levelComplete.mp3');
@@ -76,6 +77,16 @@ export class NativeAudioProvider implements AudioProvider {
             else {
                 (<HTMLAudioElement>this.levelComplete.cloneNode(true)).play();
             }
+        }
+    }
+
+    public playPronunciationOfTheProductName(productName: string) {
+        if (NativeAudioProvider.muted == false) {
+            this.tts.speak({
+                text: productName,
+                locale: 'es-ES',
+                rate: 0.80
+            });
         }
     }
 
