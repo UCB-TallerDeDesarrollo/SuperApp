@@ -10,12 +10,12 @@ export class NativeAudioProvider implements AudioProvider {
 
     public constructor(private nativeAudio: NativeAudio, private platform: Platform) {
         if(this.isRealDevice()) {
-            nativeAudio.preloadSimple('correctLetterSound', '../../assets/sounds/correctLetterSound.mp3');
-            nativeAudio.preloadSimple('levelComplete', '../../assets/sounds/levelComplete.mp3');
+            nativeAudio.preloadSimple('correctLetterSound', 'assets/sounds/correctLetterSound.mp3');
+            nativeAudio.preloadSimple('levelComplete', 'assets/sounds/levelComplete.mp3');
         }
         else {
-            this.correctLetterSound = new Audio('../../assets/sounds/correctLetterSound.mp3');
-            this.levelComplete = new Audio('../../assets/sounds/levelComplete.mp3');
+            this.correctLetterSound = new Audio('assets/sounds/correctLetterSound.mp3');
+            this.levelComplete = new Audio('assets/sounds/levelComplete.mp3');
         }
     }
 
