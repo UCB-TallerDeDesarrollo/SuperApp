@@ -1,3 +1,4 @@
+import { SupermarketPage } from './../pages/supermarket/supermarket';
 import { LoadingPage } from './../pages/loading/loading';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -32,7 +33,7 @@ import { LevelProvider } from '../providers/level/level';
 import { ProductLevelProvider } from '../providers/product-level/product-level';
 import { ProductsEditorPage } from '../pages/products-editor/products-editor';
 import { EditProductPage } from '../pages/edit-product/edit-product';
-import { SelectDifficultyPage } from '../pages/select-difficulty/select-difficulty';
+import { SelectDifficultyPage } from '../pages/select-difficulty/select-difficulty'; 
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { SelectDifficultyPage } from '../pages/select-difficulty/select-difficul
     CreateProductPage,
     ProductsEditorPage,
     EditProductPage,
-    SelectDifficultyPage
+    SelectDifficultyPage,
+    SupermarketPage
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,8 @@ import { SelectDifficultyPage } from '../pages/select-difficulty/select-difficul
     CreateProductPage,
     ProductsEditorPage,
     EditProductPage,
-    SelectDifficultyPage
+    SelectDifficultyPage,
+    SupermarketPage
   ],
   providers: [
     StatusBar,
