@@ -12,4 +12,23 @@ import {SuperMarketGame} from '../../shared/models/SupermarketGame';
 })
 export class SupermarketPage implements OnInit, AfterViewInit{
    
+  constructor(
+    public navController: NavController, 
+    public navParams: NavParams,
+    public productsProvider:   ProductsProvider,
+    public categoryProvider: CategoryProvider
+  ) { 
+  ionViewDidLoad() {  
+  }
+
+  ngOnInit(): void { 
+  }
+
+  ngAfterViewInit(): void { 
+  }
+
+  popPage(){
+    this.navController.pop();
+  }
+
 }
