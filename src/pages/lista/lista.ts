@@ -148,10 +148,7 @@ private changeSoundIcon(){
   pushProducts(){
     this.navCtrl.push(ProductsPage);
   }
-
-  pushProduct(category_id: any) {
-    this.navCtrl.push(ProductsEditorPage, { data: category_id });
-  }
+ 
 
   goToRoot() {
     this.navCtrl.pop();

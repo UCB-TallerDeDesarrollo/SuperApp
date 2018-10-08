@@ -7,6 +7,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { MenuGamesPage } from './../menu-games/menu-games';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
+import { ProductsEditorPage } from '../products-editor/products-editor';
 
 @Component({
   selector: 'page-home',
@@ -57,8 +58,13 @@ export class HomePage {
   pushPageMenuGames(){
     this.navCtrl.push(MenuGamesPage);
   }
+
   pushPageWordGame(){
     this.navCtrl.push(SelectDifficultyPage);
+  }
+
+  pushEditorProducts() {
+    this.navCtrl.push(ProductsEditorPage);
   }
 
 }
