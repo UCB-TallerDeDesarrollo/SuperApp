@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
+import { ListaPage } from '../lista/lista';
 /**
  * Generated class for the MenuGamesPage page.
  *
