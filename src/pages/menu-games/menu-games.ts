@@ -1,8 +1,10 @@
+import { SupermarketPage } from '../supermarket/supermarket'; 
 import { Component } from '@angular/core';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { ListaPage } from '../lista/lista';
+
 /**
  * Generated class for the MenuGamesPage page.
  *
@@ -41,7 +43,10 @@ export class MenuGamesPage {
     this.navCtrl.push(ListaPage);    
   }
 
-    popPage(){
-        this.navCtrl.pop();
-    }
+  popPage(){
+      this.navCtrl.pop();
+  }
+  pushPageSuperGame(){
+    this.navCtrl.push(SupermarketPage);
+  }
 }

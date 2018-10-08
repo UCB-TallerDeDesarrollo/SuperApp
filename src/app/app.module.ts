@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+import { SupermarketPage} from '../pages/supermarket/supermarket';
 import { HomePage } from '../pages/home/home';
 import { ListaPage } from '../pages/lista/lista';
 import { WordPage } from '../pages/word/word';
@@ -48,7 +49,8 @@ import { SelectDifficultyPage } from '../pages/select-difficulty/select-difficul
     CreateProductPage,
     ProductsEditorPage,
     EditProductPage,
-    SelectDifficultyPage
+    SelectDifficultyPage,
+    SupermarketPage
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,8 @@ import { SelectDifficultyPage } from '../pages/select-difficulty/select-difficul
     CreateProductPage,
     ProductsEditorPage,
     EditProductPage,
-    SelectDifficultyPage
+    SelectDifficultyPage,
+    SupermarketPage
   ],
   providers: [
     StatusBar,
