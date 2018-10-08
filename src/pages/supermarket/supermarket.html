@@ -11,14 +11,21 @@
         <div class="level-header">
             <h1 class="change-level">SUPER MERCADO</h1>
         </div>
-        
+
     </ion-navbar>
-    
+
 </ion-header>
 
 <ion-content no-bounce padding class="main-container">
     <div class="container">
-
+        <div class="products-to-play">
+            <div class="product-block" *ngFor="let product of productsToPlay" id="play-{{product.title}}">
+                <div id="productPlay-{{product.id}}" class="product-info">
+                    <img class="product-store" src="{{product.image}}" />
+                    <p class="product-name">{{product.title}}</p>
+                </div>
+            </div>
+        </div>
         <div class="products-to-buy">
             <div class="title">COMPRAR</div>
             <div class="product-block" *ngFor="let product of productsToBuy" id="{{product.title}}">
