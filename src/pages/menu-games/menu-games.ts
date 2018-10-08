@@ -36,9 +36,9 @@ export class MenuGamesPage {
     }
   }
 
-    pushPageWord(){
-        this.navCtrl.push(SelectDifficultyPage);
-    }
+  pushPageList(){
+    this.navCtrl.push(ListaPage);    
+  }
 
     popPage(){
         this.navCtrl.pop();
