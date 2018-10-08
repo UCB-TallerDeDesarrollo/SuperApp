@@ -63,11 +63,11 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public showEndView(): void {
         this.game.addCount();
         if(this.game.isGameOver()) {
-            this.audioProvider.playPronunciationOfTheProductName(this.game.Product.Title);
+            setTimeout(() => {
+                this.audioProvider.playPronunciationOfTheProductName(this.game.Product.Title);
+              }, 250);
+            
             this.showModalWin();
-        }
-        else {
-            this.audioProvider.playCorrectLetterSound();
         }
     }
 
