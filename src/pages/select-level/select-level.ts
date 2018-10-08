@@ -13,6 +13,7 @@ export class SelectLevelPage {
   private lastNav     :   NavController;
   public maxLevel     :   number;
   public imageSound   :   String;
+  public wordPage     :   any;
   constructor(
     public navCtrl        : NavController,
     public navParams      : NavParams,
@@ -22,6 +23,7 @@ export class SelectLevelPage {
     this.level=this.navParams.get("level");
     this.lastNav=this.navParams.get("lastNav");
     this.maxLevel=this.navParams.get("maxLevel");
+    this.wordPage=this.navParams.get("wordPage");
     this.actualLevel=this.level;
     this.navCtrl=this.lastNav;
     this.changeSoundIcon();
@@ -51,14 +53,15 @@ export class SelectLevelPage {
   }
   public changeSoundIcon(){
     if(this.audioProvider.isMuted()){
-      this.imageSound="assets/imgs/soundoffdark.png";
+      this.imageSound="assets/imgs/soundoff.png";
     }
     else{
-      this.imageSound="assets/imgs/soundondark.png";
+      this.imageSound="assets/imgs/soundon.png";
     }
   }
    public stopSound(){
         this.audioProvider.changeState();
+        this.wordPage.changeSoundIcon();
         this.changeSoundIcon();
     }
 }

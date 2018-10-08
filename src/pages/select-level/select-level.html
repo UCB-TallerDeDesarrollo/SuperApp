@@ -1,18 +1,19 @@
 <ion-header class="">
-        <ion-buttons left>
-            <button ion-button icon-only (click)="viewCtrl.dismiss()">
-                <ion-icon name="arrow-back"></ion-icon>
-            </button>
-        </ion-buttons>
-        <div class="level-header">
-                <h1 class="change-level">NIVEL {{actualLevel}}</h1>
-        </div>
-        <div class="music-logo">
-            <img [src]="imageSound" alt="" (click)="stopSound()">
-        </div>
+
 </ion-header>
 
+
 <div class="modal-back">
+    
+<ion-buttons left>
+        <button ion-button icon-only class="back-arrow" (click)="viewCtrl.dismiss()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </button>
+    </ion-buttons>
+   
+    <div class="music-logo">
+        <img [src]="imageSound" alt="" (click)="stopSound()">
+    </div>
 <div class="modal-level-complete">
   <div class="modal-level-message">
     <h2>NIVEL</h2>

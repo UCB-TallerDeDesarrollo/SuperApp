@@ -1,3 +1,4 @@
+import { WordPage } from './word';
 import { SelectLevelPage } from './../select-level/select-level';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
@@ -95,7 +96,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
             {
                 level    : this.level, 
                 lastNav  : this.navController, 
-                maxLevel : this.productsProdiver.getQuantityOfProducts()
+                maxLevel : this.productsProdiver.getQuantityOfProducts(),
+                wordPage : this                
             }
         );
         changeLevel.onDidDismiss(
@@ -113,7 +115,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.changeSoundIcon();
     }
 
-    private changeSoundIcon(){
+    public changeSoundIcon(){
         if(this.audioProvider.isMuted()){
           this.imageSound="assets/imgs/soundoffdark.png";
         }
