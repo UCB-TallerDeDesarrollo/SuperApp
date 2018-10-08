@@ -34,7 +34,8 @@ export class ProductsEditorPage implements OnDestroy {
   }
 
   ionViewDidLoad() {
-    this.productsProvider.getProductsByCategory(this.navParams.data.data).then(products => {
+    //this.productsProvider.getProductsByCategory(this.navParams.data.data).then(products => {
+      this.productsProvider.getProducts().then(products => {
       this.products = products;
     }).catch(error =>{
       console.log(error);
@@ -42,7 +43,8 @@ export class ProductsEditorPage implements OnDestroy {
   }
   
   ionViewDidEnter() {
-    this.productsProvider.getProductsByCategory(this.navParams.data.data).then(products => {
+    //this.productsProvider.getProductsByCategory(this.navParams.data.data).then(products => {
+      this.productsProvider.getProducts().then(products => {
       this.products = products;
     }).catch(error =>{
       console.log(error);
