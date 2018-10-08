@@ -5,10 +5,15 @@
                 <ion-icon name="arrow-back"></ion-icon>
             </button>
         </ion-buttons>
+        <div class="music-logo">
+            <img [src]="imageSound" alt="" (click)="stopSound()">
+        </div>
         <div class="level-header">
             <h1 class="change-level">SUPER MERCADO</h1>
         </div>
+        
     </ion-navbar>
+    
 </ion-header>
 
 <ion-content no-bounce padding class="main-container">

@@ -26,7 +26,9 @@ export class HomePage {
    });
     this.changeSoundIcon(); 
   }
-
+  ionViewDidEnter() { 
+    this.changeSoundIcon(); 
+  }
 
   stopSound(){
         this.audioProvider.changeState();

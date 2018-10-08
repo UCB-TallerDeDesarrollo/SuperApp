@@ -31,7 +31,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.prepareGame();
         this.changeSoundIcon();
     }
-
+    ionViewDidEnter() { 
+        this.changeSoundIcon(); 
+      }
+    
     private generateLettersWithColor() {
         let response: any = [];
         for (let letter of this.game.ResponseWord) {

@@ -21,6 +21,9 @@ export class MenuGamesPage {
   constructor(public navController: NavController, public navParams: NavParams, private audioProvider: AudioProvider) {
     this.changeSoundIcon();
   }
+  ionViewDidEnter() { 
+    this.changeSoundIcon(); 
+  }
 
   
   stopSound(){
