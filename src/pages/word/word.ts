@@ -61,7 +61,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.game.addCount();
         if(this.game.isGameOver()) {
             this.audioProvider.playPronunciationOfTheProductName(this.game.Product.Title);
-            this.audioProvider.playLevelCompleteSound();
             this.showModalWin();
         }
         else {
