@@ -10,17 +10,10 @@ page-supermarket {}
     width: 92vw;
 }
 
-.products {
+.products-to-play {
     float: left;
-}
-
-.products-to-buy {
-    float: right;
-    border: solid 2px black;
-    border-radius: 8px;
     text-align: center;
     width: 40%;
-    background-color: #fff;
     @media screen and (max-width: 1367px) {
         width: 60%;
         height: 100%;
@@ -38,7 +31,64 @@ page-supermarket {}
         height: 100%;
     }
     @media screen and ( max-width: 824px) {
-        width: 37%;
+        width: 48%;
+        height: 100%;
+    }
+    @media screen and ( max-width: 812px) {
+        width: 49%;
+        height: 100%;
+    }
+    @media screen and ( max-width: 736px) {
+        width: 54%;
+        height: 100%;
+    }
+    @media screen and (max-width: 731px) {
+        width: 54%;
+        height: 100%;
+    }
+    @media screen and (max-width: 691px) {
+        width: 43%;
+        height: 100%;
+    }
+    @media screen and (max-width: 668px) {
+        width: 53%;
+        height: 100%;
+    }
+    @media screen and (max-width: 640px) {
+        width: 55%;
+        height: 100%;
+    }
+    @media screen and (max-width: 568px) {
+        width: 54%;
+        height: 100%;
+    }
+}
+
+.products-to-buy {
+    float: right;
+    border: solid 2px black;
+    border-radius: 8px;
+    text-align: center;
+    width: 40%;
+    background-color: #fff;
+    @media screen and (max-width: 1367px) {
+        width: 47%;
+        height: 100%;
+    }
+    @media screen and (max-width: 1366px) {
+        width: 39%;
+        height: 100%;
+    }
+    @media screen and (max-width: 1024px) {
+        width: 42%;
+        height: 100%;
+    }
+    @media screen and ( max-width: 900px) {
+        width: 53%;
+        height: 100%;
+    }
+    @media screen and ( max-width: 824px) {
+        width: 39%;
         height: 100%;
     }
     @media screen and ( max-width: 736px) {
@@ -70,18 +120,26 @@ page-supermarket {}
 .title {
     margin-top: 2px;
     font-size: 0.75em;
-    @media screen and (min-width: 1024px) and (max-width: 1367px) {
-        font-size: 1.5em;
+    @media screen and (max-width: 1367px) {
+        font-size: 1.8em;
+    }
+    @media screen and (max-width: 1024px) {
+        font-size: 1.3em;
     }
 }
 
 .product-block {
     display: inline-block;
-    margin: 3px;
+    margin: 2px;
     @media screen and (max-width: 1367px) {
-        margin-left: 15px;
-        margin-right: 15px;
-        margin-bottom: 0px;
+        margin-left: 2px;
+        margin-right: 13px;
+        margin-bottom: 13px;
+    }
+    @media screen and (max-width: 1367px) {
+        margin-left: 3px;
+        margin-right: 11px;
+        margin-bottom: 15px;
     }
     @media screen and (max-width: 668px) {
         margin: 5px;
@@ -98,15 +156,15 @@ page-supermarket {}
     font-family: Arial;
     font-weight: bold;
     @media screen and (max-width: 1367px) {
-        width: 220px;
-        height: 180px;
+        width: 141px;
+        height: 122px;
     }
     @media screen and (max-width: 1024px) {
-        width: 150px;
-        height: 130px;
+        width: 106px;
+        height: 105px;
     }
     @media screen and (max-width: 824px) {
-        width: 60px;
+        width: 67px;
         height: 60px;
     }
     @media screen and (max-width: 668px) {
@@ -125,13 +183,13 @@ page-supermarket {}
 
 .product-store {
     object-fit: fill;
-    width: 100%;
+    width: 70%;
     height: 50px;
     @media screen and (max-width: 1367px) {
-        height: 140px;
+        height: 77px;
     }
     @media screen and (max-width: 1024px) {
-        height: 100px;
+        height: 77px;
     }
     @media screen and (max-width: 824px) {
         height: 42px;
@@ -149,9 +207,15 @@ page-supermarket {}
 
 .product-name {
     font-size: 0.75em;
-    @media screen and (min-width: 1024px) and (max-width: 1367px) {
+    @media screen and (max-width: 1367px) {
         font-size: 1.5em;
     }
+    @media screen and (max-width: 1024px) {
+        font-size: 1.1em;
+    }
+    @media screen and (max-width: 824px) {
+        font-size: 0.67em;
+    }
     text-align: center;
-    margin-top: -2px;
+    margin-top: -3px;
 }
