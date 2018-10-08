@@ -116,10 +116,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     public changeSoundIcon(){
         if(this.audioProvider.isMuted()){
-          this.imageSound="assets/imgs/soundoffdark.png";
+          this.imageSound="assets/imgs/soundOffDark.png";
         }
         else{
-          this.imageSound="assets/imgs/soundondark.png";
+          this.imageSound="assets/imgs/soundOnDark.png";
         }
     }
 
