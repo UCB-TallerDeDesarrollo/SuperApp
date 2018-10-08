@@ -16,6 +16,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { LevelCompletePage } from '../pages/level-complete/level-complete';
 import { ProductsProvider } from '../providers/product/product';
+import { CategoriesPage } from '../pages/categories/categories';
 import { SmartAudio } from '../providers/smart-audio/smart-audio';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { ArrayProductProvider } from '../providers/Array/ArrayProductProvider';
@@ -51,7 +52,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech'
     ProductsEditorPage,
     EditProductPage,
     SelectDifficultyPage,
-    SupermarketPage
+    SupermarketPage,
+    CategoriesPage
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech'
     ProductsEditorPage,
     EditProductPage,
     SelectDifficultyPage,
-    SupermarketPage
+    SupermarketPage,
+    CategoriesPage
   ],
   providers: [
     StatusBar,

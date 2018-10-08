@@ -7,6 +7,7 @@ import { Product } from '../../entities/product';
 import { CreateProductPage } from '../create-product/create-product';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { EditProductPage } from '../edit-product/edit-product';
+import { CategoriesPage } from '../categories/categories';
 
 @IonicPage()
 @Component({
@@ -54,6 +55,10 @@ export class ProductsEditorPage implements OnDestroy {
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
     }
     this.navCtrl.pop();
+  }
+
+  goToCategories() {
+    this.navCtrl.push(CategoriesPage);
   }
 
   ngOnDestroy(){
