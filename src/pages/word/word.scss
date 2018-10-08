@@ -133,3 +133,14 @@
     width: 100% !important;
     height: 100% !important;
   } 
+.back-arrow-dark{
+    display: flex;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    box-shadow: none;
+    background-color: transparent;
+    color: black;
+    width: 48px;
+    height: 48px;
+}
