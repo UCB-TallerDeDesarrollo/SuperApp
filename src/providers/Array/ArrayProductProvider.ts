@@ -42,11 +42,12 @@ export class ArrayProductProvider implements ProductProvider {
     public Continue()
     {
         return this.level=1;
+        
     }
     
     public static readonly products: Product[] = [
         Product.createProduct(1, 'AJO', ArrayProductProvider.PATH_IMAGES+'ajo.jpg',1),
-        Product.createProduct(2, 'CAFE', ArrayProductProvider.PATH_IMAGES+'cafe.jpg',2),
+        Product.createProduct(2, 'CAFÉ', ArrayProductProvider.PATH_IMAGES+'cafe.jpg',2),
         Product.createProduct(3, 'COCA', ArrayProductProvider.PATH_IMAGES+'coca.jpg',3),
         Product.createProduct(4, 'LATA', ArrayProductProvider.PATH_IMAGES+'lata.jpg',4),
         Product.createProduct(5, 'MATE', ArrayProductProvider.PATH_IMAGES+'mate.jpg',5),
