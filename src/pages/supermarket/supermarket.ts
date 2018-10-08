@@ -15,6 +15,7 @@ export class SupermarketPage implements OnInit, AfterViewInit{
   game : SuperMarketGame;
   products: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
   productsToBuy: any=[]; 
+  productsToPlay: any[];
   imageSound: String;
   constructor(
     public navController: NavController, 
@@ -31,7 +32,8 @@ export class SupermarketPage implements OnInit, AfterViewInit{
     this.products = await this.productsProvider.getProducts(); 
     this.game = new SuperMarketGame(this.products);
     this.game.buildProducts(8,6);  
-    this.productsToBuy=this.game.ProductsToBuy;  
+    this.productsToBuy=this.game.ProductsToBuy; 
+    this.productsToPlay=this.game.ProductsToPlay; 
   } 
  
   public stopSound(){
