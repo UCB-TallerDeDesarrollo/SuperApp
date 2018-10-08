@@ -85,12 +85,14 @@
 }
 
 .change-level{
-    color: black;
+    color: white;
     text-align: center;
 }
 
 .level-header{
-    width: 90%;
+   position: relative;
+   top:15px;
+
 }
 
 // ===========================================================
@@ -144,4 +146,13 @@
     color: black;
     width: 48px;
     height: 48px;
+}
+
+.music-logo{
+    position:absolute;
+    right: -10%;
+    top:0%;
+    
+    height: 18%;
+    width: 28%;
 }
