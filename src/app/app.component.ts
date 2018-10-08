@@ -24,7 +24,7 @@ export class MyApp {
       statusBar.styleDefault();
       statusBar.hide();
       this.hideSplashScreen(splashScreen);
-      smartAudio.preload('mainSong', '../../assets/audio/music.mp3');
+      smartAudio.preload('mainSong', 'assets/audio/music.mp3');
 
       if (platform.is('cordova')) {
         await createConnection({
