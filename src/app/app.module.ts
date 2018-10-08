@@ -36,6 +36,7 @@ import { ProductsEditorPage } from '../pages/products-editor/products-editor';
 import { EditProductPage } from '../pages/edit-product/edit-product';
 import { SelectDifficultyPage } from '../pages/select-difficulty/select-difficulty';
 import { TextToSpeech } from '@ionic-native/text-to-speech'
+import { CreateCategoryPage } from '../pages/create-category/create-category';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech'
     EditProductPage,
     SelectDifficultyPage,
     SupermarketPage,
-    CategoriesPage
+    CategoriesPage,
+    CreateCategoryPage
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech'
     EditProductPage,
     SelectDifficultyPage,
     SupermarketPage,
-    CategoriesPage
+    CategoriesPage,
+    CreateCategoryPage
   ],
   providers: [
     StatusBar,
