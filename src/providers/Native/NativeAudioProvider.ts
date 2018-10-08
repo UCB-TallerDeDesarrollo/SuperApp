@@ -80,13 +80,14 @@ export class NativeAudioProvider implements AudioProvider {
         }
     }
 
-    public playPronunciationOfTheProductName(productName: string) {
+    public playPronunciationOfTheProductName(productName: string): void {
         if (NativeAudioProvider.muted == false) {
             this.tts.speak({
                 text: productName,
-                locale: 'es-ES',
+                locale: 'es-MX',
                 rate: 0.80
-            });
+            }).then(() => console.log('Success'))
+              .catch((reason: any) => console.log(reason));
         }
     }
 

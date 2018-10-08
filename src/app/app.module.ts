@@ -88,7 +88,7 @@ import { TextToSpeech } from '@ionic-native/text-to-speech'
     LevelProvider,
     ProductLevelProvider,
     TextToSpeech,
-    {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform]}
+    {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]}
   ]
 })
 export class AppModule { }

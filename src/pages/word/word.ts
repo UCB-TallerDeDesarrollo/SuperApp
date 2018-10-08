@@ -26,7 +26,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private colorService     : ColorProvider,
         private dragDropProvider : WordDragDropProvider,
         private audioProvider    : AudioProvider,
-        private navParams        : NavParams, 
+        private navParams        : NavParams
     ) {
         this.prepareGame();
         this.changeSoundIcon();
@@ -112,5 +112,9 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         else{
           this.imageSound="assets/imgs/soundondark.png";
         }
-      }
+    }
+
+    public playPronunciationOfTheProductName() {
+        this.audioProvider.playPronunciationOfTheProductName(this.game.Product.Title);
+    }
 }
