@@ -53,4 +53,7 @@ export class MenuGamesPage {
     popPage(){
         this.navController.pop();
     }
+    pushPageList(){
+      this.navController.push(ListaPage);    
+    }
 }
