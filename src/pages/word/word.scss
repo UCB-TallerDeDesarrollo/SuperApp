@@ -85,12 +85,14 @@
 }
 
 .change-level{
-    color: black;
+    color: white;
     text-align: center;
 }
 
 .level-header{
-    width: 90%;
+   position: relative;
+   top:15px;
+
 }
 
 // ===========================================================
@@ -123,5 +125,25 @@
 }
 .level-header{
     width: 90%;
+    height: 50px;
 }
 
+.modal-wrapper {
+    position: absolute;
+    top: 0 !important;
+    left: 0 !important;
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+  } 
+.back-arrow-dark{
+    display: flex;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    box-shadow: none;
+    background-color: transparent;
+    color: black;
+    width: 48px;
+    height: 48px;
+}

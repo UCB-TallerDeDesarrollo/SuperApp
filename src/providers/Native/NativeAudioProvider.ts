@@ -59,6 +59,7 @@ export class NativeAudioProvider implements AudioProvider {
 
     public playPronunciationOfTheProductName(productName: string): void {
         if (NativeAudioProvider.isMuted == false) {
+            productName=this.fixAudioOfProduct(productName);
             this.tts.speak({
                 text: productName,
                 locale: 'es-MX',
@@ -66,6 +67,13 @@ export class NativeAudioProvider implements AudioProvider {
             }).then(() => console.log('Success'))
               .catch((reason: any) => console.log(reason));
         }
+    }
+    private fixAudioOfProduct(productName:string): any {
+        if (productName=="CAFE")
+        {
+            return "CAFÉ";
+        }
+        return productName;
     }
 
     private isRealDevice(): boolean {
