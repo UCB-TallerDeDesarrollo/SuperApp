@@ -6,6 +6,7 @@ import { ListaPage } from '../lista/lista';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { MenuGamesPage } from './../menu-games/menu-games';
+import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 
 @Component({
   selector: 'page-home',
@@ -54,7 +55,7 @@ export class HomePage {
   pushPageMenuGames(){
     this.navCtrl.push(MenuGamesPage);
   }
-  pushPageWord(){
+  pushPageWordGame(){
     this.navCtrl.push(SelectDifficultyPage);
   }
 
