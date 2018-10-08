@@ -7,8 +7,7 @@ export class NativeAudioProvider implements AudioProvider {
     
     private correctLetterSound : HTMLAudioElement;
     private levelComplete      : HTMLAudioElement;
-    public static muted     : boolean = false;
-
+    public static isMuted      : boolean = false;
     public constructor(private nativeAudio: NativeAudio, private platform: Platform, private tts: TextToSpeech) {
         if(this.isRealDevice()) {
             nativeAudio.preloadSimple('correctLetterSound', 'assets/sounds/correctLetterSound.mp3');
@@ -21,7 +20,7 @@ export class NativeAudioProvider implements AudioProvider {
     }
 
     public playCorrectLetterSound(): void {
-        if(NativeAudioProvider.muted == false)
+        if(NativeAudioProvider.isMuted == false)
         {
             if(this.isRealDevice()) {
                 this.nativeAudio.play('correctLetterSound');
@@ -33,43 +32,21 @@ export class NativeAudioProvider implements AudioProvider {
     }
    
     public isMuted(){
-        return NativeAudioProvider.muted;
+        return NativeAudioProvider.isMuted;
     }
-    public leveCompleteMute(){
-       this.levelComplete.muted=true;
-       this.levelComplete.volume=0.0;
-       this.nativeAudio.setVolumeForComplexAsset('levelComplete', 0.0);
-    }
-    public leveCompleteUnMute(){
-        this.levelComplete.muted=false;
-        this.levelComplete.volume=0.8;
-        this.nativeAudio.setVolumeForComplexAsset('levelComplete', 0.8);
-     }
-     public correctLetterSoundUnmute(){
-        this.correctLetterSound.muted=false;
-        this.correctLetterSound.volume = 0.8;
-        this.nativeAudio.setVolumeForComplexAsset('correctLetterSound', 0.8);
-     }
-     public correctLetterSoundMute(){
-        this.correctLetterSound.muted=true;
-        this.correctLetterSound.volume = 0.0;
-        this.nativeAudio.setVolumeForComplexAsset('correctLetterSound', 0.0);
-     }
+
     changeState():void{
-        if (NativeAudioProvider.muted==true) {
-            this.correctLetterSoundUnmute();
-            this.leveCompleteUnMute();
-            NativeAudioProvider.muted=false;
+        if (NativeAudioProvider.isMuted==true) {
+            NativeAudioProvider.isMuted=false
         }    
         else {   
-            this.correctLetterSoundMute();
-            this.leveCompleteMute();
-            NativeAudioProvider.muted=true;
+            NativeAudioProvider.isMuted=true;
         }
     }
 
+
     public playLevelCompleteSound(): void {
-        if(NativeAudioProvider.muted == false)
+        if(NativeAudioProvider.isMuted == false)
         {
             if(this.isRealDevice()) {
                 this.nativeAudio.play('levelComplete');
@@ -81,7 +58,7 @@ export class NativeAudioProvider implements AudioProvider {
     }
 
     public playPronunciationOfTheProductName(productName: string): void {
-        if (NativeAudioProvider.muted == false) {
+        if (NativeAudioProvider.isMuted == false) {
             this.tts.speak({
                 text: productName,
                 locale: 'es-MX',
