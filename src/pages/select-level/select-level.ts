@@ -1,6 +1,7 @@
 import { LoadingPage } from './../loading/loading';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { AudioProvider } from '../../shared/providers/AudioProvider';
 
 @Component({
   selector: 'page-select-level',
@@ -11,7 +12,8 @@ export class SelectLevelPage {
   public actualLevel:number;
   private lastNav:NavController;
   public maxLevel: number;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController) {
+  public imageSound     :String;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController, private audioProvider:AudioProvider) {
     this.level=this.navParams.get("level");
     this.lastNav=this.navParams.get("lastNav");
     this.maxLevel=this.navParams.get("maxLevel");
@@ -41,4 +43,12 @@ export class SelectLevelPage {
 
     
   }
+  public changeSoundIcon(){
+    if(this.audioProvider.isMuted()){
+      this.imageSound="assets/imgs/soundoffdark.png";
+    }
+    else{
+      this.imageSound="assets/imgs/soundondark.png";
+    }
+}
 }

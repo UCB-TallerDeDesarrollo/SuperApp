@@ -17,7 +17,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public backgroundColor : string;
     public selectorName    : string;
     public level           : number;
-    private imageSound     :String;
+    public imageSound     :String;
 
     constructor(
         public navController     : NavController,
