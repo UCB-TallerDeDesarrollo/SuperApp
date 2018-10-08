@@ -33,8 +33,7 @@ export class ProductsEditorPage implements OnDestroy {
     });
   }
 
-  ionViewDidLoad() {
-    //this.productsProvider.getProductsByCategory(this.navParams.data.data).then(products => {
+  ionViewDidLoad() { 
       this.productsProvider.getProducts().then(products => {
       this.products = products;
     }).catch(error =>{
@@ -42,8 +41,7 @@ export class ProductsEditorPage implements OnDestroy {
     });
   }
   
-  ionViewDidEnter() {
-    //this.productsProvider.getProductsByCategory(this.navParams.data.data).then(products => {
+  ionViewDidEnter() { 
       this.productsProvider.getProducts().then(products => {
       this.products = products;
     }).catch(error =>{
