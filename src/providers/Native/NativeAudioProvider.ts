@@ -69,7 +69,7 @@ export class NativeAudioProvider implements AudioProvider {
         }
     }
     private transformToBasicChars(productName: string): any {
-        productName.replace("É", "E");
+        productName=productName.replace(new RegExp(/[É]/g),"E");
         return productName;
     }
 
