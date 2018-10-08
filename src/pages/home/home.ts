@@ -54,5 +54,8 @@ export class HomePage {
   pushPageMenuGames(){
     this.navCtrl.push(MenuGamesPage);
   }
+  pushPageWord(){
+    this.navCtrl.push(SelectDifficultyPage);
+  }
 
 }
