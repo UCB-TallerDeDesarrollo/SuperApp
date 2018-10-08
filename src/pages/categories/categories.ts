@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { Category } from '../../entities/category';
 import { CategoryProvider } from '../../providers/category/category';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
+import { CreateCategoryPage } from '../create-category/create-category';
 
 @IonicPage()
 @Component({
@@ -39,6 +40,7 @@ export class CategoriesPage {
   }
   
   openCategoryModal() {
-    console.log("OpenCategoryModal");
+    let categoryModal = this.modalController.create(CreateCategoryPage);
+    categoryModal.present();
   }
 }
