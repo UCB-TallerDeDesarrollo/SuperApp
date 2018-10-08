@@ -20,8 +20,11 @@ import { ListaPage } from '../lista/lista';
 export class MenuGamesPage {
 
   private imageSound:String;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private audioProvider: AudioProvider) {
+  constructor(public navController: NavController, public navParams: NavParams, private audioProvider: AudioProvider) {
     this.changeSoundIcon();
+  }
+  ionViewDidEnter() { 
+    this.changeSoundIcon(); 
   }
 
   
@@ -39,14 +42,15 @@ export class MenuGamesPage {
     }
   }
 
-  pushPageList(){
-    this.navCtrl.push(ListaPage);    
-  }
+    pushPageWord(){
+        this.navController.push(SelectDifficultyPage);
+    }
 
-  popPage(){
-      this.navCtrl.pop();
-  }
-  pushPageSuperGame(){
-    this.navCtrl.push(SupermarketPage);
-  }
+    pushPageSupermarket(){
+      this.navController.push(SupermarketPage);
+    }
+
+    popPage(){
+        this.navController.pop();
+    }
 }

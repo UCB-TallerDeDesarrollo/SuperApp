@@ -3,9 +3,11 @@
 </ion-header>
 
 <ion-content padding class="main">
-    <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
-        <ion-icon name="arrow-back"></ion-icon>
-    </button>
+    <ion-buttons left>
+        <button ion-button icon-only (click)="navController.pop()">
+                    <ion-icon name="arrow-back"></ion-icon>
+                </button>
+    </ion-buttons>
     <div class="music-logo">
         <img [src]="imageSound" alt="" (click)="stopSound()">
     </div>
@@ -14,9 +16,7 @@
     </div>
    
     <div class="game-images">
-        <img src="assets/imgs/lista.png" alt="" (click)="pushPageSuperGame()">
-        <img src="assets/imgs/lista_button.png" class="word" alt="" (click)="pushPageList()">
-        
-       
+        <img src="assets/imgs/lista.png" alt="" (click)="pushPageSupermarket()">
+        <img src="assets/imgs/palabras.png" class="word" alt="" (click)="pushPageWord()">
     </div>
 </ion-content>

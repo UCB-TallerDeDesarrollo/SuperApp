@@ -17,6 +17,9 @@ export class SelectDifficultyPage {
         this.audioProvider.changeState();
     this.changeSoundIcon();
   }
+  ionViewDidEnter() { 
+    this.changeSoundIcon(); 
+  }
 
   changeSoundIcon(){
     if(this.audioProvider.isMuted()){

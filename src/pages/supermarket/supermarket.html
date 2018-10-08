@@ -1,10 +1,32 @@
-<ion-header>  
+<ion-header>
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="popPage()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <div class="music-logo">
+            <img [src]="imageSound" alt="" (click)="stopSound()">
+        </div>
+        <div class="level-header">
+            <h1 class="change-level">SUPER MERCADO</h1>
+        </div>
+        
+    </ion-navbar>
+    
 </ion-header>
-      
-<ion-content padding class="main">
-    <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
-        <ion-icon name="arrow-back"></ion-icon>
-    </button>
-    <h1>Juego de Supermercado version 0.00000000000001</h1>
-      
+
+<ion-content no-bounce padding class="main-container">
+    <div class="container">
+
+        <div class="products-to-buy">
+            <div class="title">COMPRAR</div>
+            <div class="product-block" *ngFor="let product of productsToBuy" id="{{product.title}}">
+                <div id="product-{{product.id}}" class="product-info">
+                    <img class="product-store" src="{{product.image}}" />
+                    <p class="product-name">{{product.title}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </ion-content>
