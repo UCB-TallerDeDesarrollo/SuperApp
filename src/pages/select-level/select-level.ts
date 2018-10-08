@@ -8,12 +8,17 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
   templateUrl: 'select-level.html',
 })
 export class SelectLevelPage {
-  public level:number;
-  public actualLevel:number;
-  private lastNav:NavController;
-  public maxLevel: number;
-  public imageSound     :String;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController, private audioProvider:AudioProvider) {
+  public level        :   number;
+  public actualLevel  :   number;
+  private lastNav     :   NavController;
+  public maxLevel     :   number;
+  public imageSound   :   String;
+  constructor(
+    public navCtrl        : NavController,
+    public navParams      : NavParams,
+    public viewCtrl       : ViewController,
+    private audioProvider : AudioProvider)
+     {
     this.level=this.navParams.get("level");
     this.lastNav=this.navParams.get("lastNav");
     this.maxLevel=this.navParams.get("maxLevel");

@@ -98,6 +98,11 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
                 maxLevel : this.productsProdiver.getQuantityOfProducts()
             }
         );
+        changeLevel.onDidDismiss(
+            ()=>{
+                this.changeSoundIcon();
+            }
+        );
         changeLevel.present();
     }
 
