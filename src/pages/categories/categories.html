@@ -1,12 +1,15 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>categories</ion-title>
+    <ion-title>Categorias</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content padding class="main-categories">
+  <ion-list *ngFor="let category of categories">
+    <ion-item class="category-content">
+      {{category.name}}
+      <ion-icon name="md-create" padding item-end></ion-icon>          
+      <ion-icon name="md-remove-circle" padding item-end></ion-icon>
+    </ion-item>
+  </ion-list>
 </ion-content>
