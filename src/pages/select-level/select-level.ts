@@ -19,6 +19,7 @@ export class SelectLevelPage {
     this.maxLevel=this.navParams.get("maxLevel");
     this.actualLevel=this.level;
     this.navCtrl=this.lastNav;
+    this.changeSoundIcon();
   }
   goToLevel()
   {
@@ -50,5 +51,9 @@ export class SelectLevelPage {
     else{
       this.imageSound="assets/imgs/soundondark.png";
     }
-}
+  }
+   public stopSound(){
+        this.audioProvider.changeState();
+        this.changeSoundIcon();
+    }
 }

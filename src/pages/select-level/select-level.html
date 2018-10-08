@@ -8,7 +8,9 @@
         <div class="level-header">
                 <h1 class="change-level">NIVEL {{actualLevel}}</h1>
         </div>
-            
+        <div class="music-logo">
+            <img [src]="imageSound" alt="" (click)="stopSound()">
+        </div>
     </ion-navbar>
 </ion-header>
 
