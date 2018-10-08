@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
+import { SupermarketPage } from '../supermarket/supermarket';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 /**
@@ -17,7 +18,7 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 export class MenuGamesPage {
 
   private imageSound:String;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private audioProvider: AudioProvider) {
+  constructor(public navController: NavController, public navParams: NavParams, private audioProvider: AudioProvider) {
     this.changeSoundIcon();
   }
 
@@ -37,10 +38,14 @@ export class MenuGamesPage {
   }
 
     pushPageWord(){
-        this.navCtrl.push(SelectDifficultyPage);
+        this.navController.push(SelectDifficultyPage);
+    }
+
+    pushPageSupermarket(){
+      this.navController.push(SupermarketPage);
     }
 
     popPage(){
-        this.navCtrl.pop();
+        this.navController.pop();
     }
 }

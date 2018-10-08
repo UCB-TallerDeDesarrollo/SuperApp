@@ -1,3 +1,4 @@
+import { SupermarketPage } from './../pages/supermarket/supermarket';
 import { LoadingPage } from './../pages/loading/loading';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -49,7 +50,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech'
     CreateProductPage,
     ProductsEditorPage,
     EditProductPage,
-    SelectDifficultyPage
+    SelectDifficultyPage,
+    SupermarketPage
   ],
   imports: [
     BrowserModule,
@@ -70,7 +72,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech'
     CreateProductPage,
     ProductsEditorPage,
     EditProductPage,
-    SelectDifficultyPage
+    SelectDifficultyPage,
+    SupermarketPage
   ],
   providers: [
     StatusBar,
