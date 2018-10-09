@@ -9,11 +9,10 @@
 
 <ion-content padding class="main-category">
   <form (ngSubmit)="saveCategoryForm()">
-    <ion-item [formGroup]="categoryForm"> 
+    <ion-item [formGroup]="categoryForm" class="category-form"> 
       <ion-label>Nombre</ion-label>
       <ion-input type="text" formControlName="name" [(ngModel)]="category.name" name="name"></ion-input>
     </ion-item>
     <button ion-button type="submit" [disabled]="!categoryForm.valid" block>Guardar</button>
   </form>
-  <button ion-button (click)="closeCategoryModal()">Cerrar</button>
 </ion-content>

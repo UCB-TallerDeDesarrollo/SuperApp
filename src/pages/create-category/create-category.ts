@@ -29,11 +29,14 @@ export class CreateCategoryPage {
     console.log('ionViewDidLoad CreateCategoryPage');
   }
 
-  closeCategoryModal() {
-    this.viewController.dismiss();
+  async saveCategoryForm() {
+    console.log("saveCategoryForm");
+    this.category.name = this.category.name.toUpperCase();
+    await this.categoryProvider.saveCategory(this.category);
+    this.afterSaveCategory();
   }
 
-  saveCategoryForm() {
-    console.log("saveCategoryForm");
+  afterSaveCategory() {
+    this.navCtrl.pop();
   }
 }

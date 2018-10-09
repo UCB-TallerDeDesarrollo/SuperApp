@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Category } from '../../entities/category';
 import { CategoryProvider } from '../../providers/category/category';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
@@ -17,8 +17,7 @@ export class CategoriesPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public categoryProvider: CategoryProvider,
-              public productProvider: ProductProvider,
-              public modalController: ModalController) {
+              public productProvider: ProductProvider) {
   }
 
   ionViewDidLoad() {
@@ -40,7 +39,6 @@ export class CategoriesPage {
   }
   
   openCategoryModal() {
-    let categoryModal = this.modalController.create(CreateCategoryPage);
-    categoryModal.present();
+    this.navCtrl.push(CreateCategoryPage);
   }
 }
