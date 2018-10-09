@@ -19,10 +19,6 @@ export class CategoriesPage {
               public categoryProvider: CategoryProvider,
               public productProvider: ProductProvider) {
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CategoriesPage');
-  }
  
   ionViewWillEnter() {
     this.reloadCategories();  
@@ -37,6 +33,12 @@ export class CategoriesPage {
     });
   }
   
+  async deleteCategory(category_id: number) {
+    console.log("deleteCategory");
+    await this.categoryProvider.deleteCategory(category_id);
+    this.reloadCategories();
+  }
+
   openCategoryModal() {
     this.navCtrl.push(CreateCategoryPage);
   }
