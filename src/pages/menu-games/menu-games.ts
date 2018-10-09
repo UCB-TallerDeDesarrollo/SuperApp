@@ -1,8 +1,10 @@
+import { SupermarketPage } from '../supermarket/supermarket'; 
 import { Component } from '@angular/core';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
-import { SupermarketPage } from '../supermarket/supermarket';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
+import { ListaPage } from '../lista/lista';
+
 /**
  * Generated class for the MenuGamesPage page.
  *
@@ -20,6 +22,9 @@ export class MenuGamesPage {
   private imageSound:String;
   constructor(public navController: NavController, public navParams: NavParams, private audioProvider: AudioProvider) {
     this.changeSoundIcon();
+  }
+  ionViewDidEnter() { 
+    this.changeSoundIcon(); 
   }
 
   
@@ -47,5 +52,8 @@ export class MenuGamesPage {
 
     popPage(){
         this.navController.pop();
+    }
+    pushPageList(){
+      this.navController.push(ListaPage);    
     }
 }

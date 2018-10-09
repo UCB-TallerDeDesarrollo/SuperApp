@@ -34,16 +34,16 @@ export class ProductsEditorPage implements OnDestroy {
     });
   }
 
-  ionViewDidLoad() {
-    this.productsProvider.getProductsByCategory(this.navParams.data.data).then(products => {
+  ionViewDidLoad() { 
+      this.productsProvider.getProducts().then(products => {
       this.products = products;
     }).catch(error =>{
       console.log(error);
     });
   }
   
-  ionViewDidEnter() {
-    this.productsProvider.getProductsByCategory(this.navParams.data.data).then(products => {
+  ionViewDidEnter() { 
+      this.productsProvider.getProducts().then(products => {
       this.products = products;
     }).catch(error =>{
       console.log(error);

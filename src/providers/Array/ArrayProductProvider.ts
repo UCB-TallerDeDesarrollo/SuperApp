@@ -42,6 +42,7 @@ export class ArrayProductProvider implements ProductProvider {
     public Continue()
     {
         return this.level=1;
+        
     }
     
     public static readonly products: Product[] = [

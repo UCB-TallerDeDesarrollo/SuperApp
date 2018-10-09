@@ -71,6 +71,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   ionViewDidEnter() { 
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString(); 
+    this.changeSoundIcon(); 
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
       this.products = products;
     }).catch(error => {
@@ -125,19 +126,19 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
 
-  stopSound(){
-        this.audioProvider.changeState();
+  public stopSound(){
+    this.audioProvider.changeState();
     this.changeSoundIcon();
-  }
+}
 
-  changeSoundIcon(){
+private changeSoundIcon(){
     if(this.audioProvider.isMuted()){
       this.imageSound="assets/imgs/soundoffdark.png";
     }
     else{
       this.imageSound="assets/imgs/soundondark.png";
     }
-  }
+}
 
   
   pushPageList(){
@@ -147,10 +148,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   pushProducts(){
     this.navCtrl.push(ProductsPage);
   }
-
-  pushProduct(category_id: any) {
-    this.navCtrl.push(ProductsEditorPage, { data: category_id });
-  }
+ 
 
   goToRoot() {
     this.navCtrl.pop();

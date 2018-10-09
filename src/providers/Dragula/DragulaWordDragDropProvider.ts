@@ -55,6 +55,8 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
         this.subs[selectorName].add(this.dragulaService.drop(selectorName).subscribe(({ el, target, source, sibling }) => {
             el.setAttribute('style', `top: 0px;left: 0px;border: initial;background-color: initial;`);
             el.classList.add('no-move');
+            let letter:string=el.textContent;
+            wordPage.playPronunciationOfTheLetter(letter);
             this.recentlyMove = true;
             wordPage.showEndView();
         }));

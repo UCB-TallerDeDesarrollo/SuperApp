@@ -1,4 +1,3 @@
-import { SupermarketPage } from './../pages/supermarket/supermarket';
 import { LoadingPage } from './../pages/loading/loading';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -7,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+import { SupermarketPage} from '../pages/supermarket/supermarket';
 import { HomePage } from '../pages/home/home';
 import { ListaPage } from '../pages/lista/lista';
 import { WordPage } from '../pages/word/word';

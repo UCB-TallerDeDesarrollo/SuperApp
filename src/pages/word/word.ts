@@ -17,7 +17,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public backgroundColor : string;
     public selectorName    : string;
     public level           : number;
-    private imageSound     :String;
+    public imageSound     :String;
 
     constructor(
         public navController     : NavController,
@@ -31,7 +31,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.prepareGame();
         this.changeSoundIcon();
     }
-
+    ionViewDidEnter() { 
+        this.changeSoundIcon(); 
+      }
+    
     private generateLettersWithColor() {
         let response: any = [];
         for (let letter of this.game.ResponseWord) {
@@ -60,11 +63,11 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public showEndView(): void {
         this.game.addCount();
         if(this.game.isGameOver()) {
-            this.audioProvider.playPronunciationOfTheProductName(this.game.Product.Title);
+            setTimeout(() => {
+                this.playPronunciationOfTheProductName();
+              }, 250);
+            
             this.showModalWin();
-        }
-        else {
-            this.audioProvider.playCorrectLetterSound();
         }
     }
 
@@ -92,7 +95,13 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
             {
                 level    : this.level, 
                 lastNav  : this.navController, 
-                maxLevel : this.productsProdiver.getQuantityOfProducts()
+                maxLevel : this.productsProdiver.getQuantityOfProducts(),
+                wordPage : this                
+            }
+        );
+        changeLevel.onDidDismiss(
+            ()=>{
+                this.changeSoundIcon();
             }
         );
         changeLevel.present();
@@ -105,16 +114,20 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.changeSoundIcon();
     }
 
-    private changeSoundIcon(){
+    public changeSoundIcon(){
         if(this.audioProvider.isMuted()){
-          this.imageSound="assets/imgs/soundoffdark.png";
+          this.imageSound="assets/imgs/soundOffDark.png";
         }
         else{
-          this.imageSound="assets/imgs/soundondark.png";
+          this.imageSound="assets/imgs/soundOnDark.png";
         }
     }
 
     public playPronunciationOfTheProductName() {
-        this.audioProvider.playPronunciationOfTheProductName(this.game.Product.Title);
+        this.audioProvider.playPronunciationOfTheProductName(this.game.ResponseWord);
+    }
+   
+    public playPronunciationOfTheLetter(letter:string):void{
+        this.audioProvider.playPronunciationOfTheProductName(letter);
     }
 }
