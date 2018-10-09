@@ -25,12 +25,7 @@ export class CreateCategoryPage {
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CreateCategoryPage');
-  }
-
   async saveCategoryForm() {
-    console.log("saveCategoryForm");
     this.category.name = this.category.name.toUpperCase();
     await this.categoryProvider.saveCategory(this.category);
     this.afterSaveCategory();

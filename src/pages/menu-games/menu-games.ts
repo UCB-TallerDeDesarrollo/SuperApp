@@ -4,13 +4,13 @@ import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { ListaPage } from '../lista/lista';
+import { Category } from '../../entities/category';
+import { Product } from '../../entities/product';
+import { Categories } from '../../providers/FakeService/Categories';
+import { CategoryProvider } from '../../providers/category/category';
+import { FakeProducts } from '../../providers/FakeService/FakeProducts';
+import { ProductsProvider } from '../../providers/product/product';
 
-/**
- * Generated class for the MenuGamesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -20,7 +20,12 @@ import { ListaPage } from '../lista/lista';
 export class MenuGamesPage {
 
   private imageSound:String;
-  constructor(public navController: NavController, public navParams: NavParams, private audioProvider: AudioProvider) {
+  constructor(public navController: NavController, 
+              public navParams: NavParams, 
+              private audioProvider: AudioProvider,
+              public productsProvider: ProductsProvider, 
+              public categoryProvider: CategoryProvider,
+          ) {
     this.changeSoundIcon();
   }
   ionViewDidEnter() { 
@@ -56,4 +61,33 @@ export class MenuGamesPage {
     pushPageList(){
       this.navController.push(ListaPage);    
     }
+
+  
+  async databaseInitializer() {
+    const count_product = await this.productsProvider.countProducts();
+    const count_category = await this.categoryProvider.countCategories();
+    if(count_category < 4) {
+      let categories = Categories.getCategories();
+      for(const c in categories) {
+        let category = new Category();
+        category.name = categories[c].name;
+        await this.categoryProvider.saveCategory(category);
+      }
+      if(count_product < 58) {
+        let products = FakeProducts.getProducts()
+        for (const p in products) {
+          let product = new Product();
+          product.image = products[p].image;
+          product.state = true;
+          product.title = products[p].title;
+          product.category = await this.categoryProvider.getCategoryById(products[p].categoryId);
+          await this.productsProvider.saveProduct(product);
+        }
+      }
+    }
+  }
+
+  ionViewDidLoad() {
+    this.databaseInitializer();
+  }
 }

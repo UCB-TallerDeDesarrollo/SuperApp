@@ -32,7 +32,6 @@ export class CategoriesPage {
     this.categoryProvider.getCategories()
     .then(categories => {
       this.categories = categories;
-      console.log(JSON.stringify(categories));
     }).catch(error => {
       console.error(error);
     });
