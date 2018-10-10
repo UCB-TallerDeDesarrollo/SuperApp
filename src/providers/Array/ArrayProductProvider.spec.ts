@@ -1,4 +1,4 @@
-import { Product } from './../../shared/models/product.model';
+import { Product } from './../../shared/models/Product.model';
 import { ArrayProductProvider } from './ArrayProductProvider';
 describe("Test ArrayProductProvider static functions", function() {
     let arrayProductProvider: ArrayProductProvider;

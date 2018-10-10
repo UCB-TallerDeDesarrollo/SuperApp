@@ -7,6 +7,10 @@ import { Product } from '../../entities/product';
 import { CreateProductPage } from '../create-product/create-product';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { EditProductPage } from '../edit-product/edit-product';
+import { CategoriesPage } from '../categories/categories';
+import { Category } from '../../entities/category';
+import { Categories } from '../../providers/FakeService/Categories';
+import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 
 @IonicPage()
 @Component({
@@ -34,8 +38,9 @@ export class ProductsEditorPage implements OnDestroy {
   }
 
   ionViewDidLoad() { 
-      this.productsProvider.getProducts().then(products => {
-      this.products = products;
+    this.databaseInitializer();
+    this.productsProvider.getProducts().then(products => {
+    this.products = products;
     }).catch(error =>{
       console.log(error);
     });
@@ -54,6 +59,10 @@ export class ProductsEditorPage implements OnDestroy {
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
     }
     this.navCtrl.pop();
+  }
+
+  goToCategories() {
+    this.navCtrl.push(CategoriesPage);
   }
 
   ngOnDestroy(){
@@ -76,4 +85,27 @@ export class ProductsEditorPage implements OnDestroy {
     this.navCtrl.push(ProductsEditorPage, { data: this.navParams.data.data });
   }
 
+  async databaseInitializer() {
+    const count_product = await this.productsProvider.countProducts();
+    const count_category = await this.categoryProvider.countCategories();
+    if(count_category == 0) {
+      let categories = Categories.getCategories();
+      for(const c in categories) {
+        let category = new Category();
+        category.name = categories[c].name;
+        await this.categoryProvider.saveCategory(category);
+      }
+      if(count_product < 58) {
+        let products = FakeProducts.getProducts()
+        for (const p in products) {
+          let product = new Product();
+          product.image = products[p].image;
+          product.state = true;
+          product.title = products[p].title;
+          product.category = await this.categoryProvider.getCategoryById(products[p].categoryId);
+          await this.productsProvider.saveProduct(product);
+        }
+      }
+    }
+  }
 }

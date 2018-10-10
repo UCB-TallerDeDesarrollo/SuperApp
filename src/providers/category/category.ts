@@ -35,4 +35,20 @@ export class CategoryProvider {
                                                 .getCount();
     return count;
   }
+
+  async deleteCategory(category_id: number) {
+    await this.categoryRepository.createQueryBuilder()
+                                  .delete()
+                                  .from(Category)
+                                  .where("category.id = :id", { id: category_id })
+                                  .execute();
+  }
+  
+  async updateCategory(category: Category) {
+    await this.categoryRepository.createQueryBuilder()
+                                  .update('category')
+                                  .set({ name: category.name })
+                                  .where("category.id = :id", {id: category.id})
+                                  .execute();
+  }
 }

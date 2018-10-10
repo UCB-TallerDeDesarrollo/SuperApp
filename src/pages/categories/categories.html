@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Categorias</ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="openCategoryModal()">
+        Nueva Categoria
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="main-categories">
+  <ion-list *ngFor="let category of categories">
+    <ion-item class="category-content">
+      {{category.name}}
+      <ion-icon name="md-create" padding item-end (click)="editCategory(category.id)"></ion-icon>          
+      <ion-icon name="md-remove-circle" padding item-end (click)="deleteCategory(category)"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

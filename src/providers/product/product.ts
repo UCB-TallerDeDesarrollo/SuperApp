@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../../entities/product';
 import { getRepository, Repository } from 'typeorm';
+import { Category } from '../../entities/category';
 
 @Injectable()
 export class ProductsProvider {
@@ -65,5 +66,13 @@ export class ProductsProvider {
                                                 .orderBy('product.id', 'ASC')
                                                 .getCount();
     return count;
+  }
+
+  async updateCategory(category: Category, other: Category) {
+    await this.productRepository.createQueryBuilder()
+                                .update('product')
+                                .set({ category: other })
+                                .where("category = :category", {category: category.id})
+                                .execute();
   }
 }

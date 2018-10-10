@@ -16,6 +16,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { LevelCompletePage } from '../pages/level-complete/level-complete';
 import { ProductsProvider } from '../providers/product/product';
+import { CategoriesPage } from '../pages/categories/categories';
 import { SmartAudio } from '../providers/smart-audio/smart-audio';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { ArrayProductProvider } from '../providers/Array/ArrayProductProvider';
@@ -35,6 +36,8 @@ import { ProductsEditorPage } from '../pages/products-editor/products-editor';
 import { EditProductPage } from '../pages/edit-product/edit-product';
 import { SelectDifficultyPage } from '../pages/select-difficulty/select-difficulty';
 import { TextToSpeech } from '@ionic-native/text-to-speech'
+import { CreateCategoryPage } from '../pages/create-category/create-category';
+import { EditCategoryPage } from '../pages/edit-category/edit-category';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { TextToSpeech } from '@ionic-native/text-to-speech'
     ProductsEditorPage,
     EditProductPage,
     SelectDifficultyPage,
-    SupermarketPage
+    SupermarketPage,
+    CategoriesPage,
+    CreateCategoryPage,
+    EditCategoryPage
   ],
   imports: [
     BrowserModule,
@@ -73,7 +79,10 @@ import { TextToSpeech } from '@ionic-native/text-to-speech'
     ProductsEditorPage,
     EditProductPage,
     SelectDifficultyPage,
-    SupermarketPage
+    SupermarketPage,
+    CategoriesPage,
+    CreateCategoryPage,
+    EditCategoryPage
   ],
   providers: [
     StatusBar,
