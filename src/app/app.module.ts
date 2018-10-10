@@ -102,7 +102,10 @@ import { EditCategoryPage } from '../pages/edit-category/edit-category';
     LevelProvider,
     ProductLevelProvider,
     TextToSpeech,
-    {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]}
+    {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]},
+    File,
+    Media
+    
   ]
 })
 export class AppModule { }

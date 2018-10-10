@@ -91,10 +91,10 @@
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
     <plugin name="cordova-plugin-tts" spec="0.2.3" />
-    <engine name="ios" spec="4.5.5" />
-    <engine name="android" spec="7.0.0" />
     <plugin name="cordova-plugin-media" spec="^5.0.2">
         <variable name="KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE" value="NO" />
     </plugin>
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <engine name="ios" spec="4.5.5" />
+    <engine name="android" spec="7.0.0" />
 </widget>

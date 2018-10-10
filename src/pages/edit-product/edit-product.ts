@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { ProductsProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
 import { Camera } from '@ionic-native/camera';
 import { Product } from '../../entities/product';
 import { Category } from '../../entities/category';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Media, MediaObject } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
 
 @IonicPage()
 @Component({
@@ -14,7 +16,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
   providers: [[Camera]]
 })
 export class EditProductPage {
-
+  recording: boolean = false;
   options: any;
   Image: any;
   path: any;
@@ -22,13 +24,19 @@ export class EditProductPage {
   category: Category;
   categories: Array<Category>;
   productForm: FormGroup;
+  filePath: string;
+  fileName: string;
+  audio: MediaObject;
 
   constructor(public navCtrl: NavController, 
+              private media: Media,
+              private file: File,
               public navParams: NavParams, 
               public productsProvider: ProductsProvider, 
               public categoryProvider: CategoryProvider,
               public camera: Camera,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              public platform: Platform) {
     
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -60,6 +68,7 @@ export class EditProductPage {
 
   async saveProductForm() {
     this.product.image = this.Image;
+    this.product.audio = this.filePath;
     await this.productsProvider.updateProduct(this.product);
     this.afterSaveProduct();
   }
@@ -106,9 +115,18 @@ export class EditProductPage {
   stopRecord() {
     this.audio.stopRecord();
     let data = { filename: this.fileName };
-    this.audioList.push(data);
-    localStorage.setItem("audiolist", JSON.stringify(this.audioList));
+    
     this.recording = false;
-    this.getAudioList();
+  }
+  playAudio(file,idx) {
+    if (this.platform.is('ios')) {
+      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
+      this.audio = this.media.create(this.filePath);
+    } else if (this.platform.is('android')) {
+      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
+      this.audio = this.media.create(this.filePath);
+    }
+    this.audio.play();
+    this.audio.setVolume(0.8);
   }
 }

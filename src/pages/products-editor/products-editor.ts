@@ -12,6 +12,8 @@ import { Category } from '../../entities/category';
 import { Categories } from '../../providers/FakeService/Categories';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
+import { Media, MediaObject } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
 
 @IonicPage()
 @Component({
@@ -21,12 +23,17 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 export class ProductsEditorPage implements OnDestroy {
 
   products: Array<Product>;
+  filePath: string;
+  fileName: string;
+  audio: MediaObject;
 
   constructor(private platform: Platform, 
               public navCtrl: NavController, 
               public navParams: NavParams, 
               public productsProvider: ProductsProvider, 
               public categoryProvider: CategoryProvider, 
+              private media: Media,
+              private file: File,
               private screenOrientation: ScreenOrientation,
               private audioProvider    : AudioProvider) {
     platform.ready()
@@ -111,7 +118,22 @@ export class ProductsEditorPage implements OnDestroy {
       }
     }
   }
-  public playSoundOfWord(product_title :string) {
-    this.audioProvider.playPronunciationOfTheProductName(product_title);
+  public playSoundOfWord(product_title :string, product_audio :string) {
+    if(product_audio == " "){
+      this.audioProvider.playPronunciationOfTheProductName(product_title);
+    }else{
+      this.playAudio(product_audio);
+    }  
+  }
+  playAudio(file) {
+    if (this.platform.is('ios')) {
+      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
+      this.audio = this.media.create(this.filePath);
+    } else if (this.platform.is('android')) {
+      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
+      this.audio = this.media.create(this.filePath);
+    }
+    this.audio.play();
+    this.audio.setVolume(0.8);
   }
 }
