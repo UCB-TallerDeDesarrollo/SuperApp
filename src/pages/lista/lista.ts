@@ -28,6 +28,8 @@ export class ListaPage implements OnInit, AfterViewInit {
   quantityproductsString:string;
   quantityOfProducts: number;
   imageSound: String;
+  productPageIndex: number;
+  onViewproducts: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
 
   constructor(
     public navCtrl:           NavController, 
@@ -47,6 +49,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     productsProvider.getProductsByCategory(this.defaultCategoryId)
     .then(products => {
       this.products=products;
+      this.chargeProducts();
     })
     .catch(error => {
       console.log(error);
@@ -55,16 +58,26 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
     this.changeSoundIcon();
+    this.productPageIndex=0;
   }
 
   chargeProductsOfCategory(categoryId: number){
     this.productsProvider.getProductsByCategory(categoryId)
     .then(products => {
       this.products=products;
+      this.chargeProducts();
     })
     .catch(error => {
       console.log(error);
     });
+  }
+
+  chargeProducts(){
+    let bound = this.productPageIndex+11;
+    if(bound > this.products.length-1){
+      bound = this.products.length-1;
+    }
+    this.onViewproducts = this.products.slice(this.productPageIndex, bound);
   }
 
   ionViewDidEnter() { 
@@ -73,6 +86,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.changeSoundIcon(); 
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
       this.products = products;
+      this.chargeProducts();
     }).catch(error => {
       console.log(error);
     });
@@ -150,11 +164,20 @@ export class ListaPage implements OnInit, AfterViewInit {
   goToRoot() {
     this.navCtrl.pop();
   }
+
+  nextProductPage(){
+    this.productPageIndex+=11;
+    if(this.productPageIndex>this.products.length){
+      this.productPageIndex=0;
+    }
+  }
   
   onSelectCategory(category){ 
     this.selectedCategory = category;
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
       this.products = products;
+      //this.productPageIndex=0;
+      this.chargeProducts();
     }).catch(error => {
       console.log(error);
     });

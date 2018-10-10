@@ -16,7 +16,7 @@
     <h2 class="main-title">{{selectedCategory.name}}</h2>
     <ion-list class="stand-products">
         <ion-row>
-            <div class="product-block" *ngFor="let product of products" id="{{product.title}}" dragula="PRODUCT">
+            <div class="product-block" *ngFor="let product of onViewproducts" id="{{product.title}}" dragula="PRODUCT">
                 <div id="product-{{product.id}}" class="product-info">
                     <img class="product-store" src="{{product.image}}" />
                     <p class="product-name">{{product.title}}</p>
@@ -25,7 +25,7 @@
         </ion-row>
         <ion-row>
             <ion-col>
-                <button (click)="nextPage()">presioname</button>
+                <button (click)="nextProductPage()">presioname</button>
             </ion-col>
         </ion-row>
         <ion-row>
