@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the EditCategoryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Category } from '../../entities/category';
+import { CategoryProvider } from '../../providers/category/category';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -15,11 +11,32 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class EditCategoryPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  category = new Category;
+  categoryForm: FormGroup;
+
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              public categoryProvider: CategoryProvider,
+              private formBuilder: FormBuilder) {
+    this.categoryForm = this.formBuilder.group({
+      name: ['', Validators.required]
+    });
+    categoryProvider.getCategoryById(navParams.get('categoryId'))
+    .then(category => {
+      this.category = category;
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EditCategoryPage');
+  async saveCategoryForm() {
+    this.category.name = this.category.name.toUpperCase();
+    await this.categoryProvider.updateCategory(this.category);
+    this.afterSaveCategory();
+  }
+
+  afterSaveCategory() {
+    this.navCtrl.pop();
   }
 
 }

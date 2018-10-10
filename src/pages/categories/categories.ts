@@ -4,6 +4,7 @@ import { Category } from '../../entities/category';
 import { CategoryProvider } from '../../providers/category/category';
 import { CreateCategoryPage } from '../create-category/create-category';
 import { ProductsProvider } from '../../providers/product/product';
+import { EditCategoryPage } from '../edit-category/edit-category';
 
 @IonicPage()
 @Component({
@@ -52,5 +53,9 @@ export class CategoriesPage {
 
   openCategoryModal() {
     this.navCtrl.push(CreateCategoryPage);
+  }
+
+  editCategory(categor_id: number) {
+    this.navCtrl.push(EditCategoryPage, { categoryId: categor_id })
   }
 }

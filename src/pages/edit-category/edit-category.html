@@ -1,18 +1,18 @@
-<!--
-  Generated template for the EditCategoryPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>edit-category</ion-title>
+    <ion-title>Modificar una categoria</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content padding class="main-category">
+  <form (ngSubmit)="saveCategoryForm()">
+    <ion-item [formGroup]="categoryForm" class="category-form"> 
+      <ion-label>Nombre</ion-label>
+      <ion-input type="text" formControlName="name" [(ngModel)]="category.name" name="name"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!categoryForm.valid" block>Guardar</button>
+  </form>
 </ion-content>

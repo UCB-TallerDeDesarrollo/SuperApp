@@ -66,7 +66,7 @@ export class MenuGamesPage {
   async databaseInitializer() {
     const count_product = await this.productsProvider.countProducts();
     const count_category = await this.categoryProvider.countCategories();
-    if(count_category < 4) {
+    if(count_category == 0) {
       let categories = Categories.getCategories();
       for(const c in categories) {
         let category = new Category();

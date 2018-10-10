@@ -71,8 +71,8 @@ export class ProductsProvider {
   async updateCategory(category: Category, other: Category) {
     await this.productRepository.createQueryBuilder()
                                 .update('product')
-                                .set({ categoryId: other.id })
-                                .where("categoryId = :category", {category: category.id})
+                                .set({ category: other })
+                                .where("category = :category", {category: category.id})
                                 .execute();
   }
 }
