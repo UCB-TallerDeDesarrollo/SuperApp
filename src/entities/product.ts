@@ -16,6 +16,9 @@ export class Product {
 
     @Column()
     state: boolean = false;
+    
+    @Column()
+    audio: string
 
     @ManyToOne(type => Category, category => category.products, { cascade: ['insert'] })
     category: Category;
