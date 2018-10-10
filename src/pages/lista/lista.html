@@ -24,6 +24,11 @@
             </div>
         </ion-row>
         <ion-row>
+            <ion-col>
+                <button (click)="nextPage()">presioname</button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
             <ion-col *ngFor="let category of categories" col-3>
                 <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
             </ion-col>
