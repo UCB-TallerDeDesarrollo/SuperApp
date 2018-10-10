@@ -170,6 +170,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     if(this.productPageIndex>this.products.length){
       this.productPageIndex=0;
     }
+    this.chargeProducts();
   }
   
   onSelectCategory(category){ 
