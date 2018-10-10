@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Category } from '../../entities/category';
 import { CategoryProvider } from '../../providers/category/category';
-import { ProductProvider } from '../../shared/providers/ProductProvider';
 import { CreateCategoryPage } from '../create-category/create-category';
+import { ProductsProvider } from '../../providers/product/product';
 
 @IonicPage()
 @Component({
@@ -13,11 +13,20 @@ import { CreateCategoryPage } from '../create-category/create-category';
 export class CategoriesPage {
 
   categories: Array<Category>
+  other: Category;
+
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public categoryProvider: CategoryProvider,
-              public productProvider: ProductProvider) {
+              public productsProvider: ProductsProvider) {
+    categoryProvider.getCategoryById(4)
+    .then(other => {
+      this.other = other;
+    })
+    .catch(error => {
+      console.error(error);
+    });
   }
  
   ionViewWillEnter() {
@@ -33,10 +42,12 @@ export class CategoriesPage {
     });
   }
   
-  async deleteCategory(category_id: number) {
-    console.log("deleteCategory");
-    await this.categoryProvider.deleteCategory(category_id);
-    this.reloadCategories();
+  async deleteCategory(category: Category) {
+    if(category.id != 4) {
+      await this.productsProvider.updateCategory(category, this.other);
+      await this.categoryProvider.deleteCategory(category.id);
+      this.reloadCategories();
+    }
   }
 
   openCategoryModal() {
