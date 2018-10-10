@@ -1,4 +1,4 @@
-import { Product } from './product.model';
+import { Product } from './Product.model';
 
 describe("Test Product model", function() {
     let emptyProduct: Product;

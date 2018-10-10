@@ -1,17 +1,16 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
 import { ProductsPage } from '../products/products';
-import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
-import { Categories } from '../../providers/FakeService/Categories';
-import { ProductsProvider } from '../../providers/product/product';
-import { Product } from '../../entities/product';
-import { Category } from '../../entities/category';
-import { CategoryProvider } from '../../providers/category/category';
-import { ProductsEditorPage } from '../products-editor/products-editor';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
+import { Category } from '../../entities/category';
+import { Product } from '../../entities/product';
+import { Categories } from '../../providers/FakeService/Categories';
+import { CategoryProvider } from '../../providers/category/category';
+import { FakeProducts } from '../../providers/FakeService/FakeProducts';
+import { ProductsProvider } from '../../providers/product/product';
+
 @Component({
   selector: 'page-lista',
   templateUrl: 'lista.html',
@@ -129,17 +128,16 @@ export class ListaPage implements OnInit, AfterViewInit {
   public stopSound(){
     this.audioProvider.changeState();
     this.changeSoundIcon();
-}
+  }
 
-private changeSoundIcon(){
+  private changeSoundIcon(){
     if(this.audioProvider.isMuted()){
       this.imageSound="assets/imgs/soundoffdark.png";
     }
     else{
       this.imageSound="assets/imgs/soundondark.png";
     }
-}
-
+  } 
   
   pushPageList(){
     this.navCtrl.push(ListaPage);    
@@ -148,7 +146,6 @@ private changeSoundIcon(){
   pushProducts(){
     this.navCtrl.push(ProductsPage);
   }
- 
 
   goToRoot() {
     this.navCtrl.pop();
@@ -161,33 +158,5 @@ private changeSoundIcon(){
     }).catch(error => {
       console.log(error);
     });
-  }
-
-  async databaseInitializer() {
-    const count_product = await this.productsProvider.countProducts();
-    const count_category = await this.categoryProvider.countCategories();
-    if(count_category < 4) {
-      let categories = Categories.getCategories();
-      for(const c in categories) {
-        let category = new Category();
-        category.name = categories[c].name;
-        await this.categoryProvider.saveCategory(category);
-      }
-      if(count_product < 58) {
-        let products = FakeProducts.getProducts()
-        for (const p in products) {
-          let product = new Product();
-          product.image = products[p].image;
-          product.state = true;
-          product.title = products[p].title;
-          product.category = await this.categoryProvider.getCategoryById(products[p].categoryId);
-          await this.productsProvider.saveProduct(product);
-        }
-      }
-    }
-  }
-
-  ionViewDidLoad() {
-    this.databaseInitializer();
   }
 }

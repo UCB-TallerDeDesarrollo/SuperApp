@@ -1,5 +1,5 @@
-import { SortWordGame } from './sortWordGame.model';
-import { Product } from './product.model';
+import { SortWordGame } from './SortWordGame.model';
+import { Product } from './Product.model';
 
 describe("Test SortWordGame model", function() {
     let product: Product;
