@@ -38,6 +38,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     public categoryProvider:  CategoryProvider,
     private audioProvider: AudioProvider
   ) {
+    this.productPageIndex=0;
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
     categoryProvider.getCategories()
     .then(categories => {
@@ -58,7 +59,6 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString();
     this.changeSoundIcon();
-    this.productPageIndex=0;
   }
 
   chargeProductsOfCategory(categoryId: number){
@@ -176,7 +176,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.selectedCategory = category;
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
       this.products = products;
-      //this.productPageIndex=0;
+      this.productPageIndex=0;
       this.chargeProducts();
     }).catch(error => {
       console.log(error);
