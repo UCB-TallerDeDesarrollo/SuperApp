@@ -22,6 +22,16 @@
         <ion-label>Nombre del Item</ion-label>
         <ion-input type="text" formControlName="title" [(ngModel)]="product.title" name="title" value="{{product.title}}"></ion-input>
       </ion-item>
+
+      <ion-item>
+        <ion-card-content>
+          <ion-card-title>
+            <button ion-button primary (click)="stopRecord()" *ngIf="recording"><ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Stop Record</button>
+            <button ion-button primary (click)="startRecord()" *ngIf="!recording"><ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Start Record</button>
+          </ion-card-title>
+        </ion-card-content>
+      </ion-item>
+      
       <ion-item class="product-form-bottom">
         <ion-label>Activo</ion-label>
         <ion-checkbox [(ngModel)]="product.state" name="state"></ion-checkbox>

@@ -6,6 +6,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+import { Media } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
 import { SupermarketPage} from '../pages/supermarket/supermarket';
 import { HomePage } from '../pages/home/home';
 import { ListaPage } from '../pages/lista/lista';

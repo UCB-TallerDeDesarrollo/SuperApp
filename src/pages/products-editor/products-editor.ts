@@ -11,6 +11,7 @@ import { CategoriesPage } from '../categories/categories';
 import { Category } from '../../entities/category';
 import { Categories } from '../../providers/FakeService/Categories';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
+import { AudioProvider } from '../../shared/providers/AudioProvider';
 
 @IonicPage()
 @Component({
@@ -26,7 +27,8 @@ export class ProductsEditorPage implements OnDestroy {
               public navParams: NavParams, 
               public productsProvider: ProductsProvider, 
               public categoryProvider: CategoryProvider, 
-              private screenOrientation: ScreenOrientation) {
+              private screenOrientation: ScreenOrientation,
+              private audioProvider    : AudioProvider) {
     platform.ready()
     .then(() => {
       if (platform.is('cordova')){
@@ -109,7 +111,7 @@ export class ProductsEditorPage implements OnDestroy {
       }
     }
   }
-  public playPronunciationOfTheProductName() {
-    this.audioProvider.playPronunciationOfTheProductName(this.game.ResponseWord);
+  public playSoundOfWord(product_title :string) {
+    this.audioProvider.playPronunciationOfTheProductName(product_title);
   }
 }
