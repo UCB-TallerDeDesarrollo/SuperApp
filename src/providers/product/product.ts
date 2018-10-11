@@ -41,7 +41,7 @@ export class ProductsProvider {
   async updateProduct(product: Product){
     await this.productRepository.createQueryBuilder()
                                 .update('product')
-                                .set({ state: product.state, title: product.title, image: product.image, category: product.category })
+                                .set({ state: product.state, title: product.title, image: product.image,audio: product.audio, category: product.category })
                                 .where("id = :id", {id: product.id})
                                 .execute();
   }

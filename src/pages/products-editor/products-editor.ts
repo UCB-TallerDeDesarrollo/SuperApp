@@ -11,6 +11,9 @@ import { CategoriesPage } from '../categories/categories';
 import { Category } from '../../entities/category';
 import { Categories } from '../../providers/FakeService/Categories';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
+import { AudioProvider } from '../../shared/providers/AudioProvider';
+import { Media, MediaObject } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
 
 @IonicPage()
 @Component({
@@ -20,13 +23,19 @@ import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 export class ProductsEditorPage implements OnDestroy {
 
   products: Array<Product>;
+  filePath: string;
+  fileName: string;
+  audio: MediaObject;
 
   constructor(private platform: Platform, 
               public navCtrl: NavController, 
               public navParams: NavParams, 
               public productsProvider: ProductsProvider, 
               public categoryProvider: CategoryProvider, 
-              private screenOrientation: ScreenOrientation) {
+              private media: Media,
+              private file: File,
+              private screenOrientation: ScreenOrientation,
+              private audioProvider    : AudioProvider) {
     platform.ready()
     .then(() => {
       if (platform.is('cordova')){
@@ -101,11 +110,30 @@ export class ProductsEditorPage implements OnDestroy {
           let product = new Product();
           product.image = products[p].image;
           product.state = true;
+          product.audio = " ";
           product.title = products[p].title;
           product.category = await this.categoryProvider.getCategoryById(products[p].categoryId);
           await this.productsProvider.saveProduct(product);
         }
       }
     }
+  }
+  public playSoundOfWord(product_title :string, product_audio :string) {
+    if(product_audio == " "){
+      this.audioProvider.playPronunciationOfTheProductName(product_title);
+    }else{
+      this.playAudio(product_audio);
+    }  
+  }
+  playAudio(file) {
+    if (this.platform.is('ios')) {
+      this.filePath = file;
+      this.audio = this.media.create(this.filePath);
+    } else if (this.platform.is('android')) {
+      this.filePath = file;
+      this.audio = this.media.create(this.filePath);
+    }
+    this.audio.play();
+    this.audio.setVolume(1.0);
   }
 }
