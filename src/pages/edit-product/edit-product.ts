@@ -119,5 +119,6 @@ export class EditProductPage {
   }
   public disableRecordedSound(){
     this.filePath = " ";
+    this.audio.release();
   }
 }

@@ -134,6 +134,6 @@ export class ProductsEditorPage implements OnDestroy {
       this.audio = this.media.create(this.filePath);
     }
     this.audio.play();
-    this.audio.setVolume(0.8);
+    this.audio.setVolume(1.0);
   }
 }
