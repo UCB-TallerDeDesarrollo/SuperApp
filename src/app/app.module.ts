@@ -40,6 +40,8 @@ import { SelectDifficultyPage } from '../pages/select-difficulty/select-difficul
 import { TextToSpeech } from '@ionic-native/text-to-speech'
 import { CreateCategoryPage } from '../pages/create-category/create-category';
 import { EditCategoryPage } from '../pages/edit-category/edit-category';
+import { DragulaSupermarketDragDropProvider } from '../providers/Dragula/DragulaSupermarketDragDropProvider';
+import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDragDropProvider';
 
 @NgModule({
   declarations: [
@@ -97,6 +99,7 @@ import { EditCategoryPage } from '../pages/edit-category/edit-category';
     {provide: ProductProvider, useClass: ArrayProductProvider},
     {provide: ColorProvider, useClass: ArrayColorProvider},
     {provide: WordDragDropProvider, useClass: DragulaWordDragDropProvider, deps: [DragulaService, Platform]},
+    {provide: SupermarketDragDropProvider, useClass: DragulaSupermarketDragDropProvider, deps: [DragulaService, Platform]},
     ProductsProvider,
     CategoryProvider,
     LevelProvider,
