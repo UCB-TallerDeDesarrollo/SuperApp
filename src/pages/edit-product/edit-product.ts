@@ -54,6 +54,7 @@ export class EditProductPage {
     .then(product => {
       this.product = product;
       this.Image = product.image;
+      this.filePath = product.audio;
     }).catch(error => {
       console.log(error);
     });
@@ -114,19 +115,6 @@ export class EditProductPage {
   }
   stopRecord() {
     this.audio.stopRecord();
-    let data = { filename: this.fileName };
-    
     this.recording = false;
-  }
-  playAudio(file,idx) {
-    if (this.platform.is('ios')) {
-      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
-      this.audio = this.media.create(this.filePath);
-    } else if (this.platform.is('android')) {
-      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
-      this.audio = this.media.create(this.filePath);
-    }
-    this.audio.play();
-    this.audio.setVolume(0.8);
   }
 }

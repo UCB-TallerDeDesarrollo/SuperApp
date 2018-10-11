@@ -127,10 +127,10 @@ export class ProductsEditorPage implements OnDestroy {
   }
   playAudio(file) {
     if (this.platform.is('ios')) {
-      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
+      this.filePath = file;
       this.audio = this.media.create(this.filePath);
     } else if (this.platform.is('android')) {
-      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
+      this.filePath = file;
       this.audio = this.media.create(this.filePath);
     }
     this.audio.play();
