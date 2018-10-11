@@ -24,7 +24,7 @@ export class EditProductPage {
   category: Category;
   categories: Array<Category>;
   productForm: FormGroup;
-  filePath: string;
+  filePath: string = " ";
   fileName: string;
   audio: MediaObject;
 
