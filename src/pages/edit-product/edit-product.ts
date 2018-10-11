@@ -117,4 +117,7 @@ export class EditProductPage {
     this.audio.stopRecord();
     this.recording = false;
   }
+  public disableRecordedSound(){
+    this.filePath = " ";
+  }
 }
