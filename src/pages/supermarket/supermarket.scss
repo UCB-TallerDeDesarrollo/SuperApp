@@ -131,6 +131,9 @@ page-supermarket {}
 .product-block {
     display: inline-block;
     margin: 2px;
+    position: relative;
+    width: 70px;
+    height: 70px;
     @media screen and (max-width: 1367px) {
         margin-left: 2px;
         margin-right: 13px;
@@ -140,9 +143,29 @@ page-supermarket {}
         margin-left: 3px;
         margin-right: 11px;
         margin-bottom: 15px;
+        width: 141px;
+        height: 122px;
+    }
+    @media screen and (max-width: 1024px) {
+        width: 106px;
+        height: 105px;
+    }
+    @media screen and (max-width: 824px) {
+        width: 67px;
+        height: 60px;
     }
     @media screen and (max-width: 668px) {
         margin: 5px;
+        width: 70px;
+        height: 60px;
+    }
+    @media screen and (max-width: 640px) {
+        width: 70px;
+        height: 60px;
+    }
+    @media screen and (max-width: 568px) {
+        width: 60px;
+        height: 50px;
     }
 }
 
@@ -155,6 +178,9 @@ page-supermarket {}
     overflow: hidden;
     font-family: Arial;
     font-weight: bold;
+    position: absolute;
+    left: 0px;
+    top: 0px;
     @media screen and (max-width: 1367px) {
         width: 141px;
         height: 122px;
@@ -218,4 +244,36 @@ page-supermarket {}
     }
     text-align: center;
     margin-top: -3px;
+}
+
+.icon-image {
+    max-width: 15%;
+    float: right;
+    margin-right: 15%;
+}
+
+.gu-mirror {
+    position: absolute;
+    margin: 0 !important;
+    z-index: 9999 !important;
+    opacity: 1;
+    filter: alpha(opacity=80);
+    pointer-events: none;
+    visibility: initial;
+    font-size: 1.4rem;
+    .product-store{
+        width: 70%;
+    }
+}
+/* high-performance display:none; helper */
+.gu-hide {
+    left: -9999px !important;
+}
+/* added to mirrorContainer (default = body) while dragging */
+.gu-unselectable {
+    user-select: none !important;
+}
+/* added to the source element while its mirror is dragged */
+.gu-transit {
+    visibility: hidden;
 }
