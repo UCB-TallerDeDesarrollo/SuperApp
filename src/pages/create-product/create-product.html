@@ -19,6 +19,10 @@
       <ion-label>Nombre del Item</ion-label>
       <ion-input type="text" formControlName="title" [(ngModel)]="product.title" name="title"></ion-input>
     </ion-item>
+    <ion-item>
+      <button ion-button primary (click)="stopRecord()" *ngIf="recording"><ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Detener/Guardar</button>
+      <button ion-button primary (click)="startRecord()" *ngIf="!recording"><ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Grabar</button>
+    </ion-item>
     <ion-item class="product-form-bottom">
       <ion-label>Activo</ion-label>
       <ion-checkbox [(ngModel)]="product.state" name="state"></ion-checkbox>

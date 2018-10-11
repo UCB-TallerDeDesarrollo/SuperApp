@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { ProductsProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
 import { Camera } from '@ionic-native/camera';
 import { Product } from '../../entities/product';
 import { Category } from '../../entities/category';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Media, MediaObject } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
 
 @IonicPage()
 @Component({
@@ -14,7 +16,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
   providers: [[Camera]]
 })
 export class CreateProductPage {
-  
+  recording: boolean = false;
   options: any;
   Image: any;
   path: any;
@@ -22,13 +24,19 @@ export class CreateProductPage {
   category: Category;
   categories: Array<Category>;
   productForm: FormGroup;
+  filePath: string = " ";
+  fileName: string;
+  audio: MediaObject;
 
   constructor(public navCtrl: NavController, 
-              public navParams: NavParams, 
+              public navParams: NavParams,
+              private media: Media,
+              private file: File, 
               public productsProvider: ProductsProvider, 
               public categoryProvider: CategoryProvider, 
               public camera: Camera,
-              private formBuilder: FormBuilder) {    
+              private formBuilder: FormBuilder,
+              public platform: Platform) {    
     
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -54,6 +62,7 @@ export class CreateProductPage {
 
   async saveProductForm() {
     this.product.image = this.Image;
+    this.product.audio = this.filePath;
     await this.productsProvider.saveProduct(this.product);
     this.afterSaveProduct();
   }
@@ -83,5 +92,22 @@ export class CreateProductPage {
       }).catch((error) => {
         console.log(error);
       })
+  }
+  startRecord() {
+    if (this.platform.is('ios')) {
+      this.fileName = 'record'+new Date().getDate()+new Date().getMonth()+new Date().getFullYear()+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.3gp';
+      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
+      this.audio = this.media.create(this.filePath);
+    } else if (this.platform.is('android')) {
+      this.fileName = 'record'+new Date().getDate()+new Date().getMonth()+new Date().getFullYear()+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.3gp';
+      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
+      this.audio = this.media.create(this.filePath);
+    }
+    this.audio.startRecord();
+    this.recording = true;
+  }
+  stopRecord() {
+    this.audio.stopRecord();
+    this.recording = false;
   }
 }
