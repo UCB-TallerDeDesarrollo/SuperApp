@@ -3,7 +3,7 @@ import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 import { Platform } from 'ionic-angular';
 import { Coordinate } from './Coordinate';
-import { Limits } from './Limits';
+import { SupermarketLimits } from './SupermarketLimits';
 
 
 export class DragulaSupermarketDragDropProvider implements SupermarketDragDropProvider {
@@ -12,13 +12,13 @@ export class DragulaSupermarketDragDropProvider implements SupermarketDragDropPr
     private actualSelectedElement   : any;
     private actualSelectedContainer : any;
     private recentlyMove   : boolean;
-    private limits:Limits;
+    private limits:SupermarketLimits;
 
     public constructor(
         private dragulaService: DragulaService, 
         platform: Platform
     ) {
-        this.limits = new Limits(platform);
+        this.limits = new SupermarketLimits(platform);
     }
     
     public initialize(selectorName: string): void {
