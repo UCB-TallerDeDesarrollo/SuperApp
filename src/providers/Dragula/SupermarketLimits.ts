@@ -55,19 +55,15 @@ export class SupermarketLimits {
         this.SIZE_LETTER_HEIGHT_IOS = blockHeight;
         
         if (platform.is("mobileweb")) {
-            console.log('mobileweb');
             y -= this.SIZE_LETTER_HEIGHT_OTHER;
         }
         else if (platform.is("android")) {
-            console.log('android');
             y -= this.SIZE_LETTER_HEIGHT_ANDROID;
         }
         else if (platform.is("ios")) {
-            console.log('ios');
             y -= this.SIZE_LETTER_HEIGHT_IOS;
         }
         x -= this.SIZE_LETTER_WIDTH;
-        console.log(x + " " + y);
         this.sizes = new Coordinate(x, y);
     }
 
