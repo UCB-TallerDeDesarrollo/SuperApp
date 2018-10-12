@@ -19,6 +19,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   productsToPlay: any[];
   imageSound: String;
   public selectorName: string;
+  public productsList: string[] = [];
 
   constructor(
     public navController: NavController, 
@@ -38,29 +39,37 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     this.products = await this.productsProvider.getProducts(); 
     this.game = new SuperMarketGame(this.products);
     this.game.buildProducts(8,6);
-    this.productsToBuy=this.game.ProductsToBuy; 
-    this.productsToPlay=this.game.ProductsToPlay; 
+    this.productsToBuy = this.game.ProductsToBuy;
+    for(let index = 0; index < this.productsToBuy.length; ++index) {
+      this.productsList.push(`play-${this.productsToBuy[index].title}`);
+    }
+    this.productsToPlay = this.game.ProductsToPlay; 
   } 
  
   public stopSound(){
     this.audioProvider.changeState();
     this.changeSoundIcon();
-}
+  }
 
-private changeSoundIcon(){
+  private changeSoundIcon(){
     if(this.audioProvider.isMuted()){
       this.imageSound="assets/imgs/soundoffdark.png";
     }
     else{
       this.imageSound="assets/imgs/soundondark.png";
     }
-}
+  }
+  
+  public getProductsList(): string[] {
+    return this.productsList;
+  }
+
   ionViewDidLoad() {  
     this.changeSoundIcon(); 
   }
 
   ngOnInit(): void {
-    this.dragDropProvider.initialize(this.selectorName);
+    this.dragDropProvider.initialize(this.selectorName, this);
   }
 
   ngAfterViewInit(): void {
