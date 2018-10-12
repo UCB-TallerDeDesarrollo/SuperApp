@@ -7,10 +7,11 @@ const SIZE_LETTER_HEIGHT_OTHER = SIZE_LETTER_HEIGHT_ANDROID+3;
 const SIZE_LETTER_HEIGHT_IOS = 60 - 24;
 const SIZE_NAVIGATION = 78;
 
-export class SupermarketLimits{
+export class SupermarketLimits {
+    
     sizes:Coordinate;
-    constructor(platform:Platform)
-    {
+    
+    constructor(platform:Platform) {
         this.setupSizes(platform);
     }
 
@@ -31,8 +32,7 @@ export class SupermarketLimits{
         this.sizes = new Coordinate(x, y);
     }
 
-    public getAxisFixed(topPosition:number, leftPosition:number)
-    {
+    public getAxisFixed(topPosition:number, leftPosition:number){
         let axis:Coordinate;
         axis=new Coordinate(this.getLeftPositionFixed(leftPosition), this.getTopPositionFixed(topPosition));
         return axis;
