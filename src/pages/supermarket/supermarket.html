@@ -20,13 +20,13 @@
     <div class="container">
         <div class="products-to-play">
             <div class="product-block" *ngFor="let product of productsToPlay" id="play-{{product.title}}" dragula="{{selectorName}}">
-                <div id="productPlay-{{product.id}}" class="product-info">
+                <div id="productPlay-{{product.id}}" class="product-info superior-block">
                     <img class="product-store" src="{{product.image}}" />
                     <p class="product-name">{{product.title}}</p>
                 </div>
             </div>
         </div>
-        <div class="products-to-buy">
+        <div id="high_container" class="products-to-buy">
             <div class="title">COMPRAR</div>
             <div class="product-block" *ngFor="let product of productsToBuy" id="{{product.title}}">
                 <div id="product-{{product.id}}" class="product-info">
@@ -36,7 +36,7 @@
             </div>
         </div>
     </div>
-    <!--<div class="container">
+    <div id="carrito" class="carrito_container">
         <img class="icon-image" src="../../assets/imgs/carrito.png" />
-    </div>-->
+    </div>
 </ion-content>
