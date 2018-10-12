@@ -10,6 +10,10 @@ page-supermarket {}
     width: 92vw;
 }
 
+.superior-block{
+    z-index: 1;
+}
+
 .products-to-play {
     float: left;
     text-align: center;
@@ -247,7 +251,7 @@ page-supermarket {}
 }
 
 .icon-image {
-    max-width: 15%;
+    height: 100%;
     float: right;
     margin-right: 15%;
 }
@@ -261,10 +265,50 @@ page-supermarket {}
     pointer-events: none;
     visibility: initial;
     font-size: 1.4rem;
+    .product-name {
+        font-size: 0.75em;
+        @media screen and (max-width: 1367px) {
+            font-size: 1.5em;
+        }
+        @media screen and (max-width: 1024px) {
+            font-size: 1.1em;
+        }
+        @media screen and (max-width: 824px) {
+            font-size: 0.67em;
+        }
+        //text-align: center;
+        //margin-top: -3px;
+    }
     .product-store{
         width: 70%;
+        height: 50px;
+        @media screen and (max-width: 1367px) {
+            height: 77px;
+        }
+        @media screen and (max-width: 1024px) {
+            height: 77px;
+        }
+        @media screen and (max-width: 824px) {
+            height: 42px;
+        }
+        @media screen and (max-width: 668px) {
+            height: 42px;
+        }
+        @media screen and (max-width: 640px) {
+            height: 40px;
+        }
+        @media screen and (max-width: 568px) {
+            height: 30px;
+        }
     }
 }
+
+.carrito_container {
+    display: table;
+    width: 92vw;
+    max-height: 100px;
+}
+
 /* high-performance display:none; helper */
 .gu-hide {
     left: -9999px !important;
