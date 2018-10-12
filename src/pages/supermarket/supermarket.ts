@@ -1,6 +1,6 @@
 import { CategoryProvider } from './../../providers/category/category';
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core'; 
-import { IonicPage, NavController, NavParams } from 'ionic-angular'; 
+import { Component, OnInit, AfterViewInit, OnDestroy, AfterViewChecked } from '@angular/core'; 
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular'; 
  
 import { ProductsProvider } from '../../providers/product/product'; 
 import {SuperMarketGame} from '../../shared/models/SupermarketGame'; 
@@ -11,7 +11,7 @@ import { SupermarketDragDropProvider } from '../../shared/providers/SupermarketD
   selector: 'page-supermarket',
   templateUrl: 'supermarket.html',
 })
-export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy {
+export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterViewChecked {
    
   game : SuperMarketGame;
   products: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
@@ -26,7 +26,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy {
     public productsProvider:   ProductsProvider,
     public categoryProvider: CategoryProvider,
     private audioProvider: AudioProvider,
-    private dragDropProvider: SupermarketDragDropProvider
+    private dragDropProvider: SupermarketDragDropProvider,
+    private platform: Platform
   ) {
     this.selectorName = 'PRODUCT-' + Math.random();
     this.prepareGame();
@@ -64,6 +65,15 @@ private changeSoundIcon(){
 
   ngAfterViewInit(): void {
     this.dragDropProvider.startEvents(this.selectorName, this);
+  }
+
+  ngAfterViewChecked(): void {
+    const HEIGHT_WINDOW = this.platform.height();
+    const HEIGHT_BAR = 78;
+    const PADDING = 32;
+    const HEIGHT_CONTAINER = document.getElementById('high_container').offsetHeight;
+    let height = HEIGHT_WINDOW - HEIGHT_BAR - PADDING - HEIGHT_CONTAINER;
+    document.getElementById('carrito').setAttribute('style', `height: ${height}px`);
   }
 
   ngOnDestroy(): void {
