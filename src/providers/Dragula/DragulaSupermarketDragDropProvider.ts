@@ -21,7 +21,7 @@ export class DragulaSupermarketDragDropProvider implements SupermarketDragDropPr
         this.limits = new SupermarketLimits(platform);
     }
     
-    public initialize(selectorName: string): void {
+    public initialize(selectorName: string, supermarketPage: any): void {
         this.subs[selectorName] = new Subscription();
         this.recentlyMove = false;
         this.dragulaService.createGroup(selectorName, { 
@@ -32,13 +32,10 @@ export class DragulaSupermarketDragDropProvider implements SupermarketDragDropPr
                 return !(container.children.length > 0 && container.children[0].classList.contains('no-move'));
             },
             accepts: (el, target, source, sibling) => {
-                if(!target.classList.contains('objetive-container')) {
+                if(!target.classList.contains('product-objetive-container')) {
                     return false;
                 }
-                if(target.children.length > 0) {
-                    return target.children[0].classList.contains('gu-transit');
-                }
-                if(target.classList[0] !== source.classList[0]) {
+                if(!supermarketPage.getProductsList().includes(source.id)) {
                     return false;
                 }
                 return true;
@@ -46,7 +43,7 @@ export class DragulaSupermarketDragDropProvider implements SupermarketDragDropPr
         });
     }
 
-    public startEvents(selectorName: string, wordPage: any): void {
+    public startEvents(selectorName: string, supermarketPage: any): void {
         const MARGIN_LEFT : number = 0;
 
         this.subs[selectorName].add(this.dragulaService.drag(selectorName).subscribe(({ name, el, source }) => {
@@ -54,12 +51,9 @@ export class DragulaSupermarketDragDropProvider implements SupermarketDragDropPr
         }));
 
         this.subs[selectorName].add(this.dragulaService.drop(selectorName).subscribe(({ el, target, source, sibling }) => {
-            el.setAttribute('style', `top: 0px;left: 0px;border: initial;background-color: initial;`);
+            el.setAttribute('style', `display: hidden;`);
             el.classList.add('no-move');
-            let letter:string=el.textContent;
-            wordPage.playPronunciationOfTheLetter(letter);
             this.recentlyMove = true;
-            wordPage.showEndView();
         }));
 
         this.subs[selectorName].add(this.dragulaService.dragend(selectorName).subscribe(({ name, el }) => {

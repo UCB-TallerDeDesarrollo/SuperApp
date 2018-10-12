@@ -1,5 +1,5 @@
 export abstract class SupermarketDragDropProvider {
-    abstract initialize(selectorName: string): void;
-    abstract startEvents(selectorName: string, wordPage: any): void;
+    abstract initialize(selectorName: string, supermarketPage: any): void;
+    abstract startEvents(selectorName: string, supermarketPage: any): void;
     abstract finalize(selectorName: string): void;
 }
