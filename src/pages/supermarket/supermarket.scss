@@ -309,6 +309,17 @@ page-supermarket {}
     max-height: 100px;
 }
 
+.product-container{
+    position: relative;
+}
+
+.product-absolute {
+    position: absolute;
+    top: 0;
+    right: 0;
+    visibility: hidden;
+}
+
 /* high-performance display:none; helper */
 .gu-hide {
     left: -9999px !important;
