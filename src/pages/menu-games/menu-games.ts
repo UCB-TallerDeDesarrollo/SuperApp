@@ -79,6 +79,7 @@ export class MenuGamesPage {
           let product = new Product();
           product.image = products[p].image;
           product.state = true;
+          product.audio = " ";
           product.title = products[p].title;
           product.category = await this.categoryProvider.getCategoryById(products[p].categoryId);
           await this.productsProvider.saveProduct(product);
