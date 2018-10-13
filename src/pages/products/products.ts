@@ -14,23 +14,16 @@ import { HomePage } from '../home/home';
 })
 export class ProductsPage {
   public soundClic: boolean = false;
-  
 
-  /*constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private dragulaService: DragulaService) {
-    this.products = FakeListProducts.getProducts().reverse();
-    this.numberOfProducts = this.products.length;
-  }*/
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProductsPage');
-  } 
-  changeSoundClicToFalse(){
+  changeSoundClicToFalse() {
     this.soundClic = false;
   }
-  changeSoundClicToTrue(){
+
+  changeSoundClicToTrue() {
     this.soundClic = true;
   }
-  getSoundClic(){
+  
+  getSoundClic() {
     return this.soundClic;
   }
 
@@ -42,9 +35,17 @@ export class ProductsPage {
     this.numberOfProducts = this.products.length;
   }
   
+  ionViewWillEnter() {
+    this.reloadProducts();
+  }
+
+  reloadProducts() {
+    this.products = FakeListProducts.getProducts();
+  }
+
   deleteListOfProducts() {
     FakeListProducts.deleteAllProducts();
-    this.products = FakeListProducts.getProducts();
+    this.reloadProducts();
     this.numberOfProducts = this.products.length;
   }
   
