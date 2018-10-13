@@ -51,7 +51,8 @@ export class DragulaSupermarketDragDropProvider implements SupermarketDragDropPr
         }));
 
         this.subs[selectorName].add(this.dragulaService.drop(selectorName).subscribe(({ el, target, source, sibling }) => {
-            el.setAttribute('style', `display: hidden;`);
+            el.setAttribute('style', `display: none;`);
+            document.getElementById(`img-${source.id}`).setAttribute('style', `visibility: visible;`);
             el.classList.add('no-move');
             this.recentlyMove = true;
         }));
