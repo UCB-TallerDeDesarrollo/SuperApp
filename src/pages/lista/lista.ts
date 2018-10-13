@@ -30,6 +30,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   imageSound: String;
   productPageIndex: number;
   onViewproducts: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
+  ON_VIEW_LIST_LENGHT=11;
 
   constructor(
     public navCtrl:           NavController, 
@@ -73,7 +74,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   chargeProducts(){
-    let bound = this.productPageIndex+11;
+    let bound = this.productPageIndex+this.ON_VIEW_LIST_LENGHT;
     if(bound > this.products.length-1){
       bound = this.products.length-1;
     }
@@ -166,7 +167,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   nextProductPage(){
-    this.productPageIndex+=11;
+    this.productPageIndex+=this.ON_VIEW_LIST_LENGHT;
     if(this.productPageIndex>this.products.length){
       this.productPageIndex=0;
     }
