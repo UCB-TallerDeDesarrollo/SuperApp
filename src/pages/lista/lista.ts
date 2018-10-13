@@ -67,7 +67,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     });
   }
 
-  ionViewDidEnter() { 
+  ionViewWillEnter() { 
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString(); 
     this.changeSoundIcon(); 
