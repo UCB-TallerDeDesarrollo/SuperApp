@@ -29,8 +29,9 @@
         <div id="high_container" class="products-to-buy">
             <div class="title">COMPRAR</div>
             <div class="product-block" *ngFor="let product of productsToBuy" id="{{product.title}}">
-                <div id="product-{{product.id}}" class="product-info">
+                <div id="product-{{product.id}}" class="product-info product-container">
                     <img class="product-store" src="{{product.image}}" />
+                    <img id="img-play-{{product.title}}" class="product-store product-absolute" src="../../assets/imgs/check-symbol.png" />
                     <p class="product-name">{{product.title}}</p>
                 </div>
             </div>
