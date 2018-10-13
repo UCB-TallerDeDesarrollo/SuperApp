@@ -29,8 +29,11 @@ export class ListaPage implements OnInit, AfterViewInit {
   quantityOfProducts: number;
   imageSound: String;
   productPageIndex: number;
+  categoriesPageIndex: number;
   onViewproducts: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
-  ON_VIEW_LIST_LENGHT=11;
+  onViewcategories: Array<{id: number, name: string}>=[];
+  ON_VIEW_LIST_LENGHT=12;
+  ON_VIEW_CATEGORIES_LENGHT=4;
 
   constructor(
     public navCtrl:           NavController, 
@@ -40,10 +43,12 @@ export class ListaPage implements OnInit, AfterViewInit {
     private audioProvider: AudioProvider
   ) {
     this.productPageIndex=0;
+    this.categoriesPageIndex=0;
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
     categoryProvider.getCategories()
     .then(categories => {
       this.categories = categories;
+      this.chargeCategories();
     })
     .catch(error => {
       console.log(error);
@@ -75,10 +80,22 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   chargeProducts(){
     let bound = this.productPageIndex+this.ON_VIEW_LIST_LENGHT;
-    if(bound > this.products.length-1){
-      bound = this.products.length-1;
+    if(bound > this.products.length){
+      bound = this.products.length;
     }
     this.onViewproducts = this.products.slice(this.productPageIndex, bound);
+  }
+
+  chargeCategories(){
+    let bound = this.categoriesPageIndex+this.ON_VIEW_CATEGORIES_LENGHT;
+    if(bound > this.categories.length){
+      bound = this.categories.length;
+    }
+    this.onViewcategories = this.categories.slice(this.categoriesPageIndex, bound);
+  }
+
+  _chargeList(){
+
   }
 
   ionViewDidEnter() { 
@@ -168,12 +185,20 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   nextProductPage(){
     this.productPageIndex+=this.ON_VIEW_LIST_LENGHT;
-    if(this.productPageIndex>this.products.length){
+    if(this.productPageIndex>=this.products.length){
       this.productPageIndex=0;
     }
     this.chargeProducts();
   }
-  
+
+  nextCategoryPage(){
+    this.categoriesPageIndex+=this.ON_VIEW_CATEGORIES_LENGHT;
+    if(this.categoriesPageIndex>=this.categories.length){
+      this.categoriesPageIndex=0;
+    }
+    this.chargeCategories();
+  }
+
   onSelectCategory(category){ 
     this.selectedCategory = category;
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {

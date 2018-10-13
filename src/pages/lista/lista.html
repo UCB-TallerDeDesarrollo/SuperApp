@@ -29,8 +29,11 @@
             </ion-col>
         </ion-row>
         <ion-row>
-            <ion-col *ngFor="let category of categories" col-3>
+            <ion-col *ngFor="let category of onViewcategories" col-3>
                 <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
+            </ion-col>
+            <ion-col>
+                <button (click)="nextCategoryPage()">x2</button>
             </ion-col>
         </ion-row>
     </ion-list>
