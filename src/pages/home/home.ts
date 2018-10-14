@@ -2,7 +2,7 @@ import { ViewUserPage } from './../view-user/view-user';
 import { LoginStatus } from './../../providers/login/LoginStatus';
 import { WordPage } from './../word/word';
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 import { ListaPage } from '../lista/lista';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
@@ -21,11 +21,11 @@ import { EditUserPage } from '../edit-user/edit-user';
 export class HomePage {
 
   private imageSound:String;
-  
-  public loged=LoginStatus.logged;
   public iconLeft:string;
   public iconTop:string;
-  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider) {
+  private loged_items:any;
+  private unloged_items:any;
+  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public toastCtrl:ToastController) {
     platform.ready().then(() => {
       if (platform.is('cordova')){
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
@@ -35,50 +35,33 @@ export class HomePage {
      console.log('Error while loading platform', err);
    });
     this.changeSoundIcon(); 
+    
   }
   ionViewDidEnter() { 
     this.changeSoundIcon();
     this.changeLoginIcons();
   }
-  changeLoginIcons(): any {
-      if (LoginStatus.logged)
-      {
-        this.iconLeft="settings";
-        this.iconTop="eye";
-      }
-      else{
-        this.iconLeft="log-in";
-        this.iconTop="person-add";
-      }
-  }
-  actionEditOrLogin()
-  {
+  public changeLoginIcons() {
+    this.loged_items=document.getElementById('loged_items');
+    this.unloged_items=document.getElementById('unloged_items');
     if (LoginStatus.logged)
     {
-      this.toEdit();
+      this.loged_items.hidden=false;
+      this.unloged_items.hidden=true;
     }
-    else{
-      this.toLogin();
-    }
+    else
+    {this.loged_items.hidden=true;
+      this.unloged_items.hidden=false;}
   }
-  actionCreateOrShow()
-  {
-    if (LoginStatus.logged)
-    {
-      this.toShow();
-    }
-    else{
-      this.pushPageCreateUser();
-    }
-  }
-  toShow(): any {
+  
+  show(): any {
     this.navCtrl.push(ViewUserPage);
   }
   stopSound(){
         this.audioProvider.changeState();
     this.changeSoundIcon();
   }
-  toLogin()
+  login()
   {
     this.navCtrl.push(UserLoginPage);
   }
@@ -112,13 +95,27 @@ export class HomePage {
     this.navCtrl.push(ProductsEditorPage);
   }
 
-  pushPageCreateUser() {
+  create() {
     this.navCtrl.push(CreateUserPage);
   }
-  toEdit()
+  edit()
   {
     this.navCtrl.push(EditUserPage);
 
   }
- 
+  delete()
+  {
+    
+  }
+  logout()
+  {
+    LoginStatus.setLogout();
+    var toast=this.toastCtrl.create({
+      message:"Sesion finalizada",
+      duration:3000,
+      position: 'bottom'
+    });
+    toast.present();
+    this.changeLoginIcons();
+  }
 }
