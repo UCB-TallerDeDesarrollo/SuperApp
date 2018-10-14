@@ -45,4 +45,12 @@ export class User {
     public set Birthdate(birthdate: Date) {
         this.birthdate = birthdate;
     }
+
+    public get ProfilePictureURL(): string {
+        return this.profilePictureURL;
+    }
+
+    public set ProfilePictureURL(profilePictureURL: string) {
+        this.profilePictureURL = profilePictureURL;
+    }
 }
