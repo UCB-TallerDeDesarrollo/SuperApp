@@ -19,21 +19,25 @@
 <ion-content no-bounce padding class="main-container">
     <div class="container">
         <div class="products-to-play">
-            <div class="product-block" *ngFor="let product of productsToPlay" id="play-{{product.title}}">
-                <div id="productPlay-{{product.id}}" class="product-info">
+            <div class="product-block" *ngFor="let product of productsToPlay" id="play-{{product.title}}" dragula="{{selectorName}}">
+                <div id="productPlay-{{product.id}}" class="product-info superior-block">
                     <img class="product-store" src="{{product.image}}" />
                     <p class="product-name">{{product.title}}</p>
                 </div>
             </div>
         </div>
-        <div class="products-to-buy">
+        <div id="high_container" class="products-to-buy">
             <div class="title">COMPRAR</div>
             <div class="product-block" *ngFor="let product of productsToBuy" id="{{product.title}}">
-                <div id="product-{{product.id}}" class="product-info">
+                <div id="product-{{product.id}}" class="product-info product-container">
                     <img class="product-store" src="{{product.image}}" />
+                    <img id="img-play-{{product.title}}" class="product-store product-absolute" src="../../assets/imgs/check-symbol.png" />
                     <p class="product-name">{{product.title}}</p>
                 </div>
             </div>
         </div>
+    </div>
+    <div id="carrito" class="carrito_container">
+        <img class="icon-image product-objetive-container" src="../../assets/imgs/carrito.png" dragula="{{selectorName}}"/>
     </div>
 </ion-content>

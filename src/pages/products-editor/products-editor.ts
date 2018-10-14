@@ -46,17 +46,14 @@ export class ProductsEditorPage implements OnDestroy {
     });
   }
 
-  ionViewDidLoad() { 
+  ionViewWillEnter() { 
     this.databaseInitializer();
-    this.productsProvider.getProducts().then(products => {
-    this.products = products;
-    }).catch(error =>{
-      console.log(error);
-    });
+    this.reloadProducts();
   }
-  
-  ionViewDidEnter() { 
-      this.productsProvider.getProducts().then(products => {
+
+  reloadProducts() {
+    this.productsProvider.getProducts()
+    .then(products => {
       this.products = products;
     }).catch(error =>{
       console.log(error);
