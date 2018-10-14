@@ -108,12 +108,9 @@ export class ListaPage implements OnInit, AfterViewInit {
             image: currentProduct.image, 
             categoryId: this.selectedCategory.id
           });
-          console.log("BEFORE " + p.state);
           p.state = false; 
-          console.log("AFTER " + p.state);
           this.productsProvider.updateProduct(p)
           .then(response => {
-            console.log("ON UPDATE");
             console.log(response);
           }).catch(error => {
             console.log(error);
