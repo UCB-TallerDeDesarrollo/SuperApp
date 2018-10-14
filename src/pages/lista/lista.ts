@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { ProductsPage } from '../products/products';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
@@ -25,22 +25,23 @@ export class ListaPage implements OnInit, AfterViewInit {
   products: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
   categories: Array<{id: number, name: string}>=[];
   selectedCategory: {id: number, name: string};
-  quantityproductsString:string;
-  quantityOfProducts: number;
   imageSound: String;
   productPageIndex: number;
   categoriesPageIndex: number;
+  productsOnList: Array<{ id: number, title: string, image: string, categoryId: number }> = [];
+  numberOfProductsOnList: number;
   onViewproducts: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
   onViewcategories: Array<{id: number, name: string}>=[];
   ON_VIEW_LIST_LENGHT=12;
   ON_VIEW_CATEGORIES_LENGHT=4;
 
   constructor(
-    public navCtrl:           NavController, 
-    private dragulaService:   DragulaService, 
-    public productsProvider:   ProductsProvider, 
-    public categoryProvider:  CategoryProvider,
-    private audioProvider: AudioProvider
+    public navCtrl: NavController, 
+    private dragulaService: DragulaService, 
+    public productsProvider: ProductsProvider, 
+    public categoryProvider: CategoryProvider,
+    private audioProvider: AudioProvider,
+    private alertCtrl: AlertController
   ) {
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
@@ -52,30 +53,20 @@ export class ListaPage implements OnInit, AfterViewInit {
     })
     .catch(error => {
       console.log(error);
-    });
-    productsProvider.getProductsByCategory(this.defaultCategoryId)
+      });
+    productsProvider.getProductsByCategoryOnlyActive(this.defaultCategoryId)
     .then(products => {
       this.products=products;
       this.chargeProducts();
     })
     .catch(error => {
       console.log(error);
-    });
-    
-    this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-    this.quantityproductsString = this.quantityOfProducts.toString();
-    this.changeSoundIcon();
-  }
+    });    
 
-  chargeProductsOfCategory(categoryId: number){
-    this.productsProvider.getProductsByCategory(categoryId)
-    .then(products => {
-      this.products=products;
+    this.changeSoundIcon();
+    this.productsOnList = FakeListProducts.getProducts().reverse();
+    this.numberOfProductsOnList = this.productsOnList.length;
       this.chargeProducts();
-    })
-    .catch(error => {
-      console.log(error);
-    });
   }
 
   chargeProducts(){
@@ -99,17 +90,16 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   ionViewDidEnter() { 
-    this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-    this.quantityproductsString = this.quantityOfProducts.toString(); 
-    this.changeSoundIcon(); 
+    this.changeSoundIcon();
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
-    .then(products => {
-      this.products = products;
+      .then(products => {
+        this.products = products;
       this.chargeProducts();
-    }).catch(error => {
-      console.log(error);
-    });
-  }
+      }).catch(error => {
+        console.log(error);
+      });
+    this.reloadProductsOnList();
+  } 
 
   ngOnInit() {
     this.dragulaService.createGroup("PRODUCT", {
@@ -130,29 +120,27 @@ export class ListaPage implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       let product_id = + (el.id.split("-")[1]);
-        let currentProduct = new Product;
-        this.productsProvider.getProductById(product_id)
-        .then( p => {
+      let currentProduct = new Product;
+      this.productsProvider.getProductById(product_id)
+        .then(p => {
           currentProduct = p;
-          FakeListProducts.addProduct({ 
-            id: currentProduct.id, 
-            title: currentProduct.title, 
-            image: currentProduct.image, 
+          FakeListProducts.addProduct({
+            id: currentProduct.id,
+            title: currentProduct.title,
+            image: currentProduct.image,
             categoryId: this.selectedCategory.id
           });
-          p.state = false; 
+          p.state = false;
           this.productsProvider.updateProduct(p)
-          .then(response => {
-            console.log(response);
+            .then(response => {
+              console.log(response);
             console.log("update succesfull");
             console.log("Deberia actualizar");
             this.onSelectCategory(this.selectedCategory);
-          }).catch(error => {
-            console.log(error);
+            }).catch(error => {
+              console.log(error);
             console.log("update failes");
-          });
-          this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-          this.quantityproductsString = this.quantityOfProducts.toString();
+            });         
         }).catch(error => {
           console.log(error);
           console.log("get failed");
@@ -160,7 +148,6 @@ export class ListaPage implements OnInit, AfterViewInit {
       el.remove();
     });
   }
-
 
   public stopSound(){
     this.audioProvider.changeState();
@@ -215,4 +202,53 @@ export class ListaPage implements OnInit, AfterViewInit {
       console.log(error);
     });
   }
-}
+
+  onClickDeleteList() {
+    let alert = this.alertCtrl.create({
+      title: 'Borrar toda la lista',
+      message: '¿Quieres borrar toda la lista de productos?',
+      buttons: [
+        {
+          text: 'Si',
+          handler: () => {
+            console.log(FakeProducts.getProducts());            
+            this.deleteListOfProducts();
+          }
+        },
+        {
+          text: 'No',
+          role: 'no',
+          handler: () => {
+            console.log('no clicked');
+          }
+        }
+      ]
+    });
+    alert.present();
+    this.numberOfProductsOnList = this.productsOnList.length;
+  }
+
+  onClickDeleteAProduct(product, indexOfProduct) {
+    FakeListProducts.removeProduct(indexOfProduct);
+    this.products.push(product);
+    this.products.sort(function (obj1, obj2) {
+      return obj1.id - obj2.id;
+    });
+    this.numberOfProductsOnList = this.productsOnList.length;
+  }
+
+  deleteListOfProducts() {
+    FakeListProducts.deleteAllProducts();
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
+      this.products = products;
+    }).catch(error => {
+      console.log(error);
+    });
+    this.reloadProductsOnList();
+    this.numberOfProductsOnList = this.productsOnList.length;
+  }
+
+  reloadProductsOnList() {
+    this.productsOnList = FakeListProducts.getProducts();
+  }
+}  
