@@ -44,8 +44,8 @@ export class ListaPage implements OnInit, AfterViewInit {
     })
     .catch(error => {
       console.log(error);
-    });
-    productsProvider.getProductsByCategory(this.defaultCategoryId)
+      });
+    productsProvider.getProductsByCategoryOnlyActive(this.defaultCategoryId)
     .then(products => {
       this.products=products;
     })
@@ -84,6 +84,11 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   deleteListOfProducts() {
     FakeListProducts.deleteAllProducts();
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
+      this.products = products;
+    }).catch(error => {
+      console.log(error);
+    });
     this.reloadProductsOnList();
     this.numberOfProductsOnList = this.productsOnList.length;
   }
@@ -110,6 +115,7 @@ export class ListaPage implements OnInit, AfterViewInit {
       let product = FakeProducts.getProductById(product_id);
       if(product !== null){
         FakeListProducts.addProduct(product);
+        this.numberOfProductsOnList = this.productsOnList.length;
       } else {
         let currentProduct = new Product;
         this.productsProvider.getProductById(product_id)

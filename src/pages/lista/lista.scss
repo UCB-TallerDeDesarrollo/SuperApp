@@ -14,7 +14,7 @@
   }
 
   .stand-products {
-    width: 60%;
+    width: 57%;
     height: 50%;
     float: left;
 
@@ -115,67 +115,53 @@
       }
     }
   }
+
   .objetive-container {
     float: left;
-    width: 35%;
-    height: 50%;
+    width: 41%;
     border: none;
-    background-image: url(../../assets/imgs/carrito.png);
-    background-size: contain;
+    background-image: url(../../assets/imgs/sheet.png);
+    background-size: cover;
     background-repeat: no-repeat;
-    background-position-x: 50%;
-    background-position-y: 50%;
+    padding: 6px;
+    padding-top: 5%;
 
     .product-section {
       background: #f4f4f4;
       padding: 10px;
-      height: 200px;
-      margin-top: 20px;
-      margin-bottom: 20px;
+      height: 70px;
+      margin-top: 6px;
+      margin-bottom: 6px;
       border-radius: 5px;
       border: solid 3px #d6d6d6;
       position: relative;
       width: 100%;
-
-      .product-image-section {
-        float: left;
-        margin-left: 20px;
-        margin-right: 20px;
-        height: 170px;
-        width: 200px;
-
-        .product-image {
-          border: solid 1px black;
-          border-radius: 10px;
-          overflow: hidden;
-          max-height: 100%;
-          max-width: 100%;
-        }
-      }
+      padding: 6px;
 
       .product-description-section {
-        float: left;
+        object-fit: fill;
+        float: right;
+        width: 60%;
         height: 100%;
         display: table;
 
         .product-description {
           font-weight: bold;
-          font-size: 3em;
-          vertical-align: middle;
+          font-size: 2em;
           display: table-cell;
 
           @media screen and (max-width: 750px) {
-            font-size: 2em;
+            font-size: 1.6em;
           }
 
           @media screen and (max-width: 570px) {
-            font-size: 1.6em;
+            font-size: 0.8em;
           }
         }
       }
 
       .options-section {
-        width: 35px;
+        width: 8%;
         background: #f4f4f4;
         position: sticky;
         left: 100%;

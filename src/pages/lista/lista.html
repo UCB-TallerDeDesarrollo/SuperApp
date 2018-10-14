@@ -30,25 +30,22 @@
         </ion-row>
     </ion-list>
     <div id="ignore-item" class="objetive-container" dragula="PRODUCT">
-      <ion-title>Cantidad de productos: {{numberOfProductsOnList}}</ion-title>
-      <button ion-button class="button" (click)="onClickDeleteList()">Borrar lista</button>
-      <ion-list>
-        <div *ngFor="let productOnList of productsOnList; let i = index">
-          <div class="product-section">
-            <div class="product-image-section">
-              <img class="product-image" src="{{productOnList.image}}">
+      <ion-title style="object-fit: fill;">Cantidad de productos: {{numberOfProductsOnList}}</ion-title>
+      <button ion-button class="button" (click)="onClickDeleteList()">Borrar lista</button>      
+      <ion-list>        
+          <div *ngFor="let productOnList of productsOnList; let i = index">
+            <div class="product-section">
+              <div class="product-info">
+                <img src="{{productOnList.image}}">
+              </div>
+              <div class="product-description-section">
+                <p class="product-description"> {{productOnList.title}} </p>
+              </div>
+              <button class="options-section" (click)="onClickDeleteAProduct(productOnList,i)">
+                <img src="assets/imgs/delete.png">
+              </button>
             </div>
-            <div class="product-description-section">
-              <p class="product-description"> {{productOnList.title}} </p>
-            </div>
-            <button class="options-section" (click)="onClickDeleteAProduct(productOnList,i)">
-              <img src="assets/imgs/delete.png">
-            </button>
-          </div>
-        </div>
+          </div>    
       </ion-list>
-    </div>
-    <div class="products-card">
-        <button class="button-product-card" (click)="pushProducts()">Ver Productos</button>
     </div>
 </ion-content>
