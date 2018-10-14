@@ -1,0 +1,32 @@
+<ion-header>
+  </ion-header>
+  
+  
+  <ion-content padding class="main">
+      <ion-buttons left>
+          <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
+              <ion-icon name="arrow-back"></ion-icon>
+          </button>
+      </ion-buttons>
+      <h3 class="tittle">Crear usuario</h3>
+      <div class="form">
+        <div class="user_image">
+          <img src="assets/imgs/user.png">
+        </div>
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Editar Usuario</ion-label>
+        <ion-input type="text" [(ngModel)]="username"></ion-input>
+      </ion-item>
+      <!--<ion-item>
+        <ion-label fixed>Cumpleaños</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="birthdate"></ion-datetime>
+      </ion-item>-->
+    </ion-list>
+    <div padding>
+        <button ion-button class="save_user_button"(click)="saveUser()">Guardar cambios</button>
+      </div>
+  </div>
+   
+  
+  </ion-content>

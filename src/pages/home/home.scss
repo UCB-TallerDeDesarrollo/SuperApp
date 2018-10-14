@@ -53,18 +53,20 @@
     }
 }
 .music-logo{
-    position:absolute;
-    left: 94%;
+    position:fixed;
+    left: 85%;
     top:1%;
-    
-    height: 22%;
-    width: 28%;
+    height: 15;
+    width: 10%;
 }
 .edit-logo{
     position:absolute;
     left: 1%;
     top:5%;
-    
     height: 14%;
     width: 20%;
+}
+.user_icon{
+    width: 500%;
+    height: 500%;
 }

@@ -1,3 +1,4 @@
+import { EditUserPage } from './../pages/edit-user/edit-user';
 import { LoadingPage } from './../pages/loading/loading';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -42,6 +43,11 @@ import { CreateCategoryPage } from '../pages/create-category/create-category';
 import { EditCategoryPage } from '../pages/edit-category/edit-category';
 import { DragulaSupermarketDragDropProvider } from '../providers/Dragula/DragulaSupermarketDragDropProvider';
 import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDragDropProvider';
+import { UserProvider } from '../providers/user/user';
+import { CreateUserPage } from '../pages/create-user/create-user';
+import { UserLoginPage } from '../pages/user-login/user-login';
+import { Login } from '../providers/login/login';
+import { ViewUserPage } from '../pages/view-user/view-user';
 
 @NgModule({
   declarations: [
@@ -61,7 +67,11 @@ import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDrag
     SupermarketPage,
     CategoriesPage,
     CreateCategoryPage,
-    EditCategoryPage
+    EditCategoryPage,
+    CreateUserPage,
+    UserLoginPage,
+    EditUserPage, 
+    ViewUserPage
   ],
   imports: [
     BrowserModule,
@@ -86,7 +96,11 @@ import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDrag
     SupermarketPage,
     CategoriesPage,
     CreateCategoryPage,
-    EditCategoryPage
+    EditCategoryPage,
+    CreateUserPage,
+    UserLoginPage, 
+    EditUserPage, 
+    ViewUserPage
   ],
   providers: [
     StatusBar,
@@ -95,6 +109,7 @@ import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDrag
     SmartAudio,
     NativeAudio,
     DragulaService,
+    Login,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: ProductProvider, useClass: ArrayProductProvider},
     {provide: ColorProvider, useClass: ArrayColorProvider},
@@ -104,6 +119,7 @@ import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDrag
     CategoryProvider,
     LevelProvider,
     ProductLevelProvider,
+    UserProvider,
     TextToSpeech,
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]},
     File,
