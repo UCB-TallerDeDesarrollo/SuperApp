@@ -1,3 +1,4 @@
+import { LoginStatus } from './../../providers/login/LoginStatus';
 import { WordPage } from './../word/word';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
@@ -10,6 +11,7 @@ import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { ProductsEditorPage } from '../products-editor/products-editor';
 import { CreateUserPage } from '../create-user/create-user';
 import { UserLoginPage } from '../user-login/user-login';
+import { EditUserPage } from '../edit-user/edit-user';
 
 @Component({
   selector: 'page-home',
@@ -18,6 +20,9 @@ import { UserLoginPage } from '../user-login/user-login';
 export class HomePage {
 
   private imageSound:String;
+  
+  public loged=LoginStatus.logged;
+  public iconLeft:string;
 
   constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider) {
     platform.ready().then(() => {
@@ -31,9 +36,28 @@ export class HomePage {
     this.changeSoundIcon(); 
   }
   ionViewDidEnter() { 
-    this.changeSoundIcon(); 
+    this.changeSoundIcon();
+    this.changeLoginIcons();
   }
-
+  changeLoginIcons(): any {
+      if (LoginStatus.logged)
+      {
+        this.iconLeft="settings";
+      }
+      else{
+        this.iconLeft="log-in";
+      }
+  }
+  action()
+  {
+    if (LoginStatus.logged)
+    {
+      this.toEdit();
+    }
+    else{
+      this.toLogin();
+    }
+  }
   stopSound(){
         this.audioProvider.changeState();
     this.changeSoundIcon();
@@ -74,6 +98,11 @@ export class HomePage {
 
   pushPageCreateUser() {
     this.navCtrl.push(CreateUserPage);
+  }
+  toEdit()
+  {
+    this.navCtrl.push(EditUserPage);
+
   }
  
 }

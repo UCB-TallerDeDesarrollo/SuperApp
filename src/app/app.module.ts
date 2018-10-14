@@ -1,4 +1,4 @@
-import { LoginProvider } from './../providers/login/LoginProvider';
+import { EditUserPage } from './../pages/edit-user/edit-user';
 import { LoadingPage } from './../pages/loading/loading';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -68,7 +68,8 @@ import { Login } from '../providers/login/login';
     CreateCategoryPage,
     EditCategoryPage,
     CreateUserPage,
-    UserLoginPage
+    UserLoginPage,
+    EditUserPage
   ],
   imports: [
     BrowserModule,
@@ -95,7 +96,8 @@ import { Login } from '../providers/login/login';
     CreateCategoryPage,
     EditCategoryPage,
     CreateUserPage,
-    UserLoginPage
+    UserLoginPage, 
+    EditUserPage
   ],
   providers: [
     StatusBar,
