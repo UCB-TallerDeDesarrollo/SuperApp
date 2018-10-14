@@ -1,14 +1,18 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>REGISTRO DE USUARIO</ion-title>
-  </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding class="main">
-
+    <ion-buttons left>
+        <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </button>
+    </ion-buttons>
+    <h3 class="tittle">Crear usuario</h3>
+    <div class="form">
+      <div class="user_image">
+        <img src="assets/imgs/user.png">
+      </div>
   <ion-list>
     <ion-item>
       <ion-label fixed> Usuario</ion-label>
@@ -20,6 +24,9 @@
     </ion-item>
   </ion-list>
   <div padding>
-    <button ion-button (click)="saveUser()">Crear usuario</button>
-  </div>
+      <button ion-button class="save_user_button"(click)="saveUser()">Crear usuario</button>
+    </div>
+</div>
+ 
+
 </ion-content>
