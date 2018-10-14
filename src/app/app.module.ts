@@ -43,6 +43,7 @@ import { EditCategoryPage } from '../pages/edit-category/edit-category';
 import { DragulaSupermarketDragDropProvider } from '../providers/Dragula/DragulaSupermarketDragDropProvider';
 import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDragDropProvider';
 import { UserProvider } from '../providers/user/user';
+import { CreateUserPage } from '../pages/create-user/create-user';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { UserProvider } from '../providers/user/user';
     SupermarketPage,
     CategoriesPage,
     CreateCategoryPage,
-    EditCategoryPage
+    EditCategoryPage,
+    CreateUserPage
   ],
   imports: [
     BrowserModule,
@@ -87,7 +89,8 @@ import { UserProvider } from '../providers/user/user';
     SupermarketPage,
     CategoriesPage,
     CreateCategoryPage,
-    EditCategoryPage
+    EditCategoryPage,
+    CreateUserPage
   ],
   providers: [
     StatusBar,

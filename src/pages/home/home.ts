@@ -8,6 +8,7 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { MenuGamesPage } from './../menu-games/menu-games';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { ProductsEditorPage } from '../products-editor/products-editor';
+import { CreateUserPage } from '../create-user/create-user';
 
 @Component({
   selector: 'page-home',
@@ -65,6 +66,10 @@ export class HomePage {
 
   pushEditorProducts() {
     this.navCtrl.push(ProductsEditorPage);
+  }
+
+  pushPageCreateUser() {
+    this.navCtrl.push(CreateUserPage);
   }
 
 }

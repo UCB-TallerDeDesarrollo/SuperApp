@@ -18,5 +18,14 @@
         <img src="assets/imgs/palabras.png" class="list" alt="" (click)="pushPageWordGame()">
     </div>
 
+    <ion-fab bottom button right>
+        <button ion-fab mini><ion-icon name="key"></ion-icon></button>
+        <ion-fab-list side="left">
+            <button ion-fab mini color="primary"><ion-icon name="log-in" fab-size=""></ion-icon></button>
+        </ion-fab-list>
+        <ion-fab-list side="top">
+            <button ion-fab mini color="primary" (click)="pushPageCreateUser()"><ion-icon name="person-add"></ion-icon></button>
+        </ion-fab-list>
+    </ion-fab>
 
 </ion-content>
