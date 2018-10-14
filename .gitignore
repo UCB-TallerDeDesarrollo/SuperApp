@@ -39,3 +39,5 @@ UserInterfaceState.xcuserstate
 \.vs/
 
 *.sln
+
+package-lock\.json

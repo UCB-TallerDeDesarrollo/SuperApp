@@ -147,6 +147,18 @@
         width: 100%;
         padding: 6px;
 
+        &:hover {
+          background-color: forestgreen;
+          border-color: forestgreen;
+          color: white
+        }
+
+        &:active {
+          background-color: forestgreen;
+          border-color: forestgreen;
+          color: white
+        }
+
         .product-description-section {
           object-fit: fill;
           float: right;
@@ -171,7 +183,7 @@
 
         .options-section {
           width: 8%;
-          background: #f4f4f4;
+          background-color: inherit;
           position: sticky;
           left: 100%;
 
