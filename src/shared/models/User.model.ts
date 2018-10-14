@@ -29,4 +29,12 @@ export class User {
     public set Id(id: number) {
         this.id = id;
     }
+
+    public get Username(): string {
+        return this.username;
+    }
+
+    public set Username(username: string) {
+        this.username = username;
+    }
 }
