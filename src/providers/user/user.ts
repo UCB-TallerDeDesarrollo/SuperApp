@@ -39,4 +39,8 @@ export class UserProvider {
                                  .where('id = :id', { id: userModel.Id })
                                  .execute();
     }
+
+    async deleteUser(userModel: UserModel) {
+        await this.userRepository.removeById(userModel.Id);
+    }
 }
