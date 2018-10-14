@@ -1,3 +1,4 @@
+import { ViewUserPage } from './../view-user/view-user';
 import { LoginStatus } from './../../providers/login/LoginStatus';
 import { WordPage } from './../word/word';
 import { Component } from '@angular/core';
@@ -71,7 +72,7 @@ export class HomePage {
     }
   }
   toShow(): any {
-    throw new Error("Method not implemented.");
+    this.navCtrl.push(ViewUserPage);
   }
   stopSound(){
         this.audioProvider.changeState();

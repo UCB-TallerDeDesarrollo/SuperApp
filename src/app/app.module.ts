@@ -47,6 +47,7 @@ import { UserProvider } from '../providers/user/user';
 import { CreateUserPage } from '../pages/create-user/create-user';
 import { UserLoginPage } from '../pages/user-login/user-login';
 import { Login } from '../providers/login/login';
+import { ViewUserPage } from '../pages/view-user/view-user';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { Login } from '../providers/login/login';
     EditCategoryPage,
     CreateUserPage,
     UserLoginPage,
-    EditUserPage
+    EditUserPage, 
+    ViewUserPage
   ],
   imports: [
     BrowserModule,
@@ -97,7 +99,8 @@ import { Login } from '../providers/login/login';
     EditCategoryPage,
     CreateUserPage,
     UserLoginPage, 
-    EditUserPage
+    EditUserPage, 
+    ViewUserPage
   ],
   providers: [
     StatusBar,

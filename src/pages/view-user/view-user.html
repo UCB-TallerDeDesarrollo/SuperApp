@@ -1,0 +1,25 @@
+<ion-header>
+  </ion-header>
+  
+  
+  <ion-content padding class="main">
+      <ion-buttons left>
+          <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
+              <ion-icon name="arrow-back"></ion-icon>
+          </button>
+      </ion-buttons>
+      <h3 class="tittle">Informacion de usuario actual</h3>
+      <div class="view">
+        <div class="user_image">
+          <img src="assets/imgs/user.png">
+        </div>
+        <div class="labels">
+          <label>Nombre de usuario</label>
+        </div>
+        <div class="binding">
+          <label>{{username}}</label>
+        </div>
+  </div>
+   
+  
+  </ion-content>
