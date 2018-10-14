@@ -37,4 +37,12 @@ export class User {
     public set Username(username: string) {
         this.username = username;
     }
+
+    public get Birthdate(): Date {
+        return this.birthdate;
+    }
+
+    public set Birthdate(birthdate: Date) {
+        this.birthdate = birthdate;
+    }
 }
