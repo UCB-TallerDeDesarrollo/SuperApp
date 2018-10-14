@@ -1,3 +1,4 @@
+import { LoginStatus } from './LoginStatus';
 import { UserProvider } from '../user/user';
 import { Injectable } from '@angular/core';
 
@@ -12,10 +13,12 @@ export class Login{
         var existUser:boolean=await this.userProvider.existsUsername(username);
         if (existUser)
         {
-            LoginStatus.username=username;
-            LoginStatus.logged=existUser;
+            LoginStatus.setLoginSuccess(username);
         }
         return existUser;
     }
-    
+    public async logout()
+    {
+        LoginStatus.setLogout();
+    }
 }
