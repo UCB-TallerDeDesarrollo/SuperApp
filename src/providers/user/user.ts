@@ -31,4 +31,12 @@ export class UserProvider {
 
         return userModel;
     }
+
+    async updateUser(userModel: UserModel) {
+        await this.userRepository.createQueryBuilder()
+                                 .update('user')
+                                 .set({ username: userModel.Username, birthdate: userModel.Birthdate, profilePictureURL: userModel.ProfilePictureURL })
+                                 .where('id = :id', { id: userModel.Id })
+                                 .execute();
+    }
 }
