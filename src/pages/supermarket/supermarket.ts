@@ -54,7 +54,6 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   
   public showEndView(): void {
     
-    
     if(this.countOfProducts==5) {
       this.audioProvider.playLevelCompleteSound();
     }
