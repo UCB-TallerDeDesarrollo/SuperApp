@@ -7,20 +7,19 @@
 </ion-header>
 
 
-<ion-content padding class="backgroundPlatzinger bposy0">
+<ion-content padding class="main">
+
   <ion-list>
     <ion-item>
-      <ion-label fixed>Username</ion-label>
+      <ion-label fixed> Usuario</ion-label>
       <ion-input type="text" [(ngModel)]="username"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label fixed>Birthdate</ion-label>
+      <ion-label fixed>Cumpleaños</ion-label>
       <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="birthdate"></ion-datetime>
     </ion-item>
   </ion-list>
   <div padding>
-    <hr />
-    <button ion-button (click)="saveUser()">Registrar</button>
-    <hr />
+    <button ion-button (click)="saveUser()">Crear usuario</button>
   </div>
 </ion-content>
