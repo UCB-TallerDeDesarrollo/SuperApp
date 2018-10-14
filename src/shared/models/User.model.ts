@@ -10,4 +10,15 @@ export class User {
         this.birthdate = new Date('0000-00-00');
         this.profilePictureURL = '';
     }
+
+    public static createUser(id: number, username: string, birthdate: Date, profilePictureURL: string) {
+        let user = new User();
+
+        user.id = id;
+        user.username = username;
+        user.birthdate = birthdate;
+        user.profilePictureURL = profilePictureURL;
+
+        return user;
+    }
 }
