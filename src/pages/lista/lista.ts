@@ -144,13 +144,18 @@ export class ListaPage implements OnInit, AfterViewInit {
           this.productsProvider.updateProduct(p)
           .then(response => {
             console.log(response);
+            console.log("update succesfull");
+            console.log("Deberia actualizar");
+            this.onSelectCategory(this.selectedCategory);
           }).catch(error => {
             console.log(error);
+            console.log("update failes");
           });
           this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
           this.quantityproductsString = this.quantityOfProducts.toString();
         }).catch(error => {
           console.log(error);
+          console.log("get failed");
         });
       el.remove();
     });
