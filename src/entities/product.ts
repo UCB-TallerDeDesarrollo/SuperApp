@@ -15,7 +15,7 @@ export class Product {
     image: string;
 
     @Column()
-    state: boolean = false;
+    state: boolean = true;
     
     @Column()
     audio: string

@@ -68,12 +68,10 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.reloadProductsOnList();
   }
 
-  reloadProductsOnList() {
-    this.productsOnList = FakeListProducts.getProducts();
-  }
-
-  deleteListOfProducts() {
-    FakeListProducts.deleteAllProducts();
+  ionViewWillEnter() { 
+    this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
+    this.quantityproductsString = this.quantityOfProducts.toString(); 
+    this.changeSoundIcon(); 
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
       this.products = products;
     }).catch(error => {
@@ -105,24 +103,25 @@ export class ListaPage implements OnInit, AfterViewInit {
       let product = FakeProducts.getProductById(product_id);
       if(product !== null){
         FakeListProducts.addProduct(product);
-        this.numberOfProductsOnList = this.productsOnList.length;
       } else {
         let currentProduct = new Product;
         this.productsProvider.getProductById(product_id)
         .then( p => {
           currentProduct = p;
-          FakeListProducts.addProduct({ id: currentProduct.id, 
+          FakeListProducts.addProduct({ 
+            id: currentProduct.id, 
             title: currentProduct.title, 
             image: currentProduct.image, 
-            categoryId: this.selectedCategory.id});         
+            categoryId: this.selectedCategory.id});
+          this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
+          this.quantityproductsString = this.quantityOfProducts.toString();
         }).catch(error => {
           console.log(error);
         });
       }
+      this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
+      this.quantityproductsString = this.quantityOfProducts.toString();
       el.remove();
-      if(product === null){ 
-        FakeProducts.removeProduct(product);
-      }
     });
   }
 
@@ -155,7 +154,8 @@ export class ListaPage implements OnInit, AfterViewInit {
   
   onSelectCategory(category){ 
     this.selectedCategory = category;
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
+    .then(products => {
       this.products = products;
     }).catch(error => {
       console.log(error);
@@ -197,3 +197,21 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.numberOfProductsOnList = this.productsOnList.length;
   }
 }
+
+  ionViewWillEnter() { 
+    this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
+    this.quantityproductsString = this.quantityOfProducts.toString(); 
+    this.changeSoundIcon(); 
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
+    .then(products => {
+            categoryId: this.selectedCategory.id
+          });
+          p.state = false; 
+          this.productsProvider.updateProduct(p)
+          .then(response => {
+            console.log(response);
+          }).catch(error => {
+            console.log(error);
+          });
+          this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
+          this.quantityproductsString = this.quantityOfProducts.toString();
