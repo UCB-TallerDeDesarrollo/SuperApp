@@ -21,6 +21,11 @@
     display: inline-block;
     width: 54%;
     float: left;
+
+    .category-button {
+      width: 20%;
+      object-fit: fill;
+    }
   }
 
   .stand-products {
