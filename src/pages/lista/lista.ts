@@ -71,7 +71,8 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
     this.quantityproductsString = this.quantityOfProducts.toString(); 
     this.changeSoundIcon(); 
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
+    .then(products => {
       this.products = products;
     }).catch(error => {
       console.log(error);
@@ -97,30 +98,32 @@ export class ListaPage implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       let product_id = + (el.id.split("-")[1]);
-      let product = FakeProducts.getProductById(product_id);
-      if(product !== null){
-        FakeListProducts.addProduct(product);
-      } else {
         let currentProduct = new Product;
         this.productsProvider.getProductById(product_id)
         .then( p => {
           currentProduct = p;
-          FakeListProducts.addProduct({ id: currentProduct.id, 
+          FakeListProducts.addProduct({ 
+            id: currentProduct.id, 
             title: currentProduct.title, 
             image: currentProduct.image, 
-            categoryId: this.selectedCategory.id});
+            categoryId: this.selectedCategory.id
+          });
+          console.log("BEFORE " + p.state);
+          p.state = false; 
+          console.log("AFTER " + p.state);
+          this.productsProvider.updateProduct(p)
+          .then(response => {
+            console.log("ON UPDATE");
+            console.log(response);
+          }).catch(error => {
+            console.log(error);
+          });
           this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
           this.quantityproductsString = this.quantityOfProducts.toString();
         }).catch(error => {
           console.log(error);
         });
-      }
-      this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-      this.quantityproductsString = this.quantityOfProducts.toString();
       el.remove();
-      if(product === null){ 
-        FakeProducts.removeProduct(product);
-      }
     });
   }
 
@@ -153,7 +156,8 @@ export class ListaPage implements OnInit, AfterViewInit {
   
   onSelectCategory(category){ 
     this.selectedCategory = category;
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
+    .then(products => {
       this.products = products;
     }).catch(error => {
       console.log(error);
