@@ -68,7 +68,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
 
   }
   public showModalWin(): void {
-    const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage);
+    const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {lastNav:this.navController});
     levelCompleteModal.present();
 }
   private changeSoundIcon(){

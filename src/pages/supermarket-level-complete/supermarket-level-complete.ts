@@ -19,13 +19,17 @@ export class SupermarketLevelCompletePage {
   private lastNav:NavController;
   private level:number;
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController) {
-    this.lastNav=navParams.get("lastNav");
-    this.level=navParams.get("level");
+  //this.lastNav=navParams.get("lastNav");
+    //this.level=navParams.get("level");
     this.navCtrl=this.lastNav;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalPage');
     console.log(this.navParams.get('message'));
+}
+nextLevel(){
+  
+  this.viewCtrl.dismiss();
 }
 }
