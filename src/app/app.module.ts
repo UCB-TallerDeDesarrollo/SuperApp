@@ -44,6 +44,7 @@ import { DragulaSupermarketDragDropProvider } from '../providers/Dragula/Dragula
 import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDragDropProvider';
 import { UserProvider } from '../providers/user/user';
 import { CreateUserPage } from '../pages/create-user/create-user';
+import { UserLoginPage } from '../pages/user-login/user-login';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { CreateUserPage } from '../pages/create-user/create-user';
     CategoriesPage,
     CreateCategoryPage,
     EditCategoryPage,
-    CreateUserPage
+    CreateUserPage,
+    UserLoginPage
   ],
   imports: [
     BrowserModule,
@@ -90,7 +92,8 @@ import { CreateUserPage } from '../pages/create-user/create-user';
     CategoriesPage,
     CreateCategoryPage,
     EditCategoryPage,
-    CreateUserPage
+    CreateUserPage,
+    UserLoginPage
   ],
   providers: [
     StatusBar,

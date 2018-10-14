@@ -9,6 +9,7 @@ import { MenuGamesPage } from './../menu-games/menu-games';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { ProductsEditorPage } from '../products-editor/products-editor';
 import { CreateUserPage } from '../create-user/create-user';
+import { UserLoginPage } from '../user-login/user-login';
 
 @Component({
   selector: 'page-home',
@@ -37,7 +38,10 @@ export class HomePage {
         this.audioProvider.changeState();
     this.changeSoundIcon();
   }
-
+  toLogin()
+  {
+    this.navCtrl.push(UserLoginPage);
+  }
   changeSoundIcon(){
     if(this.audioProvider.isMuted()){
       this.imageSound="assets/imgs/soundoff.png";
@@ -71,5 +75,5 @@ export class HomePage {
   pushPageCreateUser() {
     this.navCtrl.push(CreateUserPage);
   }
-
+ 
 }
