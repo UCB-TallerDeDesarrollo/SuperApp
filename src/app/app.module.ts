@@ -4,7 +4,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule, Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
 import { MyApp } from './app.component';
 import { Media } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
@@ -17,6 +16,7 @@ import { ProductsPage } from '../pages/products/products';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { LevelCompletePage } from '../pages/level-complete/level-complete';
+import { SupermarketLevelCompletePage } from '../pages/supermarket-level-complete/supermarket-level-complete';
 import { ProductsProvider } from '../providers/product/product';
 import { CategoriesPage } from '../pages/categories/categories';
 import { SmartAudio } from '../providers/smart-audio/smart-audio';
@@ -52,6 +52,7 @@ import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDrag
     WordPage,
     ProductsPage, 
     LevelCompletePage,
+    SupermarketLevelCompletePage,
     LoadingPage,
     SelectLevelPage,
     CreateProductPage,
@@ -77,6 +78,7 @@ import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDrag
     WordPage,
     ProductsPage, 
     LevelCompletePage,
+    SupermarketLevelCompletePage,
     LoadingPage,
     SelectLevelPage,
     CreateProductPage,
