@@ -21,4 +21,14 @@ export class UserProvider {
 
         await this.userRepository.save(userEntity);
     }
+
+    async getUserByUsername(user_username: string) {
+        let userEntity = await this.userRepository.createQueryBuilder('user')
+                                                  .where('username = :username', { username: user_username })
+                                                  .getOne();
+
+        let userModel = UserModel.createUser(userEntity.id, userEntity.username, userEntity.birthdate, userEntity.profilePictureURL);
+
+        return userModel;
+    }
 }
