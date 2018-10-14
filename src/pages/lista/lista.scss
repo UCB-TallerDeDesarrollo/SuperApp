@@ -29,10 +29,22 @@
   }
 
   .stand-products {
-    width: 50% !important;
-    height: 60%;
+    width: 48% !important;
+    height: 70%;
     min-height: 60%;
     float: left;
+    padding-left: 5%;
+    background-image: url("../../assets/imgs/shelves.jpg");
+    background-size: 100% 100%;
+
+    @media screen and (max-width: 750px) {
+      padding-left: 0%;
+    }
+
+    @media screen and (max-width: 640px) {
+      padding-left: 0%;
+      width: 50% !important;
+    }
 
     .product-block {
       display: flex;
@@ -41,11 +53,12 @@
       @media screen and (max-width: 1367px) {
         margin-left: 5px;
         margin-right: 5px;
-        margin-bottom: 0px;
+        margin-bottom: 10px;
       }
 
       @media screen and (max-width: 668px) {
         margin: 3px;
+        margin-bottom: 6px;
       }
 
       .product-info {
@@ -142,7 +155,7 @@
     background-repeat: no-repeat;
     padding: 6px;
     padding-top: 5%;
-    transform: translateY(-70%);
+    transform: translateY(-78%);
 
     .scroll-container {
       width: 100%;

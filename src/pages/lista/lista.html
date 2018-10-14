@@ -14,7 +14,7 @@
   <ion-title class="main-title">{{selectedCategory.name}}</ion-title>
 
   <!-- <h2 class="main-title">{{selectedCategory.name}}</h2>-->
-  <div class="stand-products">    
+  <div class="stand-products">
     <ion-list>
       <ion-row>
         <div class="product-block" *ngFor="let product of onViewproducts" id="{{product.title}}" dragula="PRODUCT">
@@ -26,12 +26,12 @@
       </ion-row>
     </ion-list>
   </div>
+  <ion-row>
+    <ion-col>
+      <img src="assets/imgs/arrowgreen.png" class="arrow" alt="" (click)="nextProductPage()">
+    </ion-col>
+  </ion-row>
   <div class="categories-block">
-    <ion-row>
-      <ion-col>
-        <img src="assets/imgs/arrowgreen.png" class="arrow" alt="" (click)="nextProductPage()">
-      </ion-col>
-    </ion-row>
     <ion-row>
       <ion-col class="category-button" *ngFor="let category of onViewcategories">
         <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
@@ -40,7 +40,6 @@
         <img src="assets/imgs/arrowgreen.png" class="arrow" alt="" (click)="nextCategoryPage()">
       </ion-col>
     </ion-row>
-
   </div>
 
   <div id="ignore-item" class="objetive-container" dragula="PRODUCT">
