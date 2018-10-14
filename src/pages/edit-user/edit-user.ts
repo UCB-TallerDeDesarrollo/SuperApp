@@ -16,7 +16,7 @@ import { LoginStatus } from '../../providers/login/LoginStatus';
 export class EditUserPage {
 
   public username: string;
-  public birthdate: Date;
+  public birthdate: Date=new Date();
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider,
               private toastCtrl: ToastController) {

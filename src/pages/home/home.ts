@@ -2,7 +2,7 @@ import { ViewUserPage } from './../view-user/view-user';
 import { LoginStatus } from './../../providers/login/LoginStatus';
 import { WordPage } from './../word/word';
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, AlertController } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 import { ListaPage } from '../lista/lista';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
@@ -13,6 +13,7 @@ import { ProductsEditorPage } from '../products-editor/products-editor';
 import { CreateUserPage } from '../create-user/create-user';
 import { UserLoginPage } from '../user-login/user-login';
 import { EditUserPage } from '../edit-user/edit-user';
+import { UserProvider } from '../../providers/user/user';
 
 @Component({
   selector: 'page-home',
@@ -20,12 +21,12 @@ import { EditUserPage } from '../edit-user/edit-user';
 })
 export class HomePage {
 
-  private imageSound:String;
+  public imageSound:String;
   public iconLeft:string;
   public iconTop:string;
   private loged_items:any;
   private unloged_items:any;
-  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public toastCtrl:ToastController) {
+  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public toastCtrl:ToastController, public alertCtrl:AlertController) {
     platform.ready().then(() => {
       if (platform.is('cordova')){
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
@@ -105,8 +106,8 @@ export class HomePage {
   }
   delete()
   {
-    
   }
+
   logout()
   {
     LoginStatus.setLogout();

@@ -43,7 +43,11 @@ export class UserProvider {
     async deleteUser(userModel: UserModel) {
         await this.userRepository.removeById(userModel.Id);
     }
-
+   async deleteUserByUserName(username:string)
+    {
+        var user=await this.getUserByUsername(username);
+        await this.deleteUser(user);
+    }
     async countUsers() {
         let count = await this.userRepository.createQueryBuilder('user')
                                              .orderBy('user.id', 'ASC')

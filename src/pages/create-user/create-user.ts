@@ -24,17 +24,6 @@ export class CreateUserPage {
   }
 
   ionViewDidLoad() {
-    this.databaseInitializer();
-  }
-
-  async databaseInitializer() {
-    const count_users = await this.userProvider.countUsers();
-
-    if (count_users == 0) {
-      let defaultUser = UserModel.createUser(0, 'default', new Date(), '/picture/default');
-
-      await this.userProvider.saveUser(defaultUser);
-    }
   }
 
   async saveUser() {
@@ -42,7 +31,7 @@ export class CreateUserPage {
 
     if (existsUsername) {
       let toast = this.toastCtrl.create({
-        message: 'ERROR, username invalido',
+        message: 'Ya existe un usuario con el nombre '+this.username,
         duration: 3000,
         position: 'bottom'
       });
@@ -50,7 +39,7 @@ export class CreateUserPage {
       toast.present();
     } else {
       let profilePictureURL = '/picture/' + this.username;
-      let newUser = UserModel.createUser(0, this.username, this.birthdate, profilePictureURL);
+      let newUser = UserModel.createUser(0, this.username,new Date(), profilePictureURL);
 
       await this.userProvider.saveUser(newUser);
 
@@ -61,7 +50,6 @@ export class CreateUserPage {
       });
 
       toast.present();
-
       this.afterSaveUser();
     }
   }
