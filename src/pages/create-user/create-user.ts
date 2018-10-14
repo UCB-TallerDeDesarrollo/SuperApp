@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { UserProvider } from '../../providers/user/user';
+import { User as UserModel } from '../../shared/models/User.model'
 
 /**
  * Generated class for the CreateUserPage page.
@@ -15,11 +17,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CreateUserPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CreateUserPage');
+    this.databaseInitializer();
+  }
+
+  async databaseInitializer() {
+    const count_users = await this.userProvider.countUsers();
+
+    if (count_users == 0) {
+      let defaultUser = UserModel.createUser(0, 'default', new Date(), '/picture/default');
+
+      await this.userProvider.saveUser(defaultUser);
+    }
   }
 
 }
