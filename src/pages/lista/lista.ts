@@ -163,10 +163,10 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
 
   private changeSoundIcon(){
     if(this.audioProvider.isMuted()){
-      this.imageSound="assets/imgs/soundoffdark.png";
+      this.imageSound="assets/imgs/soundoff.png";
     }
     else{
-      this.imageSound="assets/imgs/soundondark.png";
+      this.imageSound="assets/imgs/soundon.png";
     }
   } 
   

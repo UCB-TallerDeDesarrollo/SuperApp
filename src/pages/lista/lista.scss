@@ -1,16 +1,18 @@
 .main-list {
   background-image: url("../../assets/imgs/backgroundlista0.jpg");
-  background-image:cover;
+  background-size:cover;
   overflow-y: hidden;
 
   .main-title {
-    color: #fff;
-    font-size: 2em;
+    position: absolute;
+    color: black;
+    font-size: 4em;
     font-weight: bold;
     text-align: center;
-
+    left: 40%;
+    top:3%;
     @media screen and (min-width: 1023px) and (max-width: 1367px) {
-      font-size: 3em;
+      font-size: 1em;
     }
   }
 
@@ -421,5 +423,13 @@
 
 .arrow{
     height: 8vh;
-    width: 3.5vw;
+    width: 3.8vw;
+}
+
+.music-logo{
+    position:absolute;
+    left: 90%;
+    top:-3%;
+    height: 16%;
+    width: 22%;
 }

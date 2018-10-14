@@ -1,19 +1,19 @@
 <ion-header>
-    <ion-navbar hideBackButton>
-        <ion-buttons left>
-            <button ion-button (click)="goToRoot()">
-                <ion-icon class="customIcon" name="arrow-back"></ion-icon>
-            </button>
-        </ion-buttons>
-        <ion-title>Carrito de compras</ion-title>
-        <div class="music-logo">
-            <img [src]="imageSound" alt="" (click)="stopSound()">
-        </div>
-    </ion-navbar>
+    
 </ion-header>
 
 <ion-content no-bounce padding class="main-list">
-  <h2 class="main-title">{{selectedCategory.name}}</h2>
+    <ion-buttons left>
+        <button ion-button icon-only (click)="goToRoot()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </button>
+    </ion-buttons>
+    <div class="music-logo">
+        <img [src]="imageSound" alt="" (click)="stopSound()">
+    </div>
+    <ion-title class="main-title">{{selectedCategory.name}}</ion-title>
+
+ <!-- <h2 class="main-title">{{selectedCategory.name}}</h2>-->
   <ion-list class="stand-products">
     <ion-row>
             <div class="product-block" *ngFor="let product of onViewproducts" id="{{product.title}}" dragula="PRODUCT">
