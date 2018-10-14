@@ -38,14 +38,23 @@ export class ProductsProvider {
                                   .execute();
   } 
 
-  async updateProduct(product: Product){
+  async updateOnList(product_id: number) {
     await this.productRepository.createQueryBuilder()
                                 .update('product')
-                                .set({ state: product.state, title: product.title, image: product.image,audio: product.audio, category: product.category })
+                                .set({ onlist: true })
+                                .where("id = :id", {id: product_id})
+                                .execute();
+  }
+
+  async updateProduct(product: Product){
+    await this.productRepository.createQueryBuilder()
+                                .update('product' )
+                                .set({ state: product.state, title: product.title, image: product.image,audio: product.audio, category: product.category, onlist: product.onlist })
                                 .where("id = :id", {id: product.id})
                                 .execute();
   }
-  
+
+
   async getProductsByCategory(category_id: number){
     let products = await this.productRepository.createQueryBuilder('product')
                                 .where("categoryId = :categoryId", { categoryId: category_id })
@@ -57,6 +66,7 @@ export class ProductsProvider {
     let products = await this.productRepository.createQueryBuilder('product')
       .where("categoryId = :categoryId", { categoryId: category_id })
       .andWhere("state = :state", { state: true })
+      .andWhere("onlist = :onlist", { onlist: true })
       .getMany();
     return products;
   }

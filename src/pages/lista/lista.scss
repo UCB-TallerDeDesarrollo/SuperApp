@@ -1,5 +1,6 @@
 .main-list {
-  background-image: linear-gradient(#46f96d 10%, #75e1b7 100%);
+  background-image: url("../../assets/imgs/backgroundlista0.jpg");
+  background-image:cover;
   overflow-y: hidden;
 
   .main-title {
@@ -428,4 +429,9 @@
 
 .gu-unselectable {
     user-select: none !important;
+}
+
+.arrow{
+    height: 8vh;
+    width: 3.5vw;
 }
