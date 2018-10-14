@@ -23,7 +23,7 @@ export class HomePage {
   
   public loged=LoginStatus.logged;
   public iconLeft:string;
-
+  public iconTop:string;
   constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider) {
     platform.ready().then(() => {
       if (platform.is('cordova')){
@@ -43,12 +43,14 @@ export class HomePage {
       if (LoginStatus.logged)
       {
         this.iconLeft="settings";
+        this.iconTop="eye";
       }
       else{
         this.iconLeft="log-in";
+        this.iconTop="person-add";
       }
   }
-  action()
+  actionEditOrLogin()
   {
     if (LoginStatus.logged)
     {
@@ -57,6 +59,19 @@ export class HomePage {
     else{
       this.toLogin();
     }
+  }
+  actionCreateOrShow()
+  {
+    if (LoginStatus.logged)
+    {
+      this.toShow();
+    }
+    else{
+      this.pushPageCreateUser();
+    }
+  }
+  toShow(): any {
+    throw new Error("Method not implemented.");
   }
   stopSound(){
         this.audioProvider.changeState();
@@ -74,7 +89,7 @@ export class HomePage {
       this.imageSound="assets/imgs/soundon.png";
     }
   }
-
+  
 
   pushPageList(){
     this.navCtrl.push(ListaPage);    
