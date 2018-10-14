@@ -58,28 +58,16 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.numberOfProductsOnList = this.productsOnList.length;
   }
 
-  ionViewWillEnter() {
-    this.changeSoundIcon(); 
-    /*this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
-      this.products = products;
-    }).catch(error => {
-      console.log(error);
-      });*/
+  ionViewWillEnter() {    
+    this.changeSoundIcon();
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
+      .then(products => {
+        this.products = products;
+      }).catch(error => {
+        console.log(error);
+      });
     this.reloadProductsOnList();
-  }
-
-  ionViewWillEnter() { 
-    this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-    this.quantityproductsString = this.quantityOfProducts.toString(); 
-    this.changeSoundIcon(); 
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
-      this.products = products;
-    }).catch(error => {
-      console.log(error);
-    });
-    this.reloadProductsOnList();
-    this.numberOfProductsOnList = this.productsOnList.length;
-  }
+  } 
 
   ngOnInit() {
     this.dragulaService.createGroup("PRODUCT", {
@@ -100,31 +88,29 @@ export class ListaPage implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       let product_id = + (el.id.split("-")[1]);
-      let product = FakeProducts.getProductById(product_id);
-      if(product !== null){
-        FakeListProducts.addProduct(product);
-      } else {
-        let currentProduct = new Product;
-        this.productsProvider.getProductById(product_id)
-        .then( p => {
+      let currentProduct = new Product;
+      this.productsProvider.getProductById(product_id)
+        .then(p => {
           currentProduct = p;
-          FakeListProducts.addProduct({ 
-            id: currentProduct.id, 
-            title: currentProduct.title, 
-            image: currentProduct.image, 
-            categoryId: this.selectedCategory.id});
-          this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-          this.quantityproductsString = this.quantityOfProducts.toString();
+          FakeListProducts.addProduct({
+            id: currentProduct.id,
+            title: currentProduct.title,
+            image: currentProduct.image,
+            categoryId: this.selectedCategory.id
+          });
+          p.state = false;
+          this.productsProvider.updateProduct(p)
+            .then(response => {
+              console.log(response);
+            }).catch(error => {
+              console.log(error);
+            });         
         }).catch(error => {
           console.log(error);
         });
-      }
-      this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-      this.quantityproductsString = this.quantityOfProducts.toString();
       el.remove();
     });
   }
-
 
   public stopSound(){
     this.audioProvider.changeState();
@@ -170,8 +156,7 @@ export class ListaPage implements OnInit, AfterViewInit {
         {
           text: 'Si',
           handler: () => {
-            console.log(FakeProducts.getProducts());
-            
+            console.log(FakeProducts.getProducts());            
             this.deleteListOfProducts();
           }
         },
@@ -196,22 +181,19 @@ export class ListaPage implements OnInit, AfterViewInit {
     });
     this.numberOfProductsOnList = this.productsOnList.length;
   }
-}
 
-  ionViewWillEnter() { 
-    this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-    this.quantityproductsString = this.quantityOfProducts.toString(); 
-    this.changeSoundIcon(); 
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
-    .then(products => {
-            categoryId: this.selectedCategory.id
-          });
-          p.state = false; 
-          this.productsProvider.updateProduct(p)
-          .then(response => {
-            console.log(response);
-          }).catch(error => {
-            console.log(error);
-          });
-          this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-          this.quantityproductsString = this.quantityOfProducts.toString();
+  deleteListOfProducts() {
+    FakeListProducts.deleteAllProducts();
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
+      this.products = products;
+    }).catch(error => {
+      console.log(error);
+    });
+    this.reloadProductsOnList();
+    this.numberOfProductsOnList = this.productsOnList.length;
+  }
+
+  reloadProductsOnList() {
+    this.productsOnList = FakeListProducts.getProducts();
+  }
+}  
