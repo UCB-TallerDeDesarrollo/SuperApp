@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { ProductsPage } from '../products/products';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
@@ -16,7 +16,7 @@ import { ProductsProvider } from '../../providers/product/product';
   templateUrl: 'lista.html',
   viewProviders: [DragulaService]
 })
-export class ListaPage implements OnInit, AfterViewInit {
+export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   
   path_images = '../../assets/imgs/Products/';
   defaultCategoryId:number = 1;
@@ -34,6 +34,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   onViewcategories: Array<{id: number, name: string}>=[];
   ON_VIEW_LIST_LENGHT=12;
   ON_VIEW_CATEGORIES_LENGHT=4;
+  listOfProducts: Array<Product> = [];
 
   constructor(
     public navCtrl: NavController, 
@@ -98,8 +99,18 @@ export class ListaPage implements OnInit, AfterViewInit {
       }).catch(error => {
         console.log(error);
       });
-    this.reloadProductsOnList();
+    this.reloadProductsOnList();            
   } 
+  
+  ngOnDestroy() {
+    this.listOfProducts.forEach(element => {
+      element.onlist = true;
+      this.productsProvider.updateProduct(element)
+      .catch(error => {
+        console.error(error);
+      })                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    });
+  }
 
   ngOnInit() {
     this.dragulaService.createGroup("PRODUCT", {
@@ -120,30 +131,26 @@ export class ListaPage implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       let product_id = + (el.id.split("-")[1]);
-      let currentProduct = new Product;
       this.productsProvider.getProductById(product_id)
         .then(p => {
-          currentProduct = p;
           FakeListProducts.addProduct({
-            id: currentProduct.id,
-            title: currentProduct.title,
-            image: currentProduct.image,
+            id: p.id,
+            title: p.title,
+            image: p.image,
             categoryId: this.selectedCategory.id
           });
-          p.state = false;
+          p.onlist = false;
+          p.category = this.selectedCategory;
+          this.listOfProducts.push(p);
           this.productsProvider.updateProduct(p)
             .then(response => {
-              console.log(response);
-            console.log("update succesfull");
-            console.log("Deberia actualizar");
-            this.onSelectCategory(this.selectedCategory);
+              this.onSelectCategory(this.selectedCategory);
             }).catch(error => {
               console.log(error);
-            console.log("update failes");
-            });         
+            }); 
+          this.numberOfProductsOnList = this.productsOnList.length;
         }).catch(error => {
           console.log(error);
-          console.log("get failed");
         });
       el.remove();
     });
@@ -229,6 +236,18 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   onClickDeleteAProduct(product, indexOfProduct) {
+    this.productsProvider.updateOnList(product.id)
+    .then(response => {
+      this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
+        .then(products => {
+          this.products = products;
+        this.chargeProducts();
+        }).catch(error => {
+          console.log(error);
+        });
+    }) .catch(error => {
+      console.error(error);
+    });
     FakeListProducts.removeProduct(indexOfProduct);
     this.products.push(product);
     this.products.sort(function (obj1, obj2) {

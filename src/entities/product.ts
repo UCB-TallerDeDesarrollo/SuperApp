@@ -16,6 +16,9 @@ export class Product {
 
     @Column()
     state: boolean = true;
+
+    @Column()
+    onlist: boolean = true;
     
     @Column()
     audio: string
