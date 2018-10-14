@@ -42,6 +42,7 @@ import { CreateCategoryPage } from '../pages/create-category/create-category';
 import { EditCategoryPage } from '../pages/edit-category/edit-category';
 import { DragulaSupermarketDragDropProvider } from '../providers/Dragula/DragulaSupermarketDragDropProvider';
 import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDragDropProvider';
+import { UserProvider } from '../providers/user/user';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDrag
     CategoryProvider,
     LevelProvider,
     ProductLevelProvider,
+    UserProvider,
     TextToSpeech,
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]},
     File,
