@@ -10,4 +10,15 @@ export class UserProvider {
     constructor() {
         this.userRepository = getRepository('user') as Repository<UserEntity>;
     }
+
+    async saveUser(userModel: UserModel) {
+        const userEntity = new UserEntity();
+
+        userEntity.id = userModel.Id;
+        userEntity.username = userModel.Username;
+        userEntity.birthdate = userModel.Birthdate;
+        userEntity.profilePictureURL = userModel.ProfilePictureURL;
+
+        await this.userRepository.save(userEntity);
+    }
 }
