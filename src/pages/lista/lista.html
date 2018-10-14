@@ -13,25 +13,26 @@
 </ion-header>
 
 <ion-content no-bounce padding class="main-list">
-    <h2 class="main-title">{{selectedCategory.name}}</h2>
-    <ion-list class="stand-products">
-        <ion-row>
-            <div class="product-block" *ngFor="let product of products" id="{{product.title}}" dragula="PRODUCT">
-                <div id="product-{{product.id}}" class="product-info">
-                    <img class="product-store" src="{{product.image}}" />
-                    <p class="product-name">{{product.title}}</p>
-                </div>
-            </div>
-        </ion-row>
-        <ion-row>
-            <ion-col *ngFor="let category of categories" col-3>
-                <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
-            </ion-col>
-        </ion-row>
-    </ion-list>
-    <div id="ignore-item" class="objetive-container" dragula="PRODUCT">
-      <ion-title style="object-fit: fill;">Cantidad de productos: {{numberOfProductsOnList}}</ion-title>
-      <button ion-button class="button" (click)="onClickDeleteList()">Borrar lista</button>      
+  <h2 class="main-title">{{selectedCategory.name}}</h2>
+  <ion-list class="stand-products">
+    <ion-row>
+      <div class="product-block" *ngFor="let product of products" id="{{product.title}}" dragula="PRODUCT">
+        <div id="product-{{product.id}}" class="product-info">
+          <img class="product-store" src="{{product.image}}" />
+          <p class="product-name">{{product.title}}</p>
+        </div>
+      </div>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngFor="let category of categories" col-3>
+        <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+  <div id="ignore-item" class="objetive-container" dragula="PRODUCT">
+    <ion-title style="object-fit: fill;">Cantidad de productos: {{numberOfProductsOnList}}</ion-title>
+    <button ion-button full class="button" (click)="onClickDeleteList()">Borrar lista</button>
+    <ion-scroll scrollY="true" class="scroll-container">
       <ion-list>        
           <div *ngFor="let productOnList of productsOnList; let i = index">
             <div class="product-section">
@@ -45,7 +46,8 @@
                 <img src="assets/imgs/delete.png">
               </button>
             </div>
-          </div>    
+          </div>
       </ion-list>
-    </div>
+    </ion-scroll>
+  </div>
 </ion-content>

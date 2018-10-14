@@ -119,6 +119,7 @@
   .objetive-container {
     float: left;
     width: 41%;
+    height: 88%;
     border: none;
     background-image: url(../../assets/imgs/sheet.png);
     background-size: cover;
@@ -126,48 +127,57 @@
     padding: 6px;
     padding-top: 5%;
 
-    .product-section {
-      background: #f4f4f4;
-      padding: 10px;
-      height: 70px;
-      margin-top: 6px;
-      margin-bottom: 6px;
-      border-radius: 5px;
-      border: solid 3px #d6d6d6;
-      position: relative;
+    .scroll-container {
       width: 100%;
-      padding: 6px;
+      height: 68%;
 
-      .product-description-section {
-        object-fit: fill;
-        float: right;
-        width: 60%;
-        height: 100%;
-        display: table;
-
-        .product-description {
-          font-weight: bold;
-          font-size: 2em;
-          display: table-cell;
-
-          @media screen and (max-width: 750px) {
-            font-size: 1.6em;
-          }
-
-          @media screen and (max-width: 570px) {
-            font-size: 0.8em;
-          }
-        }
+      .scroll-content {
+        padding: 2px !important;
       }
 
-      .options-section {
-        width: 8%;
+      .product-section {
         background: #f4f4f4;
-        position: sticky;
-        left: 100%;
+        padding: 10px;
+        height: 70px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        border-radius: 5px;
+        border: solid 3px #d6d6d6;
+        position: relative;
+        width: 100%;
+        padding: 6px;
 
-        @media screen and (max-width: 750px) {
-          width: 20px;
+        .product-description-section {
+          object-fit: fill;
+          float: right;
+          width: 60%;
+          height: 100%;
+          display: table;
+
+          .product-description {
+            font-weight: bold;
+            font-size: 2em;
+            display: table-cell;
+
+            @media screen and (max-width: 750px) {
+              font-size: 1.6em;
+            }
+
+            @media screen and (max-width: 570px) {
+              font-size: 0.8em;
+            }
+          }
+        }
+
+        .options-section {
+          width: 8%;
+          background: #f4f4f4;
+          position: sticky;
+          left: 100%;
+
+          @media screen and (max-width: 750px) {
+            width: 20px;
+          }
         }
       }
     }

@@ -58,23 +58,13 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.numberOfProductsOnList = this.productsOnList.length;
   }
 
-  chargeProductsOfCategory(categoryId: number){
-    this.productsProvider.getProductsByCategory(categoryId)
-    .then(products => {
-      this.products=products;
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
-
   ionViewWillEnter() {
     this.changeSoundIcon(); 
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
+    /*this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
       this.products = products;
     }).catch(error => {
       console.log(error);
-      });
+      });*/
     this.reloadProductsOnList();
   }
 
@@ -181,7 +171,7 @@ export class ListaPage implements OnInit, AfterViewInit {
           text: 'Si',
           handler: () => {
             console.log(FakeProducts.getProducts());
-            FakeProducts.addManyProducts(this.productsOnList)
+            
             this.deleteListOfProducts();
           }
         },
@@ -200,7 +190,10 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   onClickDeleteAProduct(product, indexOfProduct) {
     FakeListProducts.removeProduct(indexOfProduct);
-    FakeProducts.addProduct(product);
+    this.products.push(product);
+    this.products.sort(function (obj1, obj2) {
+      return obj1.id - obj2.id;
+    });
     this.numberOfProductsOnList = this.productsOnList.length;
   }
 }
