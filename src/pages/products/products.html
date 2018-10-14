@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content padding class="main-products">
-    
+    <ion-title>Cantidad de productos: {{numberOfProducts}}</ion-title>
     <button ion-button class="button" (click)="onClickDeleteList()">Borrar lista</button>
     <ion-list>
         <div *ngFor="let product of products; let i = index">
