@@ -20,7 +20,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   imageSound: String;
   public selectorName: string;
   public productsList: string[] = [];
-
+  public countOfProducts: number;
   constructor(
     public navController: NavController, 
     public navParams: NavParams,
@@ -31,6 +31,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     private platform: Platform
   ) {
     this.selectorName = 'PRODUCT-' + Math.random();
+    this.countOfProducts = 0;
     this.prepareGame();
     this.changeSoundIcon(); 
   }
@@ -50,7 +51,21 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     this.audioProvider.changeState();
     this.changeSoundIcon();
   }
+  
+  public showEndView(): void {
+    
+    
+    if(this.countOfProducts==5) {
+      this.audioProvider.playLevelCompleteSound();
+    }
+    else{
+      this.countOfProducts=this.countOfProducts+1;
+      this.audioProvider.playCorrectLetterSound();
+    }
 
+  }
+ 
+ 
   private changeSoundIcon(){
     if(this.audioProvider.isMuted()){
       this.imageSound="assets/imgs/soundoffdark.png";
