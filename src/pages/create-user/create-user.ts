@@ -16,6 +16,8 @@ import { User as UserModel } from '../../shared/models/User.model'
   templateUrl: 'create-user.html',
 })
 export class CreateUserPage {
+  public username: string;
+  public birthdate: Date;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider) {
   }
@@ -32,6 +34,19 @@ export class CreateUserPage {
 
       await this.userProvider.saveUser(defaultUser);
     }
+  }
+
+  async saveUser() {
+    let profilePictureURL = '/picture/' + this.username;
+    let newUser = UserModel.createUser(0, this.username, this.birthdate, profilePictureURL);
+
+    await this.userProvider.saveUser(newUser);
+
+    this.afterSaveUser();
+  }
+
+  afterSaveUser() {
+    this.navCtrl.pop();
   }
 
 }
