@@ -1,3 +1,4 @@
+import { LoginProvider } from './../providers/login/LoginProvider';
 import { LoadingPage } from './../pages/loading/loading';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -45,6 +46,7 @@ import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDrag
 import { UserProvider } from '../providers/user/user';
 import { CreateUserPage } from '../pages/create-user/create-user';
 import { UserLoginPage } from '../pages/user-login/user-login';
+import { Login } from '../providers/login/login';
 
 @NgModule({
   declarations: [
@@ -102,6 +104,7 @@ import { UserLoginPage } from '../pages/user-login/user-login';
     SmartAudio,
     NativeAudio,
     DragulaService,
+    Login,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: ProductProvider, useClass: ArrayProductProvider},
     {provide: ColorProvider, useClass: ArrayColorProvider},

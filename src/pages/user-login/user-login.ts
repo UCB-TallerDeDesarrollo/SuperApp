@@ -1,29 +1,28 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
+import { Login } from '../../providers/login/login';
 
 @Component({
   selector: 'page-user-login',
   templateUrl: 'user-login.html',
 })
-export class UserLoginPage {
+export class UserLoginPage{
   public username: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider:UserProvider, private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider:UserProvider, private toastCtrl: ToastController, public loginCtrl:Login) {
   }
 
   public async login()
   {
-    var existUser:boolean=await this.userProvider.existsUsername(this.username);
-    if (existUser)
+    if (this.loginCtrl.login(this.username))
     {
-      var user=await this.userProvider.getUserByUsername(this.username);
-        let toast=this.toastCtrl.create({
-          message:"Bienvenido "+this.username,
-          duration: 3000,
-          position: 'bottom'
-        });
-        this.navCtrl.pop();
-        toast.present();
+      let toast=this.toastCtrl.create({
+        message:"Bienvenido "+this.username,
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+      this.navCtrl.pop();
     }
     else{
       let toast=this.toastCtrl.create({
@@ -33,6 +32,7 @@ export class UserLoginPage {
       })
       toast.present();
     }
+   
   }
 
 }
