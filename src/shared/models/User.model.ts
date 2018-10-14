@@ -21,4 +21,12 @@ export class User {
 
         return user;
     }
+
+    public get Id(): number {
+        return this.id;
+    }
+
+    public set Id(id: number) {
+        this.id = id;
+    }
 }
