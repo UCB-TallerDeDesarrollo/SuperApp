@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
-import { User as UserModel } from '../../shared/models/User.model'
+import { User as UserModel } from '../../shared/models/User.model';
 
 /**
  * Generated class for the CreateUserPage page.
@@ -19,7 +19,8 @@ export class CreateUserPage {
   public username: string;
   public birthdate: Date;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider,
+              private toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {
@@ -37,12 +38,32 @@ export class CreateUserPage {
   }
 
   async saveUser() {
-    let profilePictureURL = '/picture/' + this.username;
-    let newUser = UserModel.createUser(0, this.username, this.birthdate, profilePictureURL);
+    let existsUsername = await this.userProvider.existsUsername(this.username);
 
-    await this.userProvider.saveUser(newUser);
+    if (existsUsername) {
+      let toast = this.toastCtrl.create({
+        message: 'ERROR, username invalido',
+        duration: 3000,
+        position: 'bottom'
+      });
 
-    this.afterSaveUser();
+      toast.present();
+    } else {
+      let profilePictureURL = '/picture/' + this.username;
+      let newUser = UserModel.createUser(0, this.username, this.birthdate, profilePictureURL);
+
+      await this.userProvider.saveUser(newUser);
+
+      let toast = this.toastCtrl.create({
+        message: 'Usuario registrado con éxito',
+        duration: 3000,
+        position: 'bottom'
+      });
+
+      toast.present();
+
+      this.afterSaveUser();
+    }
   }
 
   afterSaveUser() {

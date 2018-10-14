@@ -51,4 +51,12 @@ export class UserProvider {
     
         return count;
     }
+
+    async existsUsername(user_username: string) {
+        let count = await this.userRepository.createQueryBuilder('user')
+                                             .where('username = :username', { username: user_username })
+                                             .getCount();
+        
+        return count != 0;
+    }
 }
