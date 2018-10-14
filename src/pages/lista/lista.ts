@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { ProductsPage } from '../products/products';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
@@ -25,16 +25,17 @@ export class ListaPage implements OnInit, AfterViewInit {
   products: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
   categories: Array<{id: number, name: string}>=[];
   selectedCategory: {id: number, name: string};
-  quantityproductsString:string;
-  quantityOfProducts: number;
   imageSound: String;
+  productsOnList: Array<{ id: number, title: string, image: string, categoryId: number }> = [];
+  numberOfProductsOnList: number;
 
   constructor(
-    public navCtrl:           NavController, 
-    private dragulaService:   DragulaService, 
-    public productsProvider:   ProductsProvider, 
-    public categoryProvider:  CategoryProvider,
-    private audioProvider: AudioProvider
+    public navCtrl: NavController, 
+    private dragulaService: DragulaService, 
+    public productsProvider: ProductsProvider, 
+    public categoryProvider: CategoryProvider,
+    private audioProvider: AudioProvider,
+    private alertCtrl: AlertController
   ) {
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
     categoryProvider.getCategories()
@@ -50,11 +51,11 @@ export class ListaPage implements OnInit, AfterViewInit {
     })
     .catch(error => {
       console.log(error);
-    });
-    
-    this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-    this.quantityproductsString = this.quantityOfProducts.toString();
+    });    
+
     this.changeSoundIcon();
+    this.productsOnList = FakeListProducts.getProducts().reverse();
+    this.numberOfProductsOnList = this.productsOnList.length;
   }
 
   chargeProductsOfCategory(categoryId: number){
@@ -67,15 +68,24 @@ export class ListaPage implements OnInit, AfterViewInit {
     });
   }
 
-  ionViewWillEnter() { 
-    this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-    this.quantityproductsString = this.quantityOfProducts.toString(); 
+  ionViewWillEnter() {
     this.changeSoundIcon(); 
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
       this.products = products;
     }).catch(error => {
       console.log(error);
-    });
+      });
+    this.reloadProductsOnList();
+  }
+
+  reloadProductsOnList() {
+    this.productsOnList = FakeListProducts.getProducts();
+  }
+
+  deleteListOfProducts() {
+    FakeListProducts.deleteAllProducts();
+    this.reloadProductsOnList();
+    this.numberOfProductsOnList = this.productsOnList.length;
   }
 
   ngOnInit() {
@@ -108,15 +118,11 @@ export class ListaPage implements OnInit, AfterViewInit {
           FakeListProducts.addProduct({ id: currentProduct.id, 
             title: currentProduct.title, 
             image: currentProduct.image, 
-            categoryId: this.selectedCategory.id});
-          this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-          this.quantityproductsString = this.quantityOfProducts.toString();
+            categoryId: this.selectedCategory.id});         
         }).catch(error => {
           console.log(error);
         });
       }
-      this.quantityOfProducts = FakeListProducts.getQuantityOfProducts();
-      this.quantityproductsString = this.quantityOfProducts.toString();
       el.remove();
       if(product === null){ 
         FakeProducts.removeProduct(product);
@@ -158,5 +164,37 @@ export class ListaPage implements OnInit, AfterViewInit {
     }).catch(error => {
       console.log(error);
     });
+  }
+
+  onClickDeleteList() {
+    let alert = this.alertCtrl.create({
+      title: 'Borrar toda la lista',
+      message: '¿Quieres borrar toda la lista de productos?',
+      buttons: [
+        {
+          text: 'Si',
+          handler: () => {
+            console.log(FakeProducts.getProducts());
+            FakeProducts.addManyProducts(this.productsOnList)
+            this.deleteListOfProducts();
+          }
+        },
+        {
+          text: 'No',
+          role: 'no',
+          handler: () => {
+            console.log('no clicked');
+          }
+        }
+      ]
+    });
+    alert.present();
+    this.numberOfProductsOnList = this.productsOnList.length;
+  }
+
+  onClickDeleteAProduct(product, indexOfProduct) {
+    FakeListProducts.removeProduct(indexOfProduct);
+    FakeProducts.addProduct(product);
+    this.numberOfProductsOnList = this.productsOnList.length;
   }
 }
