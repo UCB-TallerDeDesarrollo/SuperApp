@@ -14,7 +14,7 @@ export class UserLoginPage{
 
   public async login()
   {
-    if (this.loginCtrl.login(this.username))
+    if (await this.loginCtrl.login(this.username))
     {
       let toast=this.toastCtrl.create({
         message:"Bienvenido "+this.username,
