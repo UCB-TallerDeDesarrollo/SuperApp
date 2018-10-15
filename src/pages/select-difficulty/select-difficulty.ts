@@ -34,7 +34,50 @@ export class SelectDifficultyPage {
     }
   
     ionViewDidEnter() {
-        this.changeSoundIcon(); 
+        this.changeSoundIcon();
+    }
+
+    ionViewWillEnter() {
+        this.difficultyProvider.countRows().then(number => {
+            if(number == 4) {
+                this.easyStars = 0;
+                this.mediumStars = 0;
+                this.hardStars = 0;
+                this.expertStars = 0;
+                this.difficultyProvider.getPercentageProgress(0).then(number => {
+                    let numberProgress: number = 20;
+                    for(let index = 1; index <= 5; ++index) {
+                        if(number >= numberProgress * index) {
+                            this.easyStars++;
+                        }
+                    }
+                });
+                this.difficultyProvider.getPercentageProgress(1).then(number => {
+                    let numberProgress: number = 20;
+                    for(let index = 1; index <= 5; ++index) {
+                        if(number >= numberProgress * index) {
+                            this.mediumStars++;
+                        }
+                    }
+                });
+                this.difficultyProvider.getPercentageProgress(2).then(number => {
+                    let numberProgress: number = 20;
+                    for(let index = 1; index <= 5; ++index) {
+                        if(number >= numberProgress * index) {
+                            this.hardStars++;
+                        }
+                    }
+                });
+                this.difficultyProvider.getPercentageProgress(3).then(number => {
+                    let numberProgress: number = 20;
+                    for(let index = 1; index <= 5; ++index) {
+                        if(number >= numberProgress * index) {
+                            this.expertStars++;
+                        }
+                    }
+                });
+            }
+        });
     }
 
     changeSoundIcon(){
@@ -79,41 +122,7 @@ export class SelectDifficultyPage {
             if(number < 4) {
                 this.startDatabase();
             }
-            else {
-                this.difficultyProvider.getPercentageProgress(0).then(number => {
-                    let numberProgress: number = 20;
-                    for(let index = 1; index <= 5; ++index) {
-                        if(number >= numberProgress * index) {
-                            this.easyStars++;
-                        }
-                    }
-                });
-                this.difficultyProvider.getPercentageProgress(1).then(number => {
-                    let numberProgress: number = 20;
-                    for(let index = 1; index <= 5; ++index) {
-                        if(number >= numberProgress * index) {
-                            this.mediumStars++;
-                        }
-                    }
-                });
-                this.difficultyProvider.getPercentageProgress(2).then(number => {
-                    let numberProgress: number = 20;
-                    for(let index = 1; index <= 5; ++index) {
-                        if(number >= numberProgress * index) {
-                            this.hardStars++;
-                        }
-                    }
-                });
-                this.difficultyProvider.getPercentageProgress(3).then(number => {
-                    let numberProgress: number = 20;
-                    for(let index = 1; index <= 5; ++index) {
-                        if(number >= numberProgress * index) {
-                            this.expertStars++;
-                        }
-                    }
-                });
-            }
-        })
+        });
     }
 
     startDatabase() {
