@@ -42,19 +42,27 @@ export class SelectDifficultyPage {
     }
 
     openEasyMode() {
-        this.navCtrl.push(WordPage, {'level':1});
+        this.difficultyProvider.getLastLevel(0).then(level => {
+            this.navCtrl.push(WordPage, { 'level':level });
+        });
     }
 
     openMediumMode() {
-        this.navCtrl.push(WordPage, {'level':16});
+        this.difficultyProvider.getLastLevel(1).then(level => {
+            this.navCtrl.push(WordPage, { 'level':level });
+        });
     }
 
     openHardMode() {
-        this.navCtrl.push(WordPage, {'level':31});
+        this.difficultyProvider.getLastLevel(2).then(level => {
+            this.navCtrl.push(WordPage, { 'level':level });
+        });
     }
 
     openExpertMode() {
-        this.navCtrl.push(WordPage, {'level':125});
+        this.difficultyProvider.getLastLevel(3).then(level => {
+            this.navCtrl.push(WordPage, { 'level':level });
+        });
     }
 
     ionViewDidLoad() {

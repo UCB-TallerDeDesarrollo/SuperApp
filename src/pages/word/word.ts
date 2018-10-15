@@ -7,6 +7,7 @@ import { ColorProvider } from '../../shared/providers/ColorProvider';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
 import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvider';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
+import { DifficultyProvider } from '../../shared/providers/DifficultyProvider';
 @Component({
     selector: 'page-word',
     templateUrl: 'word.html'
@@ -20,13 +21,14 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public imageSound      : string;
 
     constructor(
-        public navController     : NavController,
-        private modalController  : ModalController,
-        private productsProdiver : ProductProvider,
-        private colorService     : ColorProvider,
-        private dragDropProvider : WordDragDropProvider,
-        private audioProvider    : AudioProvider,
-        private navParams        : NavParams
+        public navController       : NavController,
+        private modalController    : ModalController,
+        private productsProdiver   : ProductProvider,
+        private colorService       : ColorProvider,
+        private dragDropProvider   : WordDragDropProvider,
+        private audioProvider      : AudioProvider,
+        private navParams          : NavParams,
+        private difficultyProvider : DifficultyProvider
     ) {
         this.prepareGame();
         this.changeSoundIcon();
@@ -59,6 +61,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     private prepareLevel() {
         this.productsProdiver.setLevel(this.navParams.get('level'));
         this.level = this.productsProdiver.getActualLevel();
+        this.difficultyProvider.updateLastLevel(this.getDifficultType(), this.level);
     }
 
     public showEndView(): void {
@@ -140,7 +143,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         if(this.level >= 31 && this.level < 125) {
             return 2;
         }
-        if(this.level >= 125 && this.level < 219) {
+        if(this.level >= 125) {
             return 3;
         }
         return -1;

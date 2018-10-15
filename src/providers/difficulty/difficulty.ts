@@ -33,6 +33,18 @@ export class TypeormDifficultyProvider implements DifficultyProvider {
     }
 
     async getLastLevel(difficultyType: number): Promise<number> {
+        let difficultyEntity = await this.difficultyRepository.createQueryBuilder('difficulty')
+            .where('difficultyType = :difficultyType', { difficultyType: difficultyType })
+            .getOne();
+        return Number(difficultyEntity.lastLevel);
+    }
 
+    async updateLastLevel(difficultyType: number, lastLevel: number): Promise<void> {
+        await this.difficultyRepository
+            .createQueryBuilder()
+            .update('difficulty')
+            .set({ lastLevel: lastLevel })
+            .where('difficultyType = :difficultyType', { difficultyType: difficultyType })
+            .execute();
     }
 }
