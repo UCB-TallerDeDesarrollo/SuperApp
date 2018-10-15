@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { WordPage } from '../word/word';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
+import { DifficultyProvider } from '../../shared/providers/DifficultyProvider';
 @Component({
     selector: 'page-select-difficulty',
     templateUrl: 'select-difficulty.html',
@@ -11,9 +12,10 @@ export class SelectDifficultyPage {
     private imageSound:String;
     
     constructor(
-        public navCtrl        : NavController, 
-        public navParams      : NavParams,
-        private audioProvider : AudioProvider
+        public navCtrl             : NavController, 
+        public navParams           : NavParams,
+        private audioProvider      : AudioProvider,
+        private difficultyProvider : DifficultyProvider
     ) {}
 
     stopSound(){
@@ -55,6 +57,14 @@ export class SelectDifficultyPage {
     }
 
     ionViewDidLoad() {
-        console.log('Hola Mundo');
+        this.difficultyProvider.countUsers().then(number => {
+            if(number < 4) {
+                this.startDatabase();
+            }
+        })
+    }
+
+    startDatabase() {
+
     }
 }
