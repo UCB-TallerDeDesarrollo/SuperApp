@@ -1,11 +1,12 @@
 import { CategoryProvider } from './../../providers/category/category';
 import { Component, OnInit, AfterViewInit, OnDestroy, AfterViewChecked } from '@angular/core'; 
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular'; 
- 
+import { IonicPage, NavController, NavParams, Platform, ModalController } from 'ionic-angular'; 
 import { ProductsProvider } from '../../providers/product/product'; 
 import {SuperMarketGame} from '../../shared/models/SupermarketGame'; 
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { SupermarketDragDropProvider } from '../../shared/providers/SupermarketDragDropProvider';
+import { SupermarketLevelCompletePage } from './../supermarket-level-complete/supermarket-level-complete';
+import { LevelCompletePage } from './../level-complete/level-complete';
 @IonicPage()
 @Component({
   selector: 'page-supermarket',
@@ -20,17 +21,19 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   imageSound: String;
   public selectorName: string;
   public productsList: string[] = [];
-
+  public countOfProducts: number;
   constructor(
     public navController: NavController, 
     public navParams: NavParams,
     public productsProvider:   ProductsProvider,
     public categoryProvider: CategoryProvider,
+    public modalController:ModalController,
     private audioProvider: AudioProvider,
     private dragDropProvider: SupermarketDragDropProvider,
     private platform: Platform
   ) {
     this.selectorName = 'PRODUCT-' + Math.random();
+    this.countOfProducts = 0;
     this.prepareGame();
     this.changeSoundIcon(); 
   }
@@ -50,7 +53,24 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     this.audioProvider.changeState();
     this.changeSoundIcon();
   }
+  
+  public showEndView(): void {
+    
+    if(this.countOfProducts==5) {
+      this.audioProvider.playLevelCompleteSound();
+      this.showModalWin();
+    }
+    else{
+      this.countOfProducts=this.countOfProducts+1;
+      this.audioProvider.playCorrectLetterSound();
+     
+    }
 
+  }
+  public showModalWin(): void {
+    const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {lastNav:this.navController});
+    levelCompleteModal.present();
+}
   private changeSoundIcon(){
     if(this.audioProvider.isMuted()){
       this.imageSound="assets/imgs/soundoffdark.png";
