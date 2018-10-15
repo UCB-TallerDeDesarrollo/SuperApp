@@ -17,7 +17,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public backgroundColor : string;
     public selectorName    : string;
     public level           : number;
-    public imageSound     :String;
+    public imageSound      : string;
 
     constructor(
         public navController     : NavController,
@@ -31,9 +31,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.prepareGame();
         this.changeSoundIcon();
     }
+
     ionViewDidEnter() { 
         this.changeSoundIcon(); 
-      }
+    }
     
     private generateLettersWithColor() {
         let response: any = [];
@@ -65,8 +66,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         if(this.game.isGameOver()) {
             setTimeout(() => {
                 this.playPronunciationOfTheProductName();
-              }, 250);
-            
+            }, 250);
             this.showModalWin();
         }
     }
@@ -107,8 +107,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         changeLevel.present();
     }
 
-   
-
     public stopSound(){
         this.audioProvider.changeState();
         this.changeSoundIcon();
@@ -116,10 +114,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     public changeSoundIcon(){
         if(this.audioProvider.isMuted()){
-          this.imageSound="assets/imgs/soundOffDark.png";
+          this.imageSound = "assets/imgs/soundOffDark.png";
         }
         else{
-          this.imageSound="assets/imgs/soundOnDark.png";
+          this.imageSound = "assets/imgs/soundOnDark.png";
         }
     }
 
@@ -129,5 +127,21 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
    
     public playPronunciationOfTheLetter(letter:string):void{
         this.audioProvider.playPronunciationOfTheProductName(letter);
+    }
+
+    public getDifficultType(): number {
+        if(this.level >= 1 && this.level < 16) {
+            return 0;
+        }
+        if(this.level >= 16 && this.level < 31) {
+            return 1;
+        }
+        if(this.level >= 31 && this.level < 125) {
+            return 2;
+        }
+        if(this.level >= 125 && this.level < 219) {
+            return 3;
+        }
+        return -1;
     }
 }

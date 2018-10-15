@@ -7,33 +7,41 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
     templateUrl: 'select-difficulty.html',
 })
 export class SelectDifficultyPage {
-    private imageSound:String;
-    constructor(public navCtrl: NavController, public navParams: NavParams,private audioProvider: AudioProvider) {}
 
-    openEasyMode() {
-        this.navCtrl.push(WordPage);
-    }
+    private imageSound:String;
+    
+    constructor(
+        public navCtrl        : NavController, 
+        public navParams      : NavParams,
+        private audioProvider : AudioProvider
+    ) {}
+
     stopSound(){
         this.audioProvider.changeState();
-    this.changeSoundIcon();
-  }
-  ionViewDidEnter() { 
-    this.changeSoundIcon(); 
-  }
-
-  changeSoundIcon(){
-    if(this.audioProvider.isMuted()){
-      this.imageSound="assets/imgs/soundoff.png";
+        this.changeSoundIcon();
     }
-    else{
-      this.imageSound="assets/imgs/soundon.png";
+  
+    ionViewDidEnter() {
+        this.changeSoundIcon(); 
     }
-  }
 
-  changeState()
-  {
-    this.audioProvider.changeState();
-  }
+    changeSoundIcon(){
+        if(this.audioProvider.isMuted()){
+            this.imageSound = "assets/imgs/soundoff.png";
+        }
+        else{
+            this.imageSound = "assets/imgs/soundon.png";
+        }
+    }
+
+    changeState() {
+        this.audioProvider.changeState();
+    }
+
+    openEasyMode() {
+        this.navCtrl.push(WordPage, {'level':1});
+    }
+
     openMediumMode() {
         this.navCtrl.push(WordPage, {'level':16});
     }
