@@ -12,6 +12,7 @@ import { Category } from '../entities/category';
 import { Level } from '../entities/level';
 import { ProductLevel } from '../entities/productLevel';
 import { User } from '../entities/user';
+import { Difficulty } from '../entities/difficulty';
 
 @Component({
   templateUrl: 'app.html'
@@ -39,7 +40,8 @@ export class MyApp {
             Product,
             Level,
             ProductLevel,
-            User
+            User,
+            Difficulty
           ]
         }); 
       } else {
@@ -55,7 +57,8 @@ export class MyApp {
             Product,
             Level,
             ProductLevel,
-            User
+            User,
+            Difficulty
           ]
         });
       }
