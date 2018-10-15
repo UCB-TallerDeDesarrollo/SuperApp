@@ -365,33 +365,33 @@
     @media screen and (max-width: 1367px) and (min-width: 1360px) {
         padding: 20px;
         margin: auto;
-        font-size: 2em;
+        font-size: 1.5em;
     }
     @media screen and (max-width: 1025px) and (min-width: 1000px) {
         padding: 13px;
         margin: auto;
-        font-size: 2em;
+        font-size: 1.5em;
     }
     @media screen and (max-width: 824px) {
-        font-size: 1.2em;
+        font-size: 0.7em;
     }
     @media screen and (max-width: 813px) {
-        font-size: 1em;
+        font-size: 0.5em;
     }
     @media screen and (max-width: 737px) {
-        font-size: 1.3em;
+        font-size: 0.8em;
     }
     @media screen and (max-width: 668px) {
         padding: 8px;
-        font-size: 1em;
+        font-size: 0.5em;
     }
     @media screen and (max-width: 640px) {
         padding: 5px;
-        font-size: 1.2em;
+        font-size: 0.7em;
     }
     @media screen and (max-width: 569px) {
         padding: 6px;
-        font-size: 1em;
+        font-size: 0.5em;
     }
 }
 
@@ -463,5 +463,9 @@
 .arrow{
     height: 8vh;
     width: 3.8vw;
+}
+
+.hide{
+  display: none;
 }
 

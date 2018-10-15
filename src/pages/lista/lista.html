@@ -13,7 +13,6 @@
   </div>
   <ion-title class="main-title">{{selectedCategory.name}}</ion-title>
 
-  <!-- <h2 class="main-title">{{selectedCategory.name}}</h2>-->
   <div class="stand-products">
     <ion-list>
       <ion-row>
@@ -28,7 +27,7 @@
   </div>
   <ion-row>
     <ion-col>
-      <img src="assets/imgs/arrowgreen.png" class="arrow" alt="" (click)="nextProductPage()">
+      <img src="assets/imgs/arrowgreen.png" class="{{ products.length>12 ? 'arrow' : 'hide' }}" alt="" (click)="nextProductPage()">
     </ion-col>
   </ion-row>
   <div class="categories-block">
@@ -37,7 +36,7 @@
         <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
       </ion-col>
       <ion-col>
-        <img src="assets/imgs/arrowgreen.png" class="arrow" alt="" (click)="nextCategoryPage()">
+        <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>4 ? 'arrow' : 'hide' }}" alt="" (click)="nextCategoryPage()">
       </ion-col>
     </ion-row>
   </div>
