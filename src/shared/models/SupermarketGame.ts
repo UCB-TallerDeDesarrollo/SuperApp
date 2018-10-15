@@ -33,7 +33,15 @@ export class SuperMarketGame {
         } 
     }
  
-
+    public isGameOver() : boolean {
+        return this.countOfProducts == 6;
+    }
+    public get quantityOfPlayProducts() : number {
+        return this.productsToPlay.length();
+    }
+    public productWasRetired() : boolean {
+        return  this.productsToBuy.length ==5;
+    }
     public get ProductsToPlay() : any[] {
         return this.productsToPlay;
     }
