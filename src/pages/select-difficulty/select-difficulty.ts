@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { WordPage } from '../word/word';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { DifficultyProvider } from '../../shared/providers/DifficultyProvider';
+import { Difficulty } from '../../shared/models/Difficulty.model';
 @Component({
     selector: 'page-select-difficulty',
     templateUrl: 'select-difficulty.html',
@@ -57,7 +58,7 @@ export class SelectDifficultyPage {
     }
 
     ionViewDidLoad() {
-        this.difficultyProvider.countUsers().then(number => {
+        this.difficultyProvider.countRows().then(number => {
             if(number < 4) {
                 this.startDatabase();
             }
@@ -65,6 +66,14 @@ export class SelectDifficultyPage {
     }
 
     startDatabase() {
-
+        let modes: Difficulty[] = [
+            Difficulty.createDifficulty(1, '000000000000000', 0, 1),
+            Difficulty.createDifficulty(2, '000000000000000', 1, 16),
+            Difficulty.createDifficulty(3, '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000', 2, 31),
+            Difficulty.createDifficulty(4, '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000', 3, 125)
+        ];
+        for(let index = 0; index < 4; ++index) {
+            this.difficultyProvider.saveDifficulty(modes[index]);
+        }        
     }
 }

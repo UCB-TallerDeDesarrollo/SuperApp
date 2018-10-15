@@ -1,3 +1,6 @@
+import { Difficulty } from "../models/Difficulty.model";
+
 export abstract class DifficultyProvider {
-    abstract countUsers(): Promise<number>;
+    abstract countRows(): Promise<number>;
+    abstract saveDifficulty(difficultyModel: Difficulty): Promise<void>
 }

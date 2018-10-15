@@ -13,11 +13,26 @@ export class TypeormDifficultyProvider implements DifficultyProvider {
         this.difficultyRepository = getRepository('difficulty') as Repository<DifficultyEntity>;
     }
 
-    async countUsers() {
+    async countRows(): Promise<number> {
         let count: number = await this.difficultyRepository
             .createQueryBuilder('difficulty')
             .orderBy('difficulty.id', 'ASC')
             .getCount();
         return count;
+    }
+
+    async saveDifficulty(difficultyModel: DifficultyModel): Promise<void> {
+        const difficultyEntity = new DifficultyEntity();
+
+        difficultyEntity.id = difficultyModel.Id;
+        difficultyEntity.code = difficultyModel.Code;
+        difficultyEntity.difficultyType = difficultyModel.DifficultyType;
+        difficultyEntity.lastLevel = difficultyModel.LastLevel;
+
+        await this.difficultyRepository.save(difficultyEntity);
+    }
+
+    async getLastLevel(difficultyType: number): Promise<number> {
+
     }
 }
