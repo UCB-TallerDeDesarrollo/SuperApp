@@ -23,12 +23,10 @@ export class TypeormDifficultyProvider implements DifficultyProvider {
 
     async saveDifficulty(difficultyModel: DifficultyModel): Promise<void> {
         const difficultyEntity = new DifficultyEntity();
-
         difficultyEntity.id = difficultyModel.Id;
         difficultyEntity.code = difficultyModel.Code;
         difficultyEntity.difficultyType = difficultyModel.DifficultyType;
         difficultyEntity.lastLevel = difficultyModel.LastLevel;
-
         await this.difficultyRepository.save(difficultyEntity);
     }
 
@@ -82,5 +80,25 @@ export class TypeormDifficultyProvider implements DifficultyProvider {
             return str;
         }
         return str.substr(0,index) + chr + str.substr(index + 1);
+    }
+
+    async getPercentageProgress(difficultyType: number): Promise<number> {
+        let difficultyEntity = await this.difficultyRepository.createQueryBuilder('difficulty')
+            .where('difficultyType = :difficultyType', { difficultyType: difficultyType })
+            .getOne();
+        let code: string = difficultyEntity.code;
+        let count: number = 0;
+        for(let index = 0; index < code.length; ++index) {
+            if(code.charAt(index) == '1') {
+                ++count;
+            }
+        }
+        if(difficultyType == 0 || difficultyType == 1) {
+            return (count / 15) * 100;
+        }
+        if(difficultyType == 2 || difficultyType == 3) {
+            return (count / 94) * 100;
+        }
+        return 0;
     }
 }

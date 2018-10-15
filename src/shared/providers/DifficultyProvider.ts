@@ -6,4 +6,5 @@ export abstract class DifficultyProvider {
     abstract getLastLevel(difficultyType: number): Promise<number>;
     abstract updateLastLevel(difficultyType: number, lastLevel: number): Promise<void>;
     abstract saveProgressByLevel(difficultyType: number, level: number): Promise<void>;
+    abstract getPercentageProgress(difficultyType: number): Promise<number>;
 }
