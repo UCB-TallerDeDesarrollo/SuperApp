@@ -19,6 +19,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   productsToBuy: any=[]; 
   productsToPlay: any[];
   imageSound: String;
+  carImage: String;
   public selectorName: string;
   public productsList: string[] = [];
   public countOfProducts: number;
@@ -34,6 +35,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   ) {
     this.selectorName = 'PRODUCT-' + Math.random();
     this.countOfProducts = 0;
+    this.carImage="assets/imgs/"+this.countOfProducts+".png";
     this.prepareGame();
     this.changeSoundIcon(); 
   }
@@ -63,9 +65,9 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     else{
       this.countOfProducts=this.countOfProducts+1;
       this.audioProvider.playCorrectLetterSound();
-     
+      this.carImage="assets/imgs/"+this.countOfProducts+".png";
     }
-
+    
   }
   public showModalWin(): void {
     const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {lastNav:this.navController});
