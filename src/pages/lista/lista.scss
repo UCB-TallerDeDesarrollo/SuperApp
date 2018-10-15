@@ -1,6 +1,6 @@
 .main-list {
   background-image: url("../../assets/imgs/backgroundlista0.jpg");
-  background-size:cover;
+  background-size: cover;
   overflow-y: hidden;
 
   .main-title {
@@ -10,29 +10,55 @@
     font-weight: bold;
     text-align: center;
     left: 40%;
-    top:3%;
+    top: 3%;
+
     @media screen and (min-width: 1023px) and (max-width: 1367px) {
       font-size: 1em;
     }
   }
 
-  .stand-products {
-    width: 57%;
-    height: 50%;
+  .categories-block {
+    display: inline-block;
+    width: 54%;
     float: left;
+
+    .category-button {
+      width: 20%;
+      object-fit: fill;
+    }
+  }
+
+  .stand-products {
+    width: 48% !important;
+    height: 70%;
+    min-height: 60%;
+    float: left;
+    padding-left: 5%;
+    background-image: url("../../assets/imgs/shelves.jpg");
+    background-size: 100% 100%;
+
+    @media screen and (max-width: 750px) {
+      padding-left: 0%;
+    }
+
+    @media screen and (max-width: 640px) {
+      padding-left: 0%;
+      width: 50% !important;
+    }
 
     .product-block {
       display: flex;
-      margin: 10px;
+      margin: 7px;
 
       @media screen and (max-width: 1367px) {
-        margin-left: 15px;
-        margin-right: 15px;
-        margin-bottom: 0px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 10px;
       }
 
       @media screen and (max-width: 668px) {
-        margin: 5px;
+        margin: 3px;
+        margin-bottom: 6px;
       }
 
       .product-info {
@@ -120,7 +146,7 @@
   }
 
   .objetive-container {
-    float: left;
+    float: right;
     width: 41%;
     height: 88%;
     border: none;
@@ -129,6 +155,7 @@
     background-repeat: no-repeat;
     padding: 6px;
     padding-top: 5%;
+    transform: translateY(-78%);
 
     .scroll-container {
       width: 100%;

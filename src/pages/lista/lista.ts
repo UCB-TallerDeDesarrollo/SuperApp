@@ -90,7 +90,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  ionViewDidEnter() { 
+  ionViewWillEnter() { 
     this.changeSoundIcon();
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
       .then(products => {
