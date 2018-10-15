@@ -1,6 +1,7 @@
 
 
 import { LoadingPage } from './../loading/loading';
+import { SupermarketPage } from './../supermarket/supermarket';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 
@@ -19,17 +20,15 @@ export class SupermarketLevelCompletePage {
   private lastNav:NavController;
   private level:number;
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController) {
-  //this.lastNav=navParams.get("lastNav");
-    //this.level=navParams.get("level");
+  this.lastNav=navParams.get("lastNav");
+    this.level=navParams.get("level");
     this.navCtrl=this.lastNav;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ModalPage');
-    console.log(this.navParams.get('message'));
-}
 nextLevel(){
-  
-  this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss();
+    this.navCtrl.push(SupermarketPage, {lastNav:this.navCtrl});
+    //this.navCtrl.remove(this.navCtrl.length()-1);
+   
 }
 }
