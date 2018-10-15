@@ -47,4 +47,40 @@ export class TypeormDifficultyProvider implements DifficultyProvider {
             .where('difficultyType = :difficultyType', { difficultyType: difficultyType })
             .execute();
     }
+
+    async saveProgressByLevel(difficultyType: number, level: number): Promise<void> {
+        if(level > 0 && level <= 218) {
+            let posLevel = 0;
+            if(difficultyType == 0) {
+                posLevel = level - 1;
+            }
+            if(difficultyType == 1) {
+                posLevel = level - 16;
+            }
+            if(difficultyType == 2) {
+                posLevel = level - 31;
+            }
+            if(difficultyType == 3) {
+                posLevel = level - 125;
+            }
+            let temporalDifficulty = await this.difficultyRepository.createQueryBuilder('difficulty')
+                .where('difficultyType = :difficultyType', { difficultyType: difficultyType })
+                .getOne();
+            let progressCode: string = temporalDifficulty.code;
+            progressCode = this.setCharAt(progressCode, posLevel, 1);
+            await this.difficultyRepository
+                .createQueryBuilder()
+                .update('difficulty')
+                .set({ code: progressCode })
+                .where('difficultyType = :difficultyType', { difficultyType: difficultyType })
+                .execute();
+        }
+    }
+
+    private setCharAt(str, index, chr) {
+        if(index > str.length - 1) {
+            return str;
+        }
+        return str.substr(0,index) + chr + str.substr(index + 1);
+    }
 }

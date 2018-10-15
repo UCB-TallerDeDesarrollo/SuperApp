@@ -67,7 +67,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public showEndView(): void {
         this.game.addCount();
         if(this.game.isGameOver()) {
-            // GUARDAR PROGRESO
+            this.difficultyProvider.saveProgressByLevel(this.getDifficultType(), this.level);
             setTimeout(() => {
                 this.playPronunciationOfTheProductName();
             }, 250);
