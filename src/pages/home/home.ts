@@ -99,17 +99,16 @@ export class HomePage {
   create() {
     this.navCtrl.push(CreateUserPage);
   }
-  edit()
-  {
+
+  edit() {
     this.navCtrl.push(EditUserPage);
-
-  }
-  delete()
-  {
   }
 
-  logout()
-  {
+  delete() {
+    console.log('Delete precionado');
+  }
+
+  logout() {
     LoginStatus.setLogout();
     var toast=this.toastCtrl.create({
       message:"Sesion finalizada",
@@ -119,4 +118,5 @@ export class HomePage {
     toast.present();
     this.changeLoginIcons();
   }
+
 }
