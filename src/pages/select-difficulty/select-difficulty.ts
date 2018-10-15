@@ -53,4 +53,8 @@ export class SelectDifficultyPage {
     openExpertMode() {
         this.navCtrl.push(WordPage, {'level':125});
     }
+
+    ionViewDidLoad() {
+        console.log('Hola Mundo');
+    }
 }
