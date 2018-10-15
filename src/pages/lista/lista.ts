@@ -86,10 +86,6 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     this.onViewcategories = this.categories.slice(this.categoriesPageIndex, bound);
   }
 
-  _chargeList(){
-
-  }
-
   ionViewWillEnter() { 
     this.changeSoundIcon();
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
