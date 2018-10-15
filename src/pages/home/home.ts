@@ -106,8 +106,6 @@ export class HomePage {
 
   delete() {
     console.log('Delete precionado');
-
-    
   }
 
   logout() {
