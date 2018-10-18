@@ -51,6 +51,7 @@ import { Login } from '../providers/login/login';
 import { ViewUserPage } from '../pages/view-user/view-user';
 import { DifficultyProvider } from '../shared/providers/DifficultyProvider';
 import { TypeormDifficultyProvider } from '../providers/difficulty/difficulty';
+import { DeleteUserPage } from '../pages/delete-user/delete-user';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { TypeormDifficultyProvider } from '../providers/difficulty/difficulty';
     CreateUserPage,
     UserLoginPage,
     EditUserPage, 
-    ViewUserPage,
+    ViewUserPage, 
+    DeleteUserPage,
   ],
   imports: [
     BrowserModule,
@@ -105,7 +107,8 @@ import { TypeormDifficultyProvider } from '../providers/difficulty/difficulty';
     CreateUserPage,
     UserLoginPage, 
     EditUserPage, 
-    ViewUserPage
+    ViewUserPage,
+    DeleteUserPage
   ],
   providers: [
     StatusBar,

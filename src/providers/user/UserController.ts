@@ -5,6 +5,8 @@ import { LoginStatus } from "../login/LoginStatus";
 import { CreateUserPage } from "../../pages/create-user/create-user";
 import { EditUserPage } from "../../pages/edit-user/edit-user";
 import { ViewUserPage } from "../../pages/view-user/view-user";
+import { UserProvider } from "./user";
+import { DeleteUserPage } from "../../pages/delete-user/delete-user";
 
 @Injectable()
 @Component({})
@@ -37,7 +39,7 @@ export class UserController
       }
     
       delete() {
-        console.log('Delete precionado');
+        this.navCtrl.push(DeleteUserPage);
       }
     
       logout() {
