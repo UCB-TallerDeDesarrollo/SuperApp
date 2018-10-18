@@ -14,6 +14,7 @@ import { CreateUserPage } from '../create-user/create-user';
 import { UserLoginPage } from '../user-login/user-login';
 import { EditUserPage } from '../edit-user/edit-user';
 import { UserProvider } from '../../providers/user/user';
+import { UserController } from '../../providers/user/UserController';
 
 @Component({
   selector: 'page-home',
@@ -26,7 +27,7 @@ export class HomePage {
   public iconTop:string;
   private loged_items:any;
   private unloged_items:any;
-  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public toastCtrl:ToastController, public alertCtrl:AlertController) {
+  constructor(public userCtrl: UserController,platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public toastCtrl:ToastController, public alertCtrl:AlertController) {
     platform.ready().then(() => {
       if (platform.is('cordova')){
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);

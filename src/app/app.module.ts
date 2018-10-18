@@ -1,8 +1,9 @@
+import { UserController } from './../providers/user/UserController';
 import { EditUserPage } from './../pages/edit-user/edit-user';
 import { LoadingPage } from './../pages/loading/loading';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule, Platform } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, Platform, NavController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
@@ -74,7 +75,7 @@ import { TypeormDifficultyProvider } from '../providers/difficulty/difficulty';
     CreateUserPage,
     UserLoginPage,
     EditUserPage, 
-    ViewUserPage
+    ViewUserPage,
   ],
   imports: [
     BrowserModule,
@@ -126,6 +127,7 @@ import { TypeormDifficultyProvider } from '../providers/difficulty/difficulty';
     ProductLevelProvider,
     UserProvider,
     TextToSpeech,
+    UserController,
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]},
     File,
     Media
