@@ -4,6 +4,7 @@ import { UserLoginPage } from "../../pages/user-login/user-login";
 import { LoginStatus } from "../login/LoginStatus";
 import { CreateUserPage } from "../../pages/create-user/create-user";
 import { EditUserPage } from "../../pages/edit-user/edit-user";
+import { ViewUserPage } from "../../pages/view-user/view-user";
 
 @Injectable()
 @Component({})
@@ -20,7 +21,13 @@ export class UserController
     {
         this.navCtrl=app.getActiveNav();
     }
-
+    show(): any {
+        this.navCtrl.push(ViewUserPage);
+      }
+    login()
+    {
+      this.navCtrl.push(UserLoginPage);
+    }
     create() {
         this.navCtrl.push(CreateUserPage);
       }

@@ -44,17 +44,12 @@ export class HomePage {
     this.userCtrl.changeLoginIcons();
   }
   
-  show(): any {
-    this.navCtrl.push(ViewUserPage);
-  }
+ 
   stopSound(){
         this.audioProvider.changeState();
     this.changeSoundIcon();
   }
-  login()
-  {
-    this.navCtrl.push(UserLoginPage);
-  }
+ 
   changeSoundIcon(){
     if(this.audioProvider.isMuted()){
       this.imageSound="assets/imgs/soundoff.png";
@@ -83,29 +78,6 @@ export class HomePage {
 
   pushEditorProducts() {
     this.navCtrl.push(ProductsEditorPage);
-  }
-
-  create() {
-    this.navCtrl.push(CreateUserPage);
-  }
-
-  edit() {
-    this.navCtrl.push(EditUserPage);
-  }
-
-  delete() {
-    console.log('Delete precionado');
-  }
-
-  logout() {
-    LoginStatus.setLogout();
-    var toast=this.toastCtrl.create({
-      message:"Sesion finalizada",
-      duration:3000,
-      position: 'bottom'
-    });
-    toast.present();
-    this.changeLoginIcons();
   }
 
 }
