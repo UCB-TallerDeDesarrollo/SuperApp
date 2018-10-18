@@ -41,19 +41,7 @@ export class HomePage {
   }
   ionViewDidEnter() { 
     this.changeSoundIcon();
-    this.changeLoginIcons();
-  }
-  public changeLoginIcons() {
-    this.loged_items=document.getElementById('loged_items');
-    this.unloged_items=document.getElementById('unloged_items');
-    if (LoginStatus.logged)
-    {
-      this.loged_items.hidden=false;
-      this.unloged_items.hidden=true;
-    }
-    else
-    {this.loged_items.hidden=true;
-      this.unloged_items.hidden=false;}
+    this.userCtrl.changeLoginIcons();
   }
   
   show(): any {
