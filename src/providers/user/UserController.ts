@@ -1,15 +1,13 @@
+import { DeleteUserPage } from './../../pages/delete-user/delete-user';
 import { Injectable, Component } from "@angular/core";
-import { NavController, App, ToastController } from "ionic-angular";
+import { NavController, App, ToastController, ModalController } from "ionic-angular";
 import { UserLoginPage } from "../../pages/user-login/user-login";
 import { LoginStatus } from "../login/LoginStatus";
 import { CreateUserPage } from "../../pages/create-user/create-user";
 import { EditUserPage } from "../../pages/edit-user/edit-user";
 import { ViewUserPage } from "../../pages/view-user/view-user";
-import { UserProvider } from "./user";
-import { DeleteUserPage } from "../../pages/delete-user/delete-user";
 
 @Injectable()
-@Component({})
 export class UserController
 {
     public iconLeft:string;
@@ -18,7 +16,8 @@ export class UserController
     private unloged_items:any;
     private navCtrl:NavController;
     constructor(
-        public app:App, public toastCtrl:ToastController
+        public app:App, public toastCtrl:ToastController,
+        public modalCtrl:ModalController
     )
     {
         this.navCtrl=app.getActiveNav();
@@ -39,7 +38,8 @@ export class UserController
       }
     
       delete() {
-        this.navCtrl.push(DeleteUserPage);
+        let modal=this.modalCtrl.create(DeleteUserPage, {userCtrl: this});
+        modal.present();
       }
     
       logout() {

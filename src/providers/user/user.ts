@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 import { User as UserEntity } from '../../entities/user';
 import { User as UserModel } from '../../shared/models/User.model';
 import { getRepository, Repository } from 'typeorm';
 
 @Injectable()
 export class UserProvider {
-    private userRepository: any;
+    private userRepository: Repository<UserEntity>;
 
     constructor() {
         this.userRepository = getRepository('user') as Repository<UserEntity>;
@@ -41,7 +41,7 @@ export class UserProvider {
     }
 
     async deleteUser(userModel: UserModel) {
-        await this.userRepository.removeById(userModel.Id);
+        await this.userRepository.delete(userModel.Id);
     }
    async deleteUserByUserName(username:string)
     {

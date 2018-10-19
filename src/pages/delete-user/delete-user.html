@@ -1,18 +1,16 @@
-<!--
-  Generated template for the DeleteUserPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>delete-user</ion-title>
-  </ion-navbar>
-
-</ion-header>
 
 
-<ion-content padding>
+<div class="modal-back">
+    
+    <div class="modal-delete">
 
-</ion-content>
+      <div class="alert-text">
+        <h2>¿Estas seguro(a) de que quieres eliminar tu usuario?</h2>
+     </div>
+     <div class="actions">
+      <img class="yes" src="assets/imgs/check-symbol.png" (click)="delete()">
+      <img class="no" src="assets/imgs/delete.png" (click)="navCtrl.pop()">
+  
+    </div>
+    </div>
+     
