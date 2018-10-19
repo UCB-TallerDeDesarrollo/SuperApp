@@ -9,7 +9,7 @@ describe("Test SortWordGame model", function() {
 
     beforeEach(function() {
         product = Product.createProduct(1, 'title1', 'image1', 2);
-        sortWordGame = new SortWordGame(product);
+        sortWordGame = new SortWordGame(product, 0);
         colorProviderMock = jasmine.createSpyObj('ArrayColorProvider',['getRandomColor']);
 
         for (let letter of sortWordGame.ResponseWord) {
@@ -46,13 +46,13 @@ describe("Test SortWordGame model", function() {
     });
 
     it('must return messy letters of response word', function() {
-        sortWordGame.buildLetters(response, 1);
+        sortWordGame.buildLetters(response);
 
         expect(sortWordGame.MessyWord).not.toBe(sortWordGame.SortedWord);
     });
 
     it('must return sorted letters of response word', function() {
-        sortWordGame.buildLetters(response, 1);
+        sortWordGame.buildLetters(response);
 
         for (let i = 0; i < product.Title.length; ++i) {
             expect(product.Title[i]).toBe(sortWordGame.SortedWord[i].letter);
@@ -60,7 +60,7 @@ describe("Test SortWordGame model", function() {
     });
 
     it('must return messy letters expert', function() {
-        sortWordGame.buildLetters(response, 125);
+        sortWordGame.buildLetters(response);
 
         expect(sortWordGame.MessyWord.length).toEqual(sortWordGame.SortedWord.length + 1);
     });

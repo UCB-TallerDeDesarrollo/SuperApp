@@ -5,44 +5,19 @@ import { ArrayManager } from "../../Managers/ArrayManager";
 export class ArrayProductProvider implements ProductProvider {
     
     private static readonly PATH_IMAGES: string = '../../assets/imgs/Products/';
-    private level: number;
 
     constructor() {
-        this.level = 1;
-    }
-
-    public setLevel(level: number): void {
-        if (level == undefined) {
-            this.Continue();
-        }
-        else{
-            this.level=level;
-        }
     }
     
-    public nextLevel(): void {
-        this.level++;
-    }
-
-    public getActualLevel(): number {
-        return this.level;
-    }
-    
-    public getProductOfActualLevel(): Product{
-        if (this.level>60) {
+    public getProductOfActualLevel(level: number): Product {
+        if (level > 60) {
             return ArrayManager.get_random_element(ArrayProductProvider.products);   
         }
-        return ArrayProductProvider.products.find((x)=>x.Level==this.level);
+        return ArrayProductProvider.products.find((x)=>x.Level == level);
     }
 
     public getQuantityOfProducts(): number {
         return ArrayProductProvider.products.length;
-    }
-
-    public Continue()
-    {
-        return this.level=1;
-        
     }
     
     public static readonly products: Product[] = [

@@ -37,7 +37,8 @@ export class TypeormDifficultyProvider implements DifficultyProvider {
         return Number(difficultyEntity.lastLevel);
     }
 
-    async updateLastLevel(difficultyType: number, lastLevel: number): Promise<void> {
+    async updateLastLevel(lastLevel: number): Promise<void> {
+        let difficultyType = this.getDifficultType(lastLevel);
         await this.difficultyRepository
             .createQueryBuilder()
             .update('difficulty')
@@ -46,7 +47,8 @@ export class TypeormDifficultyProvider implements DifficultyProvider {
             .execute();
     }
 
-    async saveProgressByLevel(difficultyType: number, level: number): Promise<void> {
+    async saveProgressByLevel(level: number): Promise<void> {
+        let difficultyType = this.getDifficultType(level);
         if(level > 0 && level <= 218) {
             let posLevel = 0;
             if(difficultyType == 0) {
@@ -80,6 +82,22 @@ export class TypeormDifficultyProvider implements DifficultyProvider {
             return str;
         }
         return str.substr(0,index) + chr + str.substr(index + 1);
+    }
+
+    private getDifficultType(level: number): number {
+        if(level >= 1 && level < 16) {
+            return 0;
+        }
+        if(level >= 16 && level < 31) {
+            return 1;
+        }
+        if(level >= 31 && level < 125) {
+            return 2;
+        }
+        if(level >= 125) {
+            return 3;
+        }
+        return -1;
     }
 
     async getPercentageProgress(difficultyType: number): Promise<number> {

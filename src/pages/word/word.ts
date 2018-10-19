@@ -8,6 +8,7 @@ import { ProductProvider } from '../../shared/providers/ProductProvider';
 import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvider';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { DifficultyProvider } from '../../shared/providers/DifficultyProvider';
+import { Product } from '../../shared/models/Product.model';
 @Component({
     selector: 'page-word',
     templateUrl: 'word.html'
@@ -17,7 +18,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public game            : SortWordGame;
     public backgroundColor : string;
     public selectorName    : string;
-    public level           : number;
     public imageSound      : string;
 
     constructor(
@@ -41,7 +41,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     private generateLettersWithColor() {
         let response: any = [];
         for (let letter of this.game.ResponseWord) {
-            if (this.level >= 31) {
+            if (this.game.Level >= 31) {
                 response[letter] = '#000000';
             } else {
                 response[letter] = this.colorService.getRandomColor();
@@ -52,22 +52,26 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     private prepareGame(): void {
         this.prepareLevel();
-        this.game = new SortWordGame(this.productsProdiver.getProductOfActualLevel());
-        this.selectorName = 'LETTER-' + Math.random();
+        this.selectorName = this.generateSelectorCode();
         this.backgroundColor = this.colorService.getRandomBackgroundColor();
-        this.game.buildLetters(this.generateLettersWithColor(), this.level);
+        this.game.buildLetters(this.generateLettersWithColor());
+    }
+
+    private generateSelectorCode() {
+        return 'LETTER-' + Math.random();
     }
 
     private prepareLevel() {
-        this.productsProdiver.setLevel(this.navParams.get('level'));
-        this.level = this.productsProdiver.getActualLevel();
-        this.difficultyProvider.updateLastLevel(this.getDifficultType(), this.level);
+        let level: number = this.navParams.get('level') || 1;
+        let product: Product = this.productsProdiver.getProductOfActualLevel(level);
+        this.difficultyProvider.updateLastLevel(level);
+        this.game = new SortWordGame(product, level);
     }
 
     public showEndView(): void {
         this.game.addCount();
         if(this.game.isGameOver()) {
-            this.difficultyProvider.saveProgressByLevel(this.getDifficultType(), this.level);
+            this.difficultyProvider.saveProgressByLevel(this.game.Level);
             setTimeout(() => {
                 this.playPronunciationOfTheProductName();
             }, 250);
@@ -76,8 +80,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public showModalWin(): void {
-        this.productsProdiver.nextLevel();
-        const levelCompleteModal = this.modalController.create(LevelCompletePage, {level: this.productsProdiver.getActualLevel(), lastNav:this.navController});
+        const levelCompleteModal = this.modalController.create(LevelCompletePage, {level: this.game.Level + 1, lastNav:this.navController});
         levelCompleteModal.present();
     }
 
@@ -97,7 +100,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         const changeLevel = this.modalController.create(
             SelectLevelPage, 
             {
-                level    : this.level, 
+                level    : this.game.Level, 
                 lastNav  : this.navController, 
                 maxLevel : this.productsProdiver.getQuantityOfProducts(),
                 wordPage : this                
@@ -118,10 +121,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     public changeSoundIcon(){
         if(this.audioProvider.isMuted()){
-          this.imageSound = "assets/imgs/soundOffDark.png";
+          this.imageSound = 'assets/imgs/soundOffDark.png';
         }
         else{
-          this.imageSound = "assets/imgs/soundOnDark.png";
+          this.imageSound = 'assets/imgs/soundOnDark.png';
         }
     }
 
@@ -129,23 +132,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.audioProvider.playPronunciationOfTheProductName(this.game.ResponseWord);
     }
    
-    public playPronunciationOfTheLetter(letter:string):void{
+    public playPronunciationOfTheLetter(letter: string): void {
         this.audioProvider.playPronunciationOfTheProductName(letter);
-    }
-
-    public getDifficultType(): number {
-        if(this.level >= 1 && this.level < 16) {
-            return 0;
-        }
-        if(this.level >= 16 && this.level < 31) {
-            return 1;
-        }
-        if(this.level >= 31 && this.level < 125) {
-            return 2;
-        }
-        if(this.level >= 125) {
-            return 3;
-        }
-        return -1;
     }
 }

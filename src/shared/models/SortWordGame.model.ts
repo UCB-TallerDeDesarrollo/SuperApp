@@ -7,20 +7,22 @@ export class SortWordGame {
     private product       : Product;
     private messyLetters  : any;
     private sortedLetters : any;
-    
+    private level         : number;
+
     private static readonly LETTERS = [
         'A', 'B', 'C', 'D', 'E', 'F', 
         'G', 'H', 'I', 'J', 'K', 'L', 
         'M', 'N', 'O', 'P', 'Q', 'R', 
         'S', 'T', 'U', 'V', 'W', 'X', 
         'Y', 'Z'
-    ]
+    ];
 
-    public constructor(product: Product) {
+    public constructor(product: Product, level: number) {
         this.count = 0;
         this.product = product;
         this.messyLetters = [];
         this.sortedLetters = [];
+        this.level = level;
     }
 
     public addCount() : void {
@@ -31,7 +33,7 @@ export class SortWordGame {
         return this.count >= this.product.Title.length;
     }
 
-    public buildLetters(lettersColor: any, level: number) : void {
+    public buildLetters(lettersColor: any) : void {
         do {
             let auxilaryLetters: any = [];
             for (let letter of this.ResponseWord) {
@@ -52,7 +54,7 @@ export class SortWordGame {
                 });
                 auxilaryLetters.splice(auxilaryLetters.indexOf(data), 1);
             }
-            if(level >= 125) {
+            if(this.level >= 125) {
                 let randomPosition = Math.floor(Math.random() * this.messyLetters.length);
                 let letter = SortWordGame.LETTERS[Math.floor(Math.random() * (SortWordGame.LETTERS.length))];
                 this.messyLetters.splice(randomPosition, 0, {
@@ -76,6 +78,10 @@ export class SortWordGame {
         return this.messyLetters;
     }
 
+    public get Level(): number {
+        return this.level;
+    }
+ 
     public get SortedWord() : any {
         return this.sortedLetters;
     }
