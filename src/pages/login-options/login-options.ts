@@ -1,4 +1,3 @@
-import { UserController } from './../../providers/user/UserController';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 import { ViewUserPage } from '../view-user/view-user';

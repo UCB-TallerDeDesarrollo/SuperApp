@@ -10,11 +10,6 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { MenuGamesPage } from './../menu-games/menu-games';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { ProductsEditorPage } from '../products-editor/products-editor';
-import { CreateUserPage } from '../create-user/create-user';
-import { UserLoginPage } from '../user-login/user-login';
-import { EditUserPage } from '../edit-user/edit-user';
-import { UserProvider } from '../../providers/user/user';
-import { UserController } from '../../providers/user/UserController';
 
 @Component({
   selector: 'page-home',

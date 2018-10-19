@@ -1,4 +1,3 @@
-import { UserController } from './../providers/user/UserController';
 import { EditUserPage } from './../pages/edit-user/edit-user';
 import { LoadingPage } from './../pages/loading/loading';
 import { BrowserModule } from '@angular/platform-browser';
@@ -133,7 +132,6 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
     ProductLevelProvider,
     UserProvider,
     TextToSpeech,
-    UserController,
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]},
     File,
     Media
