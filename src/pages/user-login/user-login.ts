@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { Login } from '../../providers/login/login';
+import { LoginOptionsPage } from '../login-options/login-options';
 
 @Component({
   selector: 'page-user-login',
@@ -9,7 +10,9 @@ import { Login } from '../../providers/login/login';
 })
 export class UserLoginPage{
   public username: string;
+  private loginOptions:LoginOptionsPage;
   constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider:UserProvider, private toastCtrl: ToastController, public loginCtrl:Login) {
+    this.loginOptions=navParams.get("loginOptions");
   }
 
   public async login()
@@ -23,6 +26,7 @@ export class UserLoginPage{
       });
       toast.present();
       this.navCtrl.pop();
+      this.loginOptions.changeLoginIcons();
     }
     else{
       let toast=this.toastCtrl.create({

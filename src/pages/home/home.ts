@@ -23,11 +23,8 @@ import { UserController } from '../../providers/user/UserController';
 export class HomePage {
 
   public imageSound:String;
-  public iconLeft:string;
-  public iconTop:string;
-  private loged_items:any;
-  private unloged_items:any;
-  constructor(public userCtrl: UserController,platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public toastCtrl:ToastController, public alertCtrl:AlertController) {
+
+  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public toastCtrl:ToastController, public alertCtrl:AlertController) {
     platform.ready().then(() => {
       if (platform.is('cordova')){
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
@@ -41,7 +38,6 @@ export class HomePage {
   }
   ionViewDidEnter() { 
     this.changeSoundIcon();
-    this.userCtrl.changeLoginIcons();
   }
   
  
