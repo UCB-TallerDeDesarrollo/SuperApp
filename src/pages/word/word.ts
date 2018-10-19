@@ -8,6 +8,7 @@ import { ProductProvider } from '../../shared/providers/ProductProvider';
 import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvider';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { DifficultyProvider } from '../../shared/providers/DifficultyProvider';
+import { Product } from '../../shared/models/Product.model';
 @Component({
     selector: 'page-word',
     templateUrl: 'word.html'
@@ -17,7 +18,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public game            : SortWordGame;
     public backgroundColor : string;
     public selectorName    : string;
-    public level           : number;
     public imageSound      : string;
 
     constructor(
@@ -41,7 +41,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     private generateLettersWithColor() {
         let response: any = [];
         for (let letter of this.game.ResponseWord) {
-            if (this.level >= 31) {
+            if (this.game.Level >= 31) {
                 response[letter] = '#000000';
             } else {
                 response[letter] = this.colorService.getRandomColor();
@@ -54,21 +54,20 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.prepareLevel();
         this.selectorName = 'LETTER-' + Math.random();
         this.backgroundColor = this.colorService.getRandomBackgroundColor();
-        this.game.buildLetters(this.generateLettersWithColor(), this.level);
+        this.game.buildLetters(this.generateLettersWithColor());
     }
 
     private prepareLevel() {
-        let actualLevel: number = this.navParams.get('level') || 1;
-        this.productsProdiver.setLevel(this.navParams.get('level'));
-        this.level = this.productsProdiver.getActualLevel();
-        this.difficultyProvider.updateLastLevel(this.level);
-        this.game = new SortWordGame(this.productsProdiver.getProductOfActualLevel(), actualLevel);
+        let level: number = this.navParams.get('level') || 1;
+        let product: Product = this.productsProdiver.getProductOfActualLevel(level);
+        this.difficultyProvider.updateLastLevel(level);
+        this.game = new SortWordGame(product, level);
     }
 
     public showEndView(): void {
         this.game.addCount();
         if(this.game.isGameOver()) {
-            this.difficultyProvider.saveProgressByLevel(this.level);
+            this.difficultyProvider.saveProgressByLevel(this.game.Level);
             setTimeout(() => {
                 this.playPronunciationOfTheProductName();
             }, 250);
@@ -77,8 +76,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public showModalWin(): void {
-        this.productsProdiver.nextLevel();
-        const levelCompleteModal = this.modalController.create(LevelCompletePage, {level: this.productsProdiver.getActualLevel(), lastNav:this.navController});
+        const levelCompleteModal = this.modalController.create(LevelCompletePage, {level: this.game.Level + 1, lastNav:this.navController});
         levelCompleteModal.present();
     }
 
@@ -98,7 +96,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         const changeLevel = this.modalController.create(
             SelectLevelPage, 
             {
-                level    : this.level, 
+                level    : this.game.Level, 
                 lastNav  : this.navController, 
                 maxLevel : this.productsProdiver.getQuantityOfProducts(),
                 wordPage : this                
@@ -130,7 +128,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.audioProvider.playPronunciationOfTheProductName(this.game.ResponseWord);
     }
    
-    public playPronunciationOfTheLetter(letter:string):void{
+    public playPronunciationOfTheLetter(letter: string): void {
         this.audioProvider.playPronunciationOfTheProductName(letter);
     }
 }
