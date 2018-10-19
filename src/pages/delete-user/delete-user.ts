@@ -28,7 +28,7 @@ export class DeleteUserPage {
   async delete()
   {
     await this.userProv.deleteUserByUserName(LoginStatus.username);
-    this.userCtrl.logout();
+    //this.userCtrl.logout();
     location.reload();
   }
 
