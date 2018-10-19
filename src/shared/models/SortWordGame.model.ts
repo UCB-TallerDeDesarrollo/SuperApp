@@ -7,6 +7,7 @@ export class SortWordGame {
     private product       : Product;
     private messyLetters  : any;
     private sortedLetters : any;
+    private level         : number;
     
     private static readonly LETTERS = [
         'A', 'B', 'C', 'D', 'E', 'F', 
@@ -14,13 +15,14 @@ export class SortWordGame {
         'M', 'N', 'O', 'P', 'Q', 'R', 
         'S', 'T', 'U', 'V', 'W', 'X', 
         'Y', 'Z'
-    ]
+    ];
 
-    public constructor(product: Product) {
+    public constructor(product: Product, level: number) {
         this.count = 0;
         this.product = product;
         this.messyLetters = [];
         this.sortedLetters = [];
+        this.level = level;
     }
 
     public addCount() : void {

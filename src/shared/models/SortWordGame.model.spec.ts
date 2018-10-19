@@ -9,7 +9,7 @@ describe("Test SortWordGame model", function() {
 
     beforeEach(function() {
         product = Product.createProduct(1, 'title1', 'image1', 2);
-        sortWordGame = new SortWordGame(product);
+        sortWordGame = new SortWordGame(product, 0);
         colorProviderMock = jasmine.createSpyObj('ArrayColorProvider',['getRandomColor']);
 
         for (let letter of sortWordGame.ResponseWord) {
