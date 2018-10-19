@@ -61,13 +61,13 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     private prepareLevel() {
         this.productsProdiver.setLevel(this.navParams.get('level'));
         this.level = this.productsProdiver.getActualLevel();
-        this.difficultyProvider.updateLastLevel(this.getDifficultType(), this.level);
+        this.difficultyProvider.updateLastLevel(this.level);
     }
 
     public showEndView(): void {
         this.game.addCount();
         if(this.game.isGameOver()) {
-            this.difficultyProvider.saveProgressByLevel(this.getDifficultType(), this.level);
+            this.difficultyProvider.saveProgressByLevel(this.level);
             setTimeout(() => {
                 this.playPronunciationOfTheProductName();
             }, 250);
@@ -131,21 +131,5 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
    
     public playPronunciationOfTheLetter(letter:string):void{
         this.audioProvider.playPronunciationOfTheProductName(letter);
-    }
-
-    public getDifficultType(): number {
-        if(this.level >= 1 && this.level < 16) {
-            return 0;
-        }
-        if(this.level >= 16 && this.level < 31) {
-            return 1;
-        }
-        if(this.level >= 31 && this.level < 125) {
-            return 2;
-        }
-        if(this.level >= 125) {
-            return 3;
-        }
-        return -1;
     }
 }
