@@ -59,6 +59,14 @@ page-select-difficulty{
     background-color: transparent;
     width: 48px;
     height: 48px;
+    &:hover{
+        background-color:transparent !important;
+    }
+    &:active{
+        box-shadow: none !important;
+        border-color: rgba(0,0,0,0) !important;
+        outline: none !important;
+    }
 }
 
 .star{
@@ -75,5 +83,5 @@ page-select-difficulty{
     }
 }
 .main-title{
-    
+
 }
