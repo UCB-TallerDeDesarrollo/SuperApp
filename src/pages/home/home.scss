@@ -18,7 +18,6 @@
 .game-images{
     display: flex;
     justify-content: space-around;
-
     .option {
         height: 50%;
         width: 25%;
@@ -40,6 +39,8 @@
 
         height: 50%;
         width: 25%;
+        padding-top: 5%;
+        padding-bottom: 5%;
 
         @media screen and (min-width: 810px) and (max-width: 813px) {
             height: 30%;
