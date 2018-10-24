@@ -3,7 +3,13 @@ page-supermarket {}
 .main-container {
     background-image: linear-gradient(#f9c046 10%, #e1df75 100%);
     overflow-y: hidden;
-}
+    .supermarket-title{
+        color: white;
+        text-align: center;
+        @media screen and (min-width: 1023px) and (max-width: 1367px) {
+            font-size: 1em;
+          }
+    }
 
 .container {
     display: table;
@@ -304,9 +310,13 @@ page-supermarket {}
 }
 
 .carrito_container {
-    display: table;
-    width: 92vw;
-    max-height: 100px;
+    position: absolute;
+    top: 65%;
+    right: 5%;
+    width: 23%;
+    //display: table;
+    //width: 92vw;
+    //max-height:100%;
 }
 
 .product-container{
@@ -331,4 +341,5 @@ page-supermarket {}
 /* added to the source element while its mirror is dragged */
 .gu-transit {
     visibility: hidden;
+}
 }
