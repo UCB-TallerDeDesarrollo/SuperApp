@@ -10,6 +10,7 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { MenuGamesPage } from './../menu-games/menu-games';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { ProductsEditorPage } from '../products-editor/products-editor';
+import { AboutPage } from '../about/about';
 
 @Component({
   selector: 'page-home',
