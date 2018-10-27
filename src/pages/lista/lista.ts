@@ -22,7 +22,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   defaultCategoryId:number = 1;
   actualSelectedElement:any;
   actualSelectedContainer:any;
-  products: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
+  products: Array<{ id: number, title: string, image: string, state: number, categoryId: number}> = [];
   categories: Array<{id: number, name: string}>=[];
   selectedCategory: {id: number, name: string};
   imageSound: String;
@@ -30,7 +30,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   categoriesPageIndex: number;
   productsOnList: Array<{ id: number, title: string, image: string, categoryId: number }> = [];
   numberOfProductsOnList: number;
-  onViewproducts: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
+  onViewproducts: Array<{ id: number, title: string, image: string, state: number, categoryId: number}> = [];
   onViewcategories: Array<{id: number, name: string}>=[];
   ON_VIEW_LIST_LENGHT=12;
   ON_VIEW_CATEGORIES_LENGHT=4;
@@ -140,7 +140,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
             image: p.image,
             categoryId: this.selectedCategory.id
           });
-          p.on_list = false;
+          p.on_list = 0;
           p.category = this.selectedCategory;
           this.listOfProducts.push(p);
           this.productsProvider.updateProduct(p)
