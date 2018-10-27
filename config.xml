@@ -87,7 +87,6 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^2.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
-    <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
     <plugin name="cordova-plugin-tts" spec="0.2.3" />
@@ -100,4 +99,6 @@
     <engine name="windows" spec="4.4.2" />
     <engine name="android" spec="7.1.1" />
     <engine name="ios" spec="4.5.5" />
+    <plugin name="uk.co.workingedge.cordova.plugin.sqliteporter" spec="1.0.5" />
+    <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
 </widget>
