@@ -109,7 +109,7 @@ export class ProductsEditorPage implements OnDestroy {
           product.state = true;
           product.audio = " ";
           product.title = products[p].title;
-          product.category = await this.categoryProvider.getCategoryById(products[p].categoryId);
+          product.category_id = products[p].categoryId;
           await this.productsProvider.saveProduct(product);
         }
       }

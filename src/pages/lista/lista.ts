@@ -57,12 +57,15 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
       });
     productsProvider.getProductsByCategoryOnlyActive(this.defaultCategoryId)
     .then(products => {
-      this.products=products;
+      products.forEach(p => {
+        this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
+      })
+      //this.products=products;
       this.chargeProducts();
     })
     .catch(error => {
       console.log(error);
-    });    
+    });
 
     this.changeSoundIcon();
     this.productsOnList = FakeListProducts.getProducts().reverse();
@@ -90,21 +93,23 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     this.changeSoundIcon();
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
       .then(products => {
-        this.products = products;
+        products.forEach(p => {
+          this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
+        })
       this.chargeProducts();
       }).catch(error => {
         console.log(error);
       });
-    this.reloadProductsOnList();            
-  } 
-  
+    this.reloadProductsOnList();
+  }
+
   ngOnDestroy() {
     this.listOfProducts.forEach(element => {
-      element.onlist = true;
+      element.on_list = true;
       this.productsProvider.updateProduct(element)
       .catch(error => {
         console.error(error);
-      })                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+      })
     });
   }
 
@@ -135,7 +140,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
             image: p.image,
             categoryId: this.selectedCategory.id
           });
-          p.onlist = false;
+          p.on_list = false;
           p.category = this.selectedCategory;
           this.listOfProducts.push(p);
           this.productsProvider.updateProduct(p)
@@ -143,7 +148,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
               this.onSelectCategory(this.selectedCategory);
             }).catch(error => {
               console.log(error);
-            }); 
+            });
           this.numberOfProductsOnList = this.productsOnList.length;
         }).catch(error => {
           console.log(error);
@@ -164,10 +169,10 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     else{
       this.imageSound="assets/imgs/soundon.png";
     }
-  } 
-  
+  }
+
   pushPageList(){
-    this.navCtrl.push(ListaPage);    
+    this.navCtrl.push(ListaPage);
   }
 
   pushProducts(){
@@ -198,7 +203,9 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     this.selectedCategory = category;
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
     .then(products => {
-      this.products = products;
+      products.forEach(p => {
+        this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
+      })
       this.productPageIndex=0;
       this.chargeProducts();
     }).catch(error => {
@@ -214,7 +221,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
         {
           text: 'Si',
           handler: () => {
-            console.log(FakeProducts.getProducts());            
+            console.log(FakeProducts.getProducts());
             this.deleteListOfProducts();
           }
         },
@@ -236,7 +243,9 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     .then(response => {
       this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
         .then(products => {
-          this.products = products;
+          products.forEach(p => {
+            this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
+          })
         this.chargeProducts();
         }).catch(error => {
           console.log(error);
@@ -254,8 +263,11 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
 
   deleteListOfProducts() {
     FakeListProducts.deleteAllProducts();
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
-      this.products = products;
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
+    .then(products => {
+      products.forEach(p => {
+        this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
+      })
     }).catch(error => {
       console.log(error);
     });
@@ -266,4 +278,4 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   reloadProductsOnList() {
     this.productsOnList = FakeListProducts.getProducts();
   }
-}  
+}
