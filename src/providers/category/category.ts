@@ -17,21 +17,21 @@ export class CategoryProvider {
 
   async getCategories() {
     let categories = await this.categoryRepository.createQueryBuilder('category')
-                                            .orderBy('category.id', 'ASC')
+                                            .orderBy('id', 'ASC')
                                             .getMany();
     return categories;
   }
 
   async getCategoryById(category_id: number) {
     let category = await this.categoryRepository.createQueryBuilder('category')
-                                          .where("category.id = :id", {id: category_id})
+                                          .where("id = :id", {id: category_id})
                                           .getOne();
     return category;
   }
 
   async countCategories() {
     let count = await this.categoryRepository.createQueryBuilder('category')
-                                                .orderBy('category.id', 'ASC')
+                                                .orderBy('id', 'ASC')
                                                 .getCount();
     return count;
   }
@@ -40,15 +40,15 @@ export class CategoryProvider {
     await this.categoryRepository.createQueryBuilder()
                                   .delete()
                                   .from(Category)
-                                  .where("category.id = :id", { id: category_id })
+                                  .where("id = :id", { id: category_id })
                                   .execute();
   }
-  
+
   async updateCategory(category: Category) {
     await this.categoryRepository.createQueryBuilder()
                                   .update('category')
                                   .set({ name: category.name })
-                                  .where("category.id = :id", {id: category.id})
+                                  .where("id = :id", {id: category.id})
                                   .execute();
   }
 }
