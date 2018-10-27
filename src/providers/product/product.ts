@@ -18,7 +18,7 @@ export class ProductsProvider {
 
   async getProducts() {
     let products = await this.productRepository.createQueryBuilder('product')
-                                                .orderBy('product.id', 'ASC')
+                                                .orderBy('id', 'ASC')
                                                 .getMany();
     return products;
   }
@@ -36,12 +36,12 @@ export class ProductsProvider {
                                   .set({ state: state_ })
                                   .where("id = :id", {id: product_id})
                                   .execute();
-  } 
+  }
 
   async updateOnList(product_id: number) {
     await this.productRepository.createQueryBuilder()
                                 .update('product')
-                                .set({ onlist: true })
+                                .set({ on_list: true })
                                 .where("id = :id", {id: product_id})
                                 .execute();
   }
@@ -49,7 +49,7 @@ export class ProductsProvider {
   async updateProduct(product: Product){
     await this.productRepository.createQueryBuilder()
                                 .update('product' )
-                                .set({ state: product.state, title: product.title, image: product.image,audio: product.audio, category: product.category, onlist: product.onlist })
+                                .set({ state: product.state, title: product.title, image: product.image,audio: product.audio, category: product.category_id, on_list: product.on_list })
                                 .where("id = :id", {id: product.id})
                                 .execute();
   }
@@ -57,23 +57,25 @@ export class ProductsProvider {
 
   async getProductsByCategory(category_id: number){
     let products = await this.productRepository.createQueryBuilder('product')
-                                .where("categoryId = :categoryId", { categoryId: category_id })
+                                .where("category_id = :categoryId", { categoryId: category_id })
+                                .orderBy('id', 'ASC')
                                 .getMany();
     return products;
   }
 
   async getProductsByCategoryOnlyActive(category_id: number) {
     let products = await this.productRepository.createQueryBuilder('product')
-      .where("categoryId = :categoryId", { categoryId: category_id })
+      .where("category_id = :categoryId", { categoryId: category_id })
       .andWhere("state = :state", { state: true })
-      .andWhere("onlist = :onlist", { onlist: true })
+      .andWhere("on_list = :on_list", { on_list: true })
+      .orderBy('id', 'ASC')
       .getMany();
     return products;
   }
 
   async countProducts() {
     let count = await this.productRepository.createQueryBuilder('product')
-                                                .orderBy('product.id', 'ASC')
+                                                .orderBy('id', 'ASC')
                                                 .getCount();
     return count;
   }
@@ -81,8 +83,8 @@ export class ProductsProvider {
   async updateCategory(category: Category, other: Category) {
     await this.productRepository.createQueryBuilder()
                                 .update('product')
-                                .set({ category: other })
-                                .where("category = :category", {category: category.id})
+                                .set({ category_id: other.id })
+                                .where("category_id = :category_id", {category_id: category.id})
                                 .execute();
   }
 }
