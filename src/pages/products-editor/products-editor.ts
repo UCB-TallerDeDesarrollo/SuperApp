@@ -85,8 +85,12 @@ export class ProductsEditorPage implements OnDestroy {
     this.navCtrl.push(EditProductPage, {data: product_id, categoryId: this.navParams.data.data});
   }
 
-  async changeState(product_id: number, product_state: boolean) {
-    await this.productsProvider.updateStateProduct(!product_state, product_id);
+  async changeState(product_id: number, product_state: number) {
+    if(product_state==1){
+      await this.productsProvider.updateStateProduct(0, product_id);
+    }else{
+      await this.productsProvider.updateStateProduct(1, product_id); 
+    }
     this.navCtrl.pop();
     this.navCtrl.push(ProductsEditorPage, { data: this.navParams.data.data });
   }
@@ -106,7 +110,7 @@ export class ProductsEditorPage implements OnDestroy {
         for (const p in products) {
           let product = new Product();
           product.image = products[p].image;
-          product.state = true;
+          product.state = 1;
           product.audio = " ";
           product.title = products[p].title;
           product.category_id = products[p].categoryId;

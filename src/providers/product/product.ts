@@ -30,7 +30,7 @@ export class ProductsProvider {
     return product;
   }
 
-  async updateStateProduct(state_: boolean, product_id: number){
+  async updateStateProduct(state_: number, product_id: number){
     await this.productRepository.createQueryBuilder()
                                   .update('product')
                                   .set({ state: state_ })
@@ -66,8 +66,8 @@ export class ProductsProvider {
   async getProductsByCategoryOnlyActive(category_id: number) {
     let products = await this.productRepository.createQueryBuilder('product')
       .where("category_id = :categoryId", { categoryId: category_id })
-      .andWhere("state = :state", { state: true })
-      .andWhere("on_list = :on_list", { on_list: true })
+      .andWhere("state = :state", { state: 1 })
+      .andWhere("on_list = :on_list", { on_list: 1 })
       .orderBy('id', 'ASC')
       .getMany();
     return products;

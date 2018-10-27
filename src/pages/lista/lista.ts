@@ -105,7 +105,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.listOfProducts.forEach(element => {
-      element.on_list = true;
+      element.on_list = 1;
       this.productsProvider.updateProduct(element)
       .catch(error => {
         console.error(error);

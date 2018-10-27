@@ -15,10 +15,10 @@ export class Product {
     image: string;
 
     @Column({name: "state"})
-    state: boolean = true;
+    state: number = 1;
 
     @Column({name: "on_list"})
-    on_list: boolean = true;
+    on_list: number = 1;
 
     @Column({name: "audio"})
     audio: string

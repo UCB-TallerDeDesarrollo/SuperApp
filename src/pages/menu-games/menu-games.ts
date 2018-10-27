@@ -78,7 +78,7 @@ export class MenuGamesPage {
         for (const p in products) {
           let product = new Product();
           product.image = products[p].image;
-          product.state = true;
+          product.state = 1;
           product.audio = " ";
           product.title = products[p].title;
           product.category_id = products[p].categoryId;
