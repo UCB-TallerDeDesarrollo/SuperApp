@@ -24,11 +24,17 @@ export class ProductsProvider {
     return result;
   }
 
-  async getProducts() {
-    let products = await this.productRepository.createQueryBuilder('product')
-                                                .orderBy('id', 'ASC')
-                                                .getMany();
-    return products;
+  async getProducts(): Promise<Array<Product>> {
+    let result: Array<Product>
+    try {
+      result = await this.productRepository.createQueryBuilder('product')
+                                            .orderBy('id', 'ASC')
+                                            .getMany();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
   }
 
   async getProductById(product_id: number) {
