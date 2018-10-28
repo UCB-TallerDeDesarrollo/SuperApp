@@ -28,7 +28,7 @@ export class SupermarketLevelCompletePage {
 nextLevel(){
     this.viewCtrl.dismiss();
     this.navCtrl.push(SupermarketPage, {lastNav:this.navCtrl});
-    //this.navCtrl.remove(this.navCtrl.length()-1);
+    this.navCtrl.remove(this.navCtrl.length()-1);
    
 }
 }
