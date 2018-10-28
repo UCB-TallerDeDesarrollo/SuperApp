@@ -28,11 +28,17 @@ export class CategoryProvider {
     return result;
   }
 
-  async getCategoryById(category_id: number) {
-    let category = await this.categoryRepository.createQueryBuilder('category')
-                                          .where("id = :id", {id: category_id})
-                                          .getOne();
-    return category;
+  async getCategoryById(category_id: number): Promise<Category> {
+    let result: Category;
+    try {
+      result = await this.categoryRepository.createQueryBuilder('category')
+                                            .where("id = :id", {id: category_id})
+                                            .getOne();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
   }
 
   async countCategories() {
