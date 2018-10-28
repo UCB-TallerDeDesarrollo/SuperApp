@@ -50,12 +50,20 @@ export class ProductsProvider {
     return result;
   }
 
-  async updateStateProduct(state_: number, product_id: number){
-    await this.productRepository.createQueryBuilder()
+  async updateStateProduct(state_: number, product_id: number): Promise<Boolean>{
+    let result: Boolean;
+    try {
+      await this.productRepository.createQueryBuilder()
                                   .update('product')
                                   .set({ state: state_ })
                                   .where("id = :id", {id: product_id})
                                   .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
   }
 
   async updateOnList(product_id: number) {

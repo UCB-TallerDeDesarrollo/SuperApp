@@ -63,7 +63,12 @@ export class CreateProductPage {
   async saveProductForm() {
     this.product.image = this.Image;
     this.product.audio = this.filePath;
-    await this.productsProvider.saveProduct(this.product);
+    this.productsProvider.saveProduct(this.product)
+    .then(result => {
+      console.log("Save product successfully");
+    }).catch(error => {
+      console.error(error);
+    });
     this.afterSaveProduct();
   }
 
