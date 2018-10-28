@@ -37,11 +37,17 @@ export class ProductsProvider {
     return result;
   }
 
-  async getProductById(product_id: number) {
-    let product = await this.productRepository.createQueryBuilder('product')
-                                                .where("id = :id", {id: product_id})
-                                                .getOne();
-    return product;
+  async getProductById(product_id: number): Promise<Product> {
+    let result: Product;
+    try {
+      result = await this.productRepository.createQueryBuilder('product')
+                                            .where("id = :id", {id: product_id})
+                                            .getOne();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
   }
 
   async updateStateProduct(state_: number, product_id: number){
