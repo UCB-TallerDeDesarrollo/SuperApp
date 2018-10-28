@@ -13,13 +13,14 @@ import { Level } from '../entities/level';
 import { ProductLevel } from '../entities/productLevel';
 import { User } from '../entities/user';
 import { Difficulty } from '../entities/difficulty';
+import { List } from '../entities/list';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = HomePage;
-  
+
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, smartAudio: SmartAudio) {
     platform.ready().then(async () => {
@@ -41,9 +42,10 @@ export class MyApp {
             Level,
             ProductLevel,
             User,
-            Difficulty
+            Difficulty,
+            List
           ]
-        }); 
+        });
       } else {
         await createConnection({
           type: 'sqljs',
@@ -58,7 +60,8 @@ export class MyApp {
             Level,
             ProductLevel,
             User,
-            Difficulty
+            Difficulty,
+            List
           ]
         });
       }

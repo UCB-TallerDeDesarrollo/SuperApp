@@ -92,7 +92,7 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
     MenuGamesPage,
     ListaPage,
     WordPage,
-    ProductsPage, 
+    ProductsPage,
     LevelCompletePage,
     SupermarketLevelCompletePage,
     LoadingPage,
@@ -106,8 +106,8 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
     CreateCategoryPage,
     EditCategoryPage,
     CreateUserPage,
-    UserLoginPage, 
-    EditUserPage, 
+    UserLoginPage,
+    EditUserPage,
     ViewUserPage,
     DeleteUserPage,
     LoginOptionsPage,
@@ -135,7 +135,6 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]},
     File,
     Media
-    
   ]
 })
 export class AppModule { }
