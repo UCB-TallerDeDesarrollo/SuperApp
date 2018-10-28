@@ -41,11 +41,17 @@ export class CategoryProvider {
     return result;
   }
 
-  async countCategories() {
-    let count = await this.categoryRepository.createQueryBuilder('category')
-                                                .orderBy('id', 'ASC')
-                                                .getCount();
-    return count;
+  async countCategories(): Promise<number>{
+    let result: number;
+    try {
+      result = await this.categoryRepository.createQueryBuilder('category')
+                                            .orderBy('id', 'ASC')
+                                            .getCount();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
   }
 
   async deleteCategory(category_id: number) {
