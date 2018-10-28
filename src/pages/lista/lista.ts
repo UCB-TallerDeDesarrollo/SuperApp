@@ -22,8 +22,8 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   defaultCategoryId:number = 1;
   actualSelectedElement:any;
   actualSelectedContainer:any;
-  products: Array<{ id: number, title: string, image: string, state: number, categoryId: number}>;
-  categories: Array<Category>=[];
+  products: Array<Product>;
+  categories: Array<Category>;
   selectedCategory: {id: number, name: string};
   imageSound: String;
   productPageIndex: number;
@@ -57,10 +57,10 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     });
     productsProvider.getProductsByCategoryOnlyActive(this.defaultCategoryId)
     .then(products => {
-      products.forEach(p => {
+      /*products.forEach(p => {
         this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
-      })
-      //this.products=products;
+      })*/
+      this.products = products;
       this.chargeProducts();
     })
     .catch(error => {
@@ -93,10 +93,11 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     this.changeSoundIcon();
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
       .then(products => {
-        products.forEach(p => {
+        /*products.forEach(p => {
           this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
-        })
-      this.chargeProducts();
+        })*/
+        this.products = products;
+        this.chargeProducts();
       }).catch(error => {
         console.log(error);
       });
@@ -202,9 +203,10 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     this.selectedCategory = category;
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
     .then(products => {
-      products.forEach(p => {
+      /*products.forEach(p => {
         this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
-      })
+      })*/
+      this.products = products;
       this.productPageIndex=0;
       this.chargeProducts();
     }).catch(error => {
@@ -242,10 +244,11 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     .then(response => {
       this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
         .then(products => {
-          products.forEach(p => {
+          /*products.forEach(p => {
             this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
-          })
-        this.chargeProducts();
+          })*/
+          this.products = products;
+          this.chargeProducts();
         }).catch(error => {
           console.log(error);
         });
@@ -264,9 +267,10 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     FakeListProducts.deleteAllProducts();
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
     .then(products => {
-      products.forEach(p => {
+      /*products.forEach(p => {
         this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
-      })
+      })*/
+      this.products = products;
     }).catch(error => {
       console.log(error);
     });
