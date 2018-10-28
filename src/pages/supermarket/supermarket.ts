@@ -7,6 +7,7 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { SupermarketDragDropProvider } from '../../shared/providers/SupermarketDragDropProvider';
 import { SupermarketLevelCompletePage } from './../supermarket-level-complete/supermarket-level-complete';
 import { LevelCompletePage } from './../level-complete/level-complete';
+import { Product } from '../../entities/product';
 @IonicPage()
 @Component({
   selector: 'page-supermarket',
@@ -15,7 +16,7 @@ import { LevelCompletePage } from './../level-complete/level-complete';
 export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterViewChecked {
    
   game : SuperMarketGame;
-  products: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
+  products: Array<Product> = [];
   productsToBuy: any=[]; 
   productsToPlay: any[];
   imageSound: String;
@@ -24,7 +25,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   public productsList: string[] = [];
   public countOfProducts: number;
   constructor(
-    public navController: NavController, 
+    public navController: NavController,
     public navParams: NavParams,
     public productsProvider:   ProductsProvider,
     public categoryProvider: CategoryProvider,
@@ -37,27 +38,27 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     this.countOfProducts = 0;
     this.carImage="assets/imgs/"+this.countOfProducts+".png";
     this.prepareGame();
-    this.changeSoundIcon(); 
+    this.changeSoundIcon();
   }
-   
+
   async prepareGame(){
-    this.products = await this.productsProvider.getProducts(); 
+    this.products = await this.productsProvider.getProducts();
     this.game = new SuperMarketGame(this.products);
     this.game.buildProducts(8,6);
     this.productsToBuy = this.game.ProductsToBuy;
     for(let index = 0; index < this.productsToBuy.length; ++index) {
       this.productsList.push(`play-${this.productsToBuy[index].title}`);
     }
-    this.productsToPlay = this.game.ProductsToPlay; 
-  } 
- 
+    this.productsToPlay = this.game.ProductsToPlay;
+  }
+
   public stopSound(){
     this.audioProvider.changeState();
     this.changeSoundIcon();
   }
-  
+
   public showEndView(): void {
-    
+
     if(this.countOfProducts==5) {
       this.audioProvider.playLevelCompleteSound();
       this.showModalWin();
@@ -67,12 +68,11 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
       this.audioProvider.playCorrectLetterSound();
       this.carImage="assets/imgs/"+this.countOfProducts+".png";
     }
-    
   }
   public showModalWin(): void {
     const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {lastNav:this.navController});
     levelCompleteModal.present();
-}
+  }
   private changeSoundIcon(){
     if(this.audioProvider.isMuted()){
       this.imageSound="assets/imgs/soundoffdark.png";
@@ -81,13 +81,13 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
       this.imageSound="assets/imgs/soundondark.png";
     }
   }
-  
+
   public getProductsList(): string[] {
     return this.productsList;
   }
 
-  ionViewDidLoad() {  
-    this.changeSoundIcon(); 
+  ionViewDidLoad() {
+    this.changeSoundIcon();
   }
 
   ngOnInit(): void {

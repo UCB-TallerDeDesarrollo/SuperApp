@@ -46,7 +46,7 @@ import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDrag
 import { UserProvider } from '../providers/user/user';
 import { CreateUserPage } from '../pages/create-user/create-user';
 import { UserLoginPage } from '../pages/user-login/user-login';
-import { Login } from '../providers/login/login';
+import { Login } from '../providers/login/Login';
 import { ViewUserPage } from '../pages/view-user/view-user';
 import { DifficultyProvider } from '../shared/providers/DifficultyProvider';
 import { TypeormDifficultyProvider } from '../providers/difficulty/difficulty';

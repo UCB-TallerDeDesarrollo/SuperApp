@@ -15,40 +15,74 @@ export class CategoryProvider {
     await this.categoryRepository.save(category);
   }
 
-  async getCategories() {
-    let categories = await this.categoryRepository.createQueryBuilder('category')
-                                            .orderBy('category.id', 'ASC')
+  async getCategories(): Promise<Array<Category>> {
+    let result: Array<Category>;
+    try {
+      result = await this.categoryRepository.createQueryBuilder('category')
+                                            .orderBy('id', 'ASC')
                                             .getMany();
-    return categories;
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
   }
 
-  async getCategoryById(category_id: number) {
-    let category = await this.categoryRepository.createQueryBuilder('category')
-                                          .where("category.id = :id", {id: category_id})
-                                          .getOne();
-    return category;                                          
-  }
-  
-  async countCategories() {
-    let count = await this.categoryRepository.createQueryBuilder('category')
-                                                .orderBy('category.id', 'ASC')
-                                                .getCount();
-    return count;
+  async getCategoryById(category_id: number): Promise<Category> {
+    let result: Category;
+    try {
+      result = await this.categoryRepository.createQueryBuilder('category')
+                                            .where("id = :id", {id: category_id})
+                                            .getOne();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
   }
 
-  async deleteCategory(category_id: number) {
-    await this.categoryRepository.createQueryBuilder()
-                                  .delete()
-                                  .from(Category)
-                                  .where("category.id = :id", { id: category_id })
-                                  .execute();
+  async countCategories(): Promise<number>{
+    let result: number;
+    try {
+      result = await this.categoryRepository.createQueryBuilder('category')
+                                            .orderBy('id', 'ASC')
+                                            .getCount();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
   }
-  
-  async updateCategory(category: Category) {
-    await this.categoryRepository.createQueryBuilder()
-                                  .update('category')
-                                  .set({ name: category.name })
-                                  .where("category.id = :id", {id: category.id})
-                                  .execute();
+
+  async deleteCategory(category_id: number): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.categoryRepository.createQueryBuilder()
+                                    .delete()
+                                    .from(Category)
+                                    .where("id = :id", { id: category_id })
+                                    .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
+  }
+
+  async updateCategory(category: Category): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.categoryRepository.createQueryBuilder()
+                                    .update('category')
+                                    .set({ name: category.name })
+                                    .where("id = :id", {id: category.id})
+                                    .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
   }
 }

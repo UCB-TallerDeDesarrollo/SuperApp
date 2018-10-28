@@ -11,8 +11,8 @@
     <form (ngSubmit)="saveProductForm()">
       <ion-item [formGroup]="productForm" class="product-form-top">
         <ion-label>Categoria</ion-label>
-        <ion-select [(ngModel)]="product.category" name="category" formControlName="category">
-          <ion-option *ngFor="let c of categories" [value]="c">{{c.name}}</ion-option>
+        <ion-select [(ngModel)]="product.category_id" name="category" formControlName="category">
+          <ion-option *ngFor="let c of categories" [value]="c.id">{{c.name}}</ion-option>
         </ion-select>
       </ion-item>
       <ion-item>

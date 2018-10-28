@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
-import { Login } from '../../providers/login/login';
+import { Login } from '../../providers/login/Login';
 import { LoginOptionsPage } from '../login-options/login-options';
 
 @Component({

@@ -78,11 +78,16 @@ export class MenuGamesPage {
         for (const p in products) {
           let product = new Product();
           product.image = products[p].image;
-          product.state = true;
+          product.state = 1;
           product.audio = " ";
           product.title = products[p].title;
-          product.category = await this.categoryProvider.getCategoryById(products[p].categoryId);
-          await this.productsProvider.saveProduct(product);
+          product.category_id = products[p].categoryId;
+          this.productsProvider.saveProduct(product)
+          .then(result => {
+            console.log("Save product successfully");
+          }).catch(error => {
+            console.error(error);
+          });
         }
       }
     }

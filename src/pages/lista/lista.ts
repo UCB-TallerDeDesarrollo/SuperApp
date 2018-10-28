@@ -17,36 +17,36 @@ import { ProductsProvider } from '../../providers/product/product';
   viewProviders: [DragulaService]
 })
 export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
-  
+
   path_images = '../../assets/imgs/Products/';
   defaultCategoryId:number = 1;
   actualSelectedElement:any;
   actualSelectedContainer:any;
-  products: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
-  categories: Array<{id: number, name: string}>=[];
+  products: Array<Product> = [];
+  categories: Array<Category> = [];
   selectedCategory: {id: number, name: string};
   imageSound: String;
   productPageIndex: number;
   categoriesPageIndex: number;
   productsOnList: Array<{ id: number, title: string, image: string, categoryId: number }> = [];
   numberOfProductsOnList: number;
-  onViewproducts: Array<{ id: number, title: string, image: string, state: boolean, categoryId: number}> = [];
-  onViewcategories: Array<{id: number, name: string}>=[];
-  ON_VIEW_LIST_LENGHT=12;
-  ON_VIEW_CATEGORIES_LENGHT=4;
+  onViewProducts: Array<Product> = [];
+  onViewCategories: Array<{id: number, name: string}>=[];
+  ON_VIEW_LIST_LENGTH = 12;
+  ON_VIEW_CATEGORIES_LENGTH = 4;
   listOfProducts: Array<Product> = [];
 
   constructor(
-    public navCtrl: NavController, 
-    private dragulaService: DragulaService, 
-    public productsProvider: ProductsProvider, 
+    public navCtrl: NavController,
+    private dragulaService: DragulaService,
+    public productsProvider: ProductsProvider,
     public categoryProvider: CategoryProvider,
     private audioProvider: AudioProvider,
     private alertCtrl: AlertController
   ) {
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
-    this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
+    this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId);
     categoryProvider.getCategories()
     .then(categories => {
       this.categories = categories;
@@ -54,15 +54,15 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     })
     .catch(error => {
       console.log(error);
-      });
+    });
     productsProvider.getProductsByCategoryOnlyActive(this.defaultCategoryId)
     .then(products => {
-      this.products=products;
+      this.products = products;
       this.chargeProducts();
     })
     .catch(error => {
       console.log(error);
-    });    
+    });
 
     this.changeSoundIcon();
     this.productsOnList = FakeListProducts.getProducts().reverse();
@@ -71,40 +71,40 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   chargeProducts(){
-    let bound = this.productPageIndex+this.ON_VIEW_LIST_LENGHT;
+    let bound = this.productPageIndex+this.ON_VIEW_LIST_LENGTH;
     if(bound > this.products.length){
       bound = this.products.length;
     }
-    this.onViewproducts = this.products.slice(this.productPageIndex, bound);
+    this.onViewProducts = this.products.slice(this.productPageIndex, bound);
   }
 
   chargeCategories(){
-    let bound = this.categoriesPageIndex+this.ON_VIEW_CATEGORIES_LENGHT;
+    let bound = this.categoriesPageIndex+this.ON_VIEW_CATEGORIES_LENGTH;
     if(bound > this.categories.length){
       bound = this.categories.length;
     }
-    this.onViewcategories = this.categories.slice(this.categoriesPageIndex, bound);
+    this.onViewCategories = this.categories.slice(this.categoriesPageIndex, bound);
   }
 
-  ionViewWillEnter() { 
+  ionViewWillEnter() {
     this.changeSoundIcon();
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
       .then(products => {
         this.products = products;
-      this.chargeProducts();
+        this.chargeProducts();
       }).catch(error => {
         console.log(error);
       });
-    this.reloadProductsOnList();            
-  } 
-  
+    this.reloadProductsOnList();
+  }
+
   ngOnDestroy() {
     this.listOfProducts.forEach(element => {
-      element.onlist = true;
+      element.on_list = 1;
       this.productsProvider.updateProduct(element)
       .catch(error => {
         console.error(error);
-      })                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+      })
     });
   }
 
@@ -121,7 +121,6 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
         return true;
       }
     });
-      
   }
 
   ngAfterViewInit() {
@@ -135,15 +134,14 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
             image: p.image,
             categoryId: this.selectedCategory.id
           });
-          p.onlist = false;
-          p.category = this.selectedCategory;
+          p.on_list = 0;
           this.listOfProducts.push(p);
           this.productsProvider.updateProduct(p)
             .then(response => {
               this.onSelectCategory(this.selectedCategory);
             }).catch(error => {
               console.log(error);
-            }); 
+            });
           this.numberOfProductsOnList = this.productsOnList.length;
         }).catch(error => {
           console.log(error);
@@ -164,10 +162,10 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     else{
       this.imageSound="assets/imgs/soundon.png";
     }
-  } 
-  
+  }
+
   pushPageList(){
-    this.navCtrl.push(ListaPage);    
+    this.navCtrl.push(ListaPage);
   }
 
   pushProducts(){
@@ -179,7 +177,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   nextProductPage(){
-    this.productPageIndex+=this.ON_VIEW_LIST_LENGHT;
+    this.productPageIndex+=this.ON_VIEW_LIST_LENGTH;
     if(this.productPageIndex>=this.products.length){
       this.productPageIndex=0;
     }
@@ -187,19 +185,19 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   nextCategoryPage(){
-    this.categoriesPageIndex+=this.ON_VIEW_CATEGORIES_LENGHT;
-    if(this.categoriesPageIndex>=this.categories.length){
-      this.categoriesPageIndex=0;
+    this.categoriesPageIndex += this.ON_VIEW_CATEGORIES_LENGTH;
+    if(this.categoriesPageIndex >= this.categories.length){
+      this.categoriesPageIndex = 0;
     }
     this.chargeCategories();
   }
 
-  onSelectCategory(category){ 
+  onSelectCategory(category){
     this.selectedCategory = category;
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
     .then(products => {
       this.products = products;
-      this.productPageIndex=0;
+      this.productPageIndex = 0;
       this.chargeProducts();
     }).catch(error => {
       console.log(error);
@@ -214,7 +212,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
         {
           text: 'Si',
           handler: () => {
-            console.log(FakeProducts.getProducts());            
+            console.log(FakeProducts.getProducts());
             this.deleteListOfProducts();
           }
         },
@@ -237,7 +235,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
       this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
         .then(products => {
           this.products = products;
-        this.chargeProducts();
+          this.chargeProducts();
         }).catch(error => {
           console.log(error);
         });
@@ -254,7 +252,8 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
 
   deleteListOfProducts() {
     FakeListProducts.deleteAllProducts();
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id).then(products => {
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
+    .then(products => {
       this.products = products;
     }).catch(error => {
       console.log(error);
@@ -266,4 +265,4 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   reloadProductsOnList() {
     this.productsOnList = FakeListProducts.getProducts();
   }
-}  
+}
