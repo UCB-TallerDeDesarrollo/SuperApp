@@ -113,28 +113,48 @@ export class ProductsProvider {
     return result;
   }
 
-  async getProductsByCategoryOnlyActive(category_id: number) {
-    let products = await this.productRepository.createQueryBuilder()
-      .where("category_id = :categoryId", { categoryId: category_id })
-      .andWhere("state = :state", { state: 1 })
-      .andWhere("on_list = :on_list", { on_list: 1 })
-      .orderBy('id', 'ASC')
-      .getMany();
-    return products;
+  async getProductsByCategoryOnlyActive(category_id: number): Promise<Array<Product>> {
+    let result: Array<Product>;
+    try {
+      result = await this.productRepository.createQueryBuilder()
+                                            .where("category_id = :categoryId", { categoryId: category_id })
+                                            .andWhere("state = :state", { state: 1 })
+                                            .andWhere("on_list = :on_list", { on_list: 1 })
+                                            .orderBy('id', 'ASC')
+                                            .getMany();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
   }
 
-  async countProducts() {
-    let count = await this.productRepository.createQueryBuilder()
+  async countProducts(): Promise<number> {
+    let result: number;
+    try {
+      result = await this.productRepository.createQueryBuilder()
                                                 .orderBy('id', 'ASC')
                                                 .getCount();
-    return count;
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
   }
 
-  async updateCategory(category: Category, other: Category) {
-    await this.productRepository.createQueryBuilder()
-                                .update(Product)
-                                .set({ category_id: other.id })
-                                .where("category_id = :category_id", {category_id: category.id})
-                                .execute();
+  async updateCategory(category: Category, other: Category): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.productRepository.createQueryBuilder()
+                                  .update(Product)
+                                  .set({ category_id: other.id })
+                                  .where("category_id = :category_id", {category_id: category.id})
+                                  .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
   }
 }
