@@ -7,4 +7,9 @@ import { DifficultyProvider } from '../../shared/providers/DifficultyProvider';
 @Injectable()
 export class TypeormSupermarketDifficultyProvider implements DifficultyProvider {
     
+    private difficultyRepository: any;
+    
+    constructor() {
+        this.difficultyRepository = getRepository('supermarketdifficulty') as Repository<DifficultyEntity>;
+    }
 }
