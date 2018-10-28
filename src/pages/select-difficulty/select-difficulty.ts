@@ -1,3 +1,4 @@
+import { SupermarketPage } from './../supermarket/supermarket';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { WordPage } from '../word/word';
@@ -15,13 +16,14 @@ export class SelectDifficultyPage {
     private mediumStars: number;
     private hardStars: number;
     private expertStars: number;
-
+    typeOfGame: string;
     constructor(
         public navCtrl             : NavController, 
         public navParams           : NavParams,
         private audioProvider      : AudioProvider,
         private difficultyProvider : DifficultyProvider
     ) {
+        
         this.easyStars = 0;
         this.mediumStars = 0;
         this.hardStars = 0;
@@ -38,46 +40,52 @@ export class SelectDifficultyPage {
     }
 
     ionViewWillEnter() {
-        this.difficultyProvider.countRows().then(number => {
-            if(number == 4) {
-                this.easyStars = 0;
-                this.mediumStars = 0;
-                this.hardStars = 0;
-                this.expertStars = 0;
-                this.difficultyProvider.getPercentageProgress(0).then(number => {
-                    let numberProgress: number = 20;
-                    for(let index = 1; index <= 5; ++index) {
-                        if(number >= numberProgress * index) {
-                            this.easyStars++;
+        this.typeOfGame=this.navParams.get("typeOfGame");
+        console.log("TIPO DE JUEGO :"+this.typeOfGame);
+        if(this.typeOfGame === "supermarket"){
+
+        }else{ 
+            this.difficultyProvider.countRows().then(number => {
+                if(number == 4) {
+                    this.easyStars = 0;
+                    this.mediumStars = 0;
+                    this.hardStars = 0;
+                    this.expertStars = 0;
+                    this.difficultyProvider.getPercentageProgress(0).then(number => {
+                        let numberProgress: number = 20;
+                        for(let index = 1; index <= 5; ++index) {
+                            if(number >= numberProgress * index) {
+                                this.easyStars++;
+                            }
                         }
-                    }
-                });
-                this.difficultyProvider.getPercentageProgress(1).then(number => {
-                    let numberProgress: number = 20;
-                    for(let index = 1; index <= 5; ++index) {
-                        if(number >= numberProgress * index) {
-                            this.mediumStars++;
+                    });
+                    this.difficultyProvider.getPercentageProgress(1).then(number => {
+                        let numberProgress: number = 20;
+                        for(let index = 1; index <= 5; ++index) {
+                            if(number >= numberProgress * index) {
+                                this.mediumStars++;
+                            }
                         }
-                    }
-                });
-                this.difficultyProvider.getPercentageProgress(2).then(number => {
-                    let numberProgress: number = 20;
-                    for(let index = 1; index <= 5; ++index) {
-                        if(number >= numberProgress * index) {
-                            this.hardStars++;
+                    });
+                    this.difficultyProvider.getPercentageProgress(2).then(number => {
+                        let numberProgress: number = 20;
+                        for(let index = 1; index <= 5; ++index) {
+                            if(number >= numberProgress * index) {
+                                this.hardStars++;
+                            }
                         }
-                    }
-                });
-                this.difficultyProvider.getPercentageProgress(3).then(number => {
-                    let numberProgress: number = 20;
-                    for(let index = 1; index <= 5; ++index) {
-                        if(number >= numberProgress * index) {
-                            this.expertStars++;
+                    });
+                    this.difficultyProvider.getPercentageProgress(3).then(number => {
+                        let numberProgress: number = 20;
+                        for(let index = 1; index <= 5; ++index) {
+                            if(number >= numberProgress * index) {
+                                this.expertStars++;
+                            }
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
     }
 
     changeSoundIcon(){
@@ -94,47 +102,71 @@ export class SelectDifficultyPage {
     }
 
     openEasyMode() {
-        this.difficultyProvider.getLastLevel(0).then(level => {
-            this.navCtrl.push(WordPage, { 'level':level });
-        });
+        if(this.typeOfGame==="supermarket"){
+            this.navCtrl.push(SupermarketPage);
+        }else{
+            this.difficultyProvider.getLastLevel(0).then(level => {
+                this.navCtrl.push(WordPage, { 'level':level });
+            });
+        }
     }
 
     openMediumMode() {
-        this.difficultyProvider.getLastLevel(1).then(level => {
-            this.navCtrl.push(WordPage, { 'level':level });
-        });
+        if(this.typeOfGame==="supermarket"){
+            this.navCtrl.push(SupermarketPage);
+        }else{
+            this.difficultyProvider.getLastLevel(1).then(level => {
+                this.navCtrl.push(WordPage, { 'level':level });
+            });
+        }
     }
 
     openHardMode() {
-        this.difficultyProvider.getLastLevel(2).then(level => {
-            this.navCtrl.push(WordPage, { 'level':level });
-        });
+        if(this.typeOfGame==="supermarket"){
+            this.navCtrl.push(SupermarketPage);
+        }else{
+            this.difficultyProvider.getLastLevel(2).then(level => {
+                this.navCtrl.push(WordPage, { 'level':level });
+            });
+        }
     }
 
     openExpertMode() {
-        this.difficultyProvider.getLastLevel(3).then(level => {
-            this.navCtrl.push(WordPage, { 'level':level });
-        });
+        if(this.typeOfGame==="supermarket"){
+            this.navCtrl.push(SupermarketPage);
+        }else{
+            this.difficultyProvider.getLastLevel(3).then(level => {
+                this.navCtrl.push(WordPage, { 'level':level });
+            });
+     }
     }
 
     ionViewDidLoad() {
-        this.difficultyProvider.countRows().then(number => {
-            if(number < 4) {
-                this.startDatabase();
-            }
-        });
+        if(this.typeOfGame==="supermarket"){
+
+        }else{
+            this.difficultyProvider.countRows().then(number => {
+                if(number < 4) {
+                    this.startDatabase();
+                }
+            });
+        }
     }
 
     startDatabase() {
-        let modes: Difficulty[] = [
-            Difficulty.createDifficulty(1, '000000000000000', 0, 1),
-            Difficulty.createDifficulty(2, '000000000000000', 1, 16),
-            Difficulty.createDifficulty(3, '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000', 2, 31),
-            Difficulty.createDifficulty(4, '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000', 3, 125)
-        ];
-        for(let index = 0; index < 4; ++index) {
-            this.difficultyProvider.saveDifficulty(modes[index]);
-        }        
+        if(this.typeOfGame==="supermarket"){
+
+        }else{
+            let modes: Difficulty[] = [
+                Difficulty.createDifficulty(1, '000000000000000', 0, 1),
+                Difficulty.createDifficulty(2, '000000000000000', 1, 16),
+                Difficulty.createDifficulty(3, '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000', 2, 31),
+                Difficulty.createDifficulty(4, '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000', 3, 125)
+            ];
+            for(let index = 0; index < 4; ++index) {
+                this.difficultyProvider.saveDifficulty(modes[index]);
+            }     
+        }   
     }
 
     generateArray(stars) {
