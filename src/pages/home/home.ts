@@ -72,4 +72,8 @@ export class HomePage {
     this.navCtrl.push(ProductsEditorPage);
   }
 
+  pushaboutPage(){
+    this.navCtrl.push(AboutPage);
+  }
+
 }

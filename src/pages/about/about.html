@@ -1,18 +1,60 @@
-<!--
-  Generated template for the AboutPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>about</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
 
 <ion-content padding>
+
+  <ion-card>
+
+    <ion-card-header>
+      <div class="dane-logo">
+        <img src="assets/imgs/logo.jpg" alt="Proyecto Dane ">
+      </div>
+     
+    </ion-card-header>
+  
+    <ion-card-content>
+        <div class="logo2">
+            <img src="assets/imgs/shopping.svg" alt="">
+        </div>
+        <div padding>
+            <ion-segment [(ngModel)]="about">
+              <ion-segment-button value="Superapp">
+                  Superapp
+              </ion-segment-button>
+              <ion-segment-button value="Desarolladores">
+                  Desarolladores
+              </ion-segment-button>
+
+            </ion-segment>
+          </div>
+
+          <div [ngSwitch]="about">
+              <ion-list *ngSwitchCase="'Superapp'">
+                <ion-item>
+                  <p> 
+                    Desarrolla las habilidades cognitivas, auditivas y visuales donde prevalece el pensamiento concreto.Estimulando el autovalimiento y la adquisición de un saber ademas permite realizar listas de productos con fotos reales
+                  </p>
+                </ion-item>
+
+              </ion-list>
+            
+              <ion-list *ngSwitchCase="'Desarolladores'">
+                <ion-item>
+                  <ion-thumbnail item-start>
+                      <img src="assets/imgs/user.png">
+                  </ion-thumbnail>
+                  <h2>devloper1</h2>
+                </ion-item>
+              </ion-list>
+            </div>
+
+      <ion-buttons end>
+          <button ion-button navPop>
+            <ion-icon ></ion-icon>
+            Aceptar
+          </button>
+        </ion-buttons>
+  
+    </ion-card-content>
+  
+  </ion-card>
 
 </ion-content>
