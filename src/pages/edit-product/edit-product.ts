@@ -21,38 +21,30 @@ export class EditProductPage {
   Image: any;
   path: any;
   product = new Product;
-  category: Category;
   categories: Array<Category>;
   productForm: FormGroup;
   filePath: string = " ";
   fileName: string;
   audio: MediaObject;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               private media: Media,
               private file: File,
-              public navParams: NavParams, 
-              public productsProvider: ProductsProvider, 
+              public navParams: NavParams,
+              public productsProvider: ProductsProvider,
               public categoryProvider: CategoryProvider,
               public camera: Camera,
               private formBuilder: FormBuilder,
               public platform: Platform) {
-    
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
       category: ['', Validators.required]
     });
-     
-    categoryProvider.getCategoryById(navParams.get('categoryId'))
-    .then(category => {
-      this.category = category;
-    }).catch(error => {
-      console.log(error);
-    });
-            
     this.productsProvider.getProductById(navParams.data.data)
     .then(product => {
       this.product = product;
+      console.log("constructor()");
+      console.log(this.product);
       this.Image = product.image;
       this.filePath = product.audio;
     }).catch(error => {
@@ -68,18 +60,24 @@ export class EditProductPage {
   }
 
   async saveProductForm() {
+    console.log("saveProductForm()");
+    console.log(this.product);
     this.product.image = this.Image;
     this.product.audio = this.filePath;
-    await this.productsProvider.updateProduct(this.product);
-    this.afterSaveProduct();
+    this.productsProvider.updateProduct(this.product)
+    .then(response => {
+      if(response)this.afterSaveProduct();
+    }).catch(error => {
+      console.error(error);
+    })
   }
 
   callFunctionCamera(){
     this.takePicture();
   }
-  
+
   afterSaveProduct(){
-    this.navCtrl.pop();    
+    this.navCtrl.pop();
   }
 
   takePicture(){
@@ -100,6 +98,7 @@ export class EditProductPage {
         console.log(error);
       })
   }
+
   startRecord() {
     if (this.platform.is('ios')) {
       this.fileName = 'record'+new Date().getDate()+new Date().getMonth()+new Date().getFullYear()+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.3gp';
@@ -113,10 +112,12 @@ export class EditProductPage {
     this.audio.startRecord();
     this.recording = true;
   }
+
   stopRecord() {
     this.audio.stopRecord();
     this.recording = false;
   }
+
   public disableRecordedSound(){
     this.filePath = " ";
     this.audio.release();

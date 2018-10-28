@@ -1,37 +1,34 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Editar producto</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding class="main-product">
-    <form (ngSubmit)="saveProductForm()">
-      <ion-item [formGroup]="productForm" class="product-form-top">
-        <ion-label>Categoria</ion-label>
-        <ion-select [(ngModel)]="product.category_id" name="category" formControlName="category">
-          <ion-option *ngFor="let c of categories" [value]="c.id">{{c.name}}</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-          <img (click)="callFunctionCamera()" src="{{Image}}" />
-      </ion-item>
-      <ion-item [formGroup]="productForm">
-        <ion-label>Nombre del Item</ion-label>
-        <ion-input type="text" maxlength="20" formControlName="title" [(ngModel)]="product.title" name="title" value="{{product.title}}"></ion-input>
-      </ion-item>
-      <ion-item>
-        <button ion-button primary (click)="stopRecord()" *ngIf="recording"><ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Detener/Guardar</button>
-        <button ion-button primary (click)="startRecord()" *ngIf="!recording"><ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Grabar</button>
-        <button ion-button primary (click)="disableRecordedSound()"><ion-icon name="trash"></ion-icon>&nbsp;&nbsp;Eliminar Grabacion</button>
-      </ion-item>
+  <form (ngSubmit)="saveProductForm()">
+    <ion-item [formGroup]="productForm" class="product-form-top">
+      <ion-label>Categoria</ion-label>
+      <ion-select [(ngModel)]="product.category_id" name="category" formControlName="category">
+        <ion-option *ngFor="let c of categories" [value]="c.id">{{c.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+        <img (click)="callFunctionCamera()" src="{{Image}}" />
+    </ion-item>
+    <ion-item [formGroup]="productForm">
+      <ion-label>Nombre del Item</ion-label>
+      <ion-input type="text" maxlength="20" formControlName="title" [(ngModel)]="product.title" name="title" value="{{product.title}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button ion-button primary (click)="stopRecord()" *ngIf="recording"><ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Detener/Guardar</button>
+      <button ion-button primary (click)="startRecord()" *ngIf="!recording"><ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Grabar</button>
+      <button ion-button primary (click)="disableRecordedSound()"><ion-icon name="trash"></ion-icon>&nbsp;&nbsp;Eliminar Grabacion</button>
+    </ion-item>
 
-      <ion-item class="product-form-bottom">
-        <ion-label>Activo</ion-label>
-        <ion-checkbox [(ngModel)]="product.state" name="state"></ion-checkbox>
-      </ion-item>
-      <button ion-button type="submit" [disabled]="!productForm.valid" block>Guardar</button>
-    </form>
-  </ion-content>
+    <ion-item class="product-form-bottom">
+      <ion-label>Activo</ion-label>
+      <ion-checkbox [(ngModel)]="product.state" name="state"></ion-checkbox>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!productForm.valid" block>Guardar</button>
+  </form>
+</ion-content>

@@ -87,7 +87,7 @@ export class ProductsProvider {
     try {
       await this.productRepository.createQueryBuilder()
                                   .update(Product)
-                                  .set({ state: product.state, title: product.title, image: product.image,audio: product.audio, category: product.category_id, on_list: product.on_list })
+                                  .set({ state: product.state, title: product.title, image: product.image,audio: product.audio, category_id: product.category_id, on_list: product.on_list })
                                   .where("id = :id", {id: product.id})
                                   .execute();
       result = true;
