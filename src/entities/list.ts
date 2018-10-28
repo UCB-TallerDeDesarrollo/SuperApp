@@ -11,4 +11,7 @@ export class List {
 
     @Column({name: "user_id"})
     user_id: number;
+
+    @Column({name: "on_view"})
+    on_view: number;
 }
