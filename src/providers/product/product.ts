@@ -66,12 +66,20 @@ export class ProductsProvider {
     return result;
   }
 
-  async updateOnList(product_id: number) {
-    await this.productRepository.createQueryBuilder()
-                                .update('product')
-                                .set({ on_list: 1 })
-                                .where("id = :id", {id: product_id})
-                                .execute();
+  async updateOnList(product_id: number): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.productRepository.createQueryBuilder()
+                                  .update('product')
+                                  .set({ on_list: 1 })
+                                  .where("id = :id", {id: product_id})
+                                  .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
   }
 
   async updateProduct(product: Product){

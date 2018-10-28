@@ -141,7 +141,6 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
             categoryId: this.selectedCategory.id
           });
           p.on_list = 0;
-          p.category = this.selectedCategory;
           this.listOfProducts.push(p);
           this.productsProvider.updateProduct(p)
             .then(response => {
