@@ -27,7 +27,7 @@ export class ProductsProvider {
   async getProducts(): Promise<Array<Product>> {
     let result: Array<Product>
     try {
-      result = await this.productRepository.createQueryBuilder('product')
+      result = await this.productRepository.createQueryBuilder()
                                             .orderBy('id', 'ASC')
                                             .getMany();
     } catch (error) {
@@ -40,7 +40,7 @@ export class ProductsProvider {
   async getProductById(product_id: number): Promise<Product> {
     let result: Product;
     try {
-      result = await this.productRepository.createQueryBuilder('product')
+      result = await this.productRepository.createQueryBuilder()
                                             .where("id = :id", {id: product_id})
                                             .getOne();
     } catch (error) {
@@ -54,7 +54,7 @@ export class ProductsProvider {
     let result: Boolean;
     try {
       await this.productRepository.createQueryBuilder()
-                                  .update('product')
+                                  .update(Product)
                                   .set({ state: state_ })
                                   .where("id = :id", {id: product_id})
                                   .execute();
@@ -70,7 +70,7 @@ export class ProductsProvider {
     let result: Boolean;
     try {
       await this.productRepository.createQueryBuilder()
-                                  .update('product')
+                                  .update(Product)
                                   .set({ on_list: 1 })
                                   .where("id = :id", {id: product_id})
                                   .execute();
@@ -84,7 +84,7 @@ export class ProductsProvider {
 
   async updateProduct(product: Product){
     await this.productRepository.createQueryBuilder()
-                                .update('product' )
+                                .update(Product)
                                 .set({ state: product.state, title: product.title, image: product.image,audio: product.audio, category: product.category_id, on_list: product.on_list })
                                 .where("id = :id", {id: product.id})
                                 .execute();
@@ -92,7 +92,7 @@ export class ProductsProvider {
 
 
   async getProductsByCategory(category_id: number){
-    let products = await this.productRepository.createQueryBuilder('product')
+    let products = await this.productRepository.createQueryBuilder()
                                 .where("category_id = :categoryId", { categoryId: category_id })
                                 .orderBy('id', 'ASC')
                                 .getMany();
@@ -100,7 +100,7 @@ export class ProductsProvider {
   }
 
   async getProductsByCategoryOnlyActive(category_id: number) {
-    let products = await this.productRepository.createQueryBuilder('product')
+    let products = await this.productRepository.createQueryBuilder()
       .where("category_id = :categoryId", { categoryId: category_id })
       .andWhere("state = :state", { state: 1 })
       .andWhere("on_list = :on_list", { on_list: 1 })
@@ -110,7 +110,7 @@ export class ProductsProvider {
   }
 
   async countProducts() {
-    let count = await this.productRepository.createQueryBuilder('product')
+    let count = await this.productRepository.createQueryBuilder()
                                                 .orderBy('id', 'ASC')
                                                 .getCount();
     return count;
@@ -118,7 +118,7 @@ export class ProductsProvider {
 
   async updateCategory(category: Category, other: Category) {
     await this.productRepository.createQueryBuilder()
-                                .update('product')
+                                .update(Product)
                                 .set({ category_id: other.id })
                                 .where("category_id = :category_id", {category_id: category.id})
                                 .execute();
