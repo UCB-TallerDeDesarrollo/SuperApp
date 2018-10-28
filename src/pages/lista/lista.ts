@@ -22,31 +22,31 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   defaultCategoryId:number = 1;
   actualSelectedElement:any;
   actualSelectedContainer:any;
-  products: Array<Product>;
-  categories: Array<Category>;
+  products: Array<Product> = [];
+  categories: Array<Category> = [];
   selectedCategory: {id: number, name: string};
   imageSound: String;
   productPageIndex: number;
   categoriesPageIndex: number;
   productsOnList: Array<{ id: number, title: string, image: string, categoryId: number }> = [];
   numberOfProductsOnList: number;
-  onViewproducts: Array<{ id: number, title: string, image: string, state: number, categoryId: number}> = [];
-  onViewcategories: Array<{id: number, name: string}>=[];
-  ON_VIEW_LIST_LENGHT=12;
-  ON_VIEW_CATEGORIES_LENGHT=4;
+  onViewProducts: Array<Product> = [];
+  onViewCategories: Array<{id: number, name: string}>=[];
+  ON_VIEW_LIST_LENGTH = 12;
+  ON_VIEW_CATEGORIES_LENGTH = 4;
   listOfProducts: Array<Product> = [];
 
   constructor(
-    public navCtrl: NavController, 
-    private dragulaService: DragulaService, 
-    public productsProvider: ProductsProvider, 
+    public navCtrl: NavController,
+    private dragulaService: DragulaService,
+    public productsProvider: ProductsProvider,
     public categoryProvider: CategoryProvider,
     private audioProvider: AudioProvider,
     private alertCtrl: AlertController
   ) {
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
-    this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId); 
+    this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId);
     categoryProvider.getCategories()
     .then(categories => {
       this.categories = categories;
@@ -57,9 +57,6 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     });
     productsProvider.getProductsByCategoryOnlyActive(this.defaultCategoryId)
     .then(products => {
-      /*products.forEach(p => {
-        this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
-      })*/
       this.products = products;
       this.chargeProducts();
     })
@@ -74,28 +71,25 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   chargeProducts(){
-    let bound = this.productPageIndex+this.ON_VIEW_LIST_LENGHT;
+    let bound = this.productPageIndex+this.ON_VIEW_LIST_LENGTH;
     if(bound > this.products.length){
       bound = this.products.length;
     }
-    this.onViewproducts = this.products.slice(this.productPageIndex, bound);
+    this.onViewProducts = this.products.slice(this.productPageIndex, bound);
   }
 
   chargeCategories(){
-    let bound = this.categoriesPageIndex+this.ON_VIEW_CATEGORIES_LENGHT;
+    let bound = this.categoriesPageIndex+this.ON_VIEW_CATEGORIES_LENGTH;
     if(bound > this.categories.length){
       bound = this.categories.length;
     }
-    this.onViewcategories = this.categories.slice(this.categoriesPageIndex, bound);
+    this.onViewCategories = this.categories.slice(this.categoriesPageIndex, bound);
   }
 
-  ionViewWillEnter() { 
+  ionViewWillEnter() {
     this.changeSoundIcon();
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
       .then(products => {
-        /*products.forEach(p => {
-          this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
-        })*/
         this.products = products;
         this.chargeProducts();
       }).catch(error => {
@@ -127,7 +121,6 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
         return true;
       }
     });
-      
   }
 
   ngAfterViewInit() {
@@ -184,7 +177,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   nextProductPage(){
-    this.productPageIndex+=this.ON_VIEW_LIST_LENGHT;
+    this.productPageIndex+=this.ON_VIEW_LIST_LENGTH;
     if(this.productPageIndex>=this.products.length){
       this.productPageIndex=0;
     }
@@ -192,22 +185,19 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   nextCategoryPage(){
-    this.categoriesPageIndex+=this.ON_VIEW_CATEGORIES_LENGHT;
-    if(this.categoriesPageIndex>=this.categories.length){
-      this.categoriesPageIndex=0;
+    this.categoriesPageIndex += this.ON_VIEW_CATEGORIES_LENGTH;
+    if(this.categoriesPageIndex >= this.categories.length){
+      this.categoriesPageIndex = 0;
     }
     this.chargeCategories();
   }
 
-  onSelectCategory(category){ 
+  onSelectCategory(category){
     this.selectedCategory = category;
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
     .then(products => {
-      /*products.forEach(p => {
-        this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
-      })*/
       this.products = products;
-      this.productPageIndex=0;
+      this.productPageIndex = 0;
       this.chargeProducts();
     }).catch(error => {
       console.log(error);
@@ -244,9 +234,6 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     .then(response => {
       this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
         .then(products => {
-          /*products.forEach(p => {
-            this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
-          })*/
           this.products = products;
           this.chargeProducts();
         }).catch(error => {
@@ -267,9 +254,6 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     FakeListProducts.deleteAllProducts();
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
     .then(products => {
-      /*products.forEach(p => {
-        this.products.push({id: p.id, title: p.title, image:p.image, state: p.state, categoryId: p.category_id});
-      })*/
       this.products = products;
     }).catch(error => {
       console.log(error);
