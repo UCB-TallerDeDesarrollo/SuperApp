@@ -114,7 +114,12 @@ export class ProductsEditorPage implements OnDestroy {
           product.audio = " ";
           product.title = products[p].title;
           product.category_id = products[p].categoryId;
-          await this.productsProvider.saveProduct(product);
+          this.productsProvider.saveProduct(product)
+          .then(result => {
+            console.log("Save product successfully");
+          }).catch(error => {
+            console.error(error);
+          });
         }
       }
     }
