@@ -17,7 +17,7 @@ export class CategoriesPage {
   other: Category;
 
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public categoryProvider: CategoryProvider,
               public productsProvider: ProductsProvider) {
@@ -29,9 +29,9 @@ export class CategoriesPage {
       console.error(error);
     });
   }
- 
+
   ionViewWillEnter() {
-    this.reloadCategories();  
+    this.reloadCategories();
   }
 
   reloadCategories() {
@@ -42,12 +42,22 @@ export class CategoriesPage {
       console.error(error);
     });
   }
-  
-  async deleteCategory(category: Category) {
+
+  deleteCategory(category: Category) {
     if(category.id != 4) {
-      await this.productsProvider.updateCategory(category, this.other);
-      await this.categoryProvider.deleteCategory(category.id);
-      this.reloadCategories();
+      this.productsProvider.updateCategory(category, this.other)
+      .then(result => {
+        if(result) {
+          this.categoryProvider.deleteCategory(category.id)
+          .then(result => {
+            if(result) this.reloadCategories();
+          }).catch(error => {
+            console.error(error);
+          })
+        }
+      }).catch(error => {
+        console.error(error);
+      })
     }
   }
 

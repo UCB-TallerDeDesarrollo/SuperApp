@@ -54,19 +54,35 @@ export class CategoryProvider {
     return result;
   }
 
-  async deleteCategory(category_id: number) {
-    await this.categoryRepository.createQueryBuilder()
-                                  .delete()
-                                  .from(Category)
-                                  .where("id = :id", { id: category_id })
-                                  .execute();
+  async deleteCategory(category_id: number): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.categoryRepository.createQueryBuilder()
+                                    .delete()
+                                    .from(Category)
+                                    .where("id = :id", { id: category_id })
+                                    .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
   }
 
-  async updateCategory(category: Category) {
-    await this.categoryRepository.createQueryBuilder()
-                                  .update('category')
-                                  .set({ name: category.name })
-                                  .where("id = :id", {id: category.id})
-                                  .execute();
+  async updateCategory(category: Category): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.categoryRepository.createQueryBuilder()
+                                    .update('category')
+                                    .set({ name: category.name })
+                                    .where("id = :id", {id: category.id})
+                                    .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
   }
 }
