@@ -15,11 +15,17 @@ export class CategoryProvider {
     await this.categoryRepository.save(category);
   }
 
-  async getCategories() {
-    let categories = await this.categoryRepository.createQueryBuilder('category')
+  async getCategories(): Promise<Array<Category>> {
+    let result: Array<Category>;
+    try {
+      result = await this.categoryRepository.createQueryBuilder('category')
                                             .orderBy('id', 'ASC')
                                             .getMany();
-    return categories;
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
   }
 
   async getCategoryById(category_id: number) {

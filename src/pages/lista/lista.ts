@@ -17,13 +17,13 @@ import { ProductsProvider } from '../../providers/product/product';
   viewProviders: [DragulaService]
 })
 export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
-  
+
   path_images = '../../assets/imgs/Products/';
   defaultCategoryId:number = 1;
   actualSelectedElement:any;
   actualSelectedContainer:any;
   products: Array<{ id: number, title: string, image: string, state: number, categoryId: number}> = [];
-  categories: Array<{id: number, name: string}>=[];
+  categories: Array<Category>=[];
   selectedCategory: {id: number, name: string};
   imageSound: String;
   productPageIndex: number;
