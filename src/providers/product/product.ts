@@ -12,8 +12,16 @@ export class ProductsProvider {
     this.productRepository = getRepository('product') as Repository<Product>;
   }
 
-  async saveProduct(product: Product) {
-    await this.productRepository.save(product);
+  async saveProduct(product: Product): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.productRepository.save(product);
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
   }
 
   async getProducts() {

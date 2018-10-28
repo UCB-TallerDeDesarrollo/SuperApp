@@ -22,7 +22,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   defaultCategoryId:number = 1;
   actualSelectedElement:any;
   actualSelectedContainer:any;
-  products: Array<{ id: number, title: string, image: string, state: number, categoryId: number}> = [];
+  products: Array<{ id: number, title: string, image: string, state: number, categoryId: number}>;
   categories: Array<Category>=[];
   selectedCategory: {id: number, name: string};
   imageSound: String;
@@ -54,7 +54,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     })
     .catch(error => {
       console.log(error);
-      });
+    });
     productsProvider.getProductsByCategoryOnlyActive(this.defaultCategoryId)
     .then(products => {
       products.forEach(p => {
