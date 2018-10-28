@@ -82,21 +82,35 @@ export class ProductsProvider {
     return result;
   }
 
-  async updateProduct(product: Product){
-    await this.productRepository.createQueryBuilder()
-                                .update(Product)
-                                .set({ state: product.state, title: product.title, image: product.image,audio: product.audio, category: product.category_id, on_list: product.on_list })
-                                .where("id = :id", {id: product.id})
-                                .execute();
+  async updateProduct(product: Product): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.productRepository.createQueryBuilder()
+                                  .update(Product)
+                                  .set({ state: product.state, title: product.title, image: product.image,audio: product.audio, category: product.category_id, on_list: product.on_list })
+                                  .where("id = :id", {id: product.id})
+                                  .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
   }
 
 
-  async getProductsByCategory(category_id: number){
-    let products = await this.productRepository.createQueryBuilder()
-                                .where("category_id = :categoryId", { categoryId: category_id })
-                                .orderBy('id', 'ASC')
-                                .getMany();
-    return products;
+  async getProductsByCategory(category_id: number): Promise<Array<Product>> {
+    let result: Array<Product>;
+    try {
+      result = await this.productRepository.createQueryBuilder()
+                                            .where("category_id = :categoryId", { categoryId: category_id })
+                                            .orderBy('id', 'ASC')
+                                            .getMany();
+    } catch (error) {
+      console.error(error);
+      result = null
+    }
+    return result;
   }
 
   async getProductsByCategoryOnlyActive(category_id: number) {
