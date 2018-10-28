@@ -52,6 +52,7 @@ import { DifficultyProvider } from '../shared/providers/DifficultyProvider';
 import { TypeormDifficultyProvider } from '../providers/difficulty/difficulty';
 import { DeleteUserPage } from '../pages/delete-user/delete-user';
 import { LoginOptionsPage } from '../pages/login-options/login-options';
+import { ListProvider } from '../providers/list/list';
 
 @NgModule({
   declarations: [
@@ -134,7 +135,8 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
     TextToSpeech,
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]},
     File,
-    Media
+    Media,
+    ListProvider
   ]
 })
 export class AppModule { }

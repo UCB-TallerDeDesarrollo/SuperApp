@@ -71,7 +71,12 @@ export class MenuGamesPage {
       for(const c in categories) {
         let category = new Category();
         category.name = categories[c].name;
-        await this.categoryProvider.saveCategory(category);
+        this.categoryProvider.saveCategory(category)
+        .then(response => {
+          if(response) console.log("Save category successfully");
+        }).catch(error => {
+          console.error(error);
+        });
       }
       if(count_product < 58) {
         let products = FakeProducts.getProducts()
@@ -84,7 +89,7 @@ export class MenuGamesPage {
           product.category_id = products[p].categoryId;
           this.productsProvider.saveProduct(product)
           .then(result => {
-            console.log("Save product successfully");
+            if(result)console.log("Save product successfully");
           }).catch(error => {
             console.error(error);
           });

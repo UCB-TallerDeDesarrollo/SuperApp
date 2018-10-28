@@ -11,8 +11,16 @@ export class CategoryProvider {
     this.categoryRepository = getRepository('category') as Repository<Category>;
   }
 
-  async saveCategory(category: Category) {
-    await this.categoryRepository.save(category);
+  async saveCategory(category: Category): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.categoryRepository.save(category);
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
   }
 
   async getCategories(): Promise<Array<Category>> {

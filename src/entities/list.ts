@@ -8,4 +8,7 @@ export class List {
 
     @Column({name: "name"})
     name: string;
+
+    @Column({name: "user_id"})
+    user_id: number;
 }
