@@ -11,7 +11,7 @@ export class User {
     this.username=username;
     this.birthdate=birthdate;
     this.profilePictureURL=profilePictureURL;
-    this.userProgress=new UserProgress(1,16,31,125);
+    this.userProgress=new UserProgress(1,16,31,125, this.id);
 }
 
     @PrimaryGeneratedColumn()
@@ -26,6 +26,5 @@ export class User {
     @Column()
     profilePictureURL: string;
 
-    @OneToOne(type=>UserProgress, userProgress=>userProgress.user)
     userProgress:UserProgress;
 }

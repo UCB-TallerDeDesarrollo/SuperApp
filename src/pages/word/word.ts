@@ -9,6 +9,7 @@ import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvide
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { DifficultyProvider } from '../../shared/providers/DifficultyProvider';
 import { Product } from '../../shared/models/Product.model';
+import { Login } from '../../providers/login/Login';
 @Component({
     selector: 'page-word',
     templateUrl: 'word.html'
@@ -28,7 +29,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private dragDropProvider   : WordDragDropProvider,
         private audioProvider      : AudioProvider,
         private navParams          : NavParams,
-        private difficultyProvider : DifficultyProvider
+        private difficultyProvider : DifficultyProvider,
+        private login              : Login
     ) {
         this.prepareGame();
         this.changeSoundIcon();
@@ -62,16 +64,15 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private prepareLevel() {
-        let level: number = this.navParams.get('level') || 1;
+        let level: number = this.navParams.get('level');
         let product: Product = this.productsProdiver.getProductOfActualLevel(level);
-        this.difficultyProvider.updateLastLevel(level);
         this.game = new SortWordGame(product, level);
     }
 
-    public showEndView(): void {
+    public async showEndView() {
         this.game.addCount();
         if(this.game.isGameOver()) {
-            this.difficultyProvider.saveProgressByLevel(this.game.Level);
+            await this.login.saveProgress(this.game.Level);
             setTimeout(() => {
                 this.playLevelCompleteSoundAndPronunciationOfTheProductName();
             }, 250);

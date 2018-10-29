@@ -5,17 +5,7 @@ import { User } from '../../entities/user';
 
 @Injectable()
 export class Login{
-  async loadingGameData() {
-    if (LoginStatus.logged)
-    {
-        var existUser:User=await this.userProvider.getUserByUsername(LoginStatus.username);
-        LoginStatus.setUserProgress(existUser.userProgress);
-    }
-    else{
-        var existUser:User=await this.userProvider.getUserByUsername("anonimus");
-        LoginStatus.setUserProgress(existUser.userProgress);
-    }
-  }
+  
 
     constructor(public userProvider:UserProvider){
         
@@ -33,4 +23,19 @@ export class Login{
     {
         LoginStatus.setLogout();
     }
+    async  loadingGameData() {
+        if (LoginStatus.logged)
+        {
+            var existUser:User=await this.userProvider.getUserByUsername(LoginStatus.username);
+            LoginStatus.setUserProgress(existUser.userProgress);
+        }
+        else{
+            var existUser:User=await this.userProvider.getUserByUsername("anonimus");
+            LoginStatus.setUserProgress(existUser.userProgress);
+        }
+      }
+      async saveProgress(level:number)
+      {
+        this.userProvider.updateProgress(level);
+      }
 }
