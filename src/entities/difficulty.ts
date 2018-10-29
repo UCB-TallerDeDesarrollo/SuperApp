@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { ProductLevel } from "./productLevel";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne } from "typeorm";
+import { User } from "./user";
 
 @Entity('difficulty')
 export class Difficulty {
@@ -15,4 +15,7 @@ export class Difficulty {
 
     @Column()
     lastLevel: number;
+
+    @OneToOne(type=>User, user=>user.dificulty)
+    user:User;
 }
