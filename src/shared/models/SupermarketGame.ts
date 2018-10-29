@@ -3,20 +3,117 @@ import { ArrayManager } from "../../Managers/ArrayManager";
 import { ProductsProvider } from '../../providers/product/product'; 
 
 export class SuperMarketGame {
+  
     
     private countOfProducts : number;
     private products: any = [];
     private productsToPlay : any = [];
     private productsToBuy : any= []; 
- 
-
-    public constructor(products: any[]) {
+    private level: any;
+    private mode:any;
+    public constructor(products: any[],level: any,mode:any) {
         this.countOfProducts = 0;
         this.products = products; 
+        this.level = level;
+        this.mode=mode;
+    }
+    
+    public getQuantityByLevel(){
+        if(this.mode===0){
+            console.log("MODE EASY");
+            return this.getQuantityFromEasyMode(this.level);
+        }else if(this.mode===1){
+            console.log("MODE MEDIUM");
+            return this.getQuantityFromMediumMode(this.level);
+        }else if(this.mode===2){
+            console.log("MODE HARD");
+            return this.getQuantityFromHardMode(this.level);
+        }else if(this.mode===3){
+            console.log("MODE EXPERT");
+            return this.getQuantityFromExpertMode(this.level);
+        }
     }
 
+    private getQuantityFromEasyMode(level){
+        if(level>=1 && level<4){
+            return 8;
+        }
+        if(level>=4 && level<7){
+            return 9;
+        }
+        if(level>=7 && level<10){
+            return 10;
+        }
+        if(level>=10 && level<13){
+            return 11;
+        }
+        if(level>=13 && level<16){
+            return 12;
+        } 
+        return 8;
+    }
 
-    public buildProducts(numberOfProductsToPlay:number,numberOfProductsToBuy:number) : void {
+    private getQuantityFromMediumMode(level){
+        if(level>=16 && level<19){
+            return 8;
+        }
+        if(level>=19 && level<22){
+            return 9;
+        }
+        if(level>=22 && level<25){
+            return 10;
+        }
+        if(level>=25 && level<28){
+            return 11;
+        }
+        if(level>=28 && level<31){
+            return 12;
+        } 
+        return 8;
+    }
+
+    private getQuantityFromHardMode(level){
+        if(level>=31 && level<35){
+            return 8;
+        }
+        if(level>=35 && level<39){
+            return 9;
+        }
+        if(level>=39 && level<43){
+            return 10;
+        }
+        if(level>=43 && level<46){
+            return 11;
+        } 
+        return 8;
+    }
+
+    private getQuantityFromExpertMode(level){
+        if(level>=46 && level<50){
+            return 8;
+        }
+        if(level>=50 && level<54){
+            return 9;
+        }
+        if(level>=54 && level<58){
+            return 10;
+        }
+        if(level>=58){
+            return 11;
+        } 
+        return 8;
+    }
+
+    public isGameOver() : boolean {
+        return this.countOfProducts >= this.productsToBuy.length;
+    }
+
+    public buildProducts(){
+        let numberOfProductsToPlay = this.getQuantityByLevel();
+        this.createProducts(numberOfProductsToPlay,6);
+    }
+
+    private createProducts(numberOfProductsToPlay:number,numberOfProductsToBuy:number) : void {
         this.productsToPlay = ArrayManager.getManyRandomElements(numberOfProductsToPlay,this.products); 
         this.productsToBuy = ArrayManager.getManyRandomElements(numberOfProductsToBuy,this.productsToPlay); 
     }
@@ -33,15 +130,12 @@ export class SuperMarketGame {
         } 
     }
  
-    public isGameOver() : boolean {
-        return this.countOfProducts == 6;
-    }
+   
+
     public get quantityOfPlayProducts() : number {
         return this.productsToPlay.length();
     }
-    public productWasRetired() : boolean {
-        return  this.productsToBuy.length ==5;
-    }
+    
     public get ProductsToPlay() : any[] {
         return this.productsToPlay;
     }
@@ -52,5 +146,21 @@ export class SuperMarketGame {
 
     public get Products() : any[] {
         return this.products;
+    }
+
+    public get Level(): any{
+        return this.level;
+    }
+
+    public get CountOfProducts(): any{
+        return this.countOfProducts;
+    }
+    
+    public get Mode(): any{
+        return this.mode;
+    }
+
+    public addPoint(): void {
+        this.countOfProducts++;
     }
 }

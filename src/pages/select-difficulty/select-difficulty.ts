@@ -4,6 +4,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { WordPage } from '../word/word';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { DifficultyProvider } from '../../shared/providers/DifficultyProvider';
+import { SupermarketDifficultyProvider } from '../../shared/providers/SupermarketDifficultyProvider'
 import { Difficulty } from '../../shared/models/Difficulty.model';
 @Component({
     selector: 'page-select-difficulty',
@@ -21,9 +22,10 @@ export class SelectDifficultyPage {
         public navCtrl             : NavController, 
         public navParams           : NavParams,
         private audioProvider      : AudioProvider,
-        private difficultyProvider : DifficultyProvider
+        private difficultyProvider : DifficultyProvider,
+        private supermarketDifficultyProvider: SupermarketDifficultyProvider
     ) {
-        
+        this.typeOfGame=this.navParams.get("typeOfGame");
         this.easyStars = 0;
         this.mediumStars = 0;
         this.hardStars = 0;
@@ -43,7 +45,7 @@ export class SelectDifficultyPage {
         this.typeOfGame=this.navParams.get("typeOfGame");
         console.log("TIPO DE JUEGO :"+this.typeOfGame);
         if(this.typeOfGame === "supermarket"){
-
+            
         }else{ 
             this.difficultyProvider.countRows().then(number => {
                 if(number == 4) {
@@ -103,8 +105,12 @@ export class SelectDifficultyPage {
 
     openEasyMode() {
         if(this.typeOfGame==="supermarket"){
-            this.navCtrl.push(SupermarketPage);
+            console.log("OBTENIENDO LAST LEVEL");
+            this.supermarketDifficultyProvider.getLastLevel(0).then(level => { 
+                this.navCtrl.push(SupermarketPage, { 'level':level , 'mode':0 });
+            })
         }else{
+            console.log("OBTENIENDO LAST LEVEL");
             this.difficultyProvider.getLastLevel(0).then(level => {
                 this.navCtrl.push(WordPage, { 'level':level });
             });
@@ -113,7 +119,9 @@ export class SelectDifficultyPage {
 
     openMediumMode() {
         if(this.typeOfGame==="supermarket"){
-            this.navCtrl.push(SupermarketPage);
+            this.supermarketDifficultyProvider.getLastLevel(1).then(level => { 
+                this.navCtrl.push(SupermarketPage, { 'level':level, 'mode':1 });
+            });
         }else{
             this.difficultyProvider.getLastLevel(1).then(level => {
                 this.navCtrl.push(WordPage, { 'level':level });
@@ -122,8 +130,10 @@ export class SelectDifficultyPage {
     }
 
     openHardMode() {
-        if(this.typeOfGame==="supermarket"){
-            this.navCtrl.push(SupermarketPage);
+        if(this.typeOfGame==="supermarket"){ 
+            this.supermarketDifficultyProvider.getLastLevel(2).then(level => { 
+                this.navCtrl.push(SupermarketPage, { 'level':level, 'mode':2 });
+            });
         }else{
             this.difficultyProvider.getLastLevel(2).then(level => {
                 this.navCtrl.push(WordPage, { 'level':level });
@@ -133,7 +143,9 @@ export class SelectDifficultyPage {
 
     openExpertMode() {
         if(this.typeOfGame==="supermarket"){
-            this.navCtrl.push(SupermarketPage);
+            this.supermarketDifficultyProvider.getLastLevel(3).then(level => { 
+                this.navCtrl.push(SupermarketPage, { 'level':level , 'mode':3 });
+            });
         }else{
             this.difficultyProvider.getLastLevel(3).then(level => {
                 this.navCtrl.push(WordPage, { 'level':level });
@@ -143,7 +155,11 @@ export class SelectDifficultyPage {
 
     ionViewDidLoad() {
         if(this.typeOfGame==="supermarket"){
-
+            this.supermarketDifficultyProvider.countRows().then(number => {
+                if(number < 4) {
+                    this.startDatabaseSuperMarket();
+                }
+            });
         }else{
             this.difficultyProvider.countRows().then(number => {
                 if(number < 4) {
@@ -153,10 +169,21 @@ export class SelectDifficultyPage {
         }
     }
 
-    startDatabase() {
-        if(this.typeOfGame==="supermarket"){
+    startDatabaseSuperMarket(){
+        let modesSupermarket: Difficulty[] = [
+            Difficulty.createDifficulty(1, '000000000000000', 0, 1),
+            Difficulty.createDifficulty(2, '000000000000000', 1, 16),
+            Difficulty.createDifficulty(3, '000000000000000', 2, 31),
+            Difficulty.createDifficulty(4, '000000000000000', 3, 46)
+        ];
+        for(let index = 0; index < 4; ++index) {
+            this.supermarketDifficultyProvider.saveDifficulty(modesSupermarket[index]);
+            console.log("super dificult en accion: ");
+        }
+    }
 
-        }else{
+    startDatabase() { 
+           
             let modes: Difficulty[] = [
                 Difficulty.createDifficulty(1, '000000000000000', 0, 1),
                 Difficulty.createDifficulty(2, '000000000000000', 1, 16),
@@ -166,8 +193,9 @@ export class SelectDifficultyPage {
             for(let index = 0; index < 4; ++index) {
                 this.difficultyProvider.saveDifficulty(modes[index]);
             }     
-        }   
+       
     }
+
 
     generateArray(stars) {
         let resp = [];

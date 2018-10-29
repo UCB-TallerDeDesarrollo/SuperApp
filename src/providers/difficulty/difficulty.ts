@@ -66,6 +66,7 @@ export class TypeormDifficultyProvider implements DifficultyProvider {
             let temporalDifficulty = await this.difficultyRepository.createQueryBuilder('difficulty')
                 .where('difficultyType = :difficultyType', { difficultyType: difficultyType })
                 .getOne();
+                console.log("SOY TEMPORAL DIFFICULTY: "+temporalDifficulty.DifficultyType);
             let progressCode: string = temporalDifficulty.code;
             progressCode = this.setCharAt(progressCode, posLevel, 1);
             await this.difficultyRepository
