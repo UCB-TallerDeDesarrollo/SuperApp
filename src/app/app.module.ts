@@ -125,11 +125,8 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: ProductProvider, useClass: ArrayProductProvider},
     {provide: ColorProvider, useClass: ArrayColorProvider},
-<<<<<<< HEAD
-=======
     {provide: DifficultyProvider, useClass: TypeormDifficultyProvider},
     {provide: SupermarketDifficultyProvider, useClass: TypeormSupermarketDifficultyProvider},
->>>>>>> origin/develop
     {provide: WordDragDropProvider, useClass: DragulaWordDragDropProvider, deps: [DragulaService, Platform]},
     {provide: SupermarketDragDropProvider, useClass: DragulaSupermarketDragDropProvider, deps: [DragulaService, Platform]},
     ProductsProvider,

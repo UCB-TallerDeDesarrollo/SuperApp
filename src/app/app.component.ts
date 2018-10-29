@@ -5,16 +5,15 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SmartAudio } from '../providers/smart-audio/smart-audio';
 import { createConnection } from 'typeorm';
-
 import { HomePage } from '../pages/home/home';
-
 import { Product } from '../entities/product';
 import { Category } from '../entities/category';
 import { Level } from '../entities/level';
 import { ProductLevel } from '../entities/productLevel';
 import { User } from '../entities/user';
 import { UserProgress } from '../entities/userProgress';
-import { Difficulty } from '../shared/models/Difficulty.model';
+import { Difficulty } from '../entities/difficulty';
+
 
 @Component({
   templateUrl: 'app.html'
