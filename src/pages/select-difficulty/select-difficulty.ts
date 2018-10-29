@@ -85,8 +85,6 @@ export class SelectDifficultyPage {
         this.typeOfGame=this.navParams.get("typeOfGame");
       
         if(this.typeOfGame === "supermarket"){
-            
-        }else{ 
             this.difficultyProvider.countRows().then(number => {
                 if(number == 4) {
                     this.easyStars = 0;
@@ -143,7 +141,15 @@ export class SelectDifficultyPage {
     }
 
     openEasyMode() {
+        if(this.typeOfGame==="supermarket"){
+            
+            this.supermarketDifficultyProvider.getLastLevel(0).then(level => { 
+                this.navCtrl.push(SupermarketPage, { 'level':level });
+            })
+        }else{
             this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.easyLevel });
+        }
+          
     }
 
 
@@ -191,17 +197,7 @@ export class SelectDifficultyPage {
                 }
             });
         }
-        if(this.typeOfGame==="supermarket"){
-            
-            this.supermarketDifficultyProvider.getLastLevel(0).then(level => { 
-                this.navCtrl.push(SupermarketPage, { 'level':level });
-            })
-        }else{
-            
-            this.difficultyProvider.getLastLevel(0).then(level => {
-                this.navCtrl.push(WordPage, { 'level':level });
-            });
-        }
+        
     }
 
     startDatabaseSuperMarket(){
