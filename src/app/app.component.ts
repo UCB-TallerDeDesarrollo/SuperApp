@@ -12,7 +12,6 @@ import { Category } from '../entities/category';
 import { Level } from '../entities/level';
 import { ProductLevel } from '../entities/productLevel';
 import { User } from '../entities/user';
-import { Difficulty } from '../entities/difficulty';
 import { UserProgress } from '../entities/userProgress';
 
 @Component({
@@ -42,7 +41,6 @@ export class MyApp {
             Level,
             ProductLevel,
             User,
-            Difficulty, 
             UserProgress
           ]
         }); 
@@ -60,7 +58,6 @@ export class MyApp {
             Level,
             ProductLevel,
             User,
-            Difficulty, 
             UserProgress
           ]
         });

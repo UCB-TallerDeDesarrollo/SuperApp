@@ -7,7 +7,6 @@ import { ColorProvider } from '../../shared/providers/ColorProvider';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
 import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvider';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
-import { DifficultyProvider } from '../../shared/providers/DifficultyProvider';
 import { Product } from '../../shared/models/Product.model';
 import { Login } from '../../providers/login/Login';
 @Component({
@@ -29,7 +28,6 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private dragDropProvider   : WordDragDropProvider,
         private audioProvider      : AudioProvider,
         private navParams          : NavParams,
-        private difficultyProvider : DifficultyProvider,
         private login              : Login
     ) {
         this.prepareGame();

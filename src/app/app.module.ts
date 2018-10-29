@@ -48,8 +48,6 @@ import { CreateUserPage } from '../pages/create-user/create-user';
 import { UserLoginPage } from '../pages/user-login/user-login';
 import { Login } from '../providers/login/Login';
 import { ViewUserPage } from '../pages/view-user/view-user';
-import { DifficultyProvider } from '../shared/providers/DifficultyProvider';
-import { TypeormDifficultyProvider } from '../providers/difficulty/difficulty';
 import { DeleteUserPage } from '../pages/delete-user/delete-user';
 import { LoginOptionsPage } from '../pages/login-options/login-options';
 
@@ -123,7 +121,6 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: ProductProvider, useClass: ArrayProductProvider},
     {provide: ColorProvider, useClass: ArrayColorProvider},
-    {provide: DifficultyProvider, useClass: TypeormDifficultyProvider},
     {provide: WordDragDropProvider, useClass: DragulaWordDragDropProvider, deps: [DragulaService, Platform]},
     {provide: SupermarketDragDropProvider, useClass: DragulaSupermarketDragDropProvider, deps: [DragulaService, Platform]},
     ProductsProvider,

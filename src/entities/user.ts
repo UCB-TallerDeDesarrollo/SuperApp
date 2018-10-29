@@ -1,5 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
-import { Difficulty } from './difficulty';
 import { UserProgress } from './userProgress';
 
 

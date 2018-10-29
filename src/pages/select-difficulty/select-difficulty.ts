@@ -3,8 +3,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { WordPage } from '../word/word';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
-import { DifficultyProvider } from '../../shared/providers/DifficultyProvider';
-import { Difficulty } from '../../shared/models/Difficulty.model';
 import { UserProvider } from '../../providers/user/user';
 import { Login } from '../../providers/login/Login';
 @Component({

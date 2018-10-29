@@ -1,5 +1,4 @@
 import { UserProgress } from './../../entities/userProgress';
-import { Difficulty } from './../../entities/difficulty';
 export class LoginStatus{
     
     public static username:string="anonimus";
