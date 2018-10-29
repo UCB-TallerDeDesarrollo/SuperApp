@@ -54,6 +54,8 @@ import { SupermarketDifficultyProvider } from '../shared/providers/SupermarketDi
 import { TypeormSupermarketDifficultyProvider} from '../providers/difficulty/supermarketDifficulty';
 import { DeleteUserPage } from '../pages/delete-user/delete-user';
 import { LoginOptionsPage } from '../pages/login-options/login-options';
+import { ListProvider } from '../providers/list/list';
+import { ProductListProvider } from '../providers/product-list/product-list';
 
 @NgModule({
   declarations: [
@@ -94,7 +96,7 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
     MenuGamesPage,
     ListaPage,
     WordPage,
-    ProductsPage, 
+    ProductsPage,
     LevelCompletePage,
     SupermarketLevelCompletePage,
     LoadingPage,
@@ -108,8 +110,8 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
     CreateCategoryPage,
     EditCategoryPage,
     CreateUserPage,
-    UserLoginPage, 
-    EditUserPage, 
+    UserLoginPage,
+    EditUserPage,
     ViewUserPage,
     DeleteUserPage,
     LoginOptionsPage,
@@ -137,8 +139,9 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
     TextToSpeech,
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]},
     File,
-    Media
-    
+    Media,
+    ListProvider,
+    ProductListProvider
   ]
 })
 export class AppModule { }

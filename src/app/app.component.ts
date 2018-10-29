@@ -13,6 +13,8 @@ import { ProductLevel } from '../entities/productLevel';
 import { User } from '../entities/user';
 import { UserProgress } from '../entities/userProgress';
 import { Difficulty } from '../entities/difficulty';
+import { List } from '../entities/list';
+import { ProductList } from '../entities/productList';
 
 
 @Component({
@@ -20,7 +22,7 @@ import { Difficulty } from '../entities/difficulty';
 })
 export class MyApp {
   rootPage:any = HomePage;
-  
+
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, smartAudio: SmartAudio) {
     platform.ready().then(async () => {
@@ -46,8 +48,11 @@ export class MyApp {
             Difficulty, 
             UserProgress,
             SupermarketDifficulty,
+            Difficulty,
+            List,
+            ProductList
           ]
-        }); 
+        });
       } else {
         await createConnection({
           type: 'sqljs',
@@ -67,7 +72,9 @@ export class MyApp {
             Difficulty, 
             UserProgress,
             SupermarketDifficulty,
-            Difficulty
+            Difficulty,
+            List,
+            ProductList
           ]
         });
       }

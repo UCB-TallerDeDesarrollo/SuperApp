@@ -27,15 +27,17 @@ export class ProductsEditorPage implements OnDestroy {
   fileName: string;
   audio: MediaObject;
 
-  constructor(private platform: Platform, 
-              public navCtrl: NavController, 
-              public navParams: NavParams, 
-              public productsProvider: ProductsProvider, 
-              public categoryProvider: CategoryProvider, 
+  constructor(private platform: Platform,
+              public navCtrl: NavController,
+              public navParams: NavParams,
+              public productsProvider: ProductsProvider,
+              public categoryProvider: CategoryProvider,
               private media: Media,
               private file: File,
               private screenOrientation: ScreenOrientation,
               private audioProvider    : AudioProvider) {
+    this.databaseInitializer();
+    this.reloadProducts();
     platform.ready()
     .then(() => {
       if (platform.is('cordova')){
@@ -46,8 +48,7 @@ export class ProductsEditorPage implements OnDestroy {
     });
   }
 
-  ionViewWillEnter() { 
-    this.databaseInitializer();
+  ionViewWillEnter() {
     this.reloadProducts();
   }
 
@@ -89,7 +90,7 @@ export class ProductsEditorPage implements OnDestroy {
     if(product_state==1){
       await this.productsProvider.updateStateProduct(0, product_id);
     }else{
-      await this.productsProvider.updateStateProduct(1, product_id); 
+      await this.productsProvider.updateStateProduct(1, product_id);
     }
     this.navCtrl.pop();
     this.navCtrl.push(ProductsEditorPage, { data: this.navParams.data.data });
@@ -103,7 +104,12 @@ export class ProductsEditorPage implements OnDestroy {
       for(const c in categories) {
         let category = new Category();
         category.name = categories[c].name;
-        await this.categoryProvider.saveCategory(category);
+        this.categoryProvider.saveCategory(category)
+        .then(response => {
+          if(response) console.log("Save category successfully");
+        }).catch(error => {
+          console.error(error);
+        });
       }
       if(count_product < 58) {
         let products = FakeProducts.getProducts()
@@ -115,8 +121,8 @@ export class ProductsEditorPage implements OnDestroy {
           product.title = products[p].title;
           product.category_id = products[p].categoryId;
           this.productsProvider.saveProduct(product)
-          .then(result => {
-            console.log("Save product successfully");
+          .then(response => {
+            if(response) console.log("Save product successfully");
           }).catch(error => {
             console.error(error);
           });
@@ -124,13 +130,15 @@ export class ProductsEditorPage implements OnDestroy {
       }
     }
   }
+
   public playSoundOfWord(product_title :string, product_audio :string) {
     if(product_audio == " "){
       this.audioProvider.playPronunciationOfTheProductName(product_title);
     }else{
       this.playAudio(product_audio);
-    }  
+    }
   }
+
   playAudio(file) {
     if (this.platform.is('ios')) {
       this.filePath = file;
