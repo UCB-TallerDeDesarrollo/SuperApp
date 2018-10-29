@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { UserProgress } from './userProgress';
+import { type } from 'os';
 
 @Entity('user')
 export class User {
@@ -13,4 +15,7 @@ export class User {
 
     @Column()
     profilePictureURL: string;
+
+    @OneToOne(type=>UserProgress)
+    userProgress:UserProgress;
 }
