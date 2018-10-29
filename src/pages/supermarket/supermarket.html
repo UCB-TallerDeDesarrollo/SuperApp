@@ -1,19 +1,19 @@
 <ion-header>
-    
+
 
 </ion-header>
 
 <ion-content no-bounce padding class="main-container">
-    <button ion-button icon-only (click)="popPage()">
+    <button ion-button icon-only (click)="navController.pop();">
         <ion-icon name="arrow-back"></ion-icon>
     </button>
-            
-            <div class="music-logo">
-                <img [src]="imageSound" alt="" (click)="stopSound()">
-            </div>
-            <div class="level-header">
-                <h1 class="supermarket-title">SUPER MERCADO</h1>
-            </div>
+
+    <div class="music-logo">
+        <img [src]="imageSound" alt="" (click)="stopSound()">
+    </div>
+    <div class="level-header">
+        <h1 class="supermarket-title">SUPER MERCADO</h1>
+    </div>
     <div class="container">
         <div class="products-to-play">
             <div class="product-block" *ngFor="let product of productsToPlay" id="play-{{product.title}}" dragula="{{selectorName}}">
@@ -35,6 +35,6 @@
         </div>
     </div>
     <div id="carrito" class="carrito_container">
-        <img class="icon-image product-objetive-container" src="{{carImage}}" dragula="{{selectorName}}"/>
+        <img class="icon-image product-objetive-container" src="{{carImage}}" dragula="{{selectorName}}" />
     </div>
 </ion-content>
