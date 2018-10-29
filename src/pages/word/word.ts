@@ -73,7 +73,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         if(this.game.isGameOver()) {
             this.difficultyProvider.saveProgressByLevel(this.game.Level);
             setTimeout(() => {
-                this.playPronunciationOfTheProductName();
+                this.playLevelCompleteSoundAndPronunciationOfTheProductName();
             }, 250);
             this.showModalWin();
         }
@@ -126,6 +126,13 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         else{
           this.imageSound = 'assets/imgs/soundOnDark.png';
         }
+    }
+
+    public playLevelCompleteSoundAndPronunciationOfTheProductName() {
+        setTimeout(() => {
+            this.audioProvider.playPronunciationOfTheProductName(this.game.ResponseWord);
+        }, 4000);
+        this.audioProvider.playLevelCompleteSound();
     }
 
     public playPronunciationOfTheProductName() {
