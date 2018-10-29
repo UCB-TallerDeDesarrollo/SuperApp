@@ -1,3 +1,4 @@
+import { UserProvider } from './../../providers/user/user';
 import { SupermarketPage } from '../supermarket/supermarket'; 
 import { Component } from '@angular/core';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
@@ -25,6 +26,7 @@ export class MenuGamesPage {
               private audioProvider: AudioProvider,
               public productsProvider: ProductsProvider, 
               public categoryProvider: CategoryProvider,
+              public userProvide:UserProvider
           ) {
     this.changeSoundIcon();
   }
@@ -93,7 +95,12 @@ export class MenuGamesPage {
     }
   }
 
-  ionViewDidLoad() {
+  async ionViewDidLoad() {
     this.databaseInitializer();
+   await this.prepareAnonimusUser();
+  }
+  async prepareAnonimusUser()
+  {
+    await this.userProvide.prepareAnonimusUser();
   }
 }

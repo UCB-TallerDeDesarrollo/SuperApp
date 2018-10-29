@@ -13,6 +13,7 @@ import { Level } from '../entities/level';
 import { ProductLevel } from '../entities/productLevel';
 import { User } from '../entities/user';
 import { Difficulty } from '../entities/difficulty';
+import { UserProgress } from '../entities/userProgress';
 
 @Component({
   templateUrl: 'app.html'
@@ -41,7 +42,8 @@ export class MyApp {
             Level,
             ProductLevel,
             User,
-            Difficulty
+            Difficulty, 
+            UserProgress
           ]
         }); 
       } else {
@@ -59,6 +61,7 @@ export class MyApp {
             ProductLevel,
             User,
             Difficulty, 
+            UserProgress
           ]
         });
       }

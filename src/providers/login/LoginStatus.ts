@@ -1,8 +1,14 @@
+import { UserProgress } from './../../entities/userProgress';
+import { Difficulty } from './../../entities/difficulty';
 export class LoginStatus{
     
-    public static username:string="";
+    public static username:string="Anonimus";
     public static logged:boolean=false;
-
+    public static userProgress:UserProgress;
+    public static setUserProgress(userProgress:UserProgress)
+    {
+        this.userProgress=userProgress;
+    }
     public static setLoginSuccess(username:string)
     {
         LoginStatus.username=username;

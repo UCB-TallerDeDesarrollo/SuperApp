@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
 import { Difficulty } from './difficulty';
+import { UserProgress } from './userProgress';
 
 
 @Entity('user')
@@ -10,7 +11,7 @@ export class User {
     this.username=username;
     this.birthdate=birthdate;
     this.profilePictureURL=profilePictureURL;
-    this.dificulty=new Difficulty();
+    this.userProgress=new UserProgress(0,0,0,0);
 }
 
     @PrimaryGeneratedColumn()
@@ -25,6 +26,6 @@ export class User {
     @Column()
     profilePictureURL: string;
 
-    @OneToOne(type=>Difficulty, dificulty=>dificulty.user)
-    dificulty:Difficulty;
+    @OneToOne(type=>UserProgress, userProgress=>userProgress.user)
+    userProgress:UserProgress;
 }

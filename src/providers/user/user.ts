@@ -1,10 +1,11 @@
 import { Injectable, Component } from '@angular/core';
-import { User as UserEntity } from '../../entities/user';
+import { User as UserEntity, User } from '../../entities/user';
 //import { User as UserModel } from '../../shared/models/User.model';
 import { getRepository, Repository } from 'typeorm';
 
 @Injectable()
 export class UserProvider {
+ 
     private userRepository: Repository<UserEntity>;
 
     constructor() {
@@ -55,4 +56,12 @@ export class UserProvider {
         
         return count != 0;
     }
+    async prepareAnonimusUser() {
+        let exist:boolean=await this.existsUsername("anonimus");
+        if (!exist)
+        {
+            let user:User=new User("anonimus", new Date(), "");
+            await this.userRepository.save(user);
+        }
+      }
 }
