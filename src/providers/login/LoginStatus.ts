@@ -16,7 +16,7 @@ export class LoginStatus{
     }
     public static setLogout()
     {
-        LoginStatus.username="";
+        LoginStatus.username="anonimus";
         LoginStatus.logged=false;
     }
 }
