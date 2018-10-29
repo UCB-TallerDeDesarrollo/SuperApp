@@ -14,6 +14,7 @@ import { Level } from '../entities/level';
 import { ProductLevel } from '../entities/productLevel';
 import { User } from '../entities/user';
 import { UserProgress } from '../entities/userProgress';
+import { Difficulty } from '../shared/models/Difficulty.model';
 
 @Component({
   templateUrl: 'app.html'
@@ -42,9 +43,10 @@ export class MyApp {
             Level,
             ProductLevel,
             User,
-            UserProgress
+            UserProgress,
+            Difficulty, 
+            UserProgress,
             SupermarketDifficulty,
-            Difficulty
           ]
         }); 
       } else {
@@ -61,12 +63,12 @@ export class MyApp {
             Level,
             ProductLevel,
             User,
-<<<<<<< HEAD
-            UserProgress
-=======
+            UserProgress,
+            SupermarketDifficulty,
+            Difficulty, 
+            UserProgress,
             SupermarketDifficulty,
             Difficulty
->>>>>>> origin/develop
           ]
         });
       }
