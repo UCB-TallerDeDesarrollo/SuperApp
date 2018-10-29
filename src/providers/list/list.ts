@@ -27,9 +27,9 @@ export class ListProvider {
     let result: List;
     try {
       result = await this.listRepository.createQueryBuilder()
-                                          .where("user_id = :userId", { userId: user_id})
-                                          .andWhere("on_view = :onView", { onView: 1})
-                                          .getOne();
+                                        .where("user_id = :userId", { userId: user_id})
+                                        .andWhere("on_view = :onView", { onView: 1})
+                                        .getOne();
     } catch (error) {
       console.error(error);
       result = null;
@@ -37,4 +37,16 @@ export class ListProvider {
     return result;
   }
 
+  async getListsByUserId(user_id: number): Promise<Array<List>> {
+    let result: Array<List>;
+    try {
+      result = await this.listRepository.createQueryBuilder()
+                                        .where("user_id = :userId", { userId: user_id})
+                                        .getMany();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
+  }
 }
