@@ -15,7 +15,4 @@ export class Difficulty {
 
     @Column()
     lastLevel: number;
-
-    @OneToOne(type=>User, user=>user.dificulty)
-    user:User;
 }

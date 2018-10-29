@@ -95,12 +95,8 @@ export class MenuGamesPage {
     }
   }
 
-  async ionViewDidLoad() {
+ ionViewDidLoad() {
     this.databaseInitializer();
-   await this.prepareAnonimusUser();
   }
-  async prepareAnonimusUser()
-  {
-    await this.userProvide.prepareAnonimusUser();
-  }
+
 }

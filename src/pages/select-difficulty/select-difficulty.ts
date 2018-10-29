@@ -1,9 +1,12 @@
+import { LoginStatus } from './../../providers/login/LoginStatus';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { WordPage } from '../word/word';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { DifficultyProvider } from '../../shared/providers/DifficultyProvider';
 import { Difficulty } from '../../shared/models/Difficulty.model';
+import { UserProvider } from '../../providers/user/user';
+import { Login } from '../../providers/login/Login';
 @Component({
     selector: 'page-select-difficulty',
     templateUrl: 'select-difficulty.html',
@@ -11,16 +14,17 @@ import { Difficulty } from '../../shared/models/Difficulty.model';
 export class SelectDifficultyPage {
 
     private imageSound: string;
-    private easyStars: number;
-    private mediumStars: number;
-    private hardStars: number;
-    private expertStars: number;
+    public easyStars: number;
+    public mediumStars: number;
+    public hardStars: number;
+    public expertStars: number;
 
     constructor(
         public navCtrl             : NavController, 
         public navParams           : NavParams,
         private audioProvider      : AudioProvider,
-        private difficultyProvider : DifficultyProvider
+        private usersProvider      : UserProvider,
+        private login              : Login
     ) {
         this.easyStars = 0;
         this.mediumStars = 0;
@@ -37,8 +41,10 @@ export class SelectDifficultyPage {
         this.changeSoundIcon();
     }
 
-    ionViewWillEnter() {
-        this.difficultyProvider.countRows().then(number => {
+    async ionViewWillEnter() {
+        await this.prepareAnonimusUser();
+        this.setupStars();
+        /*this.difficultyProvider.countRows().then(number => {
             if(number == 4) {
                 this.easyStars = 0;
                 this.mediumStars = 0;
@@ -77,7 +83,34 @@ export class SelectDifficultyPage {
                     }
                 });
             }
-        });
+        });*/
+    }
+    async prepareAnonimusUser()
+  {
+    await this.usersProvider.prepareAnonimusUser();
+    await this.login.loadingGameData();
+  }
+    setupStars() {
+        this.setupEasy();
+        this.setupMedium();
+        this.setupHard();
+        this.setupExtreme();
+    }
+    setupExtreme(): any {
+        let actualExtremeLevel=LoginStatus.userProgress.extremeLevel-125;
+        this.expertStars=Math.trunc(actualExtremeLevel/19);
+    }
+    setupHard(): any {
+        let actualHardLevel=LoginStatus.userProgress.hardLevel-31;
+        this.hardStars=Math.trunc(actualHardLevel/19);
+    }
+    setupMedium(): any {
+        let actualMediumLevel=LoginStatus.userProgress.mediumLevel-16;
+        this.mediumStars=Math.trunc(actualMediumLevel/3);
+    }
+    setupEasy(): any {
+        let actualEasyLevel=LoginStatus.userProgress.easyLevel;
+        this.easyStars=Math.trunc(actualEasyLevel/3);
     }
 
     changeSoundIcon(){
@@ -94,38 +127,30 @@ export class SelectDifficultyPage {
     }
 
     openEasyMode() {
-        this.difficultyProvider.getLastLevel(0).then(level => {
-            this.navCtrl.push(WordPage, { 'level':level });
-        });
+            this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.easyLevel });
     }
 
     openMediumMode() {
-        this.difficultyProvider.getLastLevel(1).then(level => {
-            this.navCtrl.push(WordPage, { 'level':level });
-        });
+        this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.mediumLevel });
     }
 
     openHardMode() {
-        this.difficultyProvider.getLastLevel(2).then(level => {
-            this.navCtrl.push(WordPage, { 'level':level });
-        });
+        this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.hardLevel });
     }
 
     openExpertMode() {
-        this.difficultyProvider.getLastLevel(3).then(level => {
-            this.navCtrl.push(WordPage, { 'level':level });
-        });
+        this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.extremeLevel });
     }
 
     ionViewDidLoad() {
-        this.difficultyProvider.countRows().then(number => {
+       /* this.difficultyProvider.countRows().then(number => {
             if(number < 4) {
                 this.startDatabase();
             }
-        });
+        });*/
     }
 
-    startDatabase() {
+   /* startDatabase() {
         let modes: Difficulty[] = [
             Difficulty.createDifficulty(1, '000000000000000', 0, 1),
             Difficulty.createDifficulty(2, '000000000000000', 1, 16),
@@ -135,7 +160,7 @@ export class SelectDifficultyPage {
         for(let index = 0; index < 4; ++index) {
             this.difficultyProvider.saveDifficulty(modes[index]);
         }        
-    }
+    }*/
 
     generateArray(stars) {
         let resp = [];

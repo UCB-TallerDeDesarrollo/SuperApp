@@ -1,7 +1,6 @@
-import { Column, PrimaryGeneratedColumn, OneToOne } from "typeorm";
+import { Column, PrimaryGeneratedColumn, OneToOne, Entity } from "typeorm";
 import { User } from "./user";
-import { type, userInfo } from "os";
-
+@Entity("user_progress")
 export class UserProgress{
     constructor(easyLevel:number,mediumLevel:number,hardLevel:number,extremeLevel:number)
     {
