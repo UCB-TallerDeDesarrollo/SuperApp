@@ -44,13 +44,11 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
 
   async prepareGame(){
-    let level: number = this.navParams.get('level') || 1;
-    
-    let mode: number = this.navParams.get('mode'); 
+    let level: number = this.navParams.get('level') || 1; 
    
     this.supermarketDifficulty.updateLastLevel(level); 
     this.products = await this.productsProvider.getProducts();
-    this.game = new SuperMarketGame(this.products,level,mode);
+    this.game = new SuperMarketGame(this.products,level);
     this.game.buildProducts();
     this.productsToBuy = this.game.ProductsToBuy;
     for(let index = 0; index < this.productsToBuy.length; ++index) {
@@ -81,7 +79,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
 
   public showModalWin(): void {
-    const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {level: this.game.Level + 1,mode:this.game.Mode, lastNav:this.navController});
+    const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {level: this.game.Level + 1, lastNav:this.navController});
     levelCompleteModal.present();
   }
 

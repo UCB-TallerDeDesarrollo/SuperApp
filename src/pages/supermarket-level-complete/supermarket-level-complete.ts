@@ -18,18 +18,16 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
 export class SupermarketLevelCompletePage {
 
   private lastNav:NavController;
-  private level:number;
-  private mode:any;
+  private level:number; 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController) {
   this.lastNav=navParams.get("lastNav");
-    this.level=navParams.get("level");
-    this.mode=navParams.get("mode");
+    this.level=navParams.get("level"); 
     this.navCtrl=this.lastNav;
   }
 
 nextLevel(){
     this.viewCtrl.dismiss();
-    this.navCtrl.push(LoadingPage, {lastNav:this.navCtrl, level:this.level,mode:this.mode, typeOfGame:'supermarket'});
+    this.navCtrl.push(LoadingPage, {lastNav:this.navCtrl, level:this.level, typeOfGame:'supermarket'});
     this.navCtrl.remove(this.navCtrl.length()-1);
    
 }

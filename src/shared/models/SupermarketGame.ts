@@ -10,26 +10,20 @@ export class SuperMarketGame {
     private productsToPlay : any = [];
     private productsToBuy : any= []; 
     private level: any;
-    private mode:any;
-    public constructor(products: any[],level: any,mode:any) {
+    public constructor(products: any[],level: any) {
         this.countOfProducts = 0;
         this.products = products; 
         this.level = level;
-        this.mode=mode;
     }
     
     public getQuantityByLevel(){
-        if(this.mode===0){
-            console.log("MODE EASY");
+        if(this.level>=1 && this.level<16){ 
             return this.getQuantityFromEasyMode(this.level);
-        }else if(this.mode===1){
-            console.log("MODE MEDIUM");
+        }else if(this.level>=16 && this.level<31){ 
             return this.getQuantityFromMediumMode(this.level);
-        }else if(this.mode===2){
-            console.log("MODE HARD");
+        }else if(this.level>=31 && this.level<46){ 
             return this.getQuantityFromHardMode(this.level);
-        }else if(this.mode===3){
-            console.log("MODE EXPERT");
+        }else if(this.level>=46 && this.level<61){ 
             return this.getQuantityFromExpertMode(this.level);
         }
     }
@@ -155,11 +149,7 @@ export class SuperMarketGame {
     public get CountOfProducts(): any{
         return this.countOfProducts;
     }
-    
-    public get Mode(): any{
-        return this.mode;
-    }
-
+     
     public addPoint(): void {
         this.countOfProducts++;
     }

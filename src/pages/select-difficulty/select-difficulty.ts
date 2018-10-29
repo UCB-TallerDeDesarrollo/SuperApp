@@ -107,7 +107,7 @@ export class SelectDifficultyPage {
         if(this.typeOfGame==="supermarket"){
             
             this.supermarketDifficultyProvider.getLastLevel(0).then(level => { 
-                this.navCtrl.push(SupermarketPage, { 'level':level , 'mode':0 });
+                this.navCtrl.push(SupermarketPage, { 'level':level });
             })
         }else{
             
@@ -120,7 +120,7 @@ export class SelectDifficultyPage {
     openMediumMode() {
         if(this.typeOfGame==="supermarket"){
             this.supermarketDifficultyProvider.getLastLevel(1).then(level => { 
-                this.navCtrl.push(SupermarketPage, { 'level':level, 'mode':1 });
+                this.navCtrl.push(SupermarketPage, { 'level':level });
             });
         }else{
             this.difficultyProvider.getLastLevel(1).then(level => {
@@ -132,7 +132,7 @@ export class SelectDifficultyPage {
     openHardMode() {
         if(this.typeOfGame==="supermarket"){ 
             this.supermarketDifficultyProvider.getLastLevel(2).then(level => { 
-                this.navCtrl.push(SupermarketPage, { 'level':level, 'mode':2 });
+                this.navCtrl.push(SupermarketPage, { 'level':level });
             });
         }else{
             this.difficultyProvider.getLastLevel(2).then(level => {
@@ -144,7 +144,7 @@ export class SelectDifficultyPage {
     openExpertMode() {
         if(this.typeOfGame==="supermarket"){
             this.supermarketDifficultyProvider.getLastLevel(3).then(level => { 
-                this.navCtrl.push(SupermarketPage, { 'level':level , 'mode':3 });
+                this.navCtrl.push(SupermarketPage, { 'level':level });
             });
         }else{
             this.difficultyProvider.getLastLevel(3).then(level => {
