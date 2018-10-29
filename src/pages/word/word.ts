@@ -129,7 +129,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public playPronunciationOfTheProductName() {
-        this.audioProvider.playPronunciationOfTheProductName(this.game.ResponseWord);
+        setTimeout(() => {
+            this.audioProvider.playPronunciationOfTheProductName(this.game.ResponseWord);
+        }, 4000);
+        this.audioProvider.playLevelCompleteSound();
     }
    
     public playPronunciationOfTheLetter(letter: string): void {
