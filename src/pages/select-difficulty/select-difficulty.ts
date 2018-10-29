@@ -43,7 +43,7 @@ export class SelectDifficultyPage {
 
     ionViewWillEnter() {
         this.typeOfGame=this.navParams.get("typeOfGame");
-        console.log("TIPO DE JUEGO :"+this.typeOfGame);
+      
         if(this.typeOfGame === "supermarket"){
             
         }else{ 
@@ -105,12 +105,12 @@ export class SelectDifficultyPage {
 
     openEasyMode() {
         if(this.typeOfGame==="supermarket"){
-            console.log("OBTENIENDO LAST LEVEL");
+            
             this.supermarketDifficultyProvider.getLastLevel(0).then(level => { 
                 this.navCtrl.push(SupermarketPage, { 'level':level , 'mode':0 });
             })
         }else{
-            console.log("OBTENIENDO LAST LEVEL");
+            
             this.difficultyProvider.getLastLevel(0).then(level => {
                 this.navCtrl.push(WordPage, { 'level':level });
             });
@@ -178,7 +178,7 @@ export class SelectDifficultyPage {
         ];
         for(let index = 0; index < 4; ++index) {
             this.supermarketDifficultyProvider.saveDifficulty(modesSupermarket[index]);
-            console.log("super dificult en accion: ");
+            
         }
     }
 

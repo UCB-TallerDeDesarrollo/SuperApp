@@ -27,7 +27,6 @@ export class TypeormSupermarketDifficultyProvider implements SupermarketDifficul
         difficultyEntity.code = difficultyModel.Code;
         difficultyEntity.difficultyType = difficultyModel.DifficultyType;
         difficultyEntity.lastLevel = difficultyModel.LastLevel;
-        console.log("dificultad guadada: "+difficultyEntity.difficultyType+ " - "+difficultyEntity.lastLevel);
         await this.difficultyRepository.save(difficultyEntity);
     }
 

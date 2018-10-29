@@ -45,9 +45,9 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
 
   async prepareGame(){
     let level: number = this.navParams.get('level') || 1;
-    console.log("LEVEL ACTUAL: "+level);
+    
     let mode: number = this.navParams.get('mode'); 
-    console.log("MODE ACTUAL: "+mode);
+   
     this.supermarketDifficulty.updateLastLevel(level); 
     this.products = await this.productsProvider.getProducts();
     this.game = new SuperMarketGame(this.products,level,mode);
@@ -67,12 +67,12 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   public showEndView(): void {
 
     this.game.addPoint();
-    console.log("PRODUCTS PUESTOS:" +this.game.CountOfProducts);
+   
     this.audioProvider.playCorrectLetterSound();
     this.carImage="assets/imgs/"+this.countOfProducts+".png";
-    console.log("MI RESP : "+this.game.isGameOver());
+    
     if(this.game.isGameOver()) {
-      console.log("GANASTE");
+     
       this.supermarketDifficulty.saveProgressByLevel(this.game.Level);
       this.audioProvider.playLevelCompleteSound();
       this.showModalWin();
