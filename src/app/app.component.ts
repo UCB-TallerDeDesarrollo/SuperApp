@@ -1,3 +1,4 @@
+import { SupermarketDifficulty } from './../entities/supermarketDifficulty';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -42,6 +43,8 @@ export class MyApp {
             ProductLevel,
             User,
             UserProgress
+            SupermarketDifficulty,
+            Difficulty
           ]
         }); 
       } else {
@@ -58,7 +61,12 @@ export class MyApp {
             Level,
             ProductLevel,
             User,
+<<<<<<< HEAD
             UserProgress
+=======
+            SupermarketDifficulty,
+            Difficulty
+>>>>>>> origin/develop
           ]
         });
       }

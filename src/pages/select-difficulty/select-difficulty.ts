@@ -1,10 +1,14 @@
 import { LoginStatus } from './../../providers/login/LoginStatus';
+import { SupermarketPage } from './../supermarket/supermarket';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { WordPage } from '../word/word';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { UserProvider } from '../../providers/user/user';
 import { Login } from '../../providers/login/Login';
+import { DifficultyProvider } from '../../shared/providers/DifficultyProvider';
+import { SupermarketDifficultyProvider } from '../../shared/providers/SupermarketDifficultyProvider'
+import { Difficulty } from '../../shared/models/Difficulty.model';
 @Component({
     selector: 'page-select-difficulty',
     templateUrl: 'select-difficulty.html',
@@ -16,14 +20,17 @@ export class SelectDifficultyPage {
     public mediumStars: number;
     public hardStars: number;
     public expertStars: number;
-
+    typeOfGame: string;
     constructor(
         public navCtrl             : NavController, 
         public navParams           : NavParams,
         private audioProvider      : AudioProvider,
         private usersProvider      : UserProvider,
         private login              : Login
+        private difficultyProvider : DifficultyProvider,
+        private supermarketDifficultyProvider: SupermarketDifficultyProvider
     ) {
+        this.typeOfGame=this.navParams.get("typeOfGame");
         this.easyStars = 0;
         this.mediumStars = 0;
         this.hardStars = 0;

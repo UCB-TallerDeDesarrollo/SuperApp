@@ -30,7 +30,7 @@ export class MenuGamesPage {
           ) {
     this.changeSoundIcon();
   }
-  ionViewDidEnter() { 
+  ionViewDidEnter() {  
     this.changeSoundIcon(); 
   }
 
@@ -47,14 +47,10 @@ export class MenuGamesPage {
     else{
       this.imageSound="assets/imgs/soundon.png";
     }
-  }
-
-    pushPageWord(){
-        this.navController.push(SelectDifficultyPage);
-    }
+  } 
 
     pushPageSupermarket(){
-      this.navController.push(SupermarketPage);
+      this.navController.push(SelectDifficultyPage,{ typeOfGame:"supermarket" });
     }
 
     popPage(){
