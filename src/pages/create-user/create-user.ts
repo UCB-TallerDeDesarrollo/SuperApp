@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
-import { User as UserModel } from '../../shared/models/User.model';
+import { User } from '../../entities/user';
 
 /**
  * Generated class for the CreateUserPage page.
@@ -38,9 +38,7 @@ export class CreateUserPage {
 
       toast.present();
     } else {
-      let profilePictureURL = '/picture/' + this.username;
-      let newUser = UserModel.createUser(0, this.username,new Date(), profilePictureURL);
-
+      let newUser:User = new User(this.username, new Date(), "");
       await this.userProvider.saveUser(newUser);
 
       let toast = this.toastCtrl.create({
