@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'; 
-import { SupermarketDifficulty as DifficultyEntity } from './../../entities/supermarketDifficulty';
+import { SupermarketDifficulty as DifficultyEntity } from '../../entities/supermarketDifficulty';
 import { Difficulty as DifficultyModel } from '../../shared/models/Difficulty.model';
 import { getRepository, Repository } from 'typeorm';
 import { SupermarketDifficultyProvider } from '../../shared/providers/SupermarketDifficultyProvider';
@@ -10,12 +10,12 @@ export class TypeormSupermarketDifficultyProvider implements SupermarketDifficul
     private difficultyRepository: any;
     
     constructor() {
-        this.difficultyRepository = getRepository('supermarketdifficulty') as Repository<DifficultyEntity>;
+        this.difficultyRepository = getRepository('supermarket_difficulty') as Repository<DifficultyEntity>;
     }
     
     async countRows(): Promise<number> {
         let count: number = await this.difficultyRepository
-            .createQueryBuilder('supermarketdifficulty')
+            .createQueryBuilder('supermarket_difficulty')
             .orderBy('difficulty.id', 'ASC')
             .getCount();
         return count;
@@ -27,11 +27,12 @@ export class TypeormSupermarketDifficultyProvider implements SupermarketDifficul
         difficultyEntity.code = difficultyModel.Code;
         difficultyEntity.difficultyType = difficultyModel.DifficultyType;
         difficultyEntity.lastLevel = difficultyModel.LastLevel;
+        console.log("dificultad guadada: "+difficultyEntity.difficultyType+ " - "+difficultyEntity.lastLevel);
         await this.difficultyRepository.save(difficultyEntity);
     }
 
     async getLastLevel(difficultyType: number): Promise<number> {
-        let difficultyEntity = await this.difficultyRepository.createQueryBuilder('supermarketdifficulty')
+        let difficultyEntity = await this.difficultyRepository.createQueryBuilder('supermarket_difficulty')
             .where('difficultyType = :difficultyType', { difficultyType: difficultyType })
             .getOne();
         return Number(difficultyEntity.lastLevel);
@@ -41,7 +42,7 @@ export class TypeormSupermarketDifficultyProvider implements SupermarketDifficul
         let difficultyType = this.getDifficultType(lastLevel);
         await this.difficultyRepository
             .createQueryBuilder()
-            .update('supermarketdifficulty')
+            .update('supermarket_difficulty')
             .set({ lastLevel: lastLevel })
             .where('difficultyType = :difficultyType', { difficultyType: difficultyType })
             .execute();
@@ -63,14 +64,14 @@ export class TypeormSupermarketDifficultyProvider implements SupermarketDifficul
             if(difficultyType == 3) {
                 posLevel = level - 46;
             }
-            let temporalDifficulty = await this.difficultyRepository.createQueryBuilder('supermarketdifficulty')
+            let temporalDifficulty = await this.difficultyRepository.createQueryBuilder('supermarket_difficulty')
                 .where('difficultyType = :difficultyType', { difficultyType: difficultyType })
                 .getOne();
             let progressCode: string = temporalDifficulty.code;
             progressCode = this.setCharAt(progressCode, posLevel, 1);
             await this.difficultyRepository
                 .createQueryBuilder()
-                .update('supermarketdifficulty')
+                .update('supermarket_difficulty')
                 .set({ code: progressCode })
                 .where('difficultyType = :difficultyType', { difficultyType: difficultyType })
                 .execute();

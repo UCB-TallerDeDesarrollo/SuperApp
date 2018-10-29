@@ -51,7 +51,7 @@ import { ViewUserPage } from '../pages/view-user/view-user';
 import { DifficultyProvider } from '../shared/providers/DifficultyProvider';
 import { TypeormDifficultyProvider } from '../providers/difficulty/difficulty';
 import { SupermarketDifficultyProvider } from '../shared/providers/SupermarketDifficultyProvider';
-import { TypeormSupermarketDifficultyProvider} from '../providers/difficulty/supermarketDifficuly';
+import { TypeormSupermarketDifficultyProvider} from '../providers/difficulty/supermarketDifficulty';
 import { DeleteUserPage } from '../pages/delete-user/delete-user';
 import { LoginOptionsPage } from '../pages/login-options/login-options';
 

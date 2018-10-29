@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"; 
 
-@Entity('supermarketdifficulty')
+@Entity('supermarket_difficulty')
 export class SupermarketDifficulty {
 
     @PrimaryGeneratedColumn()
