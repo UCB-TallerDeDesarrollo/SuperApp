@@ -1,10 +1,6 @@
-import { ViewUserPage } from './../view-user/view-user';
-import { LoginStatus } from './../../providers/login/LoginStatus';
-import { WordPage } from './../word/word';
 import { Component } from '@angular/core';
 import { NavController, ToastController, AlertController } from 'ionic-angular';
-import { Platform } from 'ionic-angular';
-import { ListaPage } from '../lista/lista';
+import { Platform } from 'ionic-angular'; 
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { MenuGamesPage } from './../menu-games/menu-games';
@@ -31,7 +27,7 @@ export class HomePage {
     this.changeSoundIcon(); 
     
   }
-  ionViewDidEnter() { 
+  ionViewDidEnter() {  
     this.changeSoundIcon();
   }
   
@@ -48,23 +44,14 @@ export class HomePage {
     else{
       this.imageSound="assets/imgs/soundon.png";
     }
-  }
-  
-
-  pushPageList(){
-    this.navCtrl.push(ListaPage);    
-  }
-
-  pushPageWord(){
-    this.navCtrl.push(WordPage);
-  }
-
+  } 
+ 
   pushPageMenuGames(){
     this.navCtrl.push(MenuGamesPage);
   }
 
   pushPageWordGame(){
-    this.navCtrl.push(SelectDifficultyPage);
+    this.navCtrl.push(SelectDifficultyPage,{ typeOfGame: "words" });
   }
 
   pushEditorProducts() {

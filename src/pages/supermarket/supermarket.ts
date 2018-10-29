@@ -8,6 +8,7 @@ import { SupermarketDragDropProvider } from '../../shared/providers/SupermarketD
 import { SupermarketLevelCompletePage } from './../supermarket-level-complete/supermarket-level-complete';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Product } from '../../entities/product';
+import { SupermarketDifficultyProvider } from '../../shared/providers/SupermarketDifficultyProvider';
 @IonicPage()
 @Component({
   selector: 'page-supermarket',
@@ -32,7 +33,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     public modalController:ModalController,
     private audioProvider: AudioProvider,
     private dragDropProvider: SupermarketDragDropProvider,
-    private platform: Platform
+    private platform: Platform,
+    private supermarketDifficulty: SupermarketDifficultyProvider
   ) {
     this.selectorName = 'PRODUCT-' + Math.random();
     this.countOfProducts = 0;
@@ -42,15 +44,20 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
 
   async prepareGame(){
+    let level: number = this.navParams.get('level') || 1;
+    
+    let mode: number = this.navParams.get('mode'); 
+   
+    this.supermarketDifficulty.updateLastLevel(level); 
     this.products = await this.productsProvider.getProducts();
-    this.game = new SuperMarketGame(this.products);
-    this.game.buildProducts(8,6);
+    this.game = new SuperMarketGame(this.products,level,mode);
+    this.game.buildProducts();
     this.productsToBuy = this.game.ProductsToBuy;
     for(let index = 0; index < this.productsToBuy.length; ++index) {
       this.productsList.push(`play-${this.productsToBuy[index].title}`);
     }
     this.productsToPlay = this.game.ProductsToPlay;
-  }
+  } 
 
   public stopSound(){
     this.audioProvider.changeState();
@@ -59,20 +66,25 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
 
   public showEndView(): void {
 
-    if(this.countOfProducts==5) {
+    this.game.addPoint();
+   
+    this.audioProvider.playCorrectLetterSound();
+    this.carImage="assets/imgs/"+this.countOfProducts+".png";
+    
+    if(this.game.isGameOver()) {
+     
+      this.supermarketDifficulty.saveProgressByLevel(this.game.Level);
       this.audioProvider.playLevelCompleteSound();
       this.showModalWin();
     }
-    else{
-      this.countOfProducts=this.countOfProducts+1;
-      this.audioProvider.playCorrectLetterSound();
-      this.carImage="assets/imgs/"+this.countOfProducts+".png";
-    }
+    
   }
+
   public showModalWin(): void {
-    const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {lastNav:this.navController});
+    const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {level: this.game.Level + 1,mode:this.game.Mode, lastNav:this.navController});
     levelCompleteModal.present();
   }
+
   private changeSoundIcon(){
     if(this.audioProvider.isMuted()){
       this.imageSound="assets/imgs/soundoffdark.png";
@@ -109,10 +121,6 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
 
   ngOnDestroy(): void {
     this.dragDropProvider.finalize(this.selectorName);
-  }
-
-  popPage(){
-    this.navController.pop();
-  }
+  } 
 
 }

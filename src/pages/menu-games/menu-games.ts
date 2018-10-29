@@ -1,4 +1,3 @@
-import { SupermarketPage } from '../supermarket/supermarket'; 
 import { Component } from '@angular/core';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -28,7 +27,7 @@ export class MenuGamesPage {
           ) {
     this.changeSoundIcon();
   }
-  ionViewDidEnter() { 
+  ionViewDidEnter() {  
     this.changeSoundIcon(); 
   }
 
@@ -45,14 +44,10 @@ export class MenuGamesPage {
     else{
       this.imageSound="assets/imgs/soundon.png";
     }
-  }
-
-    pushPageWord(){
-        this.navController.push(SelectDifficultyPage);
-    }
+  } 
 
     pushPageSupermarket(){
-      this.navController.push(SupermarketPage);
+      this.navController.push(SelectDifficultyPage,{ typeOfGame:"supermarket" });
     }
 
     popPage(){

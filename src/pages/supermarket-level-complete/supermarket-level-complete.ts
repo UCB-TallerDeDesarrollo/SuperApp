@@ -19,16 +19,18 @@ export class SupermarketLevelCompletePage {
 
   private lastNav:NavController;
   private level:number;
+  private mode:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController) {
   this.lastNav=navParams.get("lastNav");
     this.level=navParams.get("level");
+    this.mode=navParams.get("mode");
     this.navCtrl=this.lastNav;
   }
 
 nextLevel(){
     this.viewCtrl.dismiss();
-    this.navCtrl.push(SupermarketPage, {lastNav:this.navCtrl});
-    //this.navCtrl.remove(this.navCtrl.length()-1);
+    this.navCtrl.push(LoadingPage, {lastNav:this.navCtrl, level:this.level,mode:this.mode, typeOfGame:'supermarket'});
+    this.navCtrl.remove(this.navCtrl.length()-1);
    
 }
 }
