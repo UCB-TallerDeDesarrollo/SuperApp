@@ -26,10 +26,10 @@
         <div id="high_container" class="products-to-buy">
             <div class="title">COMPRAR</div>
             <div class="product-block" *ngFor="let product of productsToBuy" id="{{product.title}}">
-                <div id="product-{{product.id}}" class="product-info product-container">
-                    <img class="product-store" src="{{product.image}}" />
+                <div id="product-{{product.id}}" [class]="(imageClass) ? 'product-info product-container' : 'product-info product-container flex-container'">
+                    <img [class]="(imageClass) ? 'product-store' : 'hidden-product'" src="{{product.image}}" />
                     <img id="img-play-{{product.title}}" class="product-store product-absolute" src="../../assets/imgs/check-symbol.png" />
-                    <p class="product-name">{{product.title}}</p>
+                    <p [class]="(imageClass) ? 'product-name' : 'product-name center-element'">{{product.title}}</p>
                 </div>
             </div>
         </div>
