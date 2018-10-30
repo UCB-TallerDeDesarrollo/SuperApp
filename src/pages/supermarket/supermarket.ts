@@ -25,6 +25,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   public selectorName: string;
   public productsList: string[] = [];
   public countOfProducts: number;
+  public textClass: boolean = true;
+
   constructor(
     public navController: NavController,
     public navParams: NavParams,
@@ -44,9 +46,13 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
 
   async prepareGame(){
-    let level: number = this.navParams.get('level') || 1; 
-   
+    let level: number = this.navParams.get('level') || 1;
     this.supermarketDifficulty.updateLastLevel(level); 
+
+    if(level >= 16 && level < 31) {
+      this.textClass = false;
+    }
+
     this.products = await this.productsProvider.getProducts();
     this.game = new SuperMarketGame(this.products,level);
     this.game.buildProducts();
