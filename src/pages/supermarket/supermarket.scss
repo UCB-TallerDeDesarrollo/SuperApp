@@ -1,7 +1,8 @@
 page-supermarket {}
 
 .main-container {
-    background-image: linear-gradient(#f9c046 10%, #e1df75 100%);
+    background-image: url("../../assets/imgs/backgroundlista0.jpg");
+    background-size: cover;
     overflow-y: hidden;
     .supermarket-title{
         color: white;
