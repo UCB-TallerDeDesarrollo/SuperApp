@@ -1,18 +1,18 @@
 <ion-header>
-        <button ion-button icon-only class="back-arrow-dark" (click)="navController.pop()">
-                <ion-icon name="arrow-back"></ion-icon>
+    <button ion-button icon-only class="back-arrow-dark" (click)="navController.pop()">
+        <ion-icon name="arrow-back"></ion-icon>
     </button>                
 </ion-header>
 
 <ion-content padding class={{backgroundColor}}>
-        <div class="level-header">
-                <h1 class="change-level" (click)="changeLevel()">NIVEL {{game.Level}}</h1>
-        </div>
-        <div class="music-logo">
-                <img [src]="imageSound" (click)="stopSound()">
-        </div>
-    <ul class="item-container" >
-        <div class="relative-container" *ngFor="let letter of game.SortedWord" (click)="playPronunciationOfTheProductName()"> 
+    <div class="level-header">
+        <h1 class="change-level" (click)="changeLevel()">NIVEL {{game.Level}}</h1>
+    </div>
+    <div class="music-logo">
+        <img [src]="imageSound" (click)="stopSound()">
+    </div>
+    <ul [class]="(game.Level >= 16) ? 'item-container' : 'item-container easy-item-container'" >
+        <div [class]="(game.Level >= 16) ? 'relative-container' : 'relative-container easy-relative-container'" *ngFor="let letter of game.SortedWord" (click)="playPronunciationOfTheProductName()"> 
             <div>
                 <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
             </div>
