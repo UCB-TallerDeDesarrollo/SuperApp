@@ -75,6 +75,22 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     this.productsToPlay = this.game.ProductsToPlay;
   } 
 
+  async chargeCategories(){
+    console.log(this.productsToPlay);
+    for(let product of this.productsToPlay){
+      let category_id=product.category_id;
+      let categoryIndex=this.categories.findIndex((elem)=>{return elem.id===category_id;});
+      if(categoryIndex>=0){
+        this.categories[categoryIndex].addProduct(product);
+      }
+      else{
+        let category=await this.categoryProvider.getCategoryById(category_id);
+        category.addProduct(product);
+        this.categories.push(category);
+      }
+    }
+    console.log(this.categories);
+  }
   public stopSound(){
     this.audioProvider.changeState();
     this.changeSoundIcon();
