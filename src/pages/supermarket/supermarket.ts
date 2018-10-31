@@ -25,6 +25,13 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   public selectorName: string;
   public productsList: string[] = [];
   public countOfProducts: number;
+  ON_VIEW_LIST_LENGTH:number = 12;
+  ON_VIEW_CATEGORIES_LENGTH:number = 4;
+  productPageIndex: number;
+  categoriesPageIndex: number;
+  onViewProducts: Array<Product> = [];
+  onViewCategories: Array<{id: number, name: string}>=[];
+  defaultCategoryId:number;
 
   public textClass: boolean = true;
   public imageClass: boolean = true;
