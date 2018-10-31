@@ -112,19 +112,6 @@ export class SuperMarketGame {
         this.productsToBuy = ArrayManager.getManyRandomElements(numberOfProductsToBuy,this.productsToPlay); 
     }
 
-    public showProducts(){
-        console.log("NEW PRODUCTS");
-        console.log("#######PRODUCTS TO BUY########");
-        for(let i = 0;i<this.productsToBuy.length;i++){
-            console.log(this.productsToBuy[i].image);
-        }
-        console.log("#######PRODUCTS TO PLAY########");
-        for(let i = 0;i<this.productsToPlay.length;i++){
-            console.log(this.productsToPlay[i].image);
-        } 
-    }
- 
-   
 
     public get quantityOfPlayProducts() : number {
         return this.productsToPlay.length();
