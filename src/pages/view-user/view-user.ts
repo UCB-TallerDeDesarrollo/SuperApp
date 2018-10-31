@@ -24,8 +24,8 @@ export class ViewUserPage {
 }
 async ionViewDidLoad() {
 var user=await this.userProvider.getUserByUsername(LoginStatus.username);
-  this.username=user.Username;
-  this.birthdate=user.Birthdate;
+  this.username=user.username;
+  this.birthdate=user.birthdate;
 }
 
 }

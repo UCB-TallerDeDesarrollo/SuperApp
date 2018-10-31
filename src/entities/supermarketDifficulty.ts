@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"; 
 
-@Entity('difficulty')
-export class Difficulty {
+@Entity('supermarket_difficulty')
+export class SupermarketDifficulty {
 
     @PrimaryGeneratedColumn()
     id: number;

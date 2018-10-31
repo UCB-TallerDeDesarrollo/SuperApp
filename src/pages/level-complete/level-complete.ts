@@ -28,7 +28,7 @@ export class LevelCompletePage {
   }
   nextLevel(){
     this.viewCtrl.dismiss();
-    this.navCtrl.push(LoadingPage, {lastNav:this.navCtrl, level:this.level});
+    this.navCtrl.push(LoadingPage, {lastNav:this.navCtrl, level:this.level, typeOfGame:'words'});
     this.navCtrl.remove(this.navCtrl.length()-1);
   }
 }

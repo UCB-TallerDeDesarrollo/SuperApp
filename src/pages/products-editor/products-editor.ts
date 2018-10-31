@@ -27,15 +27,17 @@ export class ProductsEditorPage implements OnDestroy {
   fileName: string;
   audio: MediaObject;
 
-  constructor(private platform: Platform, 
-              public navCtrl: NavController, 
-              public navParams: NavParams, 
-              public productsProvider: ProductsProvider, 
-              public categoryProvider: CategoryProvider, 
+  constructor(private platform: Platform,
+              public navCtrl: NavController,
+              public navParams: NavParams,
+              public productsProvider: ProductsProvider,
+              public categoryProvider: CategoryProvider,
               private media: Media,
               private file: File,
               private screenOrientation: ScreenOrientation,
               private audioProvider    : AudioProvider) {
+    this.databaseInitializer();
+    this.reloadProducts();
     platform.ready()
     .then(() => {
       if (platform.is('cordova')){
@@ -46,8 +48,7 @@ export class ProductsEditorPage implements OnDestroy {
     });
   }
 
-  ionViewWillEnter() { 
-    this.databaseInitializer();
+  ionViewWillEnter() {
     this.reloadProducts();
   }
 
@@ -85,8 +86,12 @@ export class ProductsEditorPage implements OnDestroy {
     this.navCtrl.push(EditProductPage, {data: product_id, categoryId: this.navParams.data.data});
   }
 
-  async changeState(product_id: number, product_state: boolean) {
-    await this.productsProvider.updateStateProduct(!product_state, product_id);
+  async changeState(product_id: number, product_state: number) {
+    if(product_state==1){
+      await this.productsProvider.updateStateProduct(0, product_id);
+    }else{
+      await this.productsProvider.updateStateProduct(1, product_id);
+    }
     this.navCtrl.pop();
     this.navCtrl.push(ProductsEditorPage, { data: this.navParams.data.data });
   }
@@ -99,29 +104,41 @@ export class ProductsEditorPage implements OnDestroy {
       for(const c in categories) {
         let category = new Category();
         category.name = categories[c].name;
-        await this.categoryProvider.saveCategory(category);
+        this.categoryProvider.saveCategory(category)
+        .then(response => {
+          if(response) console.log("Save category successfully");
+        }).catch(error => {
+          console.error(error);
+        });
       }
       if(count_product < 58) {
         let products = FakeProducts.getProducts()
         for (const p in products) {
           let product = new Product();
           product.image = products[p].image;
-          product.state = true;
+          product.state = 1;
           product.audio = " ";
           product.title = products[p].title;
-          product.category = await this.categoryProvider.getCategoryById(products[p].categoryId);
-          await this.productsProvider.saveProduct(product);
+          product.category_id = products[p].categoryId;
+          this.productsProvider.saveProduct(product)
+          .then(response => {
+            if(response) console.log("Save product successfully");
+          }).catch(error => {
+            console.error(error);
+          });
         }
       }
     }
   }
+
   public playSoundOfWord(product_title :string, product_audio :string) {
     if(product_audio == " "){
       this.audioProvider.playPronunciationOfTheProductName(product_title);
     }else{
       this.playAudio(product_audio);
-    }  
+    }
   }
+
   playAudio(file) {
     if (this.platform.is('ios')) {
       this.filePath = file;

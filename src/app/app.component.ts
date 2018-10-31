@@ -1,25 +1,28 @@
+import { SupermarketDifficulty } from './../entities/supermarketDifficulty';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SmartAudio } from '../providers/smart-audio/smart-audio';
 import { createConnection } from 'typeorm';
-
 import { HomePage } from '../pages/home/home';
-
 import { Product } from '../entities/product';
 import { Category } from '../entities/category';
 import { Level } from '../entities/level';
 import { ProductLevel } from '../entities/productLevel';
 import { User } from '../entities/user';
+import { UserProgress } from '../entities/userProgress';
 import { Difficulty } from '../entities/difficulty';
+import { List } from '../entities/list';
+import { ProductList } from '../entities/productList';
+
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = HomePage;
-  
+
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, smartAudio: SmartAudio) {
     platform.ready().then(async () => {
@@ -41,9 +44,15 @@ export class MyApp {
             Level,
             ProductLevel,
             User,
-            Difficulty
+            UserProgress,
+            Difficulty, 
+            UserProgress,
+            SupermarketDifficulty,
+            Difficulty,
+            List,
+            ProductList
           ]
-        }); 
+        });
       } else {
         await createConnection({
           type: 'sqljs',
@@ -58,7 +67,14 @@ export class MyApp {
             Level,
             ProductLevel,
             User,
-            Difficulty
+            UserProgress,
+            SupermarketDifficulty,
+            Difficulty, 
+            UserProgress,
+            SupermarketDifficulty,
+            Difficulty,
+            List,
+            ProductList
           ]
         });
       }

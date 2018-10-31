@@ -7,8 +7,8 @@ import { ColorProvider } from '../../shared/providers/ColorProvider';
 import { ProductProvider } from '../../shared/providers/ProductProvider';
 import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvider';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
-import { DifficultyProvider } from '../../shared/providers/DifficultyProvider';
 import { Product } from '../../shared/models/Product.model';
+import { Login } from '../../providers/login/Login';
 @Component({
     selector: 'page-word',
     templateUrl: 'word.html'
@@ -28,7 +28,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private dragDropProvider   : WordDragDropProvider,
         private audioProvider      : AudioProvider,
         private navParams          : NavParams,
-        private difficultyProvider : DifficultyProvider
+        private login              : Login
     ) {
         this.prepareGame();
         this.changeSoundIcon();
@@ -62,18 +62,17 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private prepareLevel() {
-        let level: number = this.navParams.get('level') || 1;
+        let level: number = this.navParams.get('level');
         let product: Product = this.productsProdiver.getProductOfActualLevel(level);
-        this.difficultyProvider.updateLastLevel(level);
         this.game = new SortWordGame(product, level);
     }
 
-    public showEndView(): void {
+    public async showEndView() {
         this.game.addCount();
         if(this.game.isGameOver()) {
-            this.difficultyProvider.saveProgressByLevel(this.game.Level);
+            await this.login.saveProgress(this.game.Level);
             setTimeout(() => {
-                this.playPronunciationOfTheProductName();
+                this.playLevelCompleteSoundAndPronunciationOfTheProductName();
             }, 250);
             this.showModalWin();
         }
@@ -126,6 +125,13 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         else{
           this.imageSound = 'assets/imgs/soundOnDark.png';
         }
+    }
+
+    public playLevelCompleteSoundAndPronunciationOfTheProductName() {
+        setTimeout(() => {
+            this.audioProvider.playPronunciationOfTheProductName(this.game.ResponseWord);
+        }, 4000);
+        this.audioProvider.playLevelCompleteSound();
     }
 
     public playPronunciationOfTheProductName() {

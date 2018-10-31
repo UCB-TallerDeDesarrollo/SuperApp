@@ -46,12 +46,16 @@ import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDrag
 import { UserProvider } from '../providers/user/user';
 import { CreateUserPage } from '../pages/create-user/create-user';
 import { UserLoginPage } from '../pages/user-login/user-login';
-import { Login } from '../providers/login/login';
+import { Login } from '../providers/login/Login';
 import { ViewUserPage } from '../pages/view-user/view-user';
 import { DifficultyProvider } from '../shared/providers/DifficultyProvider';
 import { TypeormDifficultyProvider } from '../providers/difficulty/difficulty';
+import { SupermarketDifficultyProvider } from '../shared/providers/SupermarketDifficultyProvider';
+import { TypeormSupermarketDifficultyProvider} from '../providers/difficulty/supermarketDifficulty';
 import { DeleteUserPage } from '../pages/delete-user/delete-user';
 import { LoginOptionsPage } from '../pages/login-options/login-options';
+import { ListProvider } from '../providers/list/list';
+import { ProductListProvider } from '../providers/product-list/product-list';
 
 @NgModule({
   declarations: [
@@ -92,7 +96,7 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
     MenuGamesPage,
     ListaPage,
     WordPage,
-    ProductsPage, 
+    ProductsPage,
     LevelCompletePage,
     SupermarketLevelCompletePage,
     LoadingPage,
@@ -106,8 +110,8 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
     CreateCategoryPage,
     EditCategoryPage,
     CreateUserPage,
-    UserLoginPage, 
-    EditUserPage, 
+    UserLoginPage,
+    EditUserPage,
     ViewUserPage,
     DeleteUserPage,
     LoginOptionsPage,
@@ -124,6 +128,7 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
     {provide: ProductProvider, useClass: ArrayProductProvider},
     {provide: ColorProvider, useClass: ArrayColorProvider},
     {provide: DifficultyProvider, useClass: TypeormDifficultyProvider},
+    {provide: SupermarketDifficultyProvider, useClass: TypeormSupermarketDifficultyProvider},
     {provide: WordDragDropProvider, useClass: DragulaWordDragDropProvider, deps: [DragulaService, Platform]},
     {provide: SupermarketDragDropProvider, useClass: DragulaSupermarketDragDropProvider, deps: [DragulaService, Platform]},
     ProductsProvider,
@@ -134,8 +139,9 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
     TextToSpeech,
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]},
     File,
-    Media
-    
+    Media,
+    ListProvider,
+    ProductListProvider
   ]
 })
 export class AppModule { }

@@ -4,12 +4,9 @@ import { Product } from "./product";
 @Entity('category')
 export class Category {
 
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({name: "id"})
     id: number;
 
-    @Column()
+    @Column({name: "name"})
     name: string;
-
-    @OneToMany(type => Product, product => product.category)
-    products: Product[];
 }

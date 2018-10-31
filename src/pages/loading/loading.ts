@@ -1,3 +1,4 @@
+import { SupermarketPage } from './../supermarket/supermarket';
 import { WordPage } from './../word/word';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -16,9 +17,11 @@ import { NavController, NavParams } from 'ionic-angular';
 export class LoadingPage {
   public level:number;
   public lastNav:NavController;
+  public typeOfGame : string; 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.level=navParams.get("level");
    this.lastNav=navParams.get("lastNav");
+   this.typeOfGame=navParams.get("typeOfGame"); 
    this.navCtrl=this.lastNav;
   }
 
@@ -29,7 +32,11 @@ export class LoadingPage {
   }
   init()
   {
-    this.navCtrl.push(WordPage, {level: this.level});
+    if(this.typeOfGame==="supermarket"){
+      this.navCtrl.push(SupermarketPage, {level: this.level }); 
+    }else{
+      this.navCtrl.push(WordPage, {level: this.level});
+    }
     this.navCtrl.remove(this.navCtrl.length()-1);
   }
 }

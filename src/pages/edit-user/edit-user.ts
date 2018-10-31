@@ -24,15 +24,15 @@ export class EditUserPage {
   }
   async ionViewDidLoad() {
     var user=await this.userProvider.getUserByUsername(LoginStatus.username);
-    this.username=user.Username;
-    this.birthdate=user.Birthdate;
+    this.username=user.username;
+    this.birthdate=user.birthdate;
   }
 
   async saveUser()
   {
     var user=await this.userProvider.getUserByUsername(LoginStatus.username);
-    user.Username=this.username;
-    user.Birthdate=this.birthdate;
+    user.username=this.username;
+    user.birthdate=this.birthdate;
     try{
       await this.userProvider.updateUser(user);
       var toast=this.toastCtrl.create({
