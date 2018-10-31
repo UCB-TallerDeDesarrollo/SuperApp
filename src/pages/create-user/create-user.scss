@@ -1,6 +1,10 @@
 page-create-user {
 
 }
+
+.colors{
+        background-image: linear-gradient( 135deg, #3C8CE7 10%, #00EAFF 100%);
+}
 .tittle
 {
     color: white;
@@ -16,6 +20,16 @@ page-create-user {
     position: relative;
     top:0%;
     left:35%;
+}
+.image_user{
+    height: 15vw; 
+    width: 15vw; 
+   border: 2px solid transparent;
+   border-radius: 50%;
+   box-shadow: 0 0 5px gray;
+   display: inline-block;
+   margin-left: auto;
+   margin-right: auto;
 }
 .save_user_button{
     width: 100%;

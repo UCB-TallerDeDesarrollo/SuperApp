@@ -2,7 +2,8 @@
 </ion-header>
 
 
-<ion-content padding class="main">
+<ion-content padding class="colors">
+  <div>
     <ion-buttons left>
         <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
             <ion-icon name="arrow-back"></ion-icon>
@@ -10,9 +11,9 @@
     </ion-buttons>
     <h3 class="tittle">Crear usuario</h3>
     <div class="form">
-      <div class="user_image">
-        <img src="assets/imgs/user.png">
-      </div>
+        <div class="user_image">
+            <img src={{Image}} class="image_user" (click)="takePhoto()">
+          </div>
   <ion-list>
     <ion-item>
       <ion-label fixed> Usuario</ion-label>
@@ -28,5 +29,7 @@
     </div>
 </div>
  
+</div>
+
 
 </ion-content>

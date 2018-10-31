@@ -56,6 +56,7 @@ import { DeleteUserPage } from '../pages/delete-user/delete-user';
 import { LoginOptionsPage } from '../pages/login-options/login-options';
 import { ListProvider } from '../providers/list/list';
 import { ProductListProvider } from '../providers/product-list/product-list';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -136,7 +137,7 @@ import { ProductListProvider } from '../providers/product-list/product-list';
     LevelProvider,
     ProductLevelProvider,
     UserProvider,
-    TextToSpeech,
+    TextToSpeech,    Camera,
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]},
     File,
     Media,
