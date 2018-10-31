@@ -1,3 +1,4 @@
+import { LoginStatus } from './../../providers/login/LoginStatus';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
@@ -13,12 +14,14 @@ export class UserLoginPage{
   private loginOptions:LoginOptionsPage;
   constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider:UserProvider, private toastCtrl: ToastController, public loginCtrl:Login) {
     this.loginOptions=navParams.get("loginOptions");
+    
   }
 
   public async login()
   {
     if (await this.loginCtrl.login(this.username))
     {
+     await this.loginCtrl.loadingGameData();
       let toast=this.toastCtrl.create({
         message:"Bienvenido "+this.username,
         duration: 3000,

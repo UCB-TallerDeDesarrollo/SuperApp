@@ -27,10 +27,12 @@ export class Login{
         if (LoginStatus.logged)
         {
             var existUser:User=await this.userProvider.getUserByUsername(LoginStatus.username);
+            LoginStatus.setUser(existUser);
             LoginStatus.setUserProgress(existUser.userProgress);
         }
         else{
             var existUser:User=await this.userProvider.getUserByUsername("anonimus");
+            LoginStatus.setUser(existUser);
             LoginStatus.setUserProgress(existUser.userProgress);
         }
       }

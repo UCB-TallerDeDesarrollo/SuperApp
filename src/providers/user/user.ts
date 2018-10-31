@@ -75,7 +75,7 @@ export class UserProvider {
         let exist:boolean=await this.existsUsername("anonimus");
         if (!exist)
         {
-            let user:User=new User("anonimus", new Date(), "");
+            let user:User=new User("anonimus", new Date(), "assets/imgs/user.png");
             await this.saveUser(user);
         }
       }

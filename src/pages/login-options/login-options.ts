@@ -17,11 +17,13 @@ export class LoginOptionsPage {
   public iconTop:string;
   private loged_items:any;
   private unloged_items:any;
+  Image: string;
   constructor(
       public navCtrl:NavController, public toastCtrl:ToastController,
       public modalCtrl:ModalController
   )
   {
+    
   }
   ngOnInit(){ 
     this.changeLoginIcons();
@@ -59,6 +61,7 @@ export class LoginOptionsPage {
     public changeLoginIcons() {
       this.loged_items=document.getElementById('loged_items');
        this.unloged_items=document.getElementById('unloged_items');
+       this.Image=LoginStatus.getImage();
        if (LoginStatus.logged)
        {
          this.loged_items.hidden=false;
