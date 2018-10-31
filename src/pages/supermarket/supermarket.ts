@@ -9,6 +9,7 @@ import { SupermarketLevelCompletePage } from './../supermarket-level-complete/su
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Product } from '../../entities/product';
 import { SupermarketDifficultyProvider } from '../../shared/providers/SupermarketDifficultyProvider';
+import { Category } from '../../entities/category';
 
 @Component({
   selector: 'page-supermarket',
@@ -18,6 +19,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
    
   game : SuperMarketGame;
   products: Array<Product> = [];
+  categories: Array<Category> = [];
   productsToBuy: any=[]; 
   productsToPlay: any[];
   imageSound: String;
@@ -73,6 +75,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
       this.productsList.push(`play-${this.productsToBuy[index].title}`);
     }
     this.productsToPlay = this.game.ProductsToPlay;
+    await this.chargeCategories();
   } 
 
   async chargeCategories(){
@@ -91,6 +94,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     }
     console.log(this.categories);
   }
+
   public stopSound(){
     this.audioProvider.changeState();
     this.changeSoundIcon();
@@ -119,10 +123,10 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
 
   private changeSoundIcon(){
     if(this.audioProvider.isMuted()){
-      this.imageSound="assets/imgs/soundoffdark.png";
+      this.imageSound="assets/imgs/soundoff.png";
     }
     else{
-      this.imageSound="assets/imgs/soundondark.png";
+      this.imageSound="assets/imgs/soundon.png";
     }
   }
 
