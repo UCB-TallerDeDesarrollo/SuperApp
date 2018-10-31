@@ -17,7 +17,7 @@
     </ion-item>
     <ion-item [formGroup]="productForm">
       <ion-label>Nombre del Item</ion-label>
-      <ion-input type="text" maxlength="20"   formControlName="title" [(ngModel)]="product.title" name="title"></ion-input>
+      <ion-input type="text" maxlength="20"   formControlName="title" [(ngModel)]="product.title" name="title" (keypress)="eventHandler($event)"></ion-input>
     </ion-item>
     <ion-item>
       <button ion-button primary (click)="stopRecord()" *ngIf="recording"><ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Detener/Guardar</button>

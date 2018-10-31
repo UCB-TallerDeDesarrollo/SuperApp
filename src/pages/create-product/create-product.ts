@@ -115,4 +115,12 @@ export class CreateProductPage {
     this.audio.stopRecord();
     this.recording = false;
   }
+  eventHandler(keyCode){
+    //console.log(keyCode);  
+    let input = keyCode.target;
+    setTimeout(()=>{
+      input.value=input.value.toUpperCase();
+        }, 1);
+
+  }
 }
