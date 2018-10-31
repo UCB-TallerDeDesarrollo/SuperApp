@@ -39,7 +39,7 @@
 
 
 
-.container {
+.products-supermaket-container {
     display: table;
     width: 92vw;
 }
@@ -52,6 +52,8 @@
     float: left;
     text-align: center;
     width: 40%;
+    background-image: url(../../assets/imgs/shelves.jpg);
+    background-size: 100% 170%;
     @media screen and (max-width: 1367px) {
         width: 60%;
         height: 100%;
@@ -286,8 +288,6 @@
 
 .icon-image {
     height: 100%;
-    float: right;
-    margin-right: 15%;
 }
 
 .gu-mirror {
@@ -310,8 +310,6 @@
         @media screen and (max-width: 824px) {
             font-size: 0.67em;
         }
-        //text-align: center;
-        //margin-top: -3px;
     }
     .product-store{
         width: 70%;
@@ -339,12 +337,7 @@
 
 .carrito_container {
     position: absolute;
-    top: 65%;
-    right: 5%;
-    width: 23%;
-    //display: table;
-    //width: 92vw;
-    //max-height:100%;
+    left: 70%;
 }
 
 .product-container{
