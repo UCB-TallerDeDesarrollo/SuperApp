@@ -1,17 +1,21 @@
+<ion-header>
+</ion-header>
+
 <ion-content no-bounce padding class="supermarket-container">
 
     <div class="nav-bar-market">
 
-        <button ion-button icon-only (click)="popPage()">
+        <button ion-button icon-only class="back-arrow-dark" (click)="navController.pop()">
             <ion-icon name="arrow-back"></ion-icon>
         </button>
+
 
         <div class="market-header">
             <h1 class="supermarket-title">SUPER MERCADO</h1>
         </div>            
 
         <div class="music-logo-market">
-            <img [src]="imageSound" alt="" (click)="stopSound()">
+            <img [src]="imageSound" (click)="stopSound()">
         </div>
         
     </div>

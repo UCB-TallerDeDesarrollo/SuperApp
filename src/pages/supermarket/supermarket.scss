@@ -1,8 +1,8 @@
 .supermarket-container {
     
     background-image: url(../../assets/imgs/backgroundlista0.jpg);
-    overflow-y: hidden;
-    background-size: cover;
+    background-size: contain;
+    background-repeat: round;
 
     .nav-bar-market {
 
@@ -16,11 +16,19 @@
             width: 8%;
         }
 
+        .back-arrow-dark {
+            box-shadow: none;
+            background-color: transparent;
+            color: black;
+            position: initial;
+        }
+
         .market-header {
             
             top: 12px;
             position: absolute;
             width: 100%;
+            z-index: -999;
 
             .supermarket-title{
                 color: white;

@@ -1,6 +1,6 @@
 import { CategoryProvider } from './../../providers/category/category';
 import { Component, OnInit, AfterViewInit, OnDestroy, AfterViewChecked } from '@angular/core'; 
-import { IonicPage, NavController, NavParams, Platform, ModalController } from 'ionic-angular'; 
+import { NavController, NavParams, Platform, ModalController } from 'ionic-angular'; 
 import { ProductsProvider } from '../../providers/product/product'; 
 import {SuperMarketGame} from '../../shared/models/SupermarketGame'; 
 import { AudioProvider } from '../../shared/providers/AudioProvider';
@@ -9,7 +9,7 @@ import { SupermarketLevelCompletePage } from './../supermarket-level-complete/su
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Product } from '../../entities/product';
 import { SupermarketDifficultyProvider } from '../../shared/providers/SupermarketDifficultyProvider';
-@IonicPage()
+
 @Component({
   selector: 'page-supermarket',
   templateUrl: 'supermarket.html',
