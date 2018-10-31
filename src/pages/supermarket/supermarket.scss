@@ -350,6 +350,20 @@
     visibility: hidden;
 }
 
+.hidden-product {
+    visibility: hidden;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+}
+
+.center-element {
+    position: absolute;
+    top: 50%;
+}
+
 /* high-performance display:none; helper */
 .gu-hide {
     left: -9999px !important;
