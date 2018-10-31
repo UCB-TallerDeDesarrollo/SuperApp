@@ -11,40 +11,148 @@
     </ion-card-header>
   
     <ion-card-content>
-        <div class="logo2">
-            <img src="assets/imgs/shopping.svg" alt="">
-        </div>
-        <div padding>
-            <ion-segment [(ngModel)]="about">
-              <ion-segment-button value="Superapp">
-                  Superapp
-              </ion-segment-button>
-              <ion-segment-button value="Desarolladores">
-                  Desarolladores
-              </ion-segment-button>
-
-            </ion-segment>
-          </div>
-
-          <div [ngSwitch]="about">
-              <ion-list *ngSwitchCase="'Superapp'">
-                <ion-item>
-                  <p> 
-                    Desarrolla las habilidades cognitivas, auditivas y visuales donde prevalece el pensamiento concreto.Estimulando el autovalimiento y la adquisición de un saber ademas permite realizar listas de productos con fotos reales
-                  </p>
-                </ion-item>
-
-              </ion-list>
-            
-              <ion-list *ngSwitchCase="'Desarolladores'">
-                <ion-item>
-                  <ion-thumbnail item-start>
-                      <img src="assets/imgs/user.png">
-                  </ion-thumbnail>
-                  <h2>devloper1</h2>
-                </ion-item>
-              </ion-list>
+        <div class="logo-container">
+          <div class="logo-superapp">
+            <div class="logo-img">
+              <img src="assets/imgs/shopping.svg" alt="">
             </div>
+            <div class="logo-text">
+              <h1 ion-text color="light" >SUPER APP</h1>
+            </div>
+          </div>
+        </div>
+
+          <ion-card color="stable">
+            <ion-card-header>
+              <h2 ion-text color="dark" text-center>PROYECTO DANE</h2>
+            </ion-card-header>
+            <ion-card-content>
+              <div text-justify>
+                  <p ion-text color="dark">El objetivo principal del proyecto es llevar adelante una revolución en la forma de enseñarles contenidos a los niños y jóvenes con necesidades especiales, brindando solucione de software y acercándoles la tecnología informática; posicionado a la Argentina como generador de contenidos educativos para este segmento en Latinoamérica. De esta manera, se busca contribuir a la inclusión social, construyendo a una sociedad más integrada e inclusiva</p>
+              </div>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+            <ion-list>
+              <ion-item>
+                <h2>Links de interés:</h2>
+                <h3>www.proyectodane.org</h3>
+                <h3>facebook.com/Proyecto.inclusion.DANE</h3>
+                
+              </ion-item>
+            </ion-list>
+              <ion-list>
+                <ion-item>
+                  Left Icon Button
+                  <button ion-button outline item-end icon-end>
+                    <ion-icon name="star"></ion-icon>
+                    Left Icon
+                  </button>
+                </ion-item>
+              </ion-list>
+          </ion-card>
+
+          <ion-card>
+            <ion-card-header>
+              <h2 ion-text color="dark" text-center>Coodinación del Proyecto:</h2>
+            </ion-card-header>
+            <ion-card-content>
+              <div text-justify>
+                  <p ion-text color="dark">.......</p>
+              </div>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+            <ion-card-header>
+              <h2 ion-text color="dark" text-center>Idea y Marco Conceptual:</h2>
+            </ion-card-header>
+            <ion-card-content>
+              <div text-justify>
+                  <p ion-text color="dark"> Lic. Daniel Edgea</p>
+              </div>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+            <ion-card-header>
+              <h2 ion-text color="dark" text-center>Desarrollada por:</h2>
+            </ion-card-header>
+            <ion-card-content>
+              <div text-justify>
+                  <p ion-text color="dark"> equipos de trabajo Scrum</p>
+              </div>
+
+              <div padding>
+                  <ion-segment [(ngModel)]="equipos">
+                    <ion-segment-button value="equipo1">
+                        Equipo Scrum 1
+                    </ion-segment-button>
+                    <ion-segment-button value="equipo2">
+                        Equipo Scrum 2
+                    </ion-segment-button>
+                  </ion-segment>
+              </div>
+              <div [ngSwitch]="equipos">
+                  <ion-list *ngSwitchCase="'equipo1'">
+                    <ion-item>
+                      <ion-thumbnail item-start>
+                          <img src="assets/imgs/user.png">
+                      </ion-thumbnail>
+                      <h2>devloper1</h2>
+                    </ion-item>
+
+                  </ion-list>
+                
+                  <ion-list *ngSwitchCase="'equipo2'">
+                    <ion-item>
+                      <ion-thumbnail item-start>
+                          <img src="assets/imgs/user.png">
+                      </ion-thumbnail>
+                      <h2>devloper1</h2>
+                    </ion-item>
+
+                  </ion-list>
+              </div>
+
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+            <ion-card-header>
+              <h2 ion-text color="dark" text-center>Otros Colaboradores:</h2>
+            </ion-card-header>
+            <ion-card-content>
+              <div text-justify>
+                  <ul ion-text color="dark">
+                      <li>
+                        Graciela Roldán Schuth - Colego Los Robles
+                      </li>
+                      <li>
+                        Lic. Paula Casagrande
+                      </li>
+                      <li>
+                        Lic. Antonela Lailhacar
+                      </li>
+                      <li>
+                        Lic. Gabriela Goldfeder
+                      </li>
+                    </ul>
+              </div>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+              <ion-card-header>
+                <h2 ion-text color="dark" text-center>Agradecimientos</h2>
+              </ion-card-header>
+              <ion-card-content>
+                <div text-justify>
+                    <p ion-text color="dark">Agradecemos especialmente a todas las persona, familiares, amigos y profesionales que colaboraron con nosotros ya sea aportando ideas, ayudando a probar el juego, o simplemente brindando su apoyo.</p>
+                </div>
+              </ion-card-content>
+            </ion-card>
 
       <ion-buttons end>
           <button ion-button navPop>
