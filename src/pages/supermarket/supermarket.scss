@@ -1,16 +1,35 @@
-page-supermarket {}
-
-.main-container {
-    background-image: url("../../assets/imgs/backgroundlista0.jpg");
-    background-size: cover;
+.supermarket-container {
+    
+    background-image: url(../../assets/imgs/backgroundlista0.jpg);
     overflow-y: hidden;
-    .supermarket-title{
-        color: white;
-        text-align: center;
-        @media screen and (min-width: 1023px) and (max-width: 1367px) {
-            font-size: 1em;
-          }
+    background-size: cover;
+
+    .nav-bar-market {
+
+        position: relative;
+        margin-bottom: 15px;
+
+        .music-logo-market {
+            position: absolute;
+            right: 0%;
+            top: 0%;
+            width: 8%;
+        }
+
+        .market-header {
+            
+            top: 12px;
+            position: absolute;
+            width: 100%;
+
+            .supermarket-title{
+                color: white;
+                text-align: center;
+            }
+         }
     }
+
+
 
 .container {
     display: table;
