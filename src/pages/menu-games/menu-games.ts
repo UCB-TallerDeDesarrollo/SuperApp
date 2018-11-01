@@ -49,16 +49,16 @@ export class MenuGamesPage {
     }
   } 
 
-    pushPageSupermarket(){
-      this.navController.push(SelectDifficultyPage,{ typeOfGame:"supermarket" });
-    }
+  pushPageSupermarket(){
+    this.navController.push(SelectDifficultyPage,{ typeOfGame:"supermarket" });
+  }
 
-    popPage(){
-        this.navController.pop();
-    }
-    pushPageList(){
-      this.navController.push(ListaPage);    
-    }
+  popPage(){
+      this.navController.pop();
+  }
+  pushPageList(){
+    this.navController.push(ListaPage);    
+  }
 
   
   async databaseInitializer() {
@@ -71,27 +71,31 @@ export class MenuGamesPage {
         category.name = categories[c].name;
         this.categoryProvider.saveCategory(category)
         .then(response => {
-          if(response) console.log("Save category successfully");
+          if(response) {
+            this.categoryProvider.getCategoryByName(category.name)
+            .then(currentCategory => {
+              let products = FakeProducts.getProducts()
+              for (const p in products) {
+                if(currentCategory.name === category.name) {
+                  let product = new Product();
+                  product.image = products[p].image;
+                  product.state = 1;
+                  product.audio = " ";
+                  product.title = products[p].title;
+                  product.category_id = currentCategory.id;
+                  this.productsProvider.saveProduct(product)
+                  .then(response => {
+                    if(response) console.log("Save product successfully");
+                  }).catch(error => {
+                    console.error(error);
+                  });
+                }
+              }
+            })
+          }
         }).catch(error => {
           console.error(error);
         });
-      }
-      if(count_product < 58) {
-        let products = FakeProducts.getProducts()
-        for (const p in products) {
-          let product = new Product();
-          product.image = products[p].image;
-          product.state = 1;
-          product.audio = " ";
-          product.title = products[p].title;
-          product.category_id = products[p].categoryId;
-          this.productsProvider.saveProduct(product)
-          .then(result => {
-            if(result)console.log("Save product successfully");
-          }).catch(error => {
-            console.error(error);
-          });
-        }
       }
     }
   }
