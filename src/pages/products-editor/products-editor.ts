@@ -26,6 +26,7 @@ export class ProductsEditorPage implements OnDestroy {
   filePath: string;
   fileName: string;
   audio: MediaObject;
+  playing: boolean = true;
 
   constructor(private platform: Platform,
               public navCtrl: NavController,
@@ -134,12 +135,14 @@ export class ProductsEditorPage implements OnDestroy {
   public playSoundOfWord(product_title :string, product_audio :string) {
     if(product_audio == " "){
       this.audioProvider.playPronunciationOfTheProductName(product_title);
+  
     }else{
       this.playAudio(product_audio);
     }
   }
 
   playAudio(file) {
+    this.playing = false;
     if (this.platform.is('ios')) {
       this.filePath = file;
       this.audio = this.media.create(this.filePath);
@@ -149,5 +152,10 @@ export class ProductsEditorPage implements OnDestroy {
     }
     this.audio.play();
     this.audio.setVolume(1.0);
+    
+  }
+  stopAudio(){
+    this.audio.stop();
+    this.playing=true;
   }
 }

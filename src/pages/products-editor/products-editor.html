@@ -20,7 +20,8 @@
     <ion-item class="product-content">
       <img class="product-image" src="{{product.image}}" item-start>
       {{product.title}}
-      <ion-icon name="play" padding-left item-end (click)="playSoundOfWord(product.title,product.audio)"></ion-icon>
+      <ion-icon name="play" padding-left item-end (click)="playSoundOfWord(product.title,product.audio)" *ngIf="playing"></ion-icon>
+      <ion-icon name="pause" padding-left item-end (click)="stopAudio()" *ngIf="!playing"></ion-icon>
       <ion-icon name="md-create" padding-left item-end (click)="editProduct(product.id)"></ion-icon>          
       <ion-icon name="{{ product.state ? 'md-checkmark-circle' : 'md-close-circle' }}" padding-left item-end (click)="changeState(product.id, product.state)"></ion-icon>
     </ion-item>
