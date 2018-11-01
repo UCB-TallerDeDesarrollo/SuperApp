@@ -29,11 +29,11 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   public countOfProducts: number;
   ON_VIEW_LIST_LENGTH:number = 12;
   ON_VIEW_CATEGORIES_LENGTH:number = 4;
-  productPageIndex: number;
-  categoriesPageIndex: number;
+  productPageIndex: number=0;
+  categoriesPageIndex: number=0;
   onViewProducts: Array<Product> = [];
   onViewCategories: Array<{id: number, name: string}>=[];
-  defaultCategoryId:number;
+  defaultCategoryId:number=0;
 
   public textClass: boolean = true;
   public imageClass: boolean = true;
@@ -75,11 +75,15 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
       this.productsList.push(`play-${this.productsToBuy[index].title}`);
     }
     this.productsToPlay = this.game.ProductsToPlay;
-    await this.chargeCategories();
+    if(this.game.isAdvancedLevel){
+      await this.chargeCategoriesGlobal();
+    }
+    else{
+      this.onViewProducts=this.productsToPlay;
+    }
   } 
 
-  async chargeCategories(){
-    console.log(this.productsToPlay);
+  async chargeCategoriesGlobal(){
     for(let product of this.productsToPlay){
       let category_id=product.category_id;
       let categoryIndex=this.categories.findIndex((elem)=>{return elem.id===category_id;});
@@ -92,7 +96,49 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
         this.categories.push(category);
       }
     }
-    console.log(this.categories);
+    this.chargeProducts();
+    this.chargeCategories();
+  }
+
+  onSelectCategory(category){
+    let category_id=category.id;
+    this.defaultCategoryId=this.categories.findIndex((elem)=>{return elem.id===category_id;});
+    this.productPageIndex = 0;
+    this.chargeProducts();
+  }
+
+  chargeProducts(){
+    let products=this.categories[this.defaultCategoryId].products;
+    let bound = this.productPageIndex+this.ON_VIEW_LIST_LENGTH;
+    if(bound > products.length){
+      bound = products.length;
+    }
+    this.onViewProducts = products.slice(this.productPageIndex, bound);
+    console.log(this.onViewProducts);
+  }
+
+  chargeCategories(){
+    let bound = this.categoriesPageIndex+this.ON_VIEW_CATEGORIES_LENGTH;
+    if(bound > this.categories.length){
+      bound = this.categories.length;
+    }
+    this.onViewCategories = this.categories.slice(this.categoriesPageIndex, bound);
+  }
+
+  nextProductPage(){
+    this.productPageIndex+=this.ON_VIEW_LIST_LENGTH;
+    if(this.productPageIndex>=this.products.length){
+      this.productPageIndex=0;
+    }
+    this.chargeProducts();
+  }
+
+  nextCategoryPage(){
+    this.categoriesPageIndex += this.ON_VIEW_CATEGORIES_LENGTH;
+    if(this.categoriesPageIndex >= this.categories.length){
+      this.categoriesPageIndex = 0;
+    }
+    this.chargeCategories();
   }
 
   public stopSound(){
