@@ -114,7 +114,6 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
       bound = products.length;
     }
     this.onViewProducts = products.slice(this.productPageIndex, bound);
-    console.log(this.onViewProducts);
   }
 
   chargeCategories(){
