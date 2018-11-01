@@ -10,9 +10,9 @@
 
     <div class="music-logo">
         <img [src]="imageSound" alt="" (click)="stopSound()">
-    </div>
+    </div> 
     <div class="level-header">
-        <h1 class="supermarket-title">SUPER MERCADO</h1>
+        <h1 class="supermarket-title" (click)="changeLevel()">NIVEL {{level}}</h1>
     </div>
     <div class="container">
         <div class="products-to-play">
