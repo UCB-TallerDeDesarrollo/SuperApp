@@ -124,24 +124,4 @@ export class EditProductPage {
     this.filePath = " ";
     this.audio.release();
   }
-
-  doConfirm(){
-    let confirm = this.alertCtrl.create({
-      title: 'Eliminar grabacion',
-      message: 'Esta seguro que desea eliminar la grabacion?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: () => {
-            console.log('Disagree clicked');     
-          }
-        },
-        {
-          text: 'Aceptar',
-          handler: data => this.disableRecordedSound()
-        }
-      ]
-    });
-    confirm.present()
-  }
 }

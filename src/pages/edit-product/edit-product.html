@@ -22,7 +22,7 @@
     <ion-item>
       <button ion-button primary (click)="stopRecord()" *ngIf="recording"><ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Detener/Guardar</button>
       <button ion-button primary (click)="startRecord()" *ngIf="!recording"><ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Grabar</button>
-      <button ion-button primary (click)="doConfirm()"><ion-icon name="trash"></ion-icon>&nbsp;&nbsp;Eliminar Grabacion</button>
+      <button ion-button primary (click)="disableRecordedSound()"><ion-icon name="trash"></ion-icon>&nbsp;&nbsp;Eliminar Grabacion</button>
     </ion-item>
 
     <ion-item class="product-form-bottom">
