@@ -148,8 +148,6 @@
     height: 48px;
 }
 
-// JUAN 1
-
 .easy-item-container {
     width: 60%;
     margin-left: 40px;
@@ -157,4 +155,9 @@
     top: 50px;
 }
 
-// JUAN 2
+.easy-relative-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}
