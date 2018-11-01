@@ -17,6 +17,7 @@ import { SupermarketDifficultyProvider } from '../../shared/providers/Supermarke
 export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterViewChecked {
    
   game : SuperMarketGame;
+  level: number;
   products: Array<Product> = [];
   productsToBuy: any=[]; 
   productsToPlay: any[];
@@ -48,18 +49,17 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
 
   async prepareGame(){
-    let level: number = this.navParams.get('level') || 1;
-    this.supermarketDifficulty.updateLastLevel(level); 
-
-    if((level >= 16 && level < 31) || level >= 46) {
+    this.level = this.navParams.get('level') || 1;
+    this.supermarketDifficulty.updateLastLevel(this.level); 
+    if((this.level >= 16 && this.level < 31) || this.level >= 46) {
       this.textClass = false;
     }
-    if(level >= 31) {
+    if(this.level >= 31) {
       this.imageClass = false;
     }
-    
     this.products = await this.productsProvider.getProducts();
-    this.game = new SuperMarketGame(this.products,level);
+    this.game = new SuperMarketGame(this.products,this.level);
+    console.log("LEVEL: "+this.game.Level);
     this.game.buildProducts();
     this.productsToBuy = this.game.ProductsToBuy;
     for(let index = 0; index < this.productsToBuy.length; ++index) {
@@ -71,6 +71,10 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   public stopSound(){
     this.audioProvider.changeState();
     this.changeSoundIcon();
+  }
+
+  public changeLevel(){
+
   }
 
   public showEndView(): void {
