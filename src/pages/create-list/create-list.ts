@@ -24,5 +24,13 @@ export class CreateListPage {
     });
   }
 
-
+  async saveList() {
+    this.listProvider.saveList(this.list)
+    .then(response => {
+      if(!response) console.error("Inconsistent list information");
+      //style="text-transform:uppercase"
+    }).catch(error => {
+      console.error(error);
+    })
+  }
 }
