@@ -54,6 +54,7 @@ import { SupermarketDifficultyProvider } from '../shared/providers/SupermarketDi
 import { TypeormSupermarketDifficultyProvider} from '../providers/difficulty/supermarketDifficulty';
 import { DeleteUserPage } from '../pages/delete-user/delete-user';
 import { LoginOptionsPage } from '../pages/login-options/login-options';
+import { AboutPage } from '../pages/about/about';
 import { ListProvider } from '../providers/list/list';
 import { ProductListProvider } from '../providers/product-list/product-list';
 import { Camera } from '@ionic-native/camera';
@@ -84,6 +85,7 @@ import { Camera } from '@ionic-native/camera';
     ViewUserPage, 
     DeleteUserPage,
     LoginOptionsPage,
+    AboutPage
   ],
   imports: [
     BrowserModule,
@@ -116,6 +118,7 @@ import { Camera } from '@ionic-native/camera';
     ViewUserPage,
     DeleteUserPage,
     LoginOptionsPage,
+    AboutPage
   ],
   providers: [
     StatusBar,
