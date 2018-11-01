@@ -378,3 +378,16 @@
     visibility: hidden;
 }
 }
+.categories-block {
+    display: inline-block;
+    width: 54%;
+    float: left;
+
+    .category-button {
+      width: 40vw;
+      object-fit: fill;
+    }
+  }
+  .hide{
+  display: none;
+}
