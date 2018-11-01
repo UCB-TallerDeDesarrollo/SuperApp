@@ -23,12 +23,23 @@
     <div class="products-supermaket-container">
 
         <div class="products-to-play">
-            <div class="product-block" *ngFor="let product of productsToPlay" id="play-{{product.title}}" dragula="{{selectorName}}">
+            <div class="product-block" *ngFor="let product of onViewProducts" id="play-{{product.title}}" dragula="{{selectorName}}">
                 <div id="productPlay-{{product.id}}" class="product-info superior-block">
                     <img class="product-store" src="{{product.image}}" />
                     <p [class]="(textClass) ? 'product-name' : 'hidden-product'">{{product.title}}</p>
                 </div>
             </div>
+        </div>
+
+        <div class="{{ categories.length>0 ? 'categories-block' : 'hide' }}">
+            <ion-row>
+            <ion-col class="category-button" *ngFor="let category of onViewCategories">
+                <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
+            </ion-col>
+            <ion-col>
+                <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>4 ? 'arrow' : 'hide' }}" alt="" (click)="nextCategoryPage()">
+            </ion-col>
+            </ion-row>
         </div>
 
         <div id="high_container" class="products-to-buy">
