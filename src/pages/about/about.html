@@ -34,39 +34,37 @@
           </ion-card>
 
           <ion-card>
-            <ion-list>
-              <ion-item>
-                <h2>Links de interés:</h2>
-                <h3>www.proyectodane.org</h3>
-                <h3>facebook.com/Proyecto.inclusion.DANE</h3>
-                
-              </ion-item>
-            </ion-list>
-              <ion-list>
-                <ion-item>
-                  Left Icon Button
-                  <button ion-button outline item-end icon-end>
-                    <ion-icon name="star"></ion-icon>
-                    Left Icon
-                  </button>
-                </ion-item>
-              </ion-list>
+              <ion-card-header>
+                  <h2>Links de interés:</h2>
+              </ion-card-header>
+              <ion-card-content>
+                <div text-justify>
+                  <ul>
+                    <li>
+                        <a href="http://www.proyectodane.org/">www.proyectodane.org</a>
+                    </li>
+                    <li>
+                        <a href="https://www.facebook.com/Proyecto.Inclusion.DANE/">facebook.com/Proyecto.inclusion.DANE</a>
+                    </li>
+                  </ul>
+                </div>
+              </ion-card-content>
           </ion-card>
 
           <ion-card>
             <ion-card-header>
-              <h2 ion-text color="dark" text-center>Coodinación del Proyecto:</h2>
+              <h2 ion-text color="dark">Coodinación del Proyecto:</h2>
             </ion-card-header>
             <ion-card-content>
               <div text-justify>
-                  <p ion-text color="dark">.......</p>
+                  <p ion-text color="dark">Ing. Pablo Fiuza, Ing. Mariano Stampeña CESSI - Cámara de Empresas de Software y Servicios informaticos</p>
               </div>
             </ion-card-content>
           </ion-card>
 
           <ion-card>
             <ion-card-header>
-              <h2 ion-text color="dark" text-center>Idea y Marco Conceptual:</h2>
+              <h2 ion-text color="dark">Idea y Marco Conceptual:</h2>
             </ion-card-header>
             <ion-card-content>
               <div text-justify>
@@ -77,11 +75,11 @@
 
           <ion-card>
             <ion-card-header>
-              <h2 ion-text color="dark" text-center>Desarrollada por:</h2>
+              <h2 ion-text color="dark">Desarrollada por:</h2>
             </ion-card-header>
             <ion-card-content>
               <div text-justify>
-                  <p ion-text color="dark"> equipos de trabajo Scrum</p>
+                  <p ion-text color="dark">Equipos de trabajo:</p>
               </div>
 
               <div padding>
@@ -97,22 +95,72 @@
               <div [ngSwitch]="equipos">
                   <ion-list *ngSwitchCase="'equipo1'">
                     <ion-item>
-                      <ion-thumbnail item-start>
-                          <img src="assets/imgs/user.png">
-                      </ion-thumbnail>
-                      <h2>devloper1</h2>
+                      <h2>Sabath Awad Juan Antonio</h2>
+                      <p>product owner</p>
                     </ion-item>
-
+                    <ion-item>
+                      <h2>Guzman Calizaya Joel Joaquin</h2>
+                        <p>scrum master</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Burgoa Figueroa Brandon</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Chavez Ruiz Jorge Carlos</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Mamani Taqui Abel Marvin</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Rios Valverde Mauricio Roberto</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Valverde Samuel</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Zambrana Salvatierra N. Rodrigo</h2>
+                        <p>developer</p>
+                    </ion-item>
                   </ion-list>
                 
                   <ion-list *ngSwitchCase="'equipo2'">
                     <ion-item>
-                      <ion-thumbnail item-start>
-                          <img src="assets/imgs/user.png">
-                      </ion-thumbnail>
-                      <h2>devloper1</h2>
+                      <h2>Rodriguez Villarroel Juan Pablo</h2>
+                        <p>product owner</p>
                     </ion-item>
-
+                    <ion-item>
+                      <h2>Aparicio Quintanilla Daniel</h2>
+                        <p>scrum master</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Anagua Quispe Jose Luis</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Arnez Terrazas Jose Cristofer</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Camacho Mamani Jhonny Kevin</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Cardenas Miranda Kevin Michael</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Flores Prieto Christian Andy</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Merida Gutierrez Pedro Andres</h2>
+                        <p>developer</p>
+                    </ion-item>
                   </ion-list>
               </div>
 
@@ -121,7 +169,7 @@
 
           <ion-card>
             <ion-card-header>
-              <h2 ion-text color="dark" text-center>Otros Colaboradores:</h2>
+              <h2 ion-text color="dark">Otros Colaboradores:</h2>
             </ion-card-header>
             <ion-card-content>
               <div text-justify>
@@ -145,7 +193,7 @@
 
           <ion-card>
               <ion-card-header>
-                <h2 ion-text color="dark" text-center>Agradecimientos</h2>
+                <h2 ion-text color="dark">Agradecimientos</h2>
               </ion-card-header>
               <ion-card-content>
                 <div text-justify>
