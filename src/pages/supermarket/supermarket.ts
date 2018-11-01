@@ -60,8 +60,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
       this.imageClass = false;
     }
     this.products = await this.productsProvider.getProducts();
-    this.game = new SuperMarketGame(this.products,this.level);
-    console.log("LEVEL: "+this.game.Level);
+    this.game = new SuperMarketGame(this.products,this.level); 
     this.game.buildProducts();
     this.productsToBuy = this.game.ProductsToBuy;
     for(let index = 0; index < this.productsToBuy.length; ++index) {
@@ -153,8 +152,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     document.getElementById('carrito').setAttribute('style', `height: ${height}px`);
   }
 
-  ngOnDestroy(): void {
-    console.log("DESTROY");
+  ngOnDestroy(): void { 
     this.dragDropProvider.finalize(this.selectorName);
   } 
 

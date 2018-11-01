@@ -31,10 +31,8 @@ export class SelectLevelPage {
     this.changeSoundIcon();
   }
   goToLevel()
-  {
-    console.log("GAME: "+this.typeOfGame);
-    this.viewCtrl.dismiss();
-    console.log("GAME: "+this.typeOfGame);
+  { 
+    this.viewCtrl.dismiss(); 
     this.navCtrl.push(LoadingPage, {lastNav:this.navCtrl, level:this.level, typeOfGame:this.typeOfGame});
     this.navCtrl.remove(this.navCtrl.length()-1);
   }
