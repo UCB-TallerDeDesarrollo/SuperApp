@@ -136,6 +136,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
           });
           p.on_list = 0;
           this.listOfProducts.push(p);
+          this.audioProvider.playPronunciationOfTheProductName(p.title);
           this.productsProvider.updateProduct(p)
             .then(response => {
               this.onSelectCategory(this.selectedCategory);
@@ -261,7 +262,9 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     this.reloadProductsOnList();
     this.numberOfProductsOnList = this.productsOnList.length;
   }
-
+  public playPronunciationOfTheProductName(word:string) {
+    this.audioProvider.playPronunciationOfTheProductName(word);
+}
   reloadProductsOnList() {
     this.productsOnList = FakeListProducts.getProducts();
   }
