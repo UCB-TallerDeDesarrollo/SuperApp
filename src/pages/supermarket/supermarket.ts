@@ -9,6 +9,8 @@ import { SupermarketLevelCompletePage } from './../supermarket-level-complete/su
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Product } from '../../entities/product';
 import { SupermarketDifficultyProvider } from '../../shared/providers/SupermarketDifficultyProvider';
+import { SelectLevelPage } from './../select-level/select-level';
+
 @IonicPage()
 @Component({
   selector: 'page-supermarket',
@@ -74,7 +76,22 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
 
   public changeLevel(){
-
+      const changeLevel = this.modalController.create(
+        SelectLevelPage, 
+        {
+            level    : this.game.Level, 
+            lastNav  : this.navController, 
+            maxLevel : 60,
+            gamePage : this,
+            typeOfGame: "supermarket"                
+        }
+    );
+    changeLevel.onDidDismiss(
+        ()=>{
+            this.changeSoundIcon();
+        }
+    );
+    changeLevel.present();
   }
 
   public showEndView(): void {
@@ -94,8 +111,12 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
 
   public showModalWin(): void {
-    const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {level: this.game.Level + 1, lastNav:this.navController});
-    levelCompleteModal.present();
+    if(this.game.Level<60){
+      const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {level: this.game.Level + 1, lastNav:this.navController});
+      levelCompleteModal.present();
+    }else{
+      this.navController.pop();
+    }
   }
 
   private changeSoundIcon(){
@@ -133,6 +154,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
 
   ngOnDestroy(): void {
+    console.log("DESTROY");
     this.dragDropProvider.finalize(this.selectorName);
   } 
 
