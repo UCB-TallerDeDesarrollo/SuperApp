@@ -10,7 +10,7 @@
   <form (ngSubmit)="saveListForm()" >
     <ion-item [formGroup]="listForm" class="create-list-form">
       <ion-label>Nombre</ion-label>
-      <ion-input type="text" formControlName="name" [(ngModel)]="list.name" name="name"></ion-input>
+      <ion-input type="text" formControlName="name" [(ngModel)]="list.name" name="name" (keypress)="eventHandler($event)"></ion-input>
     </ion-item>
     <button ion-button type="submit" [disabled]="!listForm.valid" block>Guardar</button>
   </form>
