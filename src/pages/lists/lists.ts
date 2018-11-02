@@ -8,6 +8,7 @@ import { List } from '../../entities/list';
 import { User } from '../../entities/user';
 import { ListProvider } from '../../providers/list/list';
 import { Login } from '../../providers/login/Login';
+import { EditListPage } from '../edit-list/edit-list';
 
 @IonicPage()
 @Component({
@@ -47,13 +48,11 @@ export class ListsPage {
   }
 
   editList(list_id: number) {
-    console.log(list_id);
-    //this.navCtrl.push(EditCategoryPage, { categoryId: categor_id })
+    this.navCtrl.push(EditListPage, { listId: list_id })
   }
 
   listPage(list_id: number) {
-    console.log(list_id);
-    this.navCtrl.push(ListaPage);
+    this.navCtrl.push(ListaPage, { listId: list_id });
   }
 
   createList() {

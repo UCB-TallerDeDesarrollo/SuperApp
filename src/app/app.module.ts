@@ -92,6 +92,7 @@ import {ConfirmationPage} from '../pages/confirmation/confirmation';
     AboutPage,
     CreateListPage,
     ListsPage,
+    EditListPage,
     ConfirmationPage
   ],
   imports: [
@@ -129,7 +130,6 @@ import {ConfirmationPage} from '../pages/confirmation/confirmation';
     CreateListPage,
     ListsPage,
     EditListPage,
-    EditListPage,
     ConfirmationPage
   ],
   providers: [
@@ -157,6 +157,7 @@ import {ConfirmationPage} from '../pages/confirmation/confirmation';
     File,
     Media,
     ListProvider,
+
     ProductListProvider
   ]
 })
