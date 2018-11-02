@@ -35,4 +35,20 @@ export class ProductListProvider {
     }
     return result;
   }
+
+  async deleteProductList(product_list_id: number): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.productListRepository.createQueryBuilder()
+                                      .delete()
+                                      .from(ProductList)
+                                      .where("id = :id", { id: product_list_id })
+                                      .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false; 
+    }
+    return result;
+  }
 }
