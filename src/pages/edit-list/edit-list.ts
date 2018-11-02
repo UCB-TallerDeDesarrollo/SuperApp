@@ -22,10 +22,25 @@ export class EditListPage {
     this.listForm = this.formBuilder.group({
       name: ['', Validators.required]
     });
+    this.listProvider.getListById(navParams.get("listId"))
+    .then(list => {
+      this.list = list;
+    }).catch(error => {
+      console.error(error);
+    })
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EditListPage');
+  async saveListForm() {
+    this.list.name = this.list.name.toUpperCase();
+    this.listProvider.updateList(this.list)
+    .then(response => {
+      if(response) this.afterSaveList();
+    }).catch(error => {
+      console.error(error);
+    });
   }
 
+  afterSaveList() {
+    this.navCtrl.pop();
+  }
 }

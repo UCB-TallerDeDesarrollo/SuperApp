@@ -60,16 +60,14 @@ export class EditProductPage {
   }
 
   async saveProductForm() {
-    console.log("saveProductForm()");
-    console.log(this.product);
     this.product.image = this.Image;
     this.product.audio = this.filePath;
     this.productsProvider.updateProduct(this.product)
     .then(response => {
-      if(response)this.afterSaveProduct();
+      if(response) this.afterSaveProduct();
     }).catch(error => {
       console.error(error);
-    })
+    });
   }
 
   callFunctionCamera(){

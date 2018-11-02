@@ -31,8 +31,12 @@ export class EditCategoryPage {
 
   async saveCategoryForm() {
     this.category.name = this.category.name.toUpperCase();
-    await this.categoryProvider.updateCategory(this.category);
-    this.afterSaveCategory();
+    this.categoryProvider.updateCategory(this.category)
+    .then(response => {
+      if(response) this.afterSaveCategory();
+    }).catch(error => {
+      console.error(error);
+    });
   }
 
   afterSaveCategory() {

@@ -53,7 +53,7 @@ export class ListProvider {
     return result;
   }
 
-  async getListById(list_id: number, user_id: number): Promise<List> {
+  async getListById(list_id: number): Promise<List> {
     let result: List;
     try {
       result = await this.listRepository.createQueryBuilder()
