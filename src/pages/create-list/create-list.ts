@@ -24,7 +24,7 @@ export class CreateListPage {
               public navParams: NavParams,
               public formBuilder: FormBuilder,
               public listProvider: ListProvider,
-              public userProvider :UserProvider) {
+              public userProvider: UserProvider) {
     this.listForm = this.formBuilder.group({
       name: ['', Validators.required]
     });
@@ -34,7 +34,7 @@ export class CreateListPage {
       this.list.user_id = this.user.id;
     }).catch(error => {
       console.error(error);
-    })
+    });
   }
 
   async saveListForm() {
