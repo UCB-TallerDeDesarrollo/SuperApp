@@ -11,6 +11,7 @@ import { Categories } from '../../providers/FakeService/Categories';
 import { CategoryProvider } from '../../providers/category/category';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { ProductsProvider } from '../../providers/product/product';
+import { ListsPage } from '../lists/lists';
 
 
 @IonicPage()
@@ -57,7 +58,7 @@ export class MenuGamesPage {
       this.navController.pop();
   }
   pushPageList(){
-    this.navController.push(ListaPage);
+    this.navController.push(ListsPage);
   }
 
   async databaseInitializer() {

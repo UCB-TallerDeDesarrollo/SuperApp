@@ -1,3 +1,4 @@
+import { CreateListPage } from './../pages/create-list/create-list';
 import { EditUserPage } from './../pages/edit-user/edit-user';
 import { LoadingPage } from './../pages/loading/loading';
 import { BrowserModule } from '@angular/platform-browser';
@@ -58,6 +59,7 @@ import { AboutPage } from '../pages/about/about';
 import { ListProvider } from '../providers/list/list';
 import { ProductListProvider } from '../providers/product-list/product-list';
 import { Camera } from '@ionic-native/camera';
+import { ListsPage } from '../pages/lists/lists';
 
 @NgModule({
   declarations: [
@@ -85,7 +87,9 @@ import { Camera } from '@ionic-native/camera';
     ViewUserPage, 
     DeleteUserPage,
     LoginOptionsPage,
-    AboutPage
+    AboutPage,
+    CreateListPage,
+    ListsPage
   ],
   imports: [
     BrowserModule,
@@ -118,7 +122,9 @@ import { Camera } from '@ionic-native/camera';
     ViewUserPage,
     DeleteUserPage,
     LoginOptionsPage,
-    AboutPage
+    AboutPage,
+    CreateListPage,
+    ListsPage
   ],
   providers: [
     StatusBar,
