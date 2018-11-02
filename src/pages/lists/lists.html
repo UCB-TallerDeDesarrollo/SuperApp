@@ -17,8 +17,12 @@
 
 </ion-header>
 
-
-<ion-content padding>
-
-
-</ion-content>
+<ion-content padding class="main-lists">
+    <ion-list *ngFor="let list of lists">
+      <ion-item class="list-content">
+        {{list.name}}
+        <ion-icon name="md-create" padding item-end (click)="editList(list.id)"></ion-icon>
+        <ion-icon name="md-game-controller-a" padding item-end (click)="listPage(list.id)"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ion-content>

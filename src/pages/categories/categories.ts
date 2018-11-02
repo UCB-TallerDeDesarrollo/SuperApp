@@ -74,7 +74,7 @@ export class CategoriesPage {
     this.navCtrl.push(CreateCategoryPage);
   }
 
-  editCategory(categor_id: number) {
-    this.navCtrl.push(EditCategoryPage, { categoryId: categor_id })
+  editCategory(category_id: number) {
+    this.navCtrl.push(EditCategoryPage, { categoryId: category_id })
   }
 }
