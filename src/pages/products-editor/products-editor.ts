@@ -120,7 +120,7 @@ export class ProductsEditorPage implements OnDestroy {
                   product.category_id = currentCategory.id;
                   this.productsProvider.saveProduct(product)
                   .then(response => {
-                    if(response) console.log("Save product successfully");
+                    if(!response) console.error("Inconsistent product information");
                   }).catch(error => {
                     console.error(error);
                   });
