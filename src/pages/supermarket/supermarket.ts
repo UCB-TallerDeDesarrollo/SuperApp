@@ -145,20 +145,49 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     this.changeSoundIcon();
   }
 
-  public showEndView(): void {
-
+  public showEndView(element): void {
     this.game.addPoint();
-   
+    this.removeProductByElement(element);
     this.audioProvider.playCorrectLetterSound();
     this.carImage="assets/imgs/"+this.countOfProducts+".png";
     
     if(this.game.isGameOver()) {
-     
       this.supermarketDifficulty.saveProgressByLevel(this.game.Level);
       this.audioProvider.playLevelCompleteSound();
       this.showModalWin();
+    }  
+  }
+
+  private removeProductByElement(htmlElement){
+    let htmlId=this.getHtmlId(htmlElement);
+    let productId=this.getProductIdByHtmlId(htmlId);
+    this.takeProductOut(productId);
+  }
+
+  private getHtmlId(htmlElement): string{
+    return htmlElement.getAttribute('id');
+  }
+
+  private getProductIdByHtmlId(htmlId: string){
+    let id=htmlId.split('-')[1];
+    return id;
+  }
+
+  private takeProductOut(productId){
+    for(let index=0; index<this.categories.length; index++){
+      let category=this.categories[index];
+      let productIndex=category.products.findIndex(product=> product.id==productId);
+      if(productIndex>=0){
+        category.products.splice(productIndex,1);
+        if(category.products.length==0){
+          this.categories.splice(index,1);
+          this.defaultCategoryId=0;
+          this.chargeCategories();
+          this.chargeProducts();
+        }
+        break;
+      }
     }
-    
   }
 
   public showModalWin(): void {
