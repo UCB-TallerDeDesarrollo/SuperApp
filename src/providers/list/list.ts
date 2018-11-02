@@ -53,12 +53,11 @@ export class ListProvider {
     return result;
   }
 
-  async getListByIdAndUserId(list_id: number, user_id: number): Promise<List> {
+  async getListById(list_id: number, user_id: number): Promise<List> {
     let result: List;
     try {
       result = await this.listRepository.createQueryBuilder()
-                                        .where("user_id = :userId", { userId: user_id })
-                                        .andWhere("id = :list_id", { list_id: list_id })
+                                        .where("id = :id", { id: list_id })
                                         .getOne();
     } catch (error) {
       console.error(error);
