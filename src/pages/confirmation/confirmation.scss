@@ -1,0 +1,48 @@
+.modal-back{
+    width:100%;
+    height:100%;
+    position:absolute;
+    background:rgba(56, 56, 56, 0.8);
+    transition:all 500ms ease;
+}
+
+.modal-delete{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: linear-gradient( 135deg, #3C8CE7 10%, #00EAFF 100%);
+  border-radius: 8%;
+  width: 50%;
+  height: 50%;
+}
+.actions{
+  position: absolute;
+  bottom:10%;
+}
+.alert-text{
+  position: fixed;
+  top:10%;
+  h2{
+    color: white;
+    text-align: center;
+    font-size:2vw;
+  }
+  
+}
+.yes{
+  position: relative;
+  left: 20%;
+  width: 15%;
+}
+
+.no{
+  position: relative;
+  left: 50%;
+  width: 13%;
+}
+
+
+
+
+
