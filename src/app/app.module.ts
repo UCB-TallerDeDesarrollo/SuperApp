@@ -58,6 +58,7 @@ import { AboutPage } from '../pages/about/about';
 import { ListProvider } from '../providers/list/list';
 import { ProductListProvider } from '../providers/product-list/product-list';
 import { Camera } from '@ionic-native/camera';
+import {ConfirmationPage} from '../pages/confirmation/confirmation';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { Camera } from '@ionic-native/camera';
     ViewUserPage, 
     DeleteUserPage,
     LoginOptionsPage,
-    AboutPage
+    AboutPage,
+    ConfirmationPage
   ],
   imports: [
     BrowserModule,
@@ -118,7 +120,8 @@ import { Camera } from '@ionic-native/camera';
     ViewUserPage,
     DeleteUserPage,
     LoginOptionsPage,
-    AboutPage
+    AboutPage,
+    ConfirmationPage
   ],
   providers: [
     StatusBar,
