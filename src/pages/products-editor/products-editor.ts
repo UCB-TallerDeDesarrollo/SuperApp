@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { ProductsProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
 import { Platform } from 'ionic-angular';
@@ -14,6 +14,7 @@ import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+import {ConfirmationPage} from './../confirmation/confirmation';
 
 @IonicPage()
 @Component({
@@ -26,6 +27,7 @@ export class ProductsEditorPage implements OnDestroy {
   filePath: string;
   fileName: string;
   audio: MediaObject;
+  rowSelected;
 
   constructor(private platform: Platform,
               public navCtrl: NavController,
@@ -35,7 +37,8 @@ export class ProductsEditorPage implements OnDestroy {
               private media: Media,
               private file: File,
               private screenOrientation: ScreenOrientation,
-              private audioProvider    : AudioProvider) {
+              private audioProvider    : AudioProvider,
+              private modalController: ModalController) {
     this.databaseInitializer();
     this.reloadProducts();
     platform.ready()
@@ -55,7 +58,7 @@ export class ProductsEditorPage implements OnDestroy {
   reloadProducts() {
     this.productsProvider.getProducts()
     .then(products => {
-      this.products = products;
+      this.products = products.filter(product=>product.on_list==1);
     }).catch(error =>{
       console.log(error);
     });
@@ -153,5 +156,37 @@ export class ProductsEditorPage implements OnDestroy {
     }
     this.audio.play();
     this.audio.setVolume(1.0);
+  }
+
+  confirm(product: Product){
+    let callback=()=>{this.deleteProduct(product)};
+    let message="¿Realmente quieres eliminar el producto "+product.title+"?";
+    const confirmationModal = this.modalController.create(ConfirmationPage,{callback:callback, message:message});
+    confirmationModal.present();
+    this.hideRowSelected();
+  }
+
+  deleteProduct(product: Product){
+    let view=product.on_list;
+    if(view==1){
+      product.on_list=0;
+    }
+    this.productsProvider.updateProduct(product);
+    this.reloadProducts();
+  }
+
+  active(id){
+    let selector="#delete-"+id;
+    let element= <HTMLElement>document.querySelector(selector);
+    element.classList.remove("hidden");
+    element.classList.add("options-section");
+    this.rowSelected=element;
+  }
+
+  hideRowSelected(){
+    if(this.rowSelected!=null){
+      this.rowSelected.classList.remove("options-section");
+      this.rowSelected.classList.add("hidden");
+    }
   }
 }

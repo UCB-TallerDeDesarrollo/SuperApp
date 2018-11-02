@@ -116,7 +116,6 @@ export class CreateProductPage {
     this.recording = false;
   }
   eventHandler(event){
-    console.log(event);  
     let input = event.target;
     setTimeout(()=>{
       input.value=input.value.toUpperCase();
