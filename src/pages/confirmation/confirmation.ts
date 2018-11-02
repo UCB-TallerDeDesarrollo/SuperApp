@@ -15,10 +15,6 @@ export class ConfirmationPage {
     this.message=navParams.get("message");
   }
 
-  ionViewDidLoad() {
-    
-  }
-
   continue(){
     this.callback();
     this.navCtrl.pop();
