@@ -121,7 +121,6 @@ export class EditProductPage {
     this.audio.release();
   }
   eventHandler(event){
-    console.log(event);  
     let input = event.target;
     setTimeout(()=>{
       input.value=input.value.toUpperCase();
