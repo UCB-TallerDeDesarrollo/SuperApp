@@ -152,7 +152,12 @@ export class ListaPage implements OnInit, AfterViewInit {
         }).catch(error => {
           console.log(error);
         });
-        this.numberOfProductsOnList = this.productsOnList.length;
+        this.productListProvider.getCountByListId(this.navParams.get("listId"))
+        .then(result => {
+          this.numberOfProductsOnList = result;
+        }).catch(error => {
+          console.error(error);
+        });
       }).catch(error => {
         console.log(error);
       });
@@ -256,7 +261,12 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.products.sort(function (obj1, obj2) {
       return obj1.id - obj2.id;
     });
-    this.numberOfProductsOnList = this.productsOnList.length;
+    this.productListProvider.getCountByListId(this.navParams.get("listId"))
+    .then(result => {
+      this.numberOfProductsOnList = result;
+    }).catch(error => {
+      console.error(error);
+    });
   }
 
   deleteListOfProducts() {
@@ -273,7 +283,12 @@ export class ListaPage implements OnInit, AfterViewInit {
       console.log(error);
     });
     this.reloadProductsOnList();
-    this.numberOfProductsOnList = 0;
+    this.productListProvider.getCountByListId(this.navParams.get("listId"))
+    .then(result => {
+      this.numberOfProductsOnList = result;
+    }).catch(error => {
+      console.error(error);
+    });
   }
 
   public playPronunciationOfTheProductName(word:string) {
@@ -295,6 +310,11 @@ export class ListaPage implements OnInit, AfterViewInit {
     }).catch(error => {
       console.log(error);
     });
-    this.numberOfProductsOnList = this.productsOnList.length;
+    this.productListProvider.getCountByListId(this.navParams.get("listId"))
+    .then(result => {
+      this.numberOfProductsOnList = result;
+    }).catch(error => {
+      console.error(error);
+    });
   }
 }

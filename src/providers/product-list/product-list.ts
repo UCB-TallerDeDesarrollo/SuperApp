@@ -84,4 +84,18 @@ export class ProductListProvider {
     }
     return result;
   }
+
+  async getCountByListId(list_id: number): Promise<number> {
+    let result: number;
+    try {
+      result = await this.productListRepository.createQueryBuilder()
+                                                .where("list_id = :id", { id: list_id })
+                                                .getCount();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
+  }
+
 }
