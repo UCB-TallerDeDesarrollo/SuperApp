@@ -122,4 +122,12 @@ export class EditProductPage {
     this.filePath = " ";
     this.audio.release();
   }
+  eventHandler(event){
+    console.log(event);  
+    let input = event.target;
+    setTimeout(()=>{
+      input.value=input.value.toUpperCase();
+        }, 1);
+
+  }
 }
