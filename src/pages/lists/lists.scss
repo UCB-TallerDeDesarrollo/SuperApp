@@ -20,6 +20,15 @@
     @media screen and (max-width: 360px) {
         left: 93%;
     }
+
+    @media screen and (max-width: 411px) {
+        width: 3vh;
+        left: 92%;
+    }
+
+    @media screen and (max-width: 360px) {
+        width: 3vh;
+    }
   }
 
   .hidden{
