@@ -1,3 +1,4 @@
+import { UserProvider } from './../../providers/user/user';
 import { SupermarketPage } from '../supermarket/supermarket'; 
 import { Component } from '@angular/core';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
@@ -25,10 +26,11 @@ export class MenuGamesPage {
               private audioProvider: AudioProvider,
               public productsProvider: ProductsProvider, 
               public categoryProvider: CategoryProvider,
+              public userProvide:UserProvider
           ) {
     this.changeSoundIcon();
   }
-  ionViewDidEnter() { 
+  ionViewDidEnter() {  
     this.changeSoundIcon(); 
   }
 
@@ -45,14 +47,10 @@ export class MenuGamesPage {
     else{
       this.imageSound="assets/imgs/soundon.png";
     }
-  }
-
-    pushPageWord(){
-        this.navController.push(SelectDifficultyPage);
-    }
+  } 
 
     pushPageSupermarket(){
-      this.navController.push(SupermarketPage);
+      this.navController.push(SelectDifficultyPage,{ typeOfGame:"supermarket" });
     }
 
     popPage(){
@@ -71,24 +69,35 @@ export class MenuGamesPage {
       for(const c in categories) {
         let category = new Category();
         category.name = categories[c].name;
-        await this.categoryProvider.saveCategory(category);
+        this.categoryProvider.saveCategory(category)
+        .then(response => {
+          if(response) console.log("Save category successfully");
+        }).catch(error => {
+          console.error(error);
+        });
       }
       if(count_product < 58) {
         let products = FakeProducts.getProducts()
         for (const p in products) {
           let product = new Product();
           product.image = products[p].image;
-          product.state = true;
+          product.state = 1;
           product.audio = " ";
           product.title = products[p].title;
-          product.category = await this.categoryProvider.getCategoryById(products[p].categoryId);
-          await this.productsProvider.saveProduct(product);
+          product.category_id = products[p].categoryId;
+          this.productsProvider.saveProduct(product)
+          .then(result => {
+            if(result)console.log("Save product successfully");
+          }).catch(error => {
+            console.error(error);
+          });
         }
       }
     }
   }
 
-  ionViewDidLoad() {
+ ionViewDidLoad() {
     this.databaseInitializer();
   }
+
 }

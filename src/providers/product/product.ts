@@ -12,77 +12,149 @@ export class ProductsProvider {
     this.productRepository = getRepository('product') as Repository<Product>;
   }
 
-  async saveProduct(product: Product) {
-    await this.productRepository.save(product);
+  async saveProduct(product: Product): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.productRepository.save(product);
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
   }
 
-  async getProducts() {
-    let products = await this.productRepository.createQueryBuilder('product')
-                                                .orderBy('product.id', 'ASC')
-                                                .getMany();
-    return products;
+  async getProducts(): Promise<Array<Product>> {
+    let result: Array<Product>
+    try {
+      result = await this.productRepository.createQueryBuilder()
+                                            .orderBy('id', 'ASC')
+                                            .getMany();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
   }
 
-  async getProductById(product_id: number) {
-    let product = await this.productRepository.createQueryBuilder('product')
-                                                .where("id = :id", {id: product_id})
-                                                .getOne();
-    return product;
+  async getProductById(product_id: number): Promise<Product> {
+    let result: Product;
+    try {
+      result = await this.productRepository.createQueryBuilder()
+                                            .where("id = :id", {id: product_id})
+                                            .getOne();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
   }
 
-  async updateStateProduct(state_: boolean, product_id: number){
-    await this.productRepository.createQueryBuilder()
-                                  .update('product')
+  async updateStateProduct(state_: number, product_id: number): Promise<Boolean>{
+    let result: Boolean;
+    try {
+      await this.productRepository.createQueryBuilder()
+                                  .update(Product)
                                   .set({ state: state_ })
                                   .where("id = :id", {id: product_id})
                                   .execute();
-  } 
-
-  async updateOnList(product_id: number) {
-    await this.productRepository.createQueryBuilder()
-                                .update('product')
-                                .set({ onlist: true })
-                                .where("id = :id", {id: product_id})
-                                .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
   }
 
-  async updateProduct(product: Product){
-    await this.productRepository.createQueryBuilder()
-                                .update('product' )
-                                .set({ state: product.state, title: product.title, image: product.image,audio: product.audio, category: product.category, onlist: product.onlist })
-                                .where("id = :id", {id: product.id})
-                                .execute();
+  async updateOnList(product_id: number): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.productRepository.createQueryBuilder()
+                                  .update(Product)
+                                  .set({ on_list: 1 })
+                                  .where("id = :id", {id: product_id})
+                                  .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
+  }
+
+  async updateProduct(product: Product): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.productRepository.createQueryBuilder()
+                                  .update(Product)
+                                  .set({ state: product.state, title: product.title, image: product.image,audio: product.audio, category_id: product.category_id, on_list: product.on_list })
+                                  .where("id = :id", {id: product.id})
+                                  .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
   }
 
 
-  async getProductsByCategory(category_id: number){
-    let products = await this.productRepository.createQueryBuilder('product')
-                                .where("categoryId = :categoryId", { categoryId: category_id })
-                                .getMany();
-    return products;
+  async getProductsByCategory(category_id: number): Promise<Array<Product>> {
+    let result: Array<Product>;
+    try {
+      result = await this.productRepository.createQueryBuilder()
+                                            .where("category_id = :categoryId", { categoryId: category_id })
+                                            .orderBy('id', 'ASC')
+                                            .getMany();
+    } catch (error) {
+      console.error(error);
+      result = null
+    }
+    return result;
   }
 
-  async getProductsByCategoryOnlyActive(category_id: number) {
-    let products = await this.productRepository.createQueryBuilder('product')
-      .where("categoryId = :categoryId", { categoryId: category_id })
-      .andWhere("state = :state", { state: true })
-      .andWhere("onlist = :onlist", { onlist: true })
-      .getMany();
-    return products;
+  async getProductsByCategoryOnlyActive(category_id: number): Promise<Array<Product>> {
+    let result: Array<Product>;
+    try {
+      result = await this.productRepository.createQueryBuilder()
+                                            .where("category_id = :categoryId", { categoryId: category_id })
+                                            .andWhere("state = :state", { state: 1 })
+                                            .andWhere("on_list = :on_list", { on_list: 1 })
+                                            .orderBy('id', 'ASC')
+                                            .getMany();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
   }
 
-  async countProducts() {
-    let count = await this.productRepository.createQueryBuilder('product')
-                                                .orderBy('product.id', 'ASC')
+  async countProducts(): Promise<number> {
+    let result: number;
+    try {
+      result = await this.productRepository.createQueryBuilder()
+                                                .orderBy('id', 'ASC')
                                                 .getCount();
-    return count;
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
   }
 
-  async updateCategory(category: Category, other: Category) {
-    await this.productRepository.createQueryBuilder()
-                                .update('product')
-                                .set({ category: other })
-                                .where("category = :category", {category: category.id})
-                                .execute();
+  async updateCategory(category: Category, other: Category): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.productRepository.createQueryBuilder()
+                                  .update(Product)
+                                  .set({ category_id: other.id })
+                                  .where("category_id = :category_id", {category_id: category.id})
+                                  .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
   }
 }

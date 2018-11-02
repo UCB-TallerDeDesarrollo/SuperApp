@@ -14,9 +14,9 @@
   <div class="stand-products">
     <ion-list>
       <ion-row>
-        <div class="product-block" *ngFor="let product of onViewproducts" id="{{product.title}}" dragula="PRODUCT">
+        <div class="product-block" *ngFor="let product of onViewProducts" id="{{product.title}}" dragula="PRODUCT">
           <div id="product-{{product.id}}" class="product-info">
-            <img class="product-store" src="{{product.image}}" />
+            <img class="product-store" src="{{product.image}}" (click)="playPronunciationOfTheProductName(product.title)" />
             <p class="product-name">{{product.title}}</p>
           </div>
         </div>
@@ -30,7 +30,7 @@
   </ion-row>
   <div class="categories-block">
     <ion-row>
-      <ion-col class="category-button" *ngFor="let category of onViewcategories">
+      <ion-col class="category-button" *ngFor="let category of onViewCategories">
         <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
       </ion-col>
       <ion-col>

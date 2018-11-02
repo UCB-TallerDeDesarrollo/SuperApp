@@ -8,8 +8,8 @@
   <form (ngSubmit)="saveProductForm()">
     <ion-item [formGroup]="productForm" class="product-form-top">
       <ion-label>Categoria</ion-label>
-      <ion-select [(ngModel)]="product.category" name="category" formControlName="category">
-        <ion-option *ngFor="let c of categories" [value]="c">{{c.name}}</ion-option>
+      <ion-select [(ngModel)]="product.category_id" name="category" formControlName="category">
+        <ion-option *ngFor="let c of categories" [value]="c.id">{{c.name}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
@@ -17,7 +17,7 @@
     </ion-item>
     <ion-item [formGroup]="productForm">
       <ion-label>Nombre del Item</ion-label>
-      <ion-input type="text" formControlName="title" [(ngModel)]="product.title" name="title"></ion-input>
+      <ion-input type="text" maxlength="20"   formControlName="title" [(ngModel)]="product.title" name="title"></ion-input>
     </ion-item>
     <ion-item>
       <button ion-button primary (click)="stopRecord()" *ngIf="recording"><ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Detener/Guardar</button>
