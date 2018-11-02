@@ -21,7 +21,7 @@ export class EditCategoryPage {
     this.categoryForm = this.formBuilder.group({
       name: ['', Validators.required]
     });
-    categoryProvider.getCategoryById(navParams.get('categoryId'))
+    this.categoryProvider.getCategoryById(navParams.get('categoryId'))
     .then(category => {
       this.category = category;
     }).catch(error => {

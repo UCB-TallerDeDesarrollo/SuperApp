@@ -1,12 +1,9 @@
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ListProvider } from './../../providers/list/list';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { List } from '../../entities/list';
 
-/**
- * Generated class for the EditListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -15,7 +12,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class EditListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  list = new List;
+  listForm: FormGroup;
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public listProvider: ListProvider,
+              public formBuilder: FormBuilder) {
+    this.listForm = this.formBuilder.group({
+      name: ['', Validators.required]
+    });
   }
 
   ionViewDidLoad() {
