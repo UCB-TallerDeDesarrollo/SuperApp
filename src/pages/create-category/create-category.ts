@@ -38,4 +38,12 @@ export class CreateCategoryPage {
   afterSaveCategory() {
     this.navCtrl.pop();
   }
+  eventHandler(event){
+    console.log(event);  
+    let input = event.target;
+    setTimeout(()=>{
+      input.value=input.value.toUpperCase();
+        }, 1);
+
+  }
 }
