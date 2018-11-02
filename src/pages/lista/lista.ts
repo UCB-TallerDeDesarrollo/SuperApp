@@ -17,7 +17,7 @@ import { ProductList } from '../../entities/productList';
   templateUrl: 'lista.html',
   viewProviders: [DragulaService]
 })
-export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
+export class ListaPage implements OnInit, AfterViewInit {
 
   path_images = '../../assets/imgs/Products/';
   defaultCategoryId:number = 1;
@@ -35,7 +35,6 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   onViewCategories: Array<{id: number, name: string}>=[];
   ON_VIEW_LIST_LENGTH = 12;
   ON_VIEW_CATEGORIES_LENGTH = 4;
-  listOfProducts: Array<Product> = [];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -101,16 +100,6 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    this.listOfProducts.forEach(element => {
-      element.on_list = 1;
-      this.productsProvider.updateProduct(element)
-      .catch(error => {
-        console.error(error);
-      })
-    });
-  }
-
   ngOnInit() {
     this.dragulaService.createGroup("PRODUCT", {
       revertOnSpill: false,
@@ -140,8 +129,6 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
         }).catch(error => {
           console.error(error);
         });
-        p.on_list = 0;
-        this.listOfProducts.push(p);
         this.audioProvider.playPronunciationOfTheProductName(p.title);
         this.productsProvider.updateProduct(p)
         .then(response => {
@@ -149,7 +136,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
         }).catch(error => {
           console.log(error);
         });
-        this.numberOfProductsOnList = this.productsOnList.length;
+        this.numberOfProductsOnList = this.productsOnList.length + 1;
       }).catch(error => {
         console.log(error);
       });
@@ -232,7 +219,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
       ]
     });
     alert.present();
-    this.numberOfProductsOnList = this.productsOnList.length;
+    this.numberOfProductsOnList = this.productsOnList.length + 1;
   }
 
   onClickDeleteAProduct(product, indexOfProduct) {
@@ -253,7 +240,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     });
     this.productListProvider.deleteProductListByProductIdAndListId(product.id, this.navParams.get("listId"))
     .then(result => {
-      if(!result) console.error("Inconsistent productList information");
+      if(!result) this.reloadProductsOnList();
     }).catch(error => {
       console.error(error);
     });
@@ -261,7 +248,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     this.products.sort(function (obj1, obj2) {
       return obj1.id - obj2.id;
     });
-    this.numberOfProductsOnList = this.productsOnList.length;
+    this.numberOfProductsOnList = this.productsOnList.length + 1;
   }
 
   deleteListOfProducts() {
@@ -278,7 +265,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
       console.log(error);
     });
     this.reloadProductsOnList();
-    this.numberOfProductsOnList = this.productsOnList.length;
+    this.numberOfProductsOnList = 0;
   }
 
   public playPronunciationOfTheProductName(word:string) {
@@ -288,7 +275,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   reloadProductsOnList() {
     this.productListProvider.getProductListByListId(this.navParams.get("listId"))
     .then(productList => {
-      this.productsOnList.splice(0, this.productsOnList.length);
+      this.productsOnList.splice(0, this.productsOnList.length + 1);
       productList.forEach(productOfProductList => {
         this.productsProvider.getProductById(productOfProductList.product_id)
         .then(productToProductList => {
@@ -297,9 +284,9 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
           console.log(error);
         })
       });
-      this.numberOfProductsOnList = this.productsOnList.length;
     }).catch(error => {
       console.log(error);
     });
+    this.numberOfProductsOnList = this.productsOnList.length + 1;
   }
 }
