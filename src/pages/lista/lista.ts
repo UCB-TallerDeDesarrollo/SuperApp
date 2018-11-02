@@ -10,6 +10,7 @@ import { Product } from '../../entities/product';
 import { Categories } from '../../providers/FakeService/Categories';
 import { CategoryProvider } from '../../providers/category/category';
 import { ProductsProvider } from '../../providers/product/product';
+import { ProductList } from '../../entities/productList';
 
 @Component({
   selector: 'page-lista',
@@ -63,23 +64,9 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     .catch(error => {
       console.log(error);
     });
-
     this.changeSoundIcon();
-    this.productListProvider.getProductListByListId(this.navParams.get("listId"))
-    .then(productList => {
-      productList.forEach(productOfProductList => {
-        this.productsProvider.getProductById(productOfProductList.product_id)
-        .then(productToProductList => {
-          this.productsOnList.push(productToProductList);
-        }).catch(error => {
-          console.log(error);
-        })
-      });
-    }).catch(error => {
-      console.log(error);
-    });
-    this.numberOfProductsOnList = this.productsOnList.length;
-      this.chargeProducts();
+    this.reloadProductsOnList();
+    this.chargeProducts();
   }
 
   chargeProducts(){
@@ -99,12 +86,12 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ionViewWillEnter() {
-    this.changeSoundIcon();
+    this.reloadProductsOnList();
     this.initializerVariables();
+    this.changeSoundIcon();
   }
 
   initializerVariables() {
-    this.reloadProductsOnList();
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
     .then(products => {
       this.products = products;
@@ -143,26 +130,29 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       let product_id = + (el.id.split("-")[1]);
       this.productsProvider.getProductById(product_id)
-        .then(p => {
-          FakeListProducts.addProduct({
-            id: p.id,
-            title: p.title,
-            image: p.image,
-            categoryId: this.selectedCategory.id
-          });
-          p.on_list = 0;
-          this.listOfProducts.push(p);
-          this.audioProvider.playPronunciationOfTheProductName(p.title);
-          this.productsProvider.updateProduct(p)
-            .then(response => {
-              this.onSelectCategory(this.selectedCategory);
-            }).catch(error => {
-              console.log(error);
-            });
-          this.numberOfProductsOnList = this.productsOnList.length;
+      .then(p => {
+        let productListTemp = new ProductList();
+        productListTemp.list_id = this.navParams.get("listId");
+        productListTemp.product_id = p.id;
+        this.productListProvider.saveProductList(productListTemp)
+        .then(response => {
+          if(response) this.reloadProductsOnList();
+        }).catch(error => {
+          console.error(error);
+        });
+        p.on_list = 0;
+        this.listOfProducts.push(p);
+        this.audioProvider.playPronunciationOfTheProductName(p.title);
+        this.productsProvider.updateProduct(p)
+        .then(response => {
+          if(response) this.onSelectCategory(this.selectedCategory);
         }).catch(error => {
           console.log(error);
         });
+        this.numberOfProductsOnList = this.productsOnList.length;
+      }).catch(error => {
+        console.log(error);
+      });
       el.remove();
     });
   }
@@ -248,17 +238,25 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   onClickDeleteAProduct(product, indexOfProduct) {
     this.productsProvider.updateOnList(product.id)
     .then(response => {
-      this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
+      if(response) {
+        this.reloadProductsOnList();
+        this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
         .then(products => {
           this.products = products;
           this.chargeProducts();
         }).catch(error => {
-          console.log(error);
+          console.error(error);
         });
+      }
     }) .catch(error => {
       console.error(error);
     });
-    FakeListProducts.removeProduct(indexOfProduct);
+    this.productListProvider.deleteProductListByProductIdAndListId(product.id, this.navParams.get("listId"))
+    .then(result => {
+      if(!result) console.error("Inconsistent productList information");
+    }).catch(error => {
+      console.error(error);
+    });
     this.products.push(product);
     this.products.sort(function (obj1, obj2) {
       return obj1.id - obj2.id;
@@ -267,7 +265,12 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   deleteListOfProducts() {
-    FakeListProducts.deleteAllProducts();
+    this.productListProvider.deleteProductListByListId(this.navParams.get("listId"))
+    .then(result => {
+      if(result) this.reloadProductsOnList();
+    }).catch(error => {
+      console.error(error);
+    });
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
     .then(products => {
       this.products = products;
@@ -277,12 +280,15 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     this.reloadProductsOnList();
     this.numberOfProductsOnList = this.productsOnList.length;
   }
+
   public playPronunciationOfTheProductName(word:string) {
     this.audioProvider.playPronunciationOfTheProductName(word);
-}
+  }
+
   reloadProductsOnList() {
     this.productListProvider.getProductListByListId(this.navParams.get("listId"))
     .then(productList => {
+      this.productsOnList.splice(0, this.productsOnList.length);
       productList.forEach(productOfProductList => {
         this.productsProvider.getProductById(productOfProductList.product_id)
         .then(productToProductList => {
@@ -291,6 +297,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
           console.log(error);
         })
       });
+      this.numberOfProductsOnList = this.productsOnList.length;
     }).catch(error => {
       console.log(error);
     });
