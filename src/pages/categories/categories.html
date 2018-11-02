@@ -14,7 +14,7 @@
     <ion-item class="category-content">
       {{category.name}}
       <ion-icon name="md-create" padding item-end (click)="editCategory(category.id)"></ion-icon>          
-      <ion-icon name="md-remove-circle" padding item-end (click)="deleteCategory(category)"></ion-icon>
+      <ion-icon name="md-remove-circle" padding item-end (click)="confirm(category)"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

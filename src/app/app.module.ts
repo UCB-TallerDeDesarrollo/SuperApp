@@ -60,6 +60,7 @@ import { ListProvider } from '../providers/list/list';
 import { ProductListProvider } from '../providers/product-list/product-list';
 import { Camera } from '@ionic-native/camera';
 import { ListsPage } from '../pages/lists/lists';
+import {ConfirmationPage} from '../pages/confirmation/confirmation';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { ListsPage } from '../pages/lists/lists';
     LoginOptionsPage,
     AboutPage,
     CreateListPage,
-    ListsPage
+    ListsPage,
+    ConfirmationPage
   ],
   imports: [
     BrowserModule,
@@ -124,7 +126,8 @@ import { ListsPage } from '../pages/lists/lists';
     LoginOptionsPage,
     AboutPage,
     CreateListPage,
-    ListsPage
+    ListsPage,
+    ConfirmationPage
   ],
   providers: [
     StatusBar,
