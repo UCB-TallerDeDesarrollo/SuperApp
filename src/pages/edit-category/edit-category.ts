@@ -43,7 +43,6 @@ export class EditCategoryPage {
     this.navCtrl.pop();
   }
   eventHandler(event){
-    console.log(event);  
     let input = event.target;
     setTimeout(()=>{
       input.value=input.value.toUpperCase();
