@@ -5,3 +5,23 @@
 .main-lists{
     background-image: linear-gradient(135deg, #5da5f7 10%, #98e4eb 100%);
 }
+
+.options-section {
+    width: 5vw;
+    background-color: inherit;
+    position: absolute;
+    left: 95%;
+    bottom: 65%;
+
+    @media screen and (max-width: 411px) {
+        left: 94%;
+    }
+
+    @media screen and (max-width: 360px) {
+        left: 93%;
+    }
+  }
+
+  .hidden{
+      display: none;
+  }
