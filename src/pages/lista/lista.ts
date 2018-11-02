@@ -1,5 +1,6 @@
+import { ProductListProvider } from './../../providers/product-list/product-list';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, NavParams } from 'ionic-angular';
 import { ProductsPage } from '../products/products';
 import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
@@ -8,7 +9,6 @@ import { Category } from '../../entities/category';
 import { Product } from '../../entities/product';
 import { Categories } from '../../providers/FakeService/Categories';
 import { CategoryProvider } from '../../providers/category/category';
-import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { ProductsProvider } from '../../providers/product/product';
 
 @Component({
@@ -28,7 +28,7 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   imageSound: String;
   productPageIndex: number;
   categoriesPageIndex: number;
-  productsOnList: Array<{ id: number, title: string, image: string, categoryId: number }> = [];
+  productsOnList: Array<Product> = [];
   numberOfProductsOnList: number;
   onViewProducts: Array<Product> = [];
   onViewCategories: Array<{id: number, name: string}>=[];
@@ -36,14 +36,14 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
   ON_VIEW_CATEGORIES_LENGTH = 4;
   listOfProducts: Array<Product> = [];
 
-  constructor(
-    public navCtrl: NavController,
-    private dragulaService: DragulaService,
-    public productsProvider: ProductsProvider,
-    public categoryProvider: CategoryProvider,
-    private audioProvider: AudioProvider,
-    private alertCtrl: AlertController
-  ) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private dragulaService: DragulaService,
+              public productsProvider: ProductsProvider,
+              public categoryProvider: CategoryProvider,
+              private audioProvider: AudioProvider,
+              private alertCtrl: AlertController,
+              public productListProvider: ProductListProvider) {
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId);
@@ -65,7 +65,19 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.changeSoundIcon();
-    this.productsOnList = FakeListProducts.getProducts().reverse();
+    this.productListProvider.getProductListByListId(this.navParams.get("listId"))
+    .then(productList => {
+      productList.forEach(productOfProductList => {
+        this.productsProvider.getProductById(productOfProductList.product_id)
+        .then(productToProductList => {
+          this.productsOnList.push(productToProductList);
+        }).catch(error => {
+          console.log(error);
+        })
+      });
+    }).catch(error => {
+      console.log(error);
+    });
     this.numberOfProductsOnList = this.productsOnList.length;
       this.chargeProducts();
   }
@@ -88,14 +100,18 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
 
   ionViewWillEnter() {
     this.changeSoundIcon();
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
-      .then(products => {
-        this.products = products;
-        this.chargeProducts();
-      }).catch(error => {
-        console.log(error);
-      });
+    this.initializerVariables();
+  }
+
+  initializerVariables() {
     this.reloadProductsOnList();
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
+    .then(products => {
+      this.products = products;
+      this.chargeProducts();
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   ngOnDestroy() {
@@ -213,7 +229,6 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
         {
           text: 'Si',
           handler: () => {
-            console.log(FakeProducts.getProducts());
             this.deleteListOfProducts();
           }
         },
@@ -266,6 +281,18 @@ export class ListaPage implements OnInit, AfterViewInit, OnDestroy {
     this.audioProvider.playPronunciationOfTheProductName(word);
 }
   reloadProductsOnList() {
-    this.productsOnList = FakeListProducts.getProducts();
+    this.productListProvider.getProductListByListId(this.navParams.get("listId"))
+    .then(productList => {
+      productList.forEach(productOfProductList => {
+        this.productsProvider.getProductById(productOfProductList.product_id)
+        .then(productToProductList => {
+          this.productsOnList.push(productToProductList);
+        }).catch(error => {
+          console.log(error);
+        })
+      });
+    }).catch(error => {
+      console.log(error);
+    });
   }
 }
