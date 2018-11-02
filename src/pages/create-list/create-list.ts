@@ -24,11 +24,10 @@ export class CreateListPage {
     });
   }
 
-  async saveList() {
+  async saveListForm() {
     this.listProvider.saveList(this.list)
     .then(response => {
-      if(!response) console.error("Inconsistent list information");
-      //style="text-transform:uppercase"
+      if(response) console.error("Inconsistent list information");
     }).catch(error => {
       console.error(error);
     })

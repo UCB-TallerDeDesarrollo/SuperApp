@@ -21,20 +21,20 @@ import { ProductsProvider } from '../../providers/product/product';
 export class MenuGamesPage {
 
   private imageSound:String;
-  constructor(public navController: NavController, 
-              public navParams: NavParams, 
+  constructor(public navController: NavController,
+              public navParams: NavParams,
               private audioProvider: AudioProvider,
-              public productsProvider: ProductsProvider, 
+              public productsProvider: ProductsProvider,
               public categoryProvider: CategoryProvider,
               public userProvide:UserProvider
           ) {
     this.changeSoundIcon();
   }
-  ionViewDidEnter() {  
-    this.changeSoundIcon(); 
+
+  ionViewDidEnter() {
+    this.changeSoundIcon();
   }
 
-  
   stopSound(){
     this.audioProvider.changeState();
     this.changeSoundIcon();
@@ -47,7 +47,7 @@ export class MenuGamesPage {
     else{
       this.imageSound="assets/imgs/soundon.png";
     }
-  } 
+  }
 
   pushPageSupermarket(){
     this.navController.push(SelectDifficultyPage,{ typeOfGame:"supermarket" });
@@ -57,10 +57,9 @@ export class MenuGamesPage {
       this.navController.pop();
   }
   pushPageList(){
-    this.navController.push(ListaPage);    
+    this.navController.push(ListaPage);
   }
 
-  
   async databaseInitializer() {
     const count_product = await this.productsProvider.countProducts();
     const count_category = await this.categoryProvider.countCategories();
