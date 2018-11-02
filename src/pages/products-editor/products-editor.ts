@@ -27,7 +27,7 @@ export class ProductsEditorPage implements OnDestroy {
   filePath: string;
   fileName: string;
   audio: MediaObject;
-  
+  rowSelected;
 
   constructor(private platform: Platform,
               public navCtrl: NavController,
@@ -38,7 +38,7 @@ export class ProductsEditorPage implements OnDestroy {
               private file: File,
               private screenOrientation: ScreenOrientation,
               private audioProvider    : AudioProvider,
-              public modalController: ModalController) {
+              private modalController: ModalController) {
     this.databaseInitializer();
     this.reloadProducts();
     platform.ready()
@@ -159,6 +159,7 @@ export class ProductsEditorPage implements OnDestroy {
     let message="¿Realmente quieres eliminar el producto "+product.title+"?";
     const confirmationModal = this.modalController.create(ConfirmationPage,{callback:callback, message:message});
     confirmationModal.present();
+    this.hideRowSelected();
   }
 
   deleteProduct(product: Product){
@@ -168,5 +169,20 @@ export class ProductsEditorPage implements OnDestroy {
     }
     this.productsProvider.updateProduct(product);
     this.reloadProducts();
+  }
+
+  active(id){
+    let selector="#delete-"+id;
+    let element= <HTMLElement>document.querySelector(selector);
+    element.classList.remove("hidden");
+    element.classList.add("options-section");
+    this.rowSelected=element;
+  }
+
+  hideRowSelected(){
+    if(this.rowSelected!=null){
+      this.rowSelected.classList.remove("options-section");
+      this.rowSelected.classList.add("hidden");
+    }
   }
 }

@@ -59,6 +59,7 @@ import { ListProvider } from '../providers/list/list';
 import { ProductListProvider } from '../providers/product-list/product-list';
 import { Camera } from '@ionic-native/camera';
 import {ConfirmationPage} from '../pages/confirmation/confirmation';
+import { LongPressModule } from 'ionic-long-press';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import {ConfirmationPage} from '../pages/confirmation/confirmation';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    DragulaModule.forRoot()
+    DragulaModule.forRoot(),
+    LongPressModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
