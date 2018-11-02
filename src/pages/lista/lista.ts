@@ -1,3 +1,4 @@
+import { ListProvider } from './../../providers/list/list';
 import { ProductListProvider } from './../../providers/product-list/product-list';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NavController, AlertController, NavParams } from 'ionic-angular';
@@ -11,6 +12,7 @@ import { Categories } from '../../providers/FakeService/Categories';
 import { CategoryProvider } from '../../providers/category/category';
 import { ProductsProvider } from '../../providers/product/product';
 import { ProductList } from '../../entities/productList';
+import { List } from '../../entities/list';
 
 @Component({
   selector: 'page-lista',
@@ -19,6 +21,7 @@ import { ProductList } from '../../entities/productList';
 })
 export class ListaPage implements OnInit, AfterViewInit {
 
+  list = new List;
   path_images = '../../assets/imgs/Products/';
   defaultCategoryId:number = 1;
   actualSelectedElement:any;
@@ -43,7 +46,8 @@ export class ListaPage implements OnInit, AfterViewInit {
               public categoryProvider: CategoryProvider,
               private audioProvider: AudioProvider,
               private alertCtrl: AlertController,
-              public productListProvider: ProductListProvider) {
+              public productListProvider: ProductListProvider,
+              public listProvider: ListProvider) {
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId);
@@ -62,6 +66,12 @@ export class ListaPage implements OnInit, AfterViewInit {
     })
     .catch(error => {
       console.log(error);
+    });
+    listProvider.getListById(this.navParams.get("listId"))
+    .then(list => {
+      this.list = list;
+    }).catch(error => {
+      console.error(error);
     });
     this.changeSoundIcon();
     this.reloadProductsOnList();
@@ -85,6 +95,12 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   ionViewWillEnter() {
+    this.listProvider.getListById(this.navParams.get("listId"))
+    .then(list => {
+      this.list = list;
+    }).catch(error => {
+      console.error(error);
+    });
     this.reloadProductsOnList();
     this.initializerVariables();
     this.changeSoundIcon();
@@ -219,23 +235,15 @@ export class ListaPage implements OnInit, AfterViewInit {
       ]
     });
     alert.present();
-    this.numberOfProductsOnList = this.productsOnList.length + 1;
   }
 
   onClickDeleteAProduct(product, indexOfProduct) {
-    this.productsProvider.updateOnList(product.id)
-    .then(response => {
-      if(response) {
-        this.reloadProductsOnList();
-        this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
-        .then(products => {
-          this.products = products;
-          this.chargeProducts();
-        }).catch(error => {
-          console.error(error);
-        });
-      }
-    }) .catch(error => {
+    this.reloadProductsOnList();
+    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
+    .then(products => {
+      this.products = products;
+      this.chargeProducts();
+    }).catch(error => {
       console.error(error);
     });
     this.productListProvider.deleteProductListByProductIdAndListId(product.id, this.navParams.get("listId"))
