@@ -85,13 +85,13 @@ export class ListsPage {
     let selector="#delete-"+id;
     let element= <HTMLElement>document.querySelector(selector);
     element.classList.remove("hidden");
-    element.classList.add("options-section");
+    element.classList.add("delete-section");
     this.rowSelected=element;
   }
 
   hideRowSelected(){
     if(this.rowSelected!=null){
-      this.rowSelected.classList.remove("options-section");
+      this.rowSelected.classList.remove("delete-section");
       this.rowSelected.classList.add("hidden");
     }
   }
