@@ -13,7 +13,8 @@ export class SelectLevelPage {
   private lastNav     :   NavController;
   public maxLevel     :   number;
   public imageSound   :   String;
-  public wordPage     :   any;
+  public gamePage     :   any;
+  public typeOfGame : any;
   constructor(
     public navCtrl        : NavController,
     public navParams      : NavParams,
@@ -23,15 +24,16 @@ export class SelectLevelPage {
     this.level=this.navParams.get("level");
     this.lastNav=this.navParams.get("lastNav");
     this.maxLevel=this.navParams.get("maxLevel");
-    this.wordPage=this.navParams.get("wordPage");
+    this.gamePage=this.navParams.get("gamePage");
+    this.typeOfGame=navParams.get("typeOfGame"); 
     this.actualLevel=this.level;
     this.navCtrl=this.lastNav;
     this.changeSoundIcon();
   }
   goToLevel()
-  {
-    this.viewCtrl.dismiss();
-    this.navCtrl.push(LoadingPage, {lastNav:this.navCtrl, level:this.level});
+  { 
+    this.viewCtrl.dismiss(); 
+    this.navCtrl.push(LoadingPage, {lastNav:this.navCtrl, level:this.level, typeOfGame:this.typeOfGame});
     this.navCtrl.remove(this.navCtrl.length()-1);
   }
   ionViewDidLoad() {
@@ -61,7 +63,7 @@ export class SelectLevelPage {
   }
    public stopSound(){
         this.audioProvider.changeState();
-        this.wordPage.changeSoundIcon();
+        this.gamePage.changeSoundIcon();
         this.changeSoundIcon();
     }
 }
