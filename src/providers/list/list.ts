@@ -23,6 +23,22 @@ export class ListProvider {
     return result;
   }
 
+  async updateList(list: List): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.listRepository.createQueryBuilder()
+                                .update('list')
+                                .set({ name: list.name })
+                                .where("id = :id", {id: list.id})
+                                .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
+  }
+
   async getListOnViewByUserId(user_id: number): Promise<List> {
     let result: List;
     try {
