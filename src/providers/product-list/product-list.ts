@@ -47,7 +47,23 @@ export class ProductListProvider {
       result = true;
     } catch (error) {
       console.error(error);
-      result = false; 
+      result = false;
+    }
+    return result;
+  }
+
+  async deleteProductListByListId(list_id: number): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.productListRepository.createQueryBuilder()
+                                      .delete()
+                                      .from(ProductList)
+                                      .where("list_id = :id", { id: list_id })
+                                      .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
     }
     return result;
   }
