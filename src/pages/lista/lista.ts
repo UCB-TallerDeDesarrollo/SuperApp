@@ -152,7 +152,7 @@ export class ListaPage implements OnInit, AfterViewInit {
         }).catch(error => {
           console.log(error);
         });
-        this.numberOfProductsOnList = this.productsOnList.length + 1;
+        this.numberOfProductsOnList = this.productsOnList.length;
       }).catch(error => {
         console.log(error);
       });
@@ -256,7 +256,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.products.sort(function (obj1, obj2) {
       return obj1.id - obj2.id;
     });
-    this.numberOfProductsOnList = this.productsOnList.length + 1;
+    this.numberOfProductsOnList = this.productsOnList.length;
   }
 
   deleteListOfProducts() {
@@ -283,7 +283,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   reloadProductsOnList() {
     this.productListProvider.getProductListByListId(this.navParams.get("listId"))
     .then(productList => {
-      this.productsOnList.splice(0, this.productsOnList.length + 1);
+      this.productsOnList.splice(0, this.productsOnList.length);
       productList.forEach(productOfProductList => {
         this.productsProvider.getProductById(productOfProductList.product_id)
         .then(productToProductList => {
@@ -295,6 +295,6 @@ export class ListaPage implements OnInit, AfterViewInit {
     }).catch(error => {
       console.log(error);
     });
-    this.numberOfProductsOnList = this.productsOnList.length + 1;
+    this.numberOfProductsOnList = this.productsOnList.length;
   }
 }
