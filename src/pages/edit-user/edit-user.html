@@ -11,6 +11,9 @@
         <div class="user_image">
           <img src={{Image}} class="image_user" (click)="takePhoto()">
         </div>
+        <div padding-bottom class="tittle">
+          <button ion-button round small  [disabled]="!isenabled" color="danger" (click)="deleteImage()">Eliminar Foto</button>
+        </div>
     <ion-list>
       <ion-item>
         <ion-label fixed> Usuario</ion-label>
