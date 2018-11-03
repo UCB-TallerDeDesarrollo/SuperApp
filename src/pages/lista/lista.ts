@@ -79,6 +79,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   chargeProducts(){
+    console.log(this.products);
     let bound = this.productPageIndex+this.ON_VIEW_LIST_LENGTH;
     if(bound > this.products.length){
       bound = this.products.length;
@@ -211,7 +212,8 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.selectedCategory = category;
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
     .then(products => {
-      this.products = products;
+      this.products=products;
+      this.reloadProductsOnList();
       this.productPageIndex = 0;
       this.chargeProducts();
     }).catch(error => {
@@ -242,7 +244,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     alert.present();
   }
 
-  onClickDeleteAProduct(product, indexOfProduct) {
+  onClickDeleteAProduct(product) {
     this.reloadProductsOnList();
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
     .then(products => {
@@ -279,6 +281,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
     .then(products => {
       this.products = products;
+      this.chargeProducts();
     }).catch(error => {
       console.log(error);
     });
@@ -303,6 +306,8 @@ export class ListaPage implements OnInit, AfterViewInit {
         this.productsProvider.getProductById(productOfProductList.product_id)
         .then(productToProductList => {
           this.productsOnList.push(productToProductList);
+          this.products=this.products.filter(product => product.id!=productToProductList.id);
+          this.chargeProducts();
         }).catch(error => {
           console.log(error);
         })
