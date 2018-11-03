@@ -10,20 +10,26 @@ export class SuperMarketGame {
     private productsToPlay : any = [];
     private productsToBuy : any= []; 
     private level: number;
-    public constructor(products: any[],level: number) {
+    public isAdvancedLevel: boolean;
+    public constructor(products: any[],level: any) {
         this.countOfProducts = 0;
         this.products = products; 
         this.level = level;
+        this.isAdvancedLevel=false;
     }
     
     public getQuantityByLevel(){
-        if(this.level>=1 && this.level<16){ 
+        if(this.level>=1 && this.level<16){
+            this.isAdvancedLevel=false; 
             return this.getQuantityFromEasyMode(this.level);
         }else if(this.level>=16 && this.level<31){ 
+            this.isAdvancedLevel=false;
             return this.getQuantityFromMediumMode(this.level);
         }else if(this.level>=31 && this.level<46){ 
+            this.isAdvancedLevel=true;
             return this.getQuantityFromHardMode(this.level);
         }else if(this.level>=46 && this.level<61){ 
+            this.isAdvancedLevel=true;
             return this.getQuantityFromExpertMode(this.level);
         }
     }

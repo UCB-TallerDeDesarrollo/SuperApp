@@ -1,28 +1,49 @@
 <ion-header>
-
-
 </ion-header>
 
-<ion-content no-bounce padding class="main-container">
-    <button ion-button icon-only (click)="navController.pop();">
-        <ion-icon name="arrow-back"></ion-icon>
-    </button>
+<ion-content no-bounce padding class="supermarket-container">
 
-    <div class="music-logo">
-        <img [src]="imageSound" alt="" (click)="stopSound()">
+    <div class="nav-bar-market">
+
+        <button ion-button icon-only class="back-arrow-dark" (click)="navController.pop()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </button>
+
+
+        <div class="market-header">
     </div> 
     <div class="level-header">
         <h1 class="supermarket-title" (click)="changeLevel()">NIVEL {{level}}</h1>
+        </div>            
+
+        <div class="music-logo-market">
+            <img [src]="imageSound" (click)="stopSound()">
+        </div>
+        
     </div>
-    <div class="container">
+
+    <div class="products-supermaket-container">
+
         <div class="products-to-play">
-            <div class="product-block" *ngFor="let product of productsToPlay" id="play-{{product.title}}" dragula="{{selectorName}}">
+            <div class="product-block" *ngFor="let product of onViewProducts" id="play-{{product.title}}" dragula="{{selectorName}}">
                 <div id="productPlay-{{product.id}}" class="product-info superior-block">
                     <img class="product-store" src="{{product.image}}" />
                     <p [class]="(textClass) ? 'product-name' : 'hidden-product'">{{product.title}}</p>
                 </div>
             </div>
         </div>
+
+        <div class="{{ categories.length>0 ? 'categories-block' : 'hide' }}">
+            <ion-row>
+            <ion-col class="category-button" *ngFor="let category of onViewCategories">
+                <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
+            </ion-col>
+            <ion-col>
+                <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>4 ? 'arrow' : 'hide' }}" alt="" (click)="nextCategoryPage()">
+            </ion-col>
+            </ion-row>
+        </div>
+
         <div id="high_container" class="products-to-buy">
             <div class="title">COMPRAR</div>
             <div class="product-block" *ngFor="let product of productsToBuy" id="{{product.title}}">
@@ -33,8 +54,11 @@
                 </div>
             </div>
         </div>
+        
     </div>
+
     <div id="carrito" class="carrito_container">
         <img class="icon-image product-objetive-container" src="{{carImage}}" dragula="{{selectorName}}" />
     </div>
+
 </ion-content>

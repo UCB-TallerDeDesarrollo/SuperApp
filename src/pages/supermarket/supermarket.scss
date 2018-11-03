@@ -1,17 +1,45 @@
-page-supermarket {}
+.supermarket-container {
+    
+    background-image: url(../../assets/imgs/backgroundlista0.jpg);
+    background-size: contain;
+    background-repeat: round;
 
-.main-container {
-    background-image: linear-gradient(#f9c046 10%, #e1df75 100%);
-    overflow-y: hidden;
-    .supermarket-title{
-        color: white;
-        text-align: center;
-        @media screen and (min-width: 1023px) and (max-width: 1367px) {
-            font-size: 1em;
-          }
+    .nav-bar-market {
+
+        position: relative;
+        margin-bottom: 15px;
+
+        .music-logo-market {
+            position: absolute;
+            right: 0%;
+            top: 0%;
+            width: 50px;
+        }
+
+        .back-arrow-dark {
+            box-shadow: none;
+            background-color: transparent;
+            color: black;
+            position: initial;
+        }
+
+        .market-header {
+            
+            top: 12px;
+            position: absolute;
+            width: 100%;
+            z-index: -999;
+
+            .supermarket-title{
+                color: white;
+                text-align: center;
+            }
+         }
     }
 
-.container {
+
+
+.products-supermaket-container {
     display: table;
     width: 92vw;
 }
@@ -24,6 +52,8 @@ page-supermarket {}
     float: left;
     text-align: center;
     width: 40%;
+    background-image: url(../../assets/imgs/shelves.jpg);
+    background-size: 100% 170%;
     @media screen and (max-width: 1367px) {
         width: 60%;
         height: 100%;
@@ -258,8 +288,6 @@ page-supermarket {}
 
 .icon-image {
     height: 100%;
-    float: right;
-    margin-right: 15%;
 }
 
 .gu-mirror {
@@ -282,8 +310,6 @@ page-supermarket {}
         @media screen and (max-width: 824px) {
             font-size: 0.67em;
         }
-        //text-align: center;
-        //margin-top: -3px;
     }
     .product-store{
         width: 70%;
@@ -311,12 +337,7 @@ page-supermarket {}
 
 .carrito_container {
     position: absolute;
-    top: 65%;
-    right: 5%;
-    width: 23%;
-    //display: table;
-    //width: 92vw;
-    //max-height:100%;
+    left: 70%;
 }
 
 .product-container{
@@ -356,4 +377,17 @@ page-supermarket {}
 .gu-transit {
     visibility: hidden;
 }
+}
+.categories-block {
+    display: inline-block;
+    width: 54%;
+    float: left;
+
+    .category-button {
+      width: 40vw;
+      object-fit: fill;
+    }
+  }
+  .hide{
+  display: none;
 }
