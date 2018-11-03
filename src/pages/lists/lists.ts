@@ -1,3 +1,4 @@
+import { ProductListProvider } from './../../providers/product-list/product-list';
 import { ListaPage } from './../lista/lista';
 import { LoginStatus } from './../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
@@ -25,6 +26,7 @@ export class ListsPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public listProvider: ListProvider,
+              public productListProvider: ProductListProvider,
               public userProvider: UserProvider,
               private login: Login,
               private modalController: ModalController) {
@@ -76,7 +78,14 @@ export class ListsPage {
   }
 
   deleteList(list: List){
-    if(!this.listProvider.deleteList(list.id)) console.error("Inconsistent list information");
+    this.productListProvider.deleteProductListByListId(list.id)
+    .then(response => {
+      if(!response) console.error("Inconsistent list information");
+    })
+    this.listProvider.deleteList(list.id)
+    .then(response => {
+      if(!response) console.error("Inconsistent list information");
+    })
   }
 
   active(id){
