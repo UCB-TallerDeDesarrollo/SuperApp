@@ -245,29 +245,17 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   onClickDeleteAProduct(product) {
-    this.reloadProductsOnList();
+    let productId=product.id;
+    let listId=this.navParams.get("listId");
+    this.productListProvider.deleteProductListByProductIdAndListId(productId, listId);
+
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
     .then(products => {
       this.products = products;
+      this.reloadProductsOnList();
       this.chargeProducts();
     }).catch(error => {
-      console.error(error);
-    });
-    this.productListProvider.deleteProductListByProductIdAndListId(product.id, this.navParams.get("listId"))
-    .then(result => {
-      if(!result) this.reloadProductsOnList();
-    }).catch(error => {
-      console.error(error);
-    });
-    this.products.push(product);
-    this.products.sort(function (obj1, obj2) {
-      return obj1.id - obj2.id;
-    });
-    this.productListProvider.getCountByListId(this.navParams.get("listId"))
-    .then(result => {
-      this.numberOfProductsOnList = result;
-    }).catch(error => {
-      console.error(error);
+      console.log(error);
     });
   }
 
