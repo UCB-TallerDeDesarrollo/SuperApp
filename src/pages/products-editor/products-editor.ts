@@ -114,7 +114,7 @@ export class ProductsEditorPage implements OnDestroy {
             .then(currentCategory => {
               let products = FakeProducts.getProducts()
               for (const p in products) {
-                if(currentCategory.name === category.name) {
+                if(currentCategory.name === Categories.getCategoryById(products[p].categoryId).name) {
                   let product = new Product();
                   product.image = products[p].image;
                   product.state = 1;
