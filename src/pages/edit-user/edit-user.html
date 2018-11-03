@@ -2,7 +2,7 @@
   </ion-header>
   
   
-  <ion-content padding class="main">
+  <ion-content padding class="colors">
       <ion-buttons left>
           <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
               <ion-icon name="arrow-back"></ion-icon>
@@ -11,11 +11,11 @@
       <h3 class="tittle">Editar usuario</h3>
       <div class="form">
         <div class="user_image">
-          <img src="assets/imgs/user.png">
+          <img src={{Image}} class="image_user" (click)="takePhoto()">
         </div>
     <ion-list>
       <ion-item>
-        <ion-label fixed>Editar Usuario</ion-label>
+        <ion-label fixed> Usuario</ion-label>
         <ion-input type="text" [(ngModel)]="username"></ion-input>
       </ion-item>
       <!--<ion-item>

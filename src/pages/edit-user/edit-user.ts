@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { LoginStatus } from '../../providers/login/LoginStatus';
-
+import { Camera } from '@ionic-native/camera';
 /**
  * Generated class for the EditUserPage page.
  *
@@ -17,15 +17,19 @@ export class EditUserPage {
 
   public username: string;
   public birthdate: Date=new Date();
+  options: { quality: number; sourceType: number; saveToPhotoAlbum: boolean; correctOrientation: boolean; destinationType: number; mediaType: number; };
+  Image: string;
+  path: void;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider,
-              private toastCtrl: ToastController) {
-                
+              private toastCtrl: ToastController, public camera:Camera) {
+          
   }
   async ionViewDidLoad() {
     var user=await this.userProvider.getUserByUsername(LoginStatus.username);
     this.username=user.username;
     this.birthdate=user.birthdate;
+    this.Image=user.profilePictureURL;
   }
 
   async saveUser()
@@ -33,6 +37,7 @@ export class EditUserPage {
     var user=await this.userProvider.getUserByUsername(LoginStatus.username);
     user.username=this.username;
     user.birthdate=this.birthdate;
+    user.profilePictureURL = this.Image;
     try{
       await this.userProvider.updateUser(user);
       var toast=this.toastCtrl.create({
@@ -54,5 +59,26 @@ export class EditUserPage {
       });
       toast.present();
     }
+  }
+
+  takePhoto()
+  {
+    this.options = {
+      quality: 100,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      saveToPhotoAlbum: true,
+      correctOrientation: true,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      mediaType: this.camera.MediaType.VIDEO
+    }
+    this.camera.getPicture(this.options)
+      .then((imageData)=>{
+        this.Image = "data:image/jpeg;base64,"+imageData;
+      }).then((path) => {
+        this.path = path;
+      }).catch((error) => {
+        console.log(error);
+      })
+      var a=1;
   }
 }
