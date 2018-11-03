@@ -64,6 +64,13 @@ export class UserProvider {
         user.userProgress.nextLevel(level);
         await this.saveUser(user);
     }
+    async updateProgressSuper(level:number)
+    {
+        let userInfo:string=LoginStatus.username;
+        let user=await this.getUserByUsername(userInfo);
+        user.userProgress.nextLevelSuper(level);
+        await this.saveUser(user);
+    }
     async existsUsername(user_username: string) {
         let count = await this.userRepository.createQueryBuilder('user')
                                              .where('username = :username', { username: user_username })

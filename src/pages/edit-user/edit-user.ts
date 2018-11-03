@@ -4,6 +4,7 @@ import { UserProvider } from '../../providers/user/user';
 import { LoginStatus } from '../../providers/login/LoginStatus';
 import { Camera } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
+import { AvatarProvider } from '../../shared/providers/AvatarProvider';
 /**
  * Generated class for the EditUserPage page.
  *
@@ -22,10 +23,12 @@ export class EditUserPage {
   Image: string;
   path: void;
   isenabled:boolean=false;
+  public avatars: { id: number, name: string } [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider,
-              private toastCtrl: ToastController, public camera:Camera, public alertCtrl: AlertController) {
-          
+              private toastCtrl: ToastController, public camera:Camera, public avatarProvider: AvatarProvider,
+              public alertCtrl:AlertController) {
+          this.avatars = this.avatarProvider.getAvatars();
   }
   async ionViewDidLoad() {
     var user=await this.userProvider.getUserByUsername(LoginStatus.username);
