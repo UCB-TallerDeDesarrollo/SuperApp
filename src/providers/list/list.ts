@@ -78,4 +78,19 @@ export class ListProvider {
     }
     return result;
   }
+
+  async deleteList(list_id: number): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.listRepository.createQueryBuilder()
+                                .delete()
+                                .from(List)
+                                .where("id = :id", { id: list_id })
+                                .execute();
+      result = true;
+    } catch (error) {
+      result = false;
+    }
+    return result;
+  }
 }
