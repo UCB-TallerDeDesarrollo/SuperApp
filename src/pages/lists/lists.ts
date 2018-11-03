@@ -85,6 +85,14 @@ export class ListsPage {
     this.listProvider.deleteList(list.id)
     .then(response => {
       if(!response) console.error("Inconsistent list information");
+      else{
+        this.listProvider.getListsByUserId(this.user.id)
+        .then(lists => {
+          this.lists = lists;
+        }).catch(error => {
+          console.error(error);
+        });
+      }
     })
   }
 
