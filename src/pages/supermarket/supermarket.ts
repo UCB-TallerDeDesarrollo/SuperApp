@@ -10,6 +10,7 @@ import { LevelCompletePage } from './../level-complete/level-complete';
 import { Product } from '../../entities/product';
 import { SupermarketDifficultyProvider } from '../../shared/providers/SupermarketDifficultyProvider';
 import { SelectLevelPage } from './../select-level/select-level';
+import { Login } from '../../providers/login/Login';
 
 @IonicPage()
 @Component({
@@ -41,7 +42,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     private audioProvider: AudioProvider,
     private dragDropProvider: SupermarketDragDropProvider,
     private platform: Platform,
-    private supermarketDifficulty: SupermarketDifficultyProvider
+    private supermarketDifficulty: SupermarketDifficultyProvider,
+    private login:Login
   ) {
     this.selectorName = 'PRODUCT-' + Math.random();
     this.countOfProducts = 0;
@@ -93,7 +95,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     changeLevel.present();
   }
 
-  public showEndView(): void {
+  public async showEndView() {
 
     this.game.addPoint();
    
@@ -102,7 +104,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     
     if(this.game.isGameOver()) {
      
-      this.supermarketDifficulty.saveProgressByLevel(this.game.Level);
+      //this.supermarketDifficulty.saveProgressByLevel(this.game.Level);
+      await this.login.saveProgressSuper(this.game.Level);
       this.audioProvider.playLevelCompleteSound();
       this.showModalWin();
     }
