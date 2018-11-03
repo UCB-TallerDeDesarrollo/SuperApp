@@ -3,16 +3,16 @@
 </ion-header>
 
 <ion-content no-bounce padding class="main-list">
-  <button ion-button icon-only class="back-arrow"(click)="goToRoot()">
-    <ion-icon name="arrow-back"></ion-icon>
-  </button>
-  <div class="music-logo">
-    <img [src]="imageSound" alt="" (click)="stopSound()">
-  </div>
-  <ion-title class="main-title">{{list.name}}</ion-title>
-  <ion-title class="main-title">{{selectedCategory.name}}</ion-title>
+  <ion-navbar transparent>
 
-  <div class="stand-products">
+    <div class="music-logo">
+      <img [src]="imageSound" alt="" (click)="stopSound()">
+    </div>
+  <ion-title class="main-title">{{list.name}}</ion-title>
+    <ion-title class="main-title">{{selectedCategory.name}}</ion-title>
+  </ion-navbar>  
+
+  <div class="products_stand">
     <ion-list>
       <ion-row>
         <div class="product-block" *ngFor="let product of onViewProducts" id="{{product.title}}" dragula="PRODUCT">
@@ -29,9 +29,9 @@
       <img src="assets/imgs/arrowgreen.png" class="{{ products.length>12 ? 'arrow' : 'hide' }}" alt="" (click)="nextProductPage()">
     </ion-col>
   </ion-row>
-  <div class="categories-block">
+  <div class="list_categories-block">
     <ion-row>
-      <ion-col class="category-button" *ngFor="let category of onViewCategories">
+      <ion-col class="list_category-button" *ngFor="let category of onViewCategories">
         <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
       </ion-col>
       <ion-col>
@@ -46,16 +46,11 @@
     <ion-scroll scrollY="true" class="scroll-container">
       <ion-list>
         <div *ngFor="let productOnList of productsOnList; let i = index">
-          <div class="product-section">
-            <div class="product-info">
-              <img src="{{productOnList.image}}">
-            </div>
+          <div class="product-section" (click)="onClickDeleteAProduct(productOnList,i)">
+              <img class="product-listed" src="{{productOnList.image}}">
             <div class="product-description-section">
               <p class="product-description"> {{productOnList.title}} </p>
             </div>
-            <button clear class="options-section" (click)="onClickDeleteAProduct(productOnList,i)">
-              <img src="../../assets/imgs/delete.png">
-            </button>
           </div>
         </div>
       </ion-list>
