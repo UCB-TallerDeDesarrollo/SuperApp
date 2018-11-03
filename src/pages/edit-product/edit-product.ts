@@ -43,19 +43,17 @@ export class EditProductPage {
     this.productsProvider.getProductById(navParams.data.data)
     .then(product => {
       this.product = product;
-      console.log("constructor()");
-      console.log(this.product);
       this.Image = product.image;
       this.filePath = product.audio;
     }).catch(error => {
-      console.log(error);
+      console.error(error);
     });
 
     this.categoryProvider.getCategories()
     .then(categories => {
       this.categories = categories;
     }).catch(error => {
-      console.log(error);
+      console.error(error);
     });
   }
 
@@ -93,7 +91,7 @@ export class EditProductPage {
       }).then((path) => {
         this.path = path;
       }).catch((error) => {
-        console.log(error);
+        console.error(error);
       })
   }
 

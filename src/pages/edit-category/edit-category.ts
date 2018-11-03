@@ -25,7 +25,7 @@ export class EditCategoryPage {
     .then(category => {
       this.category = category;
     }).catch(error => {
-      console.log(error);
+      console.error(error);
     });
   }
 

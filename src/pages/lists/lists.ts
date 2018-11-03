@@ -48,7 +48,6 @@ export class ListsPage {
     }).catch(error => {
       console.error(error);
     });
-    
   }
 
   editList(list_id: number) {
@@ -77,8 +76,7 @@ export class ListsPage {
   }
 
   deleteList(list: List){
-    //TODO: borrar lista ez v:
-    console.log("Amague xdxdx");
+    if(!this.listProvider.deleteList(list.id)) console.error("Inconsistent list information");
   }
 
   active(id){

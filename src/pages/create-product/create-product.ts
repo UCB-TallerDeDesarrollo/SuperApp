@@ -28,16 +28,16 @@ export class CreateProductPage {
   fileName: string;
   audio: MediaObject;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private media: Media,
-              private file: File, 
-              public productsProvider: ProductsProvider, 
-              public categoryProvider: CategoryProvider, 
+              private file: File,
+              public productsProvider: ProductsProvider,
+              public categoryProvider: CategoryProvider,
               public camera: Camera,
               private formBuilder: FormBuilder,
-              public platform: Platform) {    
-    
+              public platform: Platform) {
+
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
       category: ['', Validators.required]
@@ -47,14 +47,14 @@ export class CreateProductPage {
     .then(category => {
       this.category = category;
     }).catch(error => {
-      console.log(error);
+      console.error(error);
     });
 
     categoryProvider.getCategories()
     .then(categories => {
       this.categories = categories;
     }).catch(error => {
-      console.log(error);
+      console.error(error);
     });
 
     this.Image = "../../assets/imgs/default-product.jpg";
@@ -65,11 +65,10 @@ export class CreateProductPage {
     this.product.audio = this.filePath;
     this.productsProvider.saveProduct(this.product)
     .then(result => {
-      console.log("Save product successfully");
+      if(result) this.afterSaveProduct();
     }).catch(error => {
       console.error(error);
     });
-    this.afterSaveProduct();
   }
 
   callFunctionCamera(){
@@ -77,7 +76,7 @@ export class CreateProductPage {
   }
 
   afterSaveProduct(){
-    this.navCtrl.pop();    
+    this.navCtrl.pop();
   }
 
   takePicture(){
@@ -95,7 +94,7 @@ export class CreateProductPage {
       }).then((path) => {
         this.path = path;
       }).catch((error) => {
-        console.log(error);
+        console.error(error);
       })
   }
   startRecord() {

@@ -47,7 +47,7 @@ export class ProductsEditorPage implements OnDestroy {
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
       }
     }).catch(err=> {
-      console.log('Error while loading platform', err);
+      console.error('Error while loading platform', err);
     });
   }
 
@@ -60,7 +60,7 @@ export class ProductsEditorPage implements OnDestroy {
     .then(products => {
       this.products = products.filter(product=>product.on_list==1);
     }).catch(error =>{
-      console.log(error);
+      console.error(error);
     });
   }
 
