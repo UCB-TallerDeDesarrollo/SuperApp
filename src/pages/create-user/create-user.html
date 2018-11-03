@@ -9,10 +9,10 @@
             <ion-icon name="arrow-back"></ion-icon>
         </button>
     </ion-buttons>
-    <h3 class="tittle">Crear usuariooo</h3>
+    <h3 class="tittle">Crear usuario</h3>
     <div class="form">
         <div class="user_image">
-            <img src={{Image}} class="image_user" (click)="takePhoto()">
+            <img src={{Image}} class="image_user">
             <ion-select [(ngModel)]='Image'>
               <ion-option *ngFor='let avatar of avatars' value='assets/imgs/avatars/avatar{{avatar.id}}.png'>
                 {{avatar.name}}

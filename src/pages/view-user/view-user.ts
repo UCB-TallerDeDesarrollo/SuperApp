@@ -17,6 +17,7 @@ import { LoginStatus } from '../../providers/login/LoginStatus';
 export class ViewUserPage {
   username: string;
   birthdate: Date;
+  image: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider,
     private toastCtrl: ToastController) {
@@ -26,6 +27,7 @@ async ionViewDidLoad() {
 var user=await this.userProvider.getUserByUsername(LoginStatus.username);
   this.username=user.username;
   this.birthdate=user.birthdate;
+  this.image=user.profilePictureURL;
 }
 
 }

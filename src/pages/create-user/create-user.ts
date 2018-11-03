@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { UserProvider } from '../../providers/user/user';
 import { User } from '../../entities/user';
 import { Camera } from '@ionic-native/camera';
+import { AvatarProvider } from '../../shared/providers/AvatarProvider';
 
 /**
  * Generated class for the CreateUserPage page.
@@ -22,19 +23,13 @@ export class CreateUserPage {
   options: { quality: number; sourceType: number; saveToPhotoAlbum: boolean; correctOrientation: boolean; destinationType: number; mediaType: number; };
   Image: string;
   path: void;
-  public avatars: { id: number, name: string } [] = [
-    { 'id': 0, 'name': "Sin avatar" },
-    { 'id': 1, 'name': "Barbon" },
-    { 'id': 2, 'name': "Ninja" },
-    { 'id': 3, 'name': "Genio" },
-    { 'id': 4, 'name': "Pinguino" },
-    { 'id': 5, 'name': "Robot" },
-  ];
+  public avatars: { id: number, name: string } [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider,
-              private toastCtrl: ToastController, public camera:Camera) {
+              private toastCtrl: ToastController, public camera:Camera, public avatarProvider: AvatarProvider) {
               //this.Image="assets/imgs/user.png";
-              this.Image = "assets/imgs/avatars/avatar0.png"
+              this.avatars = this.avatarProvider.getAvatars();
+              this.Image = "assets/imgs/avatars/avatar0.png";
   }
 
   ionViewDidLoad() {
