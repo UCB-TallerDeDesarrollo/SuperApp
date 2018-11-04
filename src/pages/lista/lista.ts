@@ -79,7 +79,6 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   chargeProducts(){
-    console.log(this.products);
     let bound = this.productPageIndex+this.ON_VIEW_LIST_LENGTH;
     if(bound > this.products.length){
       bound = this.products.length;

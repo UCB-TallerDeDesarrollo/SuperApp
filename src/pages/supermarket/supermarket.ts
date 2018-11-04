@@ -170,6 +170,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
 
     this.game.addPoint();
     this.removeProductByElement(element);
+    this.getProductNameByElement(element)
+
     this.audioProvider.playCorrectLetterSound();
     this.carImage="assets/imgs/"+this.countOfProducts+".png";
     
@@ -195,8 +197,9 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     let id=htmlId.split('-')[1];
     return id;
   }
-  private getProductNameByHtmlId(htmlTitle: string){
-    let title=htmlTitle.split('-')[2];
+  private getProductNameByElement(htmlElement){
+    let title=htmlElement.querySelector('p').textContent;
+    console.log(title);
     return title;
   }
   
