@@ -3,15 +3,21 @@
   
   
   <ion-content padding class="colors">
-      <ion-buttons left>
-          <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
-              <ion-icon name="arrow-back"></ion-icon>
-          </button>
-      </ion-buttons>
+    <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
       <h3 class="tittle">Editar usuario</h3>
       <div class="form">
         <div class="user_image">
-          <img src={{Image}} class="image_user" (click)="takePhoto()">
+          <img src={{Image}} class="image_user">
+          <ion-select [(ngModel)]='Image'>
+            <ion-option *ngFor='let avatar of avatars' value='assets/imgs/avatars/avatar{{avatar.id}}.png'>
+              {{avatar.name}}
+            </ion-option>
+          </ion-select>
+        </div>
+        <div padding-bottom class="tittle">
+          <button ion-button round small  [disabled]="!isenabled" color="danger" (click)="deleteImage()">Eliminar Foto</button>
         </div>
     <ion-list>
       <ion-item>

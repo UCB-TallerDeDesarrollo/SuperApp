@@ -63,6 +63,8 @@ import { ListsPage } from '../pages/lists/lists';
 import { EditListPage } from '../pages/edit-list/edit-list'
 import {ConfirmationPage} from '../pages/confirmation/confirmation';
 import { LongPressModule } from 'ionic-long-press';
+import { AvatarProvider } from '../shared/providers/AvatarProvider';
+import { ArrayAvatarProvider } from '../providers/Array/ArrayAvatarProvider';
 
 @NgModule({
   declarations: [
@@ -149,6 +151,7 @@ import { LongPressModule } from 'ionic-long-press';
     {provide: SupermarketDifficultyProvider, useClass: TypeormSupermarketDifficultyProvider},
     {provide: WordDragDropProvider, useClass: DragulaWordDragDropProvider, deps: [DragulaService, Platform]},
     {provide: SupermarketDragDropProvider, useClass: DragulaSupermarketDragDropProvider, deps: [DragulaService, Platform]},
+    {provide: AvatarProvider, useClass: ArrayAvatarProvider},
     ProductsProvider,
     CategoryProvider,
     LevelProvider,
