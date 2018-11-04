@@ -195,7 +195,11 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     let id=htmlId.split('-')[1];
     return id;
   }
-
+  private getProductNameByHtmlId(htmlTitle: string){
+    let title=htmlTitle.split('-')[2];
+    return title;
+  }
+  
   private takeProductOut(productId){
     for(let index=0; index<this.categories.length; index++){
       let category=this.categories[index];
@@ -254,6 +258,9 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     const HEIGHT_CONTAINER = document.getElementById('high_container').offsetHeight;
     let height = HEIGHT_WINDOW - HEIGHT_BAR - PADDING - HEIGHT_CONTAINER;
     document.getElementById('carrito').setAttribute('style', `height: ${height}px`);
+  }
+  public playPronunciationOfTheProductName(word:string) {
+    this.audioProvider.playPronunciationOfTheProductName(word);
   }
 
   ngOnDestroy(): void { 

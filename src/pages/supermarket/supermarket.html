@@ -27,7 +27,7 @@
         <div class="products-to-play">
             <div class="product-block" *ngFor="let product of onViewProducts" id="play-{{product.title}}" dragula="{{selectorName}}">
                 <div id="productPlay-{{product.id}}" class="product-info superior-block">
-                    <img class="product-store" src="{{product.image}}" />
+                    <img class="product-store" src="{{product.image}}" (click)="playPronunciationOfTheProductName(product.title)"/>
                     <p [class]="(textClass) ? 'product-name' : 'hidden-product'">{{product.title}}</p>
                 </div>
             </div>
