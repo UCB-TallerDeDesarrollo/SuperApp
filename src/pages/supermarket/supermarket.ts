@@ -11,8 +11,8 @@ import { Product } from '../../entities/product';
 import { SupermarketDifficultyProvider } from '../../shared/providers/SupermarketDifficultyProvider';
 import { SelectLevelPage } from './../select-level/select-level';
 import { Login } from '../../providers/login/Login';
+import { Category } from '../../entities/category';
 
-@IonicPage()
 @Component({
   selector: 'page-supermarket',
   templateUrl: 'supermarket.html',
@@ -166,7 +166,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     changeLevel.present();
   }
 
-  public async showEndView() {
+  public async showEndView(element) {
 
     this.game.addPoint();
     this.removeProductByElement(element);
