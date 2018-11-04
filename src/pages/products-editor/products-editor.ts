@@ -27,6 +27,7 @@ export class ProductsEditorPage implements OnDestroy {
   filePath: string;
   fileName: string;
   audio: MediaObject;
+  playing: boolean = true;
   rowSelected;
 
   constructor(private platform: Platform,
@@ -147,6 +148,7 @@ export class ProductsEditorPage implements OnDestroy {
   }
 
   playAudio(file) {
+    this.playing = false;
     if (this.platform.is('ios')) {
       this.filePath = file;
       this.audio = this.media.create(this.filePath);
@@ -155,7 +157,17 @@ export class ProductsEditorPage implements OnDestroy {
       this.audio = this.media.create(this.filePath);
     }
     this.audio.play();
-    this.audio.setVolume(1.0);
+    this.audio.setVolume(1.0); 
+
+    setTimeout(() => 
+    {
+      this.playing=true;
+    },
+    2000);
+  }
+  stopAudio(){
+    this.audio.stop();
+    this.playing=true;
   }
 
   confirm(product: Product){

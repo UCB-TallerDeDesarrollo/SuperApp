@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { ProductsProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
 import { Camera } from '@ionic-native/camera';
@@ -8,6 +8,7 @@ import { Category } from '../../entities/category';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+
 
 @IonicPage()
 @Component({
@@ -35,7 +36,8 @@ export class EditProductPage {
               public categoryProvider: CategoryProvider,
               public camera: Camera,
               private formBuilder: FormBuilder,
-              public platform: Platform) {
+              public platform: Platform,
+              public alertCtrl: AlertController) {
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
       category: ['', Validators.required]
