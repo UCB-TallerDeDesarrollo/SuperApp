@@ -4,15 +4,13 @@
 
 <ion-content no-bounce padding class="main-list">
   <ion-navbar transparent>
-
     <div class="music-logo">
       <img [src]="imageSound" alt="" (click)="stopSound()">
     </div>
-  <ion-title class="main-title">{{list.name}}</ion-title>
-    <ion-title class="main-title">{{selectedCategory.name}}</ion-title>
+    <ion-title class="main-title">{{list.name}}</ion-title> 
   </ion-navbar>  
-
-  <div class="products_stand">
+  <div class="category-title">{{selectedCategory.name}}</div>
+  <div class="products_stand">    
     <ion-list>
       <ion-row>
         <div class="product-block" *ngFor="let product of onViewProducts" id="{{product.title}}" dragula="PRODUCT">
