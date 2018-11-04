@@ -23,7 +23,7 @@ export class CategoriesPage {
               public categoryProvider: CategoryProvider,
               public productsProvider: ProductsProvider,
               public modalController:ModalController,) {
-    categoryProvider.getCategoryByName("OTRO")
+    categoryProvider.getCategoryByName("OTROS")
     .then(other => {
       this.other = other;
     })
