@@ -135,7 +135,6 @@ export class ProductsEditorPage implements OnDestroy {
   public playSoundOfWord(product_title :string, product_audio :string) {
     if(product_audio == " "){
       this.audioProvider.playPronunciationOfTheProductName(product_title);
-  
     }else{
       this.playAudio(product_audio);
     }
@@ -151,8 +150,13 @@ export class ProductsEditorPage implements OnDestroy {
       this.audio = this.media.create(this.filePath);
     }
     this.audio.play();
-    this.audio.setVolume(1.0);
-    
+    this.audio.setVolume(1.0); 
+
+    setTimeout(() => 
+    {
+      this.playing=true;
+    },
+    2000);
   }
   stopAudio(){
     this.audio.stop();
