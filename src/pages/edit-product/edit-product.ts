@@ -60,6 +60,7 @@ export class EditProductPage {
   async saveProductForm() {
     this.product.image = this.Image;
     this.product.audio = this.filePath;
+    this.product.title = this.product.title.toUpperCase();
     this.productsProvider.updateProduct(this.product)
     .then(response => {
       if(response) this.afterSaveProduct();

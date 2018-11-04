@@ -38,6 +38,7 @@ export class CreateListPage {
   }
 
   async saveListForm() {
+    this.list.name=this.list.name.toUpperCase();
     this.listProvider.saveList(this.list)
     .then(response => {
       if(response) this.afterSaveList();
