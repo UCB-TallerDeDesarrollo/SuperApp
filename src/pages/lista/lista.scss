@@ -10,12 +10,10 @@
 
   .main-title {
     position: absolute;
-    color: black;
-    font-size: 4em;
-    font-weight: bold;
     text-align: center;
-    left: 40%;  
-    top: 5%;
+    width: 100%;
+    top:30%; 
+    left:0;
 
     @media screen and (min-width: 1023px) and (max-width: 1367px) {
       font-size: 1em;
@@ -34,6 +32,23 @@
   }
   ion-header[transparent] .toolbar-background { 
     background: transparent;
+  }
+
+  .category-title{
+    display:block;
+    color: black;
+    font-size: 1.2em;
+    font-weight: 420;
+    text-align: center;
+    width: 48% !important; 
+
+    @media screen and (max-width: 640px) {     
+      width: 50% !important;  
+    }
+
+    @media screen and (max-width: 568px) {      
+      width: 50% !important;
+    }
   }
 
   .products_stand {
@@ -182,7 +197,7 @@
     background-repeat: no-repeat;
     padding: 6px;
     padding-top: 5%;
-    transform: translateY(-78%);
+    transform: translateY(-86%);
 
     .scroll-container {
       width: 100%;
