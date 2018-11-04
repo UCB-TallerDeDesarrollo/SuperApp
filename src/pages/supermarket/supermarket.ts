@@ -170,15 +170,12 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
 
     this.game.addPoint();
     this.removeProductByElement(element);
-    this.getProductNameByElement(element)
-
-    this.audioProvider.playCorrectLetterSound();
+    this.audioProvider.playPronunciationOfTheProductName(this.getProductNameByElement(element));
     this.carImage="assets/imgs/"+this.countOfProducts+".png";
-    
     if(this.game.isGameOver()) {
       //this.supermarketDifficulty.saveProgressByLevel(this.game.Level);
       await this.login.saveProgressSuper(this.game.Level);
-      this.audioProvider.playLevelCompleteSound();
+      this.playLevelCompleteSoundAndPronunciationOfTheProductName(element);
       this.showModalWin();
     }  
   }
@@ -265,7 +262,12 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   public playPronunciationOfTheProductName(word:string) {
     this.audioProvider.playPronunciationOfTheProductName(word);
   }
-
+  public playLevelCompleteSoundAndPronunciationOfTheProductName(element) {
+    setTimeout(() => {
+    this.playPronunciationOfTheProductName(this.getProductNameByElement(element));
+    }, 4000);
+    this.audioProvider.playLevelCompleteSound();
+}
   ngOnDestroy(): void { 
     this.dragDropProvider.finalize(this.selectorName);
   } 
