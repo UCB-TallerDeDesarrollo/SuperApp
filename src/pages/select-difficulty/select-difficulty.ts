@@ -49,7 +49,7 @@ export class SelectDifficultyPage {
     async ionViewWillEnter() {
         await this.prepareAnonimusUser();
         this.setupStars();
-        this.setupSupermarket();
+        //this.setupSupermarket();
       
     }
     async prepareAnonimusUser()
@@ -58,10 +58,18 @@ export class SelectDifficultyPage {
     await this.login.loadingGameData();
   }
     setupStars() {
+        if(this.typeOfGame === "supermarket"){
+            this.setupExtremeSuper();
+            this.setupEasySuper();
+            this.setupMediumSuper();
+            this.setupHardSuper();
+        }
+        else{
         this.setupEasy();
         this.setupMedium();
         this.setupHard();
         this.setupExtreme();
+        }
     }
     setupExtreme(): any {
         let actualExtremeLevel=LoginStatus.userProgress.extremeLevel-125;
@@ -77,6 +85,23 @@ export class SelectDifficultyPage {
     }
     setupEasy(): any {
         let actualEasyLevel=LoginStatus.userProgress.easyLevel;
+        this.easyStars=Math.trunc(actualEasyLevel/3);
+    }
+
+    setupExtremeSuper(): any {
+        let actualExtremeLevel=LoginStatus.userProgress.extremeLevelSuper-125;
+        this.expertStars=Math.trunc(actualExtremeLevel/19);
+    }
+    setupHardSuper(): any {
+        let actualHardLevel=LoginStatus.userProgress.hardLevelSuper-31;
+        this.hardStars=Math.trunc(actualHardLevel/19);
+    }
+    setupMediumSuper(): any {
+        let actualMediumLevel=LoginStatus.userProgress.mediumLevelSuper-16;
+        this.mediumStars=Math.trunc(actualMediumLevel/3);
+    }
+    setupEasySuper(): any {
+        let actualEasyLevel=LoginStatus.userProgress.easyLevelSuper;
         this.easyStars=Math.trunc(actualEasyLevel/3);
     }
 
@@ -143,9 +168,7 @@ export class SelectDifficultyPage {
     openEasyMode() {
         if(this.typeOfGame==="supermarket"){
             
-            this.supermarketDifficultyProvider.getLastLevel(0).then(level => { 
-                this.navCtrl.push(SupermarketPage, { 'level':level });
-            })
+            this.navCtrl.push(SupermarketPage, {level:LoginStatus.userProgress.easyLevelSuper });
         }else{
             this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.easyLevel });
         }
@@ -155,9 +178,7 @@ export class SelectDifficultyPage {
 
     openMediumMode() {
         if(this.typeOfGame==="supermarket"){
-            this.supermarketDifficultyProvider.getLastLevel(1).then(level => { 
-                this.navCtrl.push(SupermarketPage, { 'level':level });
-            });
+            this.navCtrl.push(SupermarketPage, {level:LoginStatus.userProgress.mediumLevelSuper });
         }else{
             this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.mediumLevel });
         }
@@ -165,9 +186,7 @@ export class SelectDifficultyPage {
 
     openHardMode() {
         if(this.typeOfGame==="supermarket"){ 
-            this.supermarketDifficultyProvider.getLastLevel(2).then(level => { 
-                this.navCtrl.push(SupermarketPage, { 'level':level });
-            });
+            this.navCtrl.push(SupermarketPage, {level:LoginStatus.userProgress.hardLevelSuper });
         }else{
             this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.hardLevel });
         }
@@ -175,9 +194,7 @@ export class SelectDifficultyPage {
 
     openExpertMode() {
         if(this.typeOfGame==="supermarket"){
-            this.supermarketDifficultyProvider.getLastLevel(3).then(level => { 
-                this.navCtrl.push(SupermarketPage, { 'level':level });
-            });
+            this.navCtrl.push(SupermarketPage, {level:LoginStatus.userProgress.extremeLevelSuper });
         }else{
             this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.extremeLevel });
      }

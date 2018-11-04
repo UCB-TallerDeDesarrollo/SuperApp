@@ -9,6 +9,9 @@ import { SupermarketLevelCompletePage } from './../supermarket-level-complete/su
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Product } from '../../entities/product';
 import { SupermarketDifficultyProvider } from '../../shared/providers/SupermarketDifficultyProvider';
+import { SelectLevelPage } from './../select-level/select-level';
+import { Login } from '../../providers/login/Login';
+
 @IonicPage()
 @Component({
   selector: 'page-supermarket',
@@ -17,6 +20,7 @@ import { SupermarketDifficultyProvider } from '../../shared/providers/Supermarke
 export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterViewChecked {
    
   game : SuperMarketGame;
+  level: number;
   products: Array<Product> = [];
   productsToBuy: any=[]; 
   productsToPlay: any[];
@@ -38,7 +42,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     private audioProvider: AudioProvider,
     private dragDropProvider: SupermarketDragDropProvider,
     private platform: Platform,
-    private supermarketDifficulty: SupermarketDifficultyProvider
+    private supermarketDifficulty: SupermarketDifficultyProvider,
+    private login:Login
   ) {
     this.selectorName = 'PRODUCT-' + Math.random();
     this.countOfProducts = 0;
@@ -48,18 +53,16 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
 
   async prepareGame(){
-    let level: number = this.navParams.get('level') || 1;
-    this.supermarketDifficulty.updateLastLevel(level); 
-
-    if((level >= 16 && level < 31) || level >= 46) {
+    this.level = this.navParams.get('level') || 1;
+    this.supermarketDifficulty.updateLastLevel(this.level); 
+    if((this.level >= 16 && this.level < 31) || this.level >= 46) {
       this.textClass = false;
     }
-    if(level >= 31) {
+    if(this.level >= 31) {
       this.imageClass = false;
     }
-    
     this.products = await this.productsProvider.getProducts();
-    this.game = new SuperMarketGame(this.products,level);
+    this.game = new SuperMarketGame(this.products,this.level); 
     this.game.buildProducts();
     this.productsToBuy = this.game.ProductsToBuy;
     for(let index = 0; index < this.productsToBuy.length; ++index) {
@@ -73,7 +76,26 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     this.changeSoundIcon();
   }
 
-  public showEndView(): void {
+  public changeLevel(){
+      const changeLevel = this.modalController.create(
+        SelectLevelPage, 
+        {
+            level    : this.game.Level, 
+            lastNav  : this.navController, 
+            maxLevel : 60,
+            gamePage : this,
+            typeOfGame: "supermarket"                
+        }
+    );
+    changeLevel.onDidDismiss(
+        ()=>{
+            this.changeSoundIcon();
+        }
+    );
+    changeLevel.present();
+  }
+
+  public async showEndView() {
 
     this.game.addPoint();
    
@@ -82,7 +104,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     
     if(this.game.isGameOver()) {
      
-      this.supermarketDifficulty.saveProgressByLevel(this.game.Level);
+      //this.supermarketDifficulty.saveProgressByLevel(this.game.Level);
+      await this.login.saveProgressSuper(this.game.Level);
       this.audioProvider.playLevelCompleteSound();
       this.showModalWin();
     }
@@ -90,8 +113,12 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
 
   public showModalWin(): void {
-    const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {level: this.game.Level + 1, lastNav:this.navController});
-    levelCompleteModal.present();
+    if(this.game.Level<60){
+      const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {level: this.game.Level + 1, lastNav:this.navController});
+      levelCompleteModal.present();
+    }else{
+      this.navController.pop();
+    }
   }
 
   private changeSoundIcon(){
@@ -128,7 +155,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     document.getElementById('carrito').setAttribute('style', `height: ${height}px`);
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { 
     this.dragDropProvider.finalize(this.selectorName);
   } 
 

@@ -11,6 +11,7 @@ import { Categories } from '../../providers/FakeService/Categories';
 import { CategoryProvider } from '../../providers/category/category';
 import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { ProductsProvider } from '../../providers/product/product';
+import { ListsPage } from '../lists/lists';
 
 
 @IonicPage()
@@ -21,20 +22,20 @@ import { ProductsProvider } from '../../providers/product/product';
 export class MenuGamesPage {
 
   private imageSound:String;
-  constructor(public navController: NavController, 
-              public navParams: NavParams, 
+  constructor(public navController: NavController,
+              public navParams: NavParams,
               private audioProvider: AudioProvider,
-              public productsProvider: ProductsProvider, 
+              public productsProvider: ProductsProvider,
               public categoryProvider: CategoryProvider,
               public userProvide:UserProvider
           ) {
     this.changeSoundIcon();
   }
-  ionViewDidEnter() {  
-    this.changeSoundIcon(); 
+
+  ionViewDidEnter() {
+    this.changeSoundIcon();
   }
 
-  
   stopSound(){
     this.audioProvider.changeState();
     this.changeSoundIcon();
@@ -47,20 +48,19 @@ export class MenuGamesPage {
     else{
       this.imageSound="assets/imgs/soundon.png";
     }
-  } 
+  }
 
-    pushPageSupermarket(){
-      this.navController.push(SelectDifficultyPage,{ typeOfGame:"supermarket" });
-    }
+  pushPageSupermarket(){
+    this.navController.push(SelectDifficultyPage,{ typeOfGame:"supermarket" });
+  }
 
-    popPage(){
-        this.navController.pop();
-    }
-    pushPageList(){
-      this.navController.push(ListaPage);    
-    }
+  popPage(){
+      this.navController.pop();
+  }
+  pushPageList(){
+    this.navController.push(ListsPage);
+  }
 
-  
   async databaseInitializer() {
     const count_product = await this.productsProvider.countProducts();
     const count_category = await this.categoryProvider.countCategories();
@@ -71,27 +71,31 @@ export class MenuGamesPage {
         category.name = categories[c].name;
         this.categoryProvider.saveCategory(category)
         .then(response => {
-          if(response) console.log("Save category successfully");
+          if(response) {
+            this.categoryProvider.getCategoryByName(category.name)
+            .then(currentCategory => {
+              let products = FakeProducts.getProducts()
+              for (const p in products) {
+                if(currentCategory.name === category.name) {
+                  let product = new Product();
+                  product.image = products[p].image;
+                  product.state = 1;
+                  product.audio = " ";
+                  product.title = products[p].title;
+                  product.category_id = currentCategory.id;
+                  this.productsProvider.saveProduct(product)
+                  .then(response => {
+                    if(!response) console.error("Inconsistent product information");
+                  }).catch(error => {
+                    console.error(error);
+                  });
+                }
+              }
+            })
+          }
         }).catch(error => {
           console.error(error);
         });
-      }
-      if(count_product < 58) {
-        let products = FakeProducts.getProducts()
-        for (const p in products) {
-          let product = new Product();
-          product.image = products[p].image;
-          product.state = 1;
-          product.audio = " ";
-          product.title = products[p].title;
-          product.category_id = products[p].categoryId;
-          this.productsProvider.saveProduct(product)
-          .then(result => {
-            if(result)console.log("Save product successfully");
-          }).catch(error => {
-            console.error(error);
-          });
-        }
       }
     }
   }

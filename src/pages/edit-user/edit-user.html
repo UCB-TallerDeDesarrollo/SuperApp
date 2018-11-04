@@ -2,20 +2,26 @@
   </ion-header>
   
   
-  <ion-content padding class="main">
-      <ion-buttons left>
-          <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
-              <ion-icon name="arrow-back"></ion-icon>
-          </button>
-      </ion-buttons>
+  <ion-content padding class="colors">
+    <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
       <h3 class="tittle">Editar usuario</h3>
       <div class="form">
         <div class="user_image">
-          <img src="assets/imgs/user.png">
+          <img src={{Image}} class="image_user">
+          <ion-select [(ngModel)]='Image'>
+            <ion-option *ngFor='let avatar of avatars' value='assets/imgs/avatars/avatar{{avatar.id}}.png'>
+              {{avatar.name}}
+            </ion-option>
+          </ion-select>
+        </div>
+        <div padding-bottom class="tittle">
+          <button ion-button round small  [disabled]="!isenabled" color="danger" (click)="deleteImage()">Eliminar Foto</button>
         </div>
     <ion-list>
       <ion-item>
-        <ion-label fixed>Editar Usuario</ion-label>
+        <ion-label fixed> Usuario</ion-label>
         <ion-input type="text" [(ngModel)]="username"></ion-input>
       </ion-item>
       <!--<ion-item>

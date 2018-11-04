@@ -102,7 +102,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
                 level    : this.game.Level, 
                 lastNav  : this.navController, 
                 maxLevel : this.productsProdiver.getQuantityOfProducts(),
-                wordPage : this                
+                gamePage : this,
+                typeOfGame: "words"                
             }
         );
         changeLevel.onDidDismiss(

@@ -1,0 +1,17 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Agregar una nueva lista</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding class="main-create-list">
+  <form (ngSubmit)="saveListForm()" >
+    <ion-item [formGroup]="listForm" class="create-list-form">
+      <ion-label>Nombre</ion-label>
+      <ion-input type="text" formControlName="name" [(ngModel)]="list.name" name="name"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!listForm.valid" block>Guardar</button>
+  </form>
+</ion-content>

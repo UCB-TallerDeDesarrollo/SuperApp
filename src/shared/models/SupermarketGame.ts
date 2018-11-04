@@ -9,8 +9,8 @@ export class SuperMarketGame {
     private products: any = [];
     private productsToPlay : any = [];
     private productsToBuy : any= []; 
-    private level: any;
-    public constructor(products: any[],level: any) {
+    private level: number;
+    public constructor(products: any[],level: number) {
         this.countOfProducts = 0;
         this.products = products; 
         this.level = level;
@@ -129,7 +129,7 @@ export class SuperMarketGame {
         return this.products;
     }
 
-    public get Level(): any{
+    public get Level(): number{
         return this.level;
     }
 

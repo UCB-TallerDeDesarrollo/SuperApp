@@ -1,5 +1,6 @@
 .product-content{
-    border-radius: 20px !important;
+    border-radius: 10px !important;
+    position: relative;
 }
 
 .product-image {
@@ -25,3 +26,26 @@
     margin: auto;
     display: inherit;
 }
+
+.padding-products-editor{
+    padding-left: 10px;
+}
+.options-section {
+    width: 5vw;
+    background-color: inherit;
+    position: absolute;
+    left: 95%;
+    bottom: 65%;
+
+    @media screen and (max-width: 411px) {
+        left: 94%;
+    }
+
+    @media screen and (max-width: 360px) {
+        left: 93%;
+    }
+  }
+
+  .hidden{
+      display: none;
+  }

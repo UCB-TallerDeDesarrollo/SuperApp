@@ -16,7 +16,7 @@
       <ion-row>
         <div class="product-block" *ngFor="let product of onViewProducts" id="{{product.title}}" dragula="PRODUCT">
           <div id="product-{{product.id}}" class="product-info">
-            <img class="product-store" src="{{product.image}}" />
+            <img class="product-store" src="{{product.image}}" (click)="playPronunciationOfTheProductName(product.title)" />
             <p class="product-name">{{product.title}}</p>
           </div>
         </div>
