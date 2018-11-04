@@ -22,6 +22,7 @@ export class CreateUserPage {
   public birthdate: Date;
   options: { quality: number; sourceType: number; saveToPhotoAlbum: boolean; correctOrientation: boolean; destinationType: number; mediaType: number; };
   Image: string;
+  Picture:string;
   path: void;
   public avatars: { id: number, name: string } [];
 
@@ -77,7 +78,7 @@ export class CreateUserPage {
     }
     this.camera.getPicture(this.options)
       .then((imageData)=>{
-        this.Image = "data:image/jpeg;base64,"+imageData;
+        this.Picture = "data:image/jpeg;base64,"+imageData;
       }).then((path) => {
         this.path = path;
       }).catch((error) => {

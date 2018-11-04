@@ -11,11 +11,13 @@
     <div class="form">
         <div class="user_image">
             <img src={{Image}} class="image_user">
-            <ion-select [(ngModel)]='Image'>
+            <ion-select [(ngModel)]='Image' class="change_avatar">
               <ion-option *ngFor='let avatar of avatars' value='assets/imgs/avatars/avatar{{avatar.id}}.png'>
                 {{avatar.name}}
               </ion-option>
+              <ion-option (ionSelect)="takePhoto()" value={{Picture}}>Añadir foto</ion-option>
             </ion-select>
+            
         </div>
   <ion-list>
     <ion-item>
