@@ -114,11 +114,4 @@ export class CreateProductPage {
     this.audio.stopRecord();
     this.recording = false;
   }
-  eventHandler(event){
-    let input = event.target;
-    setTimeout(()=>{
-      input.value=input.value.toUpperCase();
-        }, 1);
-
-  }
 }
