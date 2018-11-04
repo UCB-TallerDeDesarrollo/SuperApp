@@ -81,7 +81,9 @@ export class CreateProductPage {
 
   takePicture(){
     this.options = {
-      quality: 100,
+      quality: 80,
+      targetWidth: 225,
+      targetHeight: 225,
       sourceType: this.camera.PictureSourceType.CAMERA,
       saveToPhotoAlbum: true,
       correctOrientation: true,
