@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController, Select } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { LoginStatus } from '../../providers/login/LoginStatus';
 import { Camera } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 import { AvatarProvider } from '../../shared/providers/AvatarProvider';
+import { Login } from '../../providers/login/Login';
 /**
  * Generated class for the EditUserPage page.
  *
@@ -16,7 +17,7 @@ import { AvatarProvider } from '../../shared/providers/AvatarProvider';
   templateUrl: 'edit-user.html',
 })
 export class EditUserPage {
-
+  @ViewChild('select') select1: Select;
   public username: string;
   public birthdate: Date=new Date();
   options: { quality: number; sourceType: number; saveToPhotoAlbum: boolean; correctOrientation: boolean; destinationType: number; mediaType: number; };
@@ -24,10 +25,11 @@ export class EditUserPage {
   path: void;
   isenabled:boolean=false;
   public avatars: { id: number, name: string } [];
+  Picture: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider,
               private toastCtrl: ToastController, public camera:Camera, public avatarProvider: AvatarProvider,
-              public alertCtrl:AlertController) {
+              public alertCtrl:AlertController, public login:Login) {
           this.avatars = this.avatarProvider.getAvatars();
   }
   async ionViewDidLoad() {
@@ -59,6 +61,7 @@ export class EditUserPage {
       });
       toast.present();
       LoginStatus.setLoginSuccess(this.username);
+      this.login.login(this.username);
       this.navCtrl.pop();
     }
     catch
@@ -85,7 +88,7 @@ export class EditUserPage {
     }
     this.camera.getPicture(this.options)
       .then((imageData)=>{
-        this.Image = "data:image/jpeg;base64,"+imageData;
+        this.Picture = "data:image/jpeg;base64,"+imageData;
         this.isenabled=true;
       }).then((path) => {
         this.path = path;
@@ -117,5 +120,8 @@ export class EditUserPage {
       ]
     });
     confirm.present();
+  }
+  showSelect(){
+    this.select1.open();
   }
 }

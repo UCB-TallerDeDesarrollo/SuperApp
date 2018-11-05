@@ -11,15 +11,21 @@
     <div class="form">
         <div class="user_image">
             <img src={{Image}} class="image_user">
-            <ion-select [(ngModel)]='Image' class="change_avatar">
+            <div class="options">
+            <ion-select #select [(ngModel)]='Image' class="change_avatar" hidden>
               <ion-option *ngFor='let avatar of avatars' value='assets/imgs/avatars/avatar{{avatar.id}}.png'>
                 {{avatar.name}}
               </ion-option>
-              <ion-option (ionSelect)="takePhoto()" value={{Picture}}>Añadir foto</ion-option>
             </ion-select>
-            
+            <button ion-fab mini class="select" color="primary" (click)="showSelect()"><ion-icon name="md-contact"></ion-icon></button>
+            <button ion-fab mini class="camera" color="primary" (click)="takePhoto()"><ion-icon name="md-camera"></ion-icon></button>
+          </div>
         </div>
   <ion-list>
+    <br>
+    <br>
+    <br>
+    <br>
     <ion-item>
       <ion-label fixed> Usuario</ion-label>
       <ion-input type="text" [(ngModel)]="username"></ion-input>
