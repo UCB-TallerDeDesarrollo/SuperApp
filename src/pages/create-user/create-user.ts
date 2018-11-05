@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController, Select } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { User } from '../../entities/user';
 import { Camera } from '@ionic-native/camera';
@@ -18,10 +18,12 @@ import { AvatarProvider } from '../../shared/providers/AvatarProvider';
   templateUrl: 'create-user.html',
 })
 export class CreateUserPage {
+  @ViewChild('select') select1: Select;
   public username: string;
   public birthdate: Date;
   options: { quality: number; sourceType: number; saveToPhotoAlbum: boolean; correctOrientation: boolean; destinationType: number; mediaType: number; };
   Image: string;
+  Picture:string;
   path: void;
   public avatars: { id: number, name: string } [];
 
@@ -30,6 +32,7 @@ export class CreateUserPage {
               //this.Image="assets/imgs/user.png";
               this.avatars = this.avatarProvider.getAvatars();
               this.Image = "assets/imgs/avatars/avatar0.png";
+              this.Picture="";
   }
 
   ionViewDidLoad() {
@@ -65,7 +68,7 @@ export class CreateUserPage {
     this.navCtrl.pop();
   }
 
-  takePhoto()
+ async takePhoto()
   {
     this.options = {
       quality: 100,
@@ -75,15 +78,18 @@ export class CreateUserPage {
       destinationType: this.camera.DestinationType.DATA_URL,
       mediaType: this.camera.MediaType.VIDEO
     }
-    this.camera.getPicture(this.options)
+    await this.camera.getPicture(this.options)
       .then((imageData)=>{
-        this.Image = "data:image/jpeg;base64,"+imageData;
+        this.Picture = "data:image/jpeg;base64,"+imageData;
       }).then((path) => {
         this.path = path;
       }).catch((error) => {
         console.log(error);
       })
-      var a=1;
+      this.Image=this.Picture;
+  }
+  showSelect(){
+    this.select1.open();
   }
 
 }
