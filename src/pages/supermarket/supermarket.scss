@@ -68,6 +68,8 @@
                 margin-bottom: 65px;
                 margin-top: 50px;
                 float: left;
+                z-index: 9999;
+                position: sticky;
 
                 .product-info {
 
@@ -77,6 +79,10 @@
                     overflow: hidden;
                     font-family: Arial;
                     font-weight: bold;
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    width: 100%;
                     
                     .product-store {
                         object-fit: fill;
@@ -101,6 +107,7 @@
                     margin-top: 100px;
                     margin-left: 25px;
                     padding: 0px;
+                    position: sticky;
                     
                     .product-info {
 
@@ -137,6 +144,7 @@
                     margin-bottom: 110px;
                     margin-top: 50px;
                     margin-left: 15px;
+                    position: sticky;
 
                     .product-info {
 
@@ -173,6 +181,7 @@
                     margin-bottom: 58px;
                     margin-top: 15px;
                     margin-left: 17px;
+                    position: sticky;
 
                     .product-info {
 
@@ -210,6 +219,7 @@
                     margin-bottom: 55px;
                     margin-top: 9px;
                     margin-left: 17px;
+                    position: sticky;
 
                     .product-info {
 
@@ -247,6 +257,7 @@
                     margin-bottom: 58px;
                     margin-top: 15px;
                     margin-left: 10px;
+                    position: sticky;
 
                     .product-info {
 
@@ -282,6 +293,7 @@
                     padding: 0px;
                     margin-bottom: 56px;
                     margin-top: 8px;
+                    position: sticky;
                     margin-left: 5px;
 
                     .product-info {
@@ -318,6 +330,7 @@
                     margin-bottom: 52px;
                     margin-top: 8px;
                     margin-left: 5px;
+                    position: sticky;
 
                     .product-info {
 
@@ -353,6 +366,7 @@
                     margin-bottom: 40px;
                     margin-top: 10px;
                     margin-left: 5px;
+                    position: sticky;
 
                     .product-info {
 
@@ -383,47 +397,6 @@
             }
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         .products-to-buy {
 
@@ -463,12 +436,13 @@
     
                 display: inline-block;
                 width: 180px;
-                height: 40px;
+                height: 50px;
                 padding: 30px;
                 margin-bottom: 65px;
                 margin-top: 50px;
                 margin-left: 40px;
                 float: left;
+                z-index: 1;
     
     
                 .product-info {
@@ -1014,11 +988,23 @@
         }
 
         @media screen and (max-width: 824px) {
-            height: 50px;
+            height: 60px;
         }
 
         @media screen and (max-width: 813px) {
-            height: 50px;
+            height: 60px;
+        }
+
+        @media screen and (max-width: 737px) {
+            height: 62px;
+        }
+
+        @media screen and (max-width: 732px) {
+            height: 62px;
+        }
+
+        @media screen and (max-width: 641px) {
+            height: 60px;
         }
 
         @media screen and (max-width: 569px) {
