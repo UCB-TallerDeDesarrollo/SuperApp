@@ -43,5 +43,5 @@ export class Login{
       async saveProgressSuper(level:number)
       {
         this.userProvider.updateProgressSuper(level);
-      }
+      } 
 }

@@ -1,3 +1,5 @@
+import { UserProvider } from './../../providers/user/user';
+import { User } from './../../entities/user';
 import { SelectLevelPage } from './../select-level/select-level';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
@@ -19,6 +21,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public backgroundColor : string;
     public selectorName    : string;
     public imageSound      : string;
+    public coin            : number;
 
     constructor(
         public navController       : NavController,
@@ -29,15 +32,21 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private audioProvider      : AudioProvider,
         private navParams          : NavParams,
         private login              : Login
+        
     ) {
         this.prepareGame();
         this.changeSoundIcon();
+        this.coin.toString();
     }
 
     ionViewDidEnter() { 
         this.changeSoundIcon(); 
     }
-    
+    private coinsOfUser()
+    {
+        this.coin=this.login.userProvider.getAmountOfCoins();
+        
+    }
     private generateLettersWithColor() {
         let response: any = [];
         for (let letter of this.game.ResponseWord) {
@@ -54,9 +63,13 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.prepareLevel();
         this.selectorName = this.generateSelectorCode();
         this.backgroundColor = this.colorService.getRandomBackgroundColor();
+        this.coinsOfUser();
         this.game.buildLetters(this.generateLettersWithColor());
     }
-
+   
+    
+       
+ 
     private generateSelectorCode() {
         return 'LETTER-' + Math.random();
     }

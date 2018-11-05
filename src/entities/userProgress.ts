@@ -16,6 +16,7 @@ export class UserProgress{
         this.mediumLevelSuper=mediumLevelSuper;
         this.hardLevelSuper=hardLevelSuper;
         this.extremeLevelSuper=extremeLevelSuper;
+        this.coins=0;
         
     }
     @PrimaryGeneratedColumn()
@@ -39,6 +40,9 @@ export class UserProgress{
     hardLevelSuper:number;
     @Column()
     extremeLevelSuper:number;
+
+    @Column()
+    coins: number;
 /*    @OneToOne(type=>User, user=>user.userProgress)
     user:User;
 */
@@ -57,8 +61,10 @@ export class UserProgress{
         this.nextExtremeSuper(actualLevel);
     }
     nextExtreme(actualLevel: number): any {
+        this.coins = this.coins+ (2 * 5);
         if (actualLevel>=125 && actualLevel<200)
         {
+            
             if (actualLevel==this.extremeLevel)
             {
                 this.extremeLevel++;
@@ -66,6 +72,7 @@ export class UserProgress{
         }
     }
     nextHard(actualLevel: number): any {
+        this.coins = this.coins+ (2 * 4);
         if (actualLevel>=31 && actualLevel<124)
         {
             if(actualLevel==this.hardLevel)
@@ -76,6 +83,7 @@ export class UserProgress{
         }
     }
     nextMedium(actualLevel: number): any {
+        this.coins = this.coins+ (2 * 3);
         if (actualLevel>=16 && actualLevel<30)
         {
             if (actualLevel==this.mediumLevel)
@@ -86,6 +94,7 @@ export class UserProgress{
         }
     }
     nextEasy(actualLevel: number) {
+        this.coins =this.coins+ ( 2 * 2);
         if (actualLevel<15)
         {
         if (actualLevel==this.easyLevel)
@@ -96,6 +105,7 @@ export class UserProgress{
     }
 
     nextExtremeSuper(actualLevelSuper: number): any {
+        this.coins = this.coins+ (2 * 5);
         if (actualLevelSuper>=46 && actualLevelSuper<59)
         {
             if (actualLevelSuper==this.extremeLevelSuper)
@@ -105,6 +115,7 @@ export class UserProgress{
         }
     }
     nextHardSuper(actualLevelSuper: number): any {
+        this.coins = this.coins+ (2 * 4);
         if (actualLevelSuper>=31 && actualLevelSuper<45)
         {
             if(actualLevelSuper==this.hardLevelSuper)
@@ -115,6 +126,7 @@ export class UserProgress{
         }
     }
     nextMediumSuper(actualLevelSuper: number): any {
+        this.coins = this.coins+ (2 * 3);
         if (actualLevelSuper>=16 && actualLevelSuper<30)
         {
             if (actualLevelSuper==this.mediumLevelSuper)
@@ -125,6 +137,7 @@ export class UserProgress{
         }
     }
     nextEasySuper(actualLevelSuper: number) {
+        this.coins = this.coins+ (2 * 2);
         if (actualLevelSuper<15)
         {
         if (actualLevelSuper==this.easyLevelSuper)
