@@ -76,7 +76,7 @@ export class EditUserPage {
     }
   }
 
-  takePhoto()
+ async takePhoto()
   {
     this.options = {
       quality: 100,
@@ -86,7 +86,7 @@ export class EditUserPage {
       destinationType: this.camera.DestinationType.DATA_URL,
       mediaType: this.camera.MediaType.VIDEO
     }
-    this.camera.getPicture(this.options)
+    await this.camera.getPicture(this.options)
       .then((imageData)=>{
         this.Picture = "data:image/jpeg;base64,"+imageData;
         this.isenabled=true;
@@ -95,6 +95,7 @@ export class EditUserPage {
       }).catch((error) => {
         console.log(error);
       })
+      this.Image=this.Picture;
       var a=1;
   }
 
