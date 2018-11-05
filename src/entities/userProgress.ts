@@ -46,6 +46,9 @@ export class UserProgress{
 /*    @OneToOne(type=>User, user=>user.userProgress)
     user:User;
 */
+    public updateCoins(coins: number){
+        this.coins=coins;
+    }
     public nextLevel(actualLevel:number)
     {
         this.nextEasy(actualLevel);

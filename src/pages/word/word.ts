@@ -154,4 +154,11 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public playPronunciationOfTheLetter(letter: string): void {
         this.audioProvider.playPronunciationOfTheProductName(letter);
     }
+    public async reduceCoins(){
+        let newAmount
+        if(this.coins>=10){
+        newAmount= this.coins -10;
+        }    
+        await this.login.updateCoins(newAmount);
+    }
 }

@@ -92,4 +92,10 @@ export class UserProvider {
         let user=await this.getUserByUsername(userInfo);
         return user.userProgress.coins;
     }
+    async updateCoins(coins:number){
+        let userInfo:string=LoginStatus.username;
+        let user=await this.getUserByUsername(userInfo);
+        user.userProgress.updateCoins(coins);
+        await this.saveUser(user);
+    }
 }
