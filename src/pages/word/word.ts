@@ -173,14 +173,15 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     }
     public removeFromMessy(letterM :string){
-        let i = 0;
+        /*let i = 0;
         for (let letra of this.game.MessyWord){
             if (letra.letter.trim() == letterM.trim()){
                 this.game.MessyWord.splice(i,1);
                 break;
             }
             i = i +1;
-        }
+        }*/
+        this.game.MessyWord.splice(letterM, 1);
     }
 
     public changeSoundIcon(){
