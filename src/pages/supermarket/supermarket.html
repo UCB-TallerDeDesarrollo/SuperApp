@@ -1,60 +1,60 @@
-<ion-header>
-</ion-header>
-
 <ion-content no-bounce padding class="supermarket-container">
 
     <div class="nav-bar-market">
 
-        <button ion-button icon-only class="back-arrow-dark" (click)="navController.pop()">
+        <button class="nav-bar-market__button" ion-button icon-only (click)="navController.pop()">
             <ion-icon name="arrow-back"></ion-icon>
         </button>
 
+        <div class="nav-bar-market__header">
+            <h1 class="title" (click)="changeLevel()">NIVEL {{level}}</h1>
+        </div>
 
-        <div class="market-header">
-    </div> 
-    <div class="level-header">
-        <h1 class="supermarket-title" (click)="changeLevel()">NIVEL {{level}}</h1>
-        </div>            
-
-        <div class="music-logo-market">
+        <div class="nav-bar-market__sound">
             <img [src]="imageSound" (click)="stopSound()">
         </div>
         
     </div>
 
+
     <div class="products-supermaket-container">
 
         <div class="products-to-play">
             <div class="product-block" *ngFor="let product of onViewProducts" id="play-{{product.title}}" dragula="{{selectorName}}">
-                <div id="productPlay-{{product.id}}" class="product-info superior-block">
-                    <img class="product-store" src="{{product.image}}" />
+                <div id="productPlay-{{product.id}}" class="product-info">
+                    <img src="{{product.image}}" class="product-store"/>
                     <p [class]="(textClass) ? 'product-name' : 'hidden-product'">{{product.title}}</p>
                 </div>
             </div>
         </div>
 
-        <div class="{{ categories.length>0 ? 'categories-block' : 'hide' }}">
-            <ion-row>
-            <ion-col class="category-button" *ngFor="let category of onViewCategories">
-                <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
-            </ion-col>
-            <ion-col>
-                <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>4 ? 'arrow' : 'hide' }}" alt="" (click)="nextCategoryPage()">
-            </ion-col>
-            </ion-row>
-        </div>
-
-        <div id="high_container" class="products-to-buy">
+         <div id="high_container" class="products-to-buy">
+           
             <div class="title">COMPRAR</div>
+
             <div class="product-block" *ngFor="let product of productsToBuy" id="{{product.title}}">
+
                 <div id="product-{{product.id}}" [class]="(imageClass) ? 'product-info product-container' : 'product-info product-container flex-container'">
                     <img [class]="(imageClass) ? 'product-store' : 'hidden-product'" src="{{product.image}}" />
                     <img id="img-play-{{product.title}}" class="product-store product-absolute" src="../../assets/imgs/check-symbol.png" />
                     <p [class]="(imageClass) ? 'product-name' : 'product-name center-element'">{{product.title}}</p>
                 </div>
+            
             </div>
-        </div>
+
+        </div> 
         
+    </div>
+
+    <div class="{{ categories.length>0 ? 'categories-block' : 'hide' }}">
+        <ion-row>
+            <ion-col class="category-button" *ngFor="let category of onViewCategories">
+                <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
+            </ion-col>
+            <ion-col>
+                <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>3 ? 'arrow' : 'hide' }}" (click)="nextCategoryPage()">
+            </ion-col>
+        </ion-row>
     </div>
 
     <div id="carrito" class="carrito_container">

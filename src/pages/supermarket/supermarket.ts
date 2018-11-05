@@ -30,7 +30,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   public productsList: string[] = [];
   public countOfProducts: number;
   ON_VIEW_LIST_LENGTH:number = 12;
-  ON_VIEW_CATEGORIES_LENGTH:number = 4;
+  ON_VIEW_CATEGORIES_LENGTH:number = 3;
   productPageIndex: number=0;
   categoriesPageIndex: number=0;
   onViewProducts: Array<Product> = [];
@@ -250,7 +250,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     const PADDING = 32;
     const HEIGHT_CONTAINER = document.getElementById('high_container').offsetHeight;
     let height = HEIGHT_WINDOW - HEIGHT_BAR - PADDING - HEIGHT_CONTAINER;
-    document.getElementById('carrito').setAttribute('style', `height: ${height}px`);
+    document.getElementById('carrito').setAttribute('style', `height: ${height + 40}px`);
   }
 
   ngOnDestroy(): void { 
