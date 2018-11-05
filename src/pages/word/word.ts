@@ -154,10 +154,12 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public playPronunciationOfTheLetter(letter: string): void {
         this.audioProvider.playPronunciationOfTheProductName(letter);
     }
+    public async downgradeCoins(){
+        await this.login.updateCoins();
+    }
     public reduceCoins(){
         if(this.coins >= 10)
-            this.coins= this.coins-10;
-       
-        
+          this.downgradeCoins();
+          this.coins=this.coins-10;
     }
 }
