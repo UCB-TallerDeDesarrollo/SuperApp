@@ -25,6 +25,11 @@ export class SortWordGame {
         this.level = level;
     }
 
+    public setElements(product: Product, level: number) {
+        this.product = product;
+        this.level = level;
+    }
+
     public addCount() : void {
         ++this.count;
     }

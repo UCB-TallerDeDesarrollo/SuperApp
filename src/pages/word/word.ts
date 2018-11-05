@@ -11,6 +11,7 @@ import { WordDragDropProvider } from '../../shared/providers/WordDragDropProvide
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { Product } from '../../shared/models/Product.model';
 import { Login } from '../../providers/login/Login';
+import { ProductsProvider } from '../../providers/product/product';
 @Component({
     selector: 'page-word',
     templateUrl: 'word.html'
@@ -31,8 +32,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private dragDropProvider   : WordDragDropProvider,
         private audioProvider      : AudioProvider,
         private navParams          : NavParams,
-        private login              : Login
-        
+        private login              : Login,
+        private productProdiver    : ProductsProvider
     ) {
         this.prepareGame();
         this.changeSoundIcon();
@@ -58,25 +59,43 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         return response;
     }
 
-    private prepareGame(): void {
-        this.prepareLevel();
+    private async prepareGame() {
+        await this.prepareLevel();
         this.coinsOfUser();
-        this.selectorName = this.generateSelectorCode();
         this.backgroundColor = this.colorService.getRandomBackgroundColor();
         this.game.buildLetters(this.generateLettersWithColor());
     }
-   
-    
-       
  
     private generateSelectorCode() {
         return 'LETTER-' + Math.random();
     }
 
-    private prepareLevel() {
+    private async prepareLevel() {
         let level: number = this.navParams.get('level');
-        let product: Product = this.productsProdiver.getProductOfActualLevel(level);
-        this.game = new SortWordGame(product, level);
+        this.game = new SortWordGame(null, -1);
+        if(level < 125) {
+            let product: Product = this.productsProdiver.getProductOfActualLevel(level);
+            this.game.setElements(product, level);
+        }
+        else {
+            await this.productProdiver.getProducts().then(products => {
+                if(products.length == 0) {
+                    let product: Product = this.productsProdiver.getProductOfActualLevel(level);
+                    this.game.setElements(product, level);
+                }
+                else {
+                    let randomPosition = Math.floor(Math.random() * products.length - 1);
+                    console.log(products);
+                    let product: Product = Product.createProduct(
+                        products[randomPosition].id,
+                        products[randomPosition].title,
+                        products[randomPosition].image,
+                        level
+                    );
+                    this.game.setElements(product, level);
+                }
+            });
+        }
     }
 
     public async showEndView() {
@@ -96,6 +115,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.selectorName = this.generateSelectorCode();
         this.dragDropProvider.initialize(this.selectorName);
     }
 
@@ -153,14 +173,15 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     }
     public removeFromMessy(letterM :string){
-        let i = 0;
+        /*let i = 0;
         for (let letra of this.game.MessyWord){
             if (letra.letter.trim() == letterM.trim()){
                 this.game.MessyWord.splice(i,1);
                 break;
             }
             i = i +1;
-        }
+        }*/
+        this.game.MessyWord.splice(letterM, 1);
     }
 
     public changeSoundIcon(){
