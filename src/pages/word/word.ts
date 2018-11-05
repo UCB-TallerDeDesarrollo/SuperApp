@@ -130,6 +130,33 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.audioProvider.changeState();
         this.changeSoundIcon();
     }
+    public efect(word: string){
+        let searched = this.game.MessyWord[0].letter;
+        let aux = document.getElementsByClassName("objetive-container");
+        let found;
+        for (var i = 0; i < aux.length; i++) {
+            if ((aux[i].classList[0].trim() == ("letter-" + searched).trim()) && (aux[i].textContent == "")){
+                found = aux[i];
+                break;
+            }
+        }
+        let aux2 = document.getElementsByClassName("wordsss");
+        let found2;
+        for (var j = 0; j < aux.length; j++) {
+            if (aux2[j].classList[0].trim()== ("letter-" + searched).trim()){
+                found2 = aux2[j];
+                break;
+            }
+        }
+        found2.classList.add('help-coin');
+        found.classList.add('help-coin');
+            
+
+        
+
+        
+    }
+   
 
     public changeSoundIcon(){
         if(this.audioProvider.isMuted()){
