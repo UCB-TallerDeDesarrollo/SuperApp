@@ -1,9 +1,10 @@
+import { UserProgress } from './../../entities/userProgress';
 import { Injectable, Component } from '@angular/core';
 import { User as UserEntity, User } from '../../entities/user';
 //import { User as UserModel } from '../../shared/models/User.model';
 import { getRepository, Repository } from 'typeorm';
 import { LoginStatus } from '../login/LoginStatus';
-import { UserProgress } from '../../entities/userProgress';
+
 
 @Injectable()
 export class UserProvider {
@@ -85,5 +86,10 @@ export class UserProvider {
             let user:User=new User("anonimus", new Date(), "assets/imgs/user.png");
             await this.saveUser(user);
         }
-      }
+    }
+    async getAmountOfCoins(){
+        let userInfo:string=LoginStatus.username;
+        let user=await this.getUserByUsername(userInfo);
+        return user.userProgress.coins;
+    }
 }
