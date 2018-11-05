@@ -37,7 +37,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   onViewProducts: Array<Product> = [];
   onViewCategories: Array<{id: number, name: string}>=[];
   ON_VIEW_LIST_LENGTH = 12;
-  ON_VIEW_CATEGORIES_LENGTH = 4;
+  ON_VIEW_CATEGORIES_LENGTH = 3;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,

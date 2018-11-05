@@ -173,7 +173,6 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     this.audioProvider.playPronunciationOfTheProductName(this.getProductNameByElement(element));
     this.carImage="assets/imgs/"+this.countOfProducts+".png";
     if(this.game.isGameOver()) {
-      //this.supermarketDifficulty.saveProgressByLevel(this.game.Level);
       await this.login.saveProgressSuper(this.game.Level);
       this.playLevelCompleteSoundAndPronunciationOfTheProductName(element);
       this.showModalWin();
@@ -209,6 +208,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
         if(category.products.length==0){
           this.categories.splice(index,1);
           this.defaultCategoryId=0;
+          this.categoriesPageIndex=0;
           this.chargeCategories();
           this.chargeProducts();
         }
