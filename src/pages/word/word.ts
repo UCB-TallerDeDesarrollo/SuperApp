@@ -150,11 +150,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         }
         found2.classList.add('help-coin');
         found.classList.add('help-coin');
-            
 
-        
-
-        
     }
     public removeFromMessy(letterM :string){
         let i = 0;
@@ -194,8 +190,11 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         await this.login.updateCoins();
     }
     public reduceCoins(){
-        if(this.coins >= 10)
-          this.downgradeCoins();
-          this.coins=this.coins-10;
+        if(this.coins >= 10){
+            this.downgradeCoins();
+            this.coins=this.coins-10;
+            this.efect(this.game.MessyWord);
+        }
+         
     }
 }
