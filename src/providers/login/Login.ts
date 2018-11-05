@@ -44,7 +44,7 @@ export class Login{
       {
         this.userProvider.updateProgressSuper(level);
       } 
-      async updateCoins(coins: number){
-        this.userProvider.updateCoins(coins);
+      async updateCoins(){
+        this.userProvider.updateCoins();
       }
 }

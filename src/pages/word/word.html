@@ -8,6 +8,7 @@
         <div class="level-header">
                 <h1 class="change-level" (click)="changeLevel()">NIVEL {{game.Level}}</h1>
                 <ion-icon name="logo-bitcoin">  {{coins}}</ion-icon>
+              
         </div>
 
         <div class="music-logo">
@@ -24,6 +25,7 @@
         <div *ngFor="let letter of game.SortedWord" class="{{letter.name}} relative-container objetive-container" dragula="{{selectorName}}"></div>
     </ul>
     <img src={{game.Product.ImageURL}} class="product" (click)="playPronunciationOfTheProductName()">
+    <ion-icon name="help" (click)="reduceCoins()"></ion-icon>
 </ion-content>
 
 <ion-footer style="text-align: center">
@@ -34,5 +36,4 @@
             </div>
         </div>
     </ul>
-    <ion-icon name="help" padding-left (click)="reduceCoins()"></ion-icon>
 </ion-footer>
