@@ -7,7 +7,10 @@
 <ion-content padding class={{backgroundColor}}>
         <div class="level-header">
                 <h1 class="change-level" (click)="changeLevel()">NIVEL {{game.Level}}</h1>
+                <ion-icon name="logo-bitcoin">  {{coins}}</ion-icon>
+              
         </div>
+
         <div class="music-logo">
                 <img [src]="imageSound" (click)="stopSound()">
         </div>
@@ -22,11 +25,12 @@
         <div *ngFor="let letter of game.SortedWord" class="{{letter.name}} relative-container objetive-container" dragula="{{selectorName}}"></div>
     </ul>
     <img src={{game.Product.ImageURL}} class="product" (click)="playPronunciationOfTheProductName()">
+    <ion-icon name="help" (click)="reduceCoins()"></ion-icon>
 </ion-content>
 
 <ion-footer style="text-align: center">
     <ul class="item-container">
-        <div class="{{letter.name}} relative-container" *ngFor="let letter of game.MessyWord" dragula="{{selectorName}}"> 
+        <div class="{{letter.name}} relative-container wordsss" *ngFor="let letter of game.MessyWord" dragula="{{selectorName}}"> 
             <div class="letter_container">
                 <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
             </div>

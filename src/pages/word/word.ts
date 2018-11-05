@@ -1,3 +1,5 @@
+import { UserProvider } from './../../providers/user/user';
+import { User } from './../../entities/user';
 import { SelectLevelPage } from './../select-level/select-level';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
@@ -19,6 +21,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public backgroundColor : string;
     public selectorName    : string;
     public imageSound      : string;
+    public coins           : number;
 
     constructor(
         public navController       : NavController,
@@ -29,15 +32,20 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private audioProvider      : AudioProvider,
         private navParams          : NavParams,
         private login              : Login
+        
     ) {
         this.prepareGame();
         this.changeSoundIcon();
+      
     }
 
     ionViewDidEnter() { 
         this.changeSoundIcon(); 
     }
-    
+    coinsOfUser()
+    {
+       this.login.userProvider.getAmountOfCoins().then((value)=>this.coins = value)
+    }
     private generateLettersWithColor() {
         let response: any = [];
         for (let letter of this.game.ResponseWord) {
@@ -52,11 +60,15 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     private prepareGame(): void {
         this.prepareLevel();
+        this.coinsOfUser();
         this.selectorName = this.generateSelectorCode();
         this.backgroundColor = this.colorService.getRandomBackgroundColor();
         this.game.buildLetters(this.generateLettersWithColor());
     }
-
+   
+    
+       
+ 
     private generateSelectorCode() {
         return 'LETTER-' + Math.random();
     }
@@ -118,6 +130,38 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.audioProvider.changeState();
         this.changeSoundIcon();
     }
+    public efect(word: string){
+        let searched = this.game.MessyWord[0].letter;
+        let aux = document.getElementsByClassName("objetive-container");
+        let found;
+        for (var i = 0; i < aux.length; i++) {
+            if ((aux[i].classList[0].trim() == ("letter-" + searched).trim()) && (aux[i].textContent == "")){
+                found = aux[i];
+                break;
+            }
+        }
+        let aux2 = document.getElementsByClassName("wordsss");
+        let found2;
+        for (var j = 0; j < aux.length; j++) {
+            if (aux2[j].classList[0].trim()== ("letter-" + searched).trim()){
+                found2 = aux2[j];
+                break;
+            }
+        }
+        found2.classList.add('help-coin');
+        found.classList.add('help-coin');
+
+    }
+    public removeFromMessy(letterM :string){
+        let i = 0;
+        for (let letra of this.game.MessyWord){
+            if (letra.letter.trim() == letterM.trim()){
+                this.game.MessyWord.splice(i,1);
+                break;
+            }
+            i = i +1;
+        }
+    }
 
     public changeSoundIcon(){
         if(this.audioProvider.isMuted()){
@@ -141,5 +185,16 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
    
     public playPronunciationOfTheLetter(letter: string): void {
         this.audioProvider.playPronunciationOfTheProductName(letter);
+    }
+    public async downgradeCoins(){
+        await this.login.updateCoins();
+    }
+    public reduceCoins(){
+        if(this.coins >= 10){
+            this.downgradeCoins();
+            this.coins=this.coins-10;
+            this.efect(this.game.MessyWord);
+        }
+         
     }
 }

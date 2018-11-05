@@ -26,4 +26,6 @@ export class User {
     profilePictureURL: string;
 
     userProgress:UserProgress;
+
+
 }
