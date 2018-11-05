@@ -23,7 +23,7 @@ export class CategoriesPage {
               public categoryProvider: CategoryProvider,
               public productsProvider: ProductsProvider,
               public modalController:ModalController,) {
-    categoryProvider.getCategoryById(4)
+    categoryProvider.getCategoryByName("OTROS")
     .then(other => {
       this.other = other;
     })
@@ -53,7 +53,7 @@ export class CategoriesPage {
   }
 
   deleteCategory(category: Category) {
-    if(category.id != 4) {
+    if(category.name != "OTRO") {
       this.productsProvider.updateCategory(category, this.other)
       .then(result => {
         if(result) {

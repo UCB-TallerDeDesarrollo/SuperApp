@@ -119,7 +119,6 @@ export class ProductsProvider {
       result = await this.productRepository.createQueryBuilder()
                                             .where("category_id = :categoryId", { categoryId: category_id })
                                             .andWhere("state = :state", { state: 1 })
-                                            .andWhere("on_list = :on_list", { on_list: 1 })
                                             .orderBy('id', 'ASC')
                                             .getMany();
     } catch (error) {

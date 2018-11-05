@@ -48,7 +48,7 @@ export class ProductsEditorPage implements OnDestroy {
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
       }
     }).catch(err=> {
-      console.log('Error while loading platform', err);
+      console.error('Error while loading platform', err);
     });
   }
 
@@ -61,7 +61,7 @@ export class ProductsEditorPage implements OnDestroy {
     .then(products => {
       this.products = products.filter(product=>product.on_list==1);
     }).catch(error =>{
-      console.log(error);
+      console.error(error);
     });
   }
 
@@ -115,7 +115,7 @@ export class ProductsEditorPage implements OnDestroy {
             .then(currentCategory => {
               let products = FakeProducts.getProducts()
               for (const p in products) {
-                if(currentCategory.name === category.name) {
+                if(currentCategory.name === Categories.getCategoryById(products[p].categoryId).name) {
                   let product = new Product();
                   product.image = products[p].image;
                   product.state = 1;

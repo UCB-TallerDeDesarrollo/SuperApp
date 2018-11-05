@@ -35,4 +35,67 @@ export class ProductListProvider {
     }
     return result;
   }
+
+  async deleteProductList(product_list_id: number): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.productListRepository.createQueryBuilder()
+                                      .delete()
+                                      .from(ProductList)
+                                      .where("id = :id", { id: product_list_id })
+                                      .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
+  }
+
+  async deleteProductListByProductIdAndListId(product_id: number, list_id: number): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.productListRepository.createQueryBuilder()
+                                      .delete()
+                                      .from(ProductList)
+                                      .where("product_id = :product_id", { product_id: product_id })
+                                      .andWhere("list_id = :list_id", { list_id: list_id })
+                                      .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
+  }
+
+  async deleteProductListByListId(list_id: number): Promise<Boolean> {
+    let result: Boolean;
+    try {
+      await this.productListRepository.createQueryBuilder()
+                                      .delete()
+                                      .from(ProductList)
+                                      .where("list_id = :id", { id: list_id })
+                                      .execute();
+      result = true;
+    } catch (error) {
+      console.error(error);
+      result = false;
+    }
+    return result;
+  }
+
+  async getCountByListId(list_id: number): Promise<number> {
+    let result: number;
+    try {
+      result = await this.productListRepository.createQueryBuilder()
+                                                .where("list_id = :id", { id: list_id })
+                                                .getCount();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
+  }
+
 }

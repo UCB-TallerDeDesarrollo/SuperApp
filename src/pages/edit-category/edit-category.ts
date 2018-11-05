@@ -25,7 +25,7 @@ export class EditCategoryPage {
     .then(category => {
       this.category = category;
     }).catch(error => {
-      console.log(error);
+      console.error(error);
     });
   }
 
@@ -41,12 +41,5 @@ export class EditCategoryPage {
 
   afterSaveCategory() {
     this.navCtrl.pop();
-  }
-  eventHandler(event){
-    let input = event.target;
-    setTimeout(()=>{
-      input.value=input.value.toUpperCase();
-        }, 1);
-
   }
 }

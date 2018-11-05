@@ -9,4 +9,10 @@ export class Category {
 
     @Column({name: "name"})
     name: string;
+
+    products: Array<Product>=[];
+
+    public addProduct(product){
+        this.products.push(product);
+    }
 }

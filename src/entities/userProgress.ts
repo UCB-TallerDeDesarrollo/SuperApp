@@ -96,7 +96,7 @@ export class UserProgress{
     }
 
     nextExtremeSuper(actualLevelSuper: number): any {
-        if (actualLevelSuper>=125 && actualLevelSuper<200)
+        if (actualLevelSuper>=46 && actualLevelSuper<59)
         {
             if (actualLevelSuper==this.extremeLevelSuper)
             {
@@ -105,7 +105,7 @@ export class UserProgress{
         }
     }
     nextHardSuper(actualLevelSuper: number): any {
-        if (actualLevelSuper>=31 && actualLevelSuper<124)
+        if (actualLevelSuper>=31 && actualLevelSuper<45)
         {
             if(actualLevelSuper==this.hardLevelSuper)
             {

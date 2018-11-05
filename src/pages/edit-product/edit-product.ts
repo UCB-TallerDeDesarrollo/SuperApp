@@ -45,25 +45,24 @@ export class EditProductPage {
     this.productsProvider.getProductById(navParams.data.data)
     .then(product => {
       this.product = product;
-      console.log("constructor()");
-      console.log(this.product);
       this.Image = product.image;
       this.filePath = product.audio;
     }).catch(error => {
-      console.log(error);
+      console.error(error);
     });
 
     this.categoryProvider.getCategories()
     .then(categories => {
       this.categories = categories;
     }).catch(error => {
-      console.log(error);
+      console.error(error);
     });
   }
 
   async saveProductForm() {
     this.product.image = this.Image;
     this.product.audio = this.filePath;
+    this.product.title = this.product.title.toUpperCase();
     this.productsProvider.updateProduct(this.product)
     .then(response => {
       if(response) this.afterSaveProduct();
@@ -95,7 +94,7 @@ export class EditProductPage {
       }).then((path) => {
         this.path = path;
       }).catch((error) => {
-        console.log(error);
+        console.error(error);
       })
   }
 
@@ -121,12 +120,5 @@ export class EditProductPage {
   public disableRecordedSound(){
     this.filePath = " ";
     this.audio.release();
-  }
-  eventHandler(event){
-    let input = event.target;
-    setTimeout(()=>{
-      input.value=input.value.toUpperCase();
-        }, 1);
-
   }
 }

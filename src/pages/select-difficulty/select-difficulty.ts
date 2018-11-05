@@ -48,15 +48,15 @@ export class SelectDifficultyPage {
 
     async ionViewWillEnter() {
         await this.prepareAnonimusUser();
-        this.setupStars();
-        //this.setupSupermarket();
-      
+        this.setupStars(); 
     }
+
     async prepareAnonimusUser()
-  {
-    await this.usersProvider.prepareAnonimusUser();
-    await this.login.loadingGameData();
-  }
+    {
+        await this.usersProvider.prepareAnonimusUser();
+        await this.login.loadingGameData();
+    }
+    
     setupStars() {
         if(this.typeOfGame === "supermarket"){
             this.setupExtremeSuper();
@@ -89,12 +89,12 @@ export class SelectDifficultyPage {
     }
 
     setupExtremeSuper(): any {
-        let actualExtremeLevel=LoginStatus.userProgress.extremeLevelSuper-125;
-        this.expertStars=Math.trunc(actualExtremeLevel/19);
+        let actualExtremeLevel=LoginStatus.userProgress.extremeLevelSuper-46;
+        this.expertStars=Math.trunc(actualExtremeLevel/3);
     }
     setupHardSuper(): any {
         let actualHardLevel=LoginStatus.userProgress.hardLevelSuper-31;
-        this.hardStars=Math.trunc(actualHardLevel/19);
+        this.hardStars=Math.trunc(actualHardLevel/3);
     }
     setupMediumSuper(): any {
         let actualMediumLevel=LoginStatus.userProgress.mediumLevelSuper-16;
@@ -105,53 +105,7 @@ export class SelectDifficultyPage {
         this.easyStars=Math.trunc(actualEasyLevel/3);
     }
 
-    setupSupermarket()
-    {
-        this.typeOfGame=this.navParams.get("typeOfGame");
-      
-        if(this.typeOfGame === "supermarket"){
-            this.difficultyProvider.countRows().then(number => {
-                if(number == 4) {
-                    this.easyStars = 0;
-                    this.mediumStars = 0;
-                    this.hardStars = 0;
-                    this.expertStars = 0;
-                    this.difficultyProvider.getPercentageProgress(0).then(number => {
-                        let numberProgress: number = 20;
-                        for(let index = 1; index <= 5; ++index) {
-                            if(number >= numberProgress * index) {
-                                this.easyStars++;
-                            }
-                        }
-                    });
-                    this.difficultyProvider.getPercentageProgress(1).then(number => {
-                        let numberProgress: number = 20;
-                        for(let index = 1; index <= 5; ++index) {
-                            if(number >= numberProgress * index) {
-                                this.mediumStars++;
-                            }
-                        }
-                    });
-                    this.difficultyProvider.getPercentageProgress(2).then(number => {
-                        let numberProgress: number = 20;
-                        for(let index = 1; index <= 5; ++index) {
-                            if(number >= numberProgress * index) {
-                                this.hardStars++;
-                            }
-                        }
-                    });
-                    this.difficultyProvider.getPercentageProgress(3).then(number => {
-                        let numberProgress: number = 20;
-                        for(let index = 1; index <= 5; ++index) {
-                            if(number >= numberProgress * index) {
-                                this.expertStars++;
-                            }
-                        }
-                    });
-                }
-            });
-        }
-    }
+     
     changeSoundIcon(){
         if(this.audioProvider.isMuted()){
             this.imageSound = "assets/imgs/soundoff.png";
