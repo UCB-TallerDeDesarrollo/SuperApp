@@ -1,5 +1,16 @@
 page-create-user {
 
+    .camera{
+        position: absolute;
+        left: 0%;
+        top: 95%;
+    }
+    .select{
+        position: absolute;
+        left: 15%;
+        top: 95%;
+    }
+    
 }
 
 .colors{
@@ -12,7 +23,7 @@ page-create-user {
 }
 .form{
     position: absolute;
-    top: 25%;
+    top: 18%;
     left : 25%;
     width: 53%;
 }
@@ -40,15 +51,4 @@ page-create-user {
     position: absolute;
     left: 10%;
     text-align: center;
-}
-
-.camera{
-    position: absolute;
-    left: 0%;
-    top: 95%;
-}
-.select{
-    position: absolute;
-    left: 15%;
-    top: 95%;
 }
