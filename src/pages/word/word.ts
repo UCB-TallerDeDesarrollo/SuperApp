@@ -21,7 +21,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public backgroundColor : string;
     public selectorName    : string;
     public imageSound      : string;
-    public coin            : number;
+    public coins           : number;
 
     constructor(
         public navController       : NavController,
@@ -36,16 +36,15 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     ) {
         this.prepareGame();
         this.changeSoundIcon();
-        this.coin.toString();
+      
     }
 
     ionViewDidEnter() { 
         this.changeSoundIcon(); 
     }
-    private coinsOfUser()
+    coinsOfUser()
     {
-        this.coin=this.login.userProvider.getAmountOfCoins();
-        
+       this.login.userProvider.getAmountOfCoins().then((value)=>this.coins = value)
     }
     private generateLettersWithColor() {
         let response: any = [];
@@ -61,9 +60,9 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     private prepareGame(): void {
         this.prepareLevel();
+        this.coinsOfUser();
         this.selectorName = this.generateSelectorCode();
         this.backgroundColor = this.colorService.getRandomBackgroundColor();
-        this.coinsOfUser();
         this.game.buildLetters(this.generateLettersWithColor());
     }
    

@@ -61,88 +61,96 @@ export class UserProgress{
         this.nextExtremeSuper(actualLevel);
     }
     nextExtreme(actualLevel: number): any {
-        this.coins = this.coins+ (2 * 5);
+       
         if (actualLevel>=125 && actualLevel<200)
         {
             
             if (actualLevel==this.extremeLevel)
             {
                 this.extremeLevel++;
+                this.coins = this.coins+ (2 * 5);
             }
         }
     }
     nextHard(actualLevel: number): any {
-        this.coins = this.coins+ (2 * 4);
+        
         if (actualLevel>=31 && actualLevel<124)
         {
             if(actualLevel==this.hardLevel)
             {
                 this.hardLevel++;
+                this.coins = this.coins+ (2 * 4);
             }
             
         }
     }
     nextMedium(actualLevel: number): any {
-        this.coins = this.coins+ (2 * 3);
+        
         if (actualLevel>=16 && actualLevel<30)
         {
             if (actualLevel==this.mediumLevel)
             {
                 this.mediumLevel++;
+                this.coins = this.coins+ (2 * 3);
             }
             
         }
     }
     nextEasy(actualLevel: number) {
-        this.coins =this.coins+ ( 2 * 2);
+        
         if (actualLevel<15)
         {
         if (actualLevel==this.easyLevel)
         {
             this.easyLevel++;
+            this.coins =this.coins+ ( 2 * 2);
         }
         }
     }
 
     nextExtremeSuper(actualLevelSuper: number): any {
-        this.coins = this.coins+ (2 * 5);
+     
         if (actualLevelSuper>=46 && actualLevelSuper<59)
         {
             if (actualLevelSuper==this.extremeLevelSuper)
             {
                 this.extremeLevelSuper++;
+                this.coins = this.coins+ (2 * 5);
             }
         }
     }
     nextHardSuper(actualLevelSuper: number): any {
-        this.coins = this.coins+ (2 * 4);
+    
         if (actualLevelSuper>=31 && actualLevelSuper<45)
         {
             if(actualLevelSuper==this.hardLevelSuper)
             {
                 this.hardLevelSuper++;
+                this.coins = this.coins+ (2 * 4);
             }
             
         }
     }
     nextMediumSuper(actualLevelSuper: number): any {
-        this.coins = this.coins+ (2 * 3);
+     
         if (actualLevelSuper>=16 && actualLevelSuper<30)
         {
             if (actualLevelSuper==this.mediumLevelSuper)
             {
                 this.mediumLevelSuper++;
+                this.coins = this.coins+ (2 * 3);
             }
             
         }
     }
     nextEasySuper(actualLevelSuper: number) {
-        this.coins = this.coins+ (2 * 2);
+
         if (actualLevelSuper<15)
         {
         if (actualLevelSuper==this.easyLevelSuper)
         {
             this.easyLevelSuper++;
+            this.coins = this.coins+ (2 * 2);
         }
         }
     }
