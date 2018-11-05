@@ -4,17 +4,28 @@
 
 <ion-content padding class="colors">
   <div>
-    <ion-buttons left>
-        <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
-            <ion-icon name="arrow-back"></ion-icon>
-        </button>
-    </ion-buttons>
+    <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
     <h3 class="tittle">Crear usuario</h3>
     <div class="form">
         <div class="user_image">
-            <img src={{Image}} class="image_user" (click)="takePhoto()">
+            <img src={{Image}} class="image_user">
+            <div class="options">
+            <ion-select #select [(ngModel)]='Image' class="change_avatar" hidden>
+              <ion-option *ngFor='let avatar of avatars' value='assets/imgs/avatars/avatar{{avatar.id}}.png'>
+                {{avatar.name}}
+              </ion-option>
+            </ion-select>
+            <button ion-fab mini class="select" color="primary" (click)="showSelect()"><ion-icon name="md-contact"></ion-icon></button>
+            <button ion-fab mini class="camera" color="primary" (click)="takePhoto()"><ion-icon name="md-camera"></ion-icon></button>
           </div>
+        </div>
   <ion-list>
+    <br>
+    <br>
+    <br>
+    <br>
     <ion-item>
       <ion-label fixed> Usuario</ion-label>
       <ion-input type="text" [(ngModel)]="username"></ion-input>

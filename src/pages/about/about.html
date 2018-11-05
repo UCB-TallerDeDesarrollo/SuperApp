@@ -1,0 +1,216 @@
+
+<ion-content padding>
+
+  <ion-card>
+
+    <ion-card-header>
+      <div class="dane-logo">
+        <img src="assets/imgs/dane-logo.svg" alt="Proyecto Dane ">
+      </div>
+     
+    </ion-card-header>
+  
+    <ion-card-content>
+        <div class="logo-container">
+          <div class="logo-superapp">
+            <div class="logo-img">
+              <img src="assets/imgs/shopping.svg" alt="">
+            </div>
+            <div class="logo-text">
+              <h1 ion-text color="light" >SUPER APP</h1>
+            </div>
+          </div>
+        </div>
+
+          <ion-card color="stable">
+            <ion-card-header>
+              <h2 ion-text color="dark" text-center>PROYECTO DANE</h2>
+            </ion-card-header>
+            <ion-card-content>
+              <div text-justify>
+                  <p ion-text color="dark">El objetivo principal del proyecto es llevar adelante una revolución en la forma de enseñarles contenidos a los niños y jóvenes con necesidades especiales, brindando solucione de software y acercándoles la tecnología informática; posicionado a la Argentina como generador de contenidos educativos para este segmento en Latinoamérica. De esta manera, se busca contribuir a la inclusión social, construyendo a una sociedad más integrada e inclusiva</p>
+              </div>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+              <ion-card-header>
+                  <h2>Links de interés:</h2>
+              </ion-card-header>
+              <ion-card-content>
+                <div text-justify>
+                  <ul>
+                    <li>
+                        <a href="http://www.proyectodane.org/">www.proyectodane.org</a>
+                    </li>
+                    <li>
+                        <a href="https://www.facebook.com/Proyecto.Inclusion.DANE/">facebook.com/Proyecto.inclusion.DANE</a>
+                    </li>
+                  </ul>
+                </div>
+              </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+            <ion-card-header>
+              <h2 ion-text color="dark">Coodinación del Proyecto:</h2>
+            </ion-card-header>
+            <ion-card-content>
+              <div text-justify>
+                  <p ion-text color="dark">Ing. Pablo Fiuza, Ing. Mariano Stampeña CESSI - Cámara de Empresas de Software y Servicios informaticos</p>
+              </div>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+            <ion-card-header>
+              <h2 ion-text color="dark">Idea y Marco Conceptual:</h2>
+            </ion-card-header>
+            <ion-card-content>
+              <div text-justify>
+                  <p ion-text color="dark"> Lic. Daniel Edgea</p>
+              </div>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+            <ion-card-header>
+              <h2 ion-text color="dark">Desarrollada por:</h2>
+            </ion-card-header>
+            <ion-card-content>
+              <div text-justify>
+                  <p ion-text color="dark">Equipos de trabajo:</p>
+              </div>
+
+              <div padding>
+                  <ion-segment [(ngModel)]="equipos">
+                    <ion-segment-button value="equipo1">
+                        Equipo Scrum 1
+                    </ion-segment-button>
+                    <ion-segment-button value="equipo2">
+                        Equipo Scrum 2
+                    </ion-segment-button>
+                  </ion-segment>
+              </div>
+              <div [ngSwitch]="equipos">
+                  <ion-list *ngSwitchCase="'equipo1'">
+                    <ion-item>
+                      <h2>Sabath Awad Juan Antonio</h2>
+                      <p>product owner</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Guzman Calizaya Joel Joaquin</h2>
+                        <p>scrum master</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Burgoa Figueroa Brandon</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Chavez Ruiz Jorge Carlos</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Mamani Taqui Abel Marvin</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Rios Valverde Mauricio Roberto</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Valverde Samuel</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Zambrana Salvatierra N. Rodrigo</h2>
+                        <p>developer</p>
+                    </ion-item>
+                  </ion-list>
+                
+                  <ion-list *ngSwitchCase="'equipo2'">
+                    <ion-item>
+                      <h2>Rodriguez Villarroel Juan Pablo</h2>
+                        <p>product owner</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Aparicio Quintanilla Daniel</h2>
+                        <p>scrum master</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Anagua Quispe Jose Luis</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Arnez Terrazas Jose Cristofer</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Camacho Mamani Jhonny Kevin</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Cardenas Miranda Kevin Michael</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Flores Prieto Christian Andy</h2>
+                        <p>developer</p>
+                    </ion-item>
+                    <ion-item>
+                      <h2>Merida Gutierrez Pedro Andres</h2>
+                        <p>developer</p>
+                    </ion-item>
+                  </ion-list>
+              </div>
+
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+            <ion-card-header>
+              <h2 ion-text color="dark">Otros Colaboradores:</h2>
+            </ion-card-header>
+            <ion-card-content>
+              <div text-justify>
+                  <ul ion-text color="dark">
+                      <li>
+                        Graciela Roldán Schuth - Colego Los Robles
+                      </li>
+                      <li>
+                        Lic. Paula Casagrande
+                      </li>
+                      <li>
+                        Lic. Antonela Lailhacar
+                      </li>
+                      <li>
+                        Lic. Gabriela Goldfeder
+                      </li>
+                    </ul>
+              </div>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+              <ion-card-header>
+                <h2 ion-text color="dark">Agradecimientos</h2>
+              </ion-card-header>
+              <ion-card-content>
+                <div text-justify>
+                    <p ion-text color="dark">Agradecemos especialmente a todas las persona, familiares, amigos y profesionales que colaboraron con nosotros ya sea aportando ideas, ayudando a probar el juego, o simplemente brindando su apoyo.</p>
+                </div>
+              </ion-card-content>
+            </ion-card>
+
+      <ion-buttons end>
+          <button ion-button navPop>
+            <ion-icon ></ion-icon>
+            Aceptar
+          </button>
+        </ion-buttons>
+  
+    </ion-card-content>
+  
+  </ion-card>
+
+</ion-content>

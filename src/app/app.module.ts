@@ -1,3 +1,4 @@
+import { CreateListPage } from './../pages/create-list/create-list';
 import { EditUserPage } from './../pages/edit-user/edit-user';
 import { LoadingPage } from './../pages/loading/loading';
 import { BrowserModule } from '@angular/platform-browser';
@@ -54,9 +55,16 @@ import { SupermarketDifficultyProvider } from '../shared/providers/SupermarketDi
 import { TypeormSupermarketDifficultyProvider} from '../providers/difficulty/supermarketDifficulty';
 import { DeleteUserPage } from '../pages/delete-user/delete-user';
 import { LoginOptionsPage } from '../pages/login-options/login-options';
+import { AboutPage } from '../pages/about/about';
 import { ListProvider } from '../providers/list/list';
 import { ProductListProvider } from '../providers/product-list/product-list';
 import { Camera } from '@ionic-native/camera';
+import { ListsPage } from '../pages/lists/lists';
+import { EditListPage } from '../pages/edit-list/edit-list'
+import {ConfirmationPage} from '../pages/confirmation/confirmation';
+import { LongPressModule } from 'ionic-long-press';
+import { AvatarProvider } from '../shared/providers/AvatarProvider';
+import { ArrayAvatarProvider } from '../providers/Array/ArrayAvatarProvider';
 
 @NgModule({
   declarations: [
@@ -84,11 +92,17 @@ import { Camera } from '@ionic-native/camera';
     ViewUserPage, 
     DeleteUserPage,
     LoginOptionsPage,
+    AboutPage,
+    CreateListPage,
+    ListsPage,
+    EditListPage,
+    ConfirmationPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    DragulaModule.forRoot()
+    DragulaModule.forRoot(),
+    LongPressModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -116,6 +130,11 @@ import { Camera } from '@ionic-native/camera';
     ViewUserPage,
     DeleteUserPage,
     LoginOptionsPage,
+    AboutPage,
+    CreateListPage,
+    ListsPage,
+    EditListPage,
+    ConfirmationPage
   ],
   providers: [
     StatusBar,
@@ -132,6 +151,7 @@ import { Camera } from '@ionic-native/camera';
     {provide: SupermarketDifficultyProvider, useClass: TypeormSupermarketDifficultyProvider},
     {provide: WordDragDropProvider, useClass: DragulaWordDragDropProvider, deps: [DragulaService, Platform]},
     {provide: SupermarketDragDropProvider, useClass: DragulaSupermarketDragDropProvider, deps: [DragulaService, Platform]},
+    {provide: AvatarProvider, useClass: ArrayAvatarProvider},
     ProductsProvider,
     CategoryProvider,
     LevelProvider,
@@ -142,6 +162,7 @@ import { Camera } from '@ionic-native/camera';
     File,
     Media,
     ListProvider,
+
     ProductListProvider
   ]
 })

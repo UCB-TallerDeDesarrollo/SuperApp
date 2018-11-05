@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController, Select } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { LoginStatus } from '../../providers/login/LoginStatus';
-
+import { Camera } from '@ionic-native/camera';
+import { AlertController } from 'ionic-angular';
+import { AvatarProvider } from '../../shared/providers/AvatarProvider';
+import { Login } from '../../providers/login/Login';
 /**
  * Generated class for the EditUserPage page.
  *
@@ -14,18 +17,33 @@ import { LoginStatus } from '../../providers/login/LoginStatus';
   templateUrl: 'edit-user.html',
 })
 export class EditUserPage {
-
+  @ViewChild('select') select1: Select;
   public username: string;
   public birthdate: Date=new Date();
+  options: { quality: number; sourceType: number; saveToPhotoAlbum: boolean; correctOrientation: boolean; destinationType: number; mediaType: number; };
+  Image: string;
+  path: void;
+  isenabled:boolean=false;
+  public avatars: { id: number, name: string } [];
+  Picture: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider,
-              private toastCtrl: ToastController) {
-                
+              private toastCtrl: ToastController, public camera:Camera, public avatarProvider: AvatarProvider,
+              public alertCtrl:AlertController, public login:Login) {
+          this.avatars = this.avatarProvider.getAvatars();
   }
   async ionViewDidLoad() {
-    var user=await this.userProvider.getUserByUsername(LoginStatus.username);
+    var user=LoginStatus.user;
     this.username=user.username;
     this.birthdate=user.birthdate;
+    this.Image=user.profilePictureURL;
+    if(this.Image !== "assets/imgs/user.png"){
+      //enable the button
+        this.isenabled=true; 
+      }else{
+      //disable the button
+        this.isenabled=false;
+      }
   }
 
   async saveUser()
@@ -33,6 +51,7 @@ export class EditUserPage {
     var user=await this.userProvider.getUserByUsername(LoginStatus.username);
     user.username=this.username;
     user.birthdate=this.birthdate;
+    user.profilePictureURL = this.Image;
     try{
       await this.userProvider.updateUser(user);
       var toast=this.toastCtrl.create({
@@ -42,6 +61,7 @@ export class EditUserPage {
       });
       toast.present();
       LoginStatus.setLoginSuccess(this.username);
+      this.login.login(this.username);
       this.navCtrl.pop();
     }
     catch
@@ -54,5 +74,55 @@ export class EditUserPage {
       });
       toast.present();
     }
+  }
+
+ async takePhoto()
+  {
+    this.options = {
+      quality: 100,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      saveToPhotoAlbum: true,
+      correctOrientation: true,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      mediaType: this.camera.MediaType.VIDEO
+    }
+    await this.camera.getPicture(this.options)
+      .then((imageData)=>{
+        this.Picture = "data:image/jpeg;base64,"+imageData;
+        this.isenabled=true;
+      }).then((path) => {
+        this.path = path;
+      }).catch((error) => {
+        console.log(error);
+      })
+      this.Image=this.Picture;
+      var a=1;
+  }
+
+  deleteImage()
+  {
+    const confirm = this.alertCtrl.create({
+      title: '¿Estás seguro de eliminar tu foto de usuario?',
+      message: '',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'Si',
+          handler: () => {
+            this.Image ="assets/imgs/user.png";
+            this.isenabled=false;
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+  showSelect(){
+    this.select1.open();
   }
 }

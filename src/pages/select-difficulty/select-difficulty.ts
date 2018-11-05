@@ -48,20 +48,28 @@ export class SelectDifficultyPage {
 
     async ionViewWillEnter() {
         await this.prepareAnonimusUser();
-        this.setupStars();
-        this.setupSupermarket();
-      
+        this.setupStars(); 
     }
+
     async prepareAnonimusUser()
-  {
-    await this.usersProvider.prepareAnonimusUser();
-    await this.login.loadingGameData();
-  }
+    {
+        await this.usersProvider.prepareAnonimusUser();
+        await this.login.loadingGameData();
+    }
+    
     setupStars() {
+        if(this.typeOfGame === "supermarket"){
+            this.setupExtremeSuper();
+            this.setupEasySuper();
+            this.setupMediumSuper();
+            this.setupHardSuper();
+        }
+        else{
         this.setupEasy();
         this.setupMedium();
         this.setupHard();
         this.setupExtreme();
+        }
     }
     setupExtreme(): any {
         let actualExtremeLevel=LoginStatus.userProgress.extremeLevel-125;
@@ -80,53 +88,24 @@ export class SelectDifficultyPage {
         this.easyStars=Math.trunc(actualEasyLevel/3);
     }
 
-    setupSupermarket()
-    {
-        this.typeOfGame=this.navParams.get("typeOfGame");
-      
-        if(this.typeOfGame === "supermarket"){
-            this.difficultyProvider.countRows().then(number => {
-                if(number == 4) {
-                    this.easyStars = 0;
-                    this.mediumStars = 0;
-                    this.hardStars = 0;
-                    this.expertStars = 0;
-                    this.difficultyProvider.getPercentageProgress(0).then(number => {
-                        let numberProgress: number = 20;
-                        for(let index = 1; index <= 5; ++index) {
-                            if(number >= numberProgress * index) {
-                                this.easyStars++;
-                            }
-                        }
-                    });
-                    this.difficultyProvider.getPercentageProgress(1).then(number => {
-                        let numberProgress: number = 20;
-                        for(let index = 1; index <= 5; ++index) {
-                            if(number >= numberProgress * index) {
-                                this.mediumStars++;
-                            }
-                        }
-                    });
-                    this.difficultyProvider.getPercentageProgress(2).then(number => {
-                        let numberProgress: number = 20;
-                        for(let index = 1; index <= 5; ++index) {
-                            if(number >= numberProgress * index) {
-                                this.hardStars++;
-                            }
-                        }
-                    });
-                    this.difficultyProvider.getPercentageProgress(3).then(number => {
-                        let numberProgress: number = 20;
-                        for(let index = 1; index <= 5; ++index) {
-                            if(number >= numberProgress * index) {
-                                this.expertStars++;
-                            }
-                        }
-                    });
-                }
-            });
-        }
+    setupExtremeSuper(): any {
+        let actualExtremeLevel=LoginStatus.userProgress.extremeLevelSuper-46;
+        this.expertStars=Math.trunc(actualExtremeLevel/3);
     }
+    setupHardSuper(): any {
+        let actualHardLevel=LoginStatus.userProgress.hardLevelSuper-31;
+        this.hardStars=Math.trunc(actualHardLevel/3);
+    }
+    setupMediumSuper(): any {
+        let actualMediumLevel=LoginStatus.userProgress.mediumLevelSuper-16;
+        this.mediumStars=Math.trunc(actualMediumLevel/3);
+    }
+    setupEasySuper(): any {
+        let actualEasyLevel=LoginStatus.userProgress.easyLevelSuper;
+        this.easyStars=Math.trunc(actualEasyLevel/3);
+    }
+
+     
     changeSoundIcon(){
         if(this.audioProvider.isMuted()){
             this.imageSound = "assets/imgs/soundoff.png";
@@ -143,9 +122,7 @@ export class SelectDifficultyPage {
     openEasyMode() {
         if(this.typeOfGame==="supermarket"){
             
-            this.supermarketDifficultyProvider.getLastLevel(0).then(level => { 
-                this.navCtrl.push(SupermarketPage, { 'level':level });
-            })
+            this.navCtrl.push(SupermarketPage, {level:LoginStatus.userProgress.easyLevelSuper });
         }else{
             this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.easyLevel });
         }
@@ -155,9 +132,7 @@ export class SelectDifficultyPage {
 
     openMediumMode() {
         if(this.typeOfGame==="supermarket"){
-            this.supermarketDifficultyProvider.getLastLevel(1).then(level => { 
-                this.navCtrl.push(SupermarketPage, { 'level':level });
-            });
+            this.navCtrl.push(SupermarketPage, {level:LoginStatus.userProgress.mediumLevelSuper });
         }else{
             this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.mediumLevel });
         }
@@ -165,9 +140,7 @@ export class SelectDifficultyPage {
 
     openHardMode() {
         if(this.typeOfGame==="supermarket"){ 
-            this.supermarketDifficultyProvider.getLastLevel(2).then(level => { 
-                this.navCtrl.push(SupermarketPage, { 'level':level });
-            });
+            this.navCtrl.push(SupermarketPage, {level:LoginStatus.userProgress.hardLevelSuper });
         }else{
             this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.hardLevel });
         }
@@ -175,9 +148,7 @@ export class SelectDifficultyPage {
 
     openExpertMode() {
         if(this.typeOfGame==="supermarket"){
-            this.supermarketDifficultyProvider.getLastLevel(3).then(level => { 
-                this.navCtrl.push(SupermarketPage, { 'level':level });
-            });
+            this.navCtrl.push(SupermarketPage, {level:LoginStatus.userProgress.extremeLevelSuper });
         }else{
             this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.extremeLevel });
      }

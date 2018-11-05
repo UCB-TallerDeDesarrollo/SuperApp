@@ -93,4 +93,17 @@ export class CategoryProvider {
     }
     return result;
   }
+
+  async getCategoryByName(name_: string): Promise<Category> {
+    let result: Category;
+    try {
+      result = await this.categoryRepository.createQueryBuilder('category')
+                                            .where("name = :name", {name: name_})
+                                            .getOne();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    return result;
+  }
 }

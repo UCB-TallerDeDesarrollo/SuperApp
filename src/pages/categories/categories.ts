@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Category } from '../../entities/category';
 import { CategoryProvider } from '../../providers/category/category';
 import { CreateCategoryPage } from '../create-category/create-category';
 import { ProductsProvider } from '../../providers/product/product';
 import { EditCategoryPage } from '../edit-category/edit-category';
+import { ConfirmationPage } from './../confirmation/confirmation';
 
 @IonicPage()
 @Component({
@@ -20,8 +21,9 @@ export class CategoriesPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public categoryProvider: CategoryProvider,
-              public productsProvider: ProductsProvider) {
-    categoryProvider.getCategoryById(4)
+              public productsProvider: ProductsProvider,
+              public modalController:ModalController,) {
+    categoryProvider.getCategoryByName("OTROS")
     .then(other => {
       this.other = other;
     })
@@ -43,8 +45,15 @@ export class CategoriesPage {
     });
   }
 
+  confirm(category: Category){
+    let callback=()=>{this.deleteCategory(category)};
+    let message="¿Realmente quieres eliminar la categoria "+category.name+"?";
+    const confirmationModal = this.modalController.create(ConfirmationPage,{callback:callback, message:message});
+    confirmationModal.present();
+  }
+
   deleteCategory(category: Category) {
-    if(category.id != 4) {
+    if(category.name != "OTRO") {
       this.productsProvider.updateCategory(category, this.other)
       .then(result => {
         if(result) {
@@ -65,7 +74,7 @@ export class CategoriesPage {
     this.navCtrl.push(CreateCategoryPage);
   }
 
-  editCategory(categor_id: number) {
-    this.navCtrl.push(EditCategoryPage, { categoryId: categor_id })
+  editCategory(category_id: number) {
+    this.navCtrl.push(EditCategoryPage, { categoryId: category_id })
   }
 }

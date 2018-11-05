@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { ProductsProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
 import { Camera } from '@ionic-native/camera';
@@ -8,6 +8,7 @@ import { Category } from '../../entities/category';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+
 
 @IonicPage()
 @Component({
@@ -35,7 +36,8 @@ export class EditProductPage {
               public categoryProvider: CategoryProvider,
               public camera: Camera,
               private formBuilder: FormBuilder,
-              public platform: Platform) {
+              public platform: Platform,
+              public alertCtrl: AlertController) {
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
       category: ['', Validators.required]
@@ -43,33 +45,30 @@ export class EditProductPage {
     this.productsProvider.getProductById(navParams.data.data)
     .then(product => {
       this.product = product;
-      console.log("constructor()");
-      console.log(this.product);
       this.Image = product.image;
       this.filePath = product.audio;
     }).catch(error => {
-      console.log(error);
+      console.error(error);
     });
 
     this.categoryProvider.getCategories()
     .then(categories => {
       this.categories = categories;
     }).catch(error => {
-      console.log(error);
+      console.error(error);
     });
   }
 
   async saveProductForm() {
-    console.log("saveProductForm()");
-    console.log(this.product);
     this.product.image = this.Image;
     this.product.audio = this.filePath;
+    this.product.title = this.product.title.toUpperCase();
     this.productsProvider.updateProduct(this.product)
     .then(response => {
-      if(response)this.afterSaveProduct();
+      if(response) this.afterSaveProduct();
     }).catch(error => {
       console.error(error);
-    })
+    });
   }
 
   callFunctionCamera(){
@@ -95,7 +94,7 @@ export class EditProductPage {
       }).then((path) => {
         this.path = path;
       }).catch((error) => {
-        console.log(error);
+        console.error(error);
       })
   }
 

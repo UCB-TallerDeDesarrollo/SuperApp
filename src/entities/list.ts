@@ -13,5 +13,5 @@ export class List {
     user_id: number;
 
     @Column({name: "on_view"})
-    on_view: number;
+    on_view: number = 1;
 }

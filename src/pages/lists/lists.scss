@@ -1,0 +1,36 @@
+.list-content{
+    border-radius: 20px !important;
+}
+
+.main-lists{
+    background-image: linear-gradient(135deg, #5da5f7 10%, #98e4eb 100%);
+}
+
+.delete-section {
+    width: 3vw;
+    background-color: inherit;
+    position: absolute;
+    left: 95%;
+    bottom: 65%;
+
+    @media screen and (max-width: 640px) {
+        left: 94%;
+    }
+
+    @media screen and (max-width: 360px) {
+        left: 93%;
+    }
+
+    @media screen and (max-width: 411px) {
+        width: 3vh;
+        left: 92%;
+    }
+
+    @media screen and (max-width: 360px) {
+        width: 3vh;
+    }
+  }
+
+  .hidden{
+      display: none;
+  }

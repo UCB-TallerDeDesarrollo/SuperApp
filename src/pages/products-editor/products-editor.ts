@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { ProductsProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
 import { Platform } from 'ionic-angular';
@@ -14,6 +14,7 @@ import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+import {ConfirmationPage} from './../confirmation/confirmation';
 
 @IonicPage()
 @Component({
@@ -26,6 +27,8 @@ export class ProductsEditorPage implements OnDestroy {
   filePath: string;
   fileName: string;
   audio: MediaObject;
+  playing: boolean = true;
+  rowSelected;
 
   constructor(private platform: Platform,
               public navCtrl: NavController,
@@ -35,7 +38,8 @@ export class ProductsEditorPage implements OnDestroy {
               private media: Media,
               private file: File,
               private screenOrientation: ScreenOrientation,
-              private audioProvider    : AudioProvider) {
+              private audioProvider    : AudioProvider,
+              private modalController: ModalController) {
     this.databaseInitializer();
     this.reloadProducts();
     platform.ready()
@@ -44,7 +48,7 @@ export class ProductsEditorPage implements OnDestroy {
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
       }
     }).catch(err=> {
-      console.log('Error while loading platform', err);
+      console.error('Error while loading platform', err);
     });
   }
 
@@ -55,9 +59,9 @@ export class ProductsEditorPage implements OnDestroy {
   reloadProducts() {
     this.productsProvider.getProducts()
     .then(products => {
-      this.products = products;
+      this.products = products.filter(product=>product.on_list==1);
     }).catch(error =>{
-      console.log(error);
+      console.error(error);
     });
   }
 
@@ -106,27 +110,31 @@ export class ProductsEditorPage implements OnDestroy {
         category.name = categories[c].name;
         this.categoryProvider.saveCategory(category)
         .then(response => {
-          if(response) console.log("Save category successfully");
+          if(response) {
+            this.categoryProvider.getCategoryByName(category.name)
+            .then(currentCategory => {
+              let products = FakeProducts.getProducts()
+              for (const p in products) {
+                if(currentCategory.name === Categories.getCategoryById(products[p].categoryId).name) {
+                  let product = new Product();
+                  product.image = products[p].image;
+                  product.state = 1;
+                  product.audio = " ";
+                  product.title = products[p].title;
+                  product.category_id = currentCategory.id;
+                  this.productsProvider.saveProduct(product)
+                  .then(response => {
+                    if(!response) console.error("Inconsistent product information");
+                  }).catch(error => {
+                    console.error(error);
+                  });
+                }
+              }
+            })
+          }
         }).catch(error => {
           console.error(error);
         });
-      }
-      if(count_product < 58) {
-        let products = FakeProducts.getProducts()
-        for (const p in products) {
-          let product = new Product();
-          product.image = products[p].image;
-          product.state = 1;
-          product.audio = " ";
-          product.title = products[p].title;
-          product.category_id = products[p].categoryId;
-          this.productsProvider.saveProduct(product)
-          .then(response => {
-            if(response) console.log("Save product successfully");
-          }).catch(error => {
-            console.error(error);
-          });
-        }
       }
     }
   }
@@ -140,6 +148,7 @@ export class ProductsEditorPage implements OnDestroy {
   }
 
   playAudio(file) {
+    this.playing = false;
     if (this.platform.is('ios')) {
       this.filePath = file;
       this.audio = this.media.create(this.filePath);
@@ -148,6 +157,48 @@ export class ProductsEditorPage implements OnDestroy {
       this.audio = this.media.create(this.filePath);
     }
     this.audio.play();
-    this.audio.setVolume(1.0);
+    this.audio.setVolume(1.0); 
+
+    setTimeout(() => 
+    {
+      this.playing=true;
+    },
+    2000);
+  }
+  stopAudio(){
+    this.audio.stop();
+    this.playing=true;
+  }
+
+  confirm(product: Product){
+    let callback=()=>{this.deleteProduct(product)};
+    let message="¿Realmente quieres eliminar el producto "+product.title+"?";
+    const confirmationModal = this.modalController.create(ConfirmationPage,{callback:callback, message:message});
+    confirmationModal.present();
+    this.hideRowSelected();
+  }
+
+  deleteProduct(product: Product){
+    let view=product.on_list;
+    if(view==1){
+      product.on_list=0;
+    }
+    this.productsProvider.updateProduct(product);
+    this.reloadProducts();
+  }
+
+  active(id){
+    let selector="#delete-"+id;
+    let element= <HTMLElement>document.querySelector(selector);
+    element.classList.remove("hidden");
+    element.classList.add("options-section");
+    this.rowSelected=element;
+  }
+
+  hideRowSelected(){
+    if(this.rowSelected!=null){
+      this.rowSelected.classList.remove("options-section");
+      this.rowSelected.classList.add("hidden");
+    }
   }
 }

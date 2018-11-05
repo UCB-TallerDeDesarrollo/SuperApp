@@ -7,6 +7,7 @@
 <ion-content padding class={{backgroundColor}}>
     <div class="level-header">
         <h1 class="change-level" (click)="changeLevel()">NIVEL {{game.Level}}</h1>
+        <ion-icon name="logo-bitcoin">  {{coins}}</ion-icon>
     </div>
     <div class="music-logo">
         <img [src]="imageSound" (click)="stopSound()">

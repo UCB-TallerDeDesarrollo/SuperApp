@@ -1,3 +1,5 @@
+import { UserProvider } from './../../providers/user/user';
+import { User } from './../../entities/user';
 import { SelectLevelPage } from './../select-level/select-level';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
@@ -19,6 +21,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public backgroundColor : string;
     public selectorName    : string;
     public imageSound      : string;
+    public coins           : number;
 
     constructor(
         public navController       : NavController,
@@ -29,15 +32,20 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private audioProvider      : AudioProvider,
         private navParams          : NavParams,
         private login              : Login
+        
     ) {
         this.prepareGame();
         this.changeSoundIcon();
+      
     }
 
     ionViewDidEnter() { 
         this.changeSoundIcon(); 
     }
-    
+    coinsOfUser()
+    {
+       this.login.userProvider.getAmountOfCoins().then((value)=>this.coins = value)
+    }
     private generateLettersWithColor() {
         let response: any = [];
         for (let letter of this.game.ResponseWord) {
@@ -52,11 +60,15 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     private prepareGame(): void {
         this.prepareLevel();
+        this.coinsOfUser();
         this.selectorName = this.generateSelectorCode();
         this.backgroundColor = this.colorService.getRandomBackgroundColor();
         this.game.buildLetters(this.generateLettersWithColor());
     }
-
+   
+    
+       
+ 
     private generateSelectorCode() {
         return 'LETTER-' + Math.random();
     }
@@ -102,7 +114,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
                 level    : this.game.Level, 
                 lastNav  : this.navController, 
                 maxLevel : this.productsProdiver.getQuantityOfProducts(),
-                wordPage : this                
+                gamePage : this,
+                typeOfGame: "words"                
             }
         );
         changeLevel.onDidDismiss(
