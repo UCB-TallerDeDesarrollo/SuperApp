@@ -56,6 +56,7 @@ export class DragulaWordDragDropProvider implements WordDragDropProvider {
             el.setAttribute('style', `top: 0px;left: 0px;border: initial;background-color: initial;`);
             el.classList.add('no-move');
             let letter:string=el.textContent;
+            wordPage.removeFromMessy(letter);
             wordPage.playPronunciationOfTheLetter(letter);
             this.recentlyMove = true;
             wordPage.showEndView();

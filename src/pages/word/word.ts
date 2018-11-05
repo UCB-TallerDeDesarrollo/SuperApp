@@ -130,6 +130,38 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.audioProvider.changeState();
         this.changeSoundIcon();
     }
+    public efect(word: string){
+        let searched = this.game.MessyWord[0].letter;
+        let aux = document.getElementsByClassName("objetive-container");
+        let found;
+        for (var i = 0; i < aux.length; i++) {
+            if ((aux[i].classList[0].trim() == ("letter-" + searched).trim()) && (aux[i].textContent == "")){
+                found = aux[i];
+                break;
+            }
+        }
+        let aux2 = document.getElementsByClassName("wordsss");
+        let found2;
+        for (var j = 0; j < aux.length; j++) {
+            if (aux2[j].classList[0].trim()== ("letter-" + searched).trim()){
+                found2 = aux2[j];
+                break;
+            }
+        }
+        found2.classList.add('help-coin');
+        found.classList.add('help-coin');
+
+    }
+    public removeFromMessy(letterM :string){
+        let i = 0;
+        for (let letra of this.game.MessyWord){
+            if (letra.letter.trim() == letterM.trim()){
+                this.game.MessyWord.splice(i,1);
+                break;
+            }
+            i = i +1;
+        }
+    }
 
     public changeSoundIcon(){
         if(this.audioProvider.isMuted()){
@@ -153,5 +185,16 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
    
     public playPronunciationOfTheLetter(letter: string): void {
         this.audioProvider.playPronunciationOfTheProductName(letter);
+    }
+    public async downgradeCoins(){
+        await this.login.updateCoins();
+    }
+    public reduceCoins(){
+        if(this.coins >= 10){
+            this.downgradeCoins();
+            this.coins=this.coins-10;
+            this.efect(this.game.MessyWord);
+        }
+         
     }
 }
