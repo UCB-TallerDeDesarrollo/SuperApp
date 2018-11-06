@@ -94,9 +94,17 @@ html, body{
 
     display: inline;
     color:white;
-    text-align: right;
+    text-align: center;
     font-size:120%;
     font-family: big john;
+    float: right;
+}
+
+.modal_nextlevel{
+    display: inline;
+    color:white;
+    text-align: right;
+    font-size:300%;
     float: right;
 }
 
@@ -133,7 +141,4 @@ html, body{
     color:white;
 }
 
-.level{
-	
-}
 
