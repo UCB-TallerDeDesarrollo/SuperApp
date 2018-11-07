@@ -171,6 +171,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     this.game.addPoint();
     this.removeProductByElement(element);
     this.audioProvider.playPronunciationOfTheProductName(this.getProductNameByElement(element));
+    this.countOfProducts=this.countOfProducts+1;
     this.carImage="assets/imgs/"+this.countOfProducts+".png";
     if(this.game.isGameOver()) {
       await this.login.saveProgressSuper(this.game.Level);
