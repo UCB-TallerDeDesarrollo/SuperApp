@@ -33,15 +33,13 @@ export class EditUserPage {
           this.avatars = this.avatarProvider.getAvatars();
   }
   async ionViewDidLoad() {
-    var user=LoginStatus.user;
+    var user=await this.userProvider.getUserByUsername(LoginStatus.username);
     this.username=user.username;
     this.birthdate=user.birthdate;
     this.Image=user.profilePictureURL;
-    if(this.Image !== "assets/imgs/user.png"){
-      //enable the button
+    if(this.Image !== "assets/imgs/avatars/avatar0.png"){
         this.isenabled=true; 
       }else{
-      //disable the button
         this.isenabled=false;
       }
   }
@@ -114,7 +112,7 @@ export class EditUserPage {
         {
           text: 'Si',
           handler: () => {
-            this.Image ="assets/imgs/user.png";
+            this.Image ="assets/imgs/avatars/avatar0.png";
             this.isenabled=false;
           }
         }
