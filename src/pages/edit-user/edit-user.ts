@@ -33,7 +33,7 @@ export class EditUserPage {
           this.avatars = this.avatarProvider.getAvatars();
   }
   async ionViewDidLoad() {
-    var user=LoginStatus.user;
+    var user=await this.userProvider.getUserByUsername(LoginStatus.username);
     this.username=user.username;
     this.birthdate=user.birthdate;
     this.Image=user.profilePictureURL;
