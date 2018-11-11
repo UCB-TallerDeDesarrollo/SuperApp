@@ -37,11 +37,9 @@ export class EditUserPage {
     this.username=user.username;
     this.birthdate=user.birthdate;
     this.Image=user.profilePictureURL;
-    if(this.Image !== "assets/imgs/user.png"){
-      //enable the button
+    if(this.Image !== "assets/imgs/avatars/avatar0.png"){
         this.isenabled=true; 
       }else{
-      //disable the button
         this.isenabled=false;
       }
   }
@@ -114,7 +112,7 @@ export class EditUserPage {
         {
           text: 'Si',
           handler: () => {
-            this.Image ="assets/imgs/user.png";
+            this.Image ="assets/imgs/avatars/avatar0.png";
             this.isenabled=false;
           }
         }
