@@ -4,35 +4,35 @@
 
 
 <div class="modal-back">
-    
-<ion-buttons left>
+
+    <ion-buttons left>
         <button ion-button icon-only class="back-arrow" (click)="viewCtrl.dismiss()">
             <ion-icon name="arrow-back"></ion-icon>
         </button>
     </ion-buttons>
-   
+
     <div class="music-logo">
         <img [src]="imageSound" alt="" (click)="stopSound()">
     </div>
-<div class="modal-level-complete">
-  <div class="modal-level-message">
-    <h2>NIVEL</h2>
-  </div>
- 
-  <div class="modal-level">
-    <h2>
-      {{level}}
-    </h2>
-  </div>
-  <div>
-  <div class="previus" *ngIf="level>1">
-      <img src="/assets/imgs/prevlevel.png" (click)="previus()">
-  </div>
+    <div class="modal-level-complete">
+        <div class="modal-level-message">
+            <h2>NIVEL</h2>
+        </div>
 
-  <div class="next" *ngIf="level<maxLevel">
-      <img src="/assets/imgs/nextlevel.png" (click)="next()">
-  </div>
-</div>
-  <button class="modal-level-button-play" (click)="goToLevel()">JUGAR</button>
-</div>
+        <div class="modal-level">
+            <h2>
+                {{level}}
+            </h2>
+        </div>
+        <div>
+            <div class="previus" *ngIf="level>minLevel">
+                <img src="/assets/imgs/prevlevel.png" (click)="previus()">
+            </div>
+
+            <div class="next" *ngIf="level<maxLevel">
+                <img src="/assets/imgs/nextlevel.png" (click)="next()">
+            </div>
+        </div>
+        <button class="modal-level-button-play" (click)="goToLevel()">JUGAR</button>
+    </div>
 </div>
