@@ -8,6 +8,7 @@ import { LoginStatus } from '../login/LoginStatus';
 
 @Injectable()
 export class UserProvider {
+    
  
     private userRepository: Repository<UserEntity>;
     private progress: Repository<UserProgress>;
@@ -71,7 +72,8 @@ export class UserProvider {
         let user=await this.getUserByUsername(userInfo);
         user.userProgress.nextLevelSuper(level);
         await this.saveUser(user);
-    }
+    } 
+
     async existsUsername(user_username: string) {
         let count = await this.userRepository.createQueryBuilder('user')
                                              .where('username = :username', { username: user_username })

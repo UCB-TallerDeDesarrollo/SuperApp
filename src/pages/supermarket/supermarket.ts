@@ -1,3 +1,4 @@
+import { LoginStatus } from './../../providers/login/LoginStatus';
 import { CategoryProvider } from './../../providers/category/category';
 import { Component, OnInit, AfterViewInit, OnDestroy, AfterViewChecked } from '@angular/core'; 
 import { NavController, NavParams, Platform, ModalController } from 'ionic-angular'; 
@@ -20,7 +21,7 @@ import { Category } from '../../entities/category';
 export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterViewChecked {
    
   game : SuperMarketGame;
-  level: number;
+  level: number; 
   products: Array<Product> = [];
   categories: Array<Category> = [];
   productsToBuy: any=[]; 
@@ -61,7 +62,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
 
   async prepareGame(){
-    this.level = this.navParams.get('level') || 1;
+    this.level = this.navParams.get('level') || 1; 
     this.supermarketDifficulty.updateLastLevel(this.level); 
     if((this.level >= 16 && this.level < 31) || this.level >= 46) {
       this.textClass = false;
@@ -70,7 +71,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
       this.imageClass = false;
     }
     this.products = await this.productsProvider.getProducts();
-    this.game = new SuperMarketGame(this.products,this.level); 
+    this.game = new SuperMarketGame(this.products,this.level,this.navParams.get('maxLevel')); 
     this.game.buildProducts();
     this.productsToBuy = this.game.ProductsToBuy;
     for(let index = 0; index < this.productsToBuy.length; ++index) {
@@ -151,11 +152,12 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
       const changeLevel = this.modalController.create(
         SelectLevelPage, 
         {
-            level    : this.game.Level, 
-            lastNav  : this.navController, 
-            maxLevel : 60,
-            gamePage : this,
-            typeOfGame: "supermarket"                
+            level : this.game.Level, 
+            lastNav : this.navController, 
+            maxLevel  : this.game.MaxLevel,
+            minLevel  : this.game.MinLevel,
+            gamePage  : this,
+            typeOfGame  : "supermarket"             
         }
     );
     changeLevel.onDidDismiss(
@@ -196,7 +198,6 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
   private getProductNameByElement(htmlElement){
     let title=htmlElement.querySelector('p').textContent;
-    console.log(title);
     return title;
   }
   
@@ -220,7 +221,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
 
   public showModalWin(): void {
     if(this.game.Level<60){
-      const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {level: this.game.Level + 1, lastNav:this.navController});
+      let nextLevel = this.game.Level+1;
+      const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {level: nextLevel, lastNav:this.navController,maxLevel:nextLevel});
       levelCompleteModal.present();
     }else{
       this.navController.pop();

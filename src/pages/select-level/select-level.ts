@@ -9,6 +9,7 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 })
 export class SelectLevelPage {
   public level        :   number;
+  public minLevel: number;
   public actualLevel  :   number;
   private lastNav     :   NavController;
   public maxLevel     :   number;
@@ -22,18 +23,28 @@ export class SelectLevelPage {
     private audioProvider : AudioProvider)
      {
     this.level=this.navParams.get("level");
-    this.lastNav=this.navParams.get("lastNav");
-    this.maxLevel=this.navParams.get("maxLevel");
-    this.gamePage=this.navParams.get("gamePage");
     this.typeOfGame=navParams.get("typeOfGame"); 
+    this.loadLevels(); 
+    this.lastNav=this.navParams.get("lastNav");
+    this.gamePage=this.navParams.get("gamePage");
     this.actualLevel=this.level;
     this.navCtrl=this.lastNav;
     this.changeSoundIcon();
   }
+
+  loadLevels(){
+    if(this.typeOfGame==="supermarket"){
+      this.minLevel=this.navParams.get("minLevel"); 
+    }else{
+      this.minLevel=1;
+    }
+    this.maxLevel=this.navParams.get("maxLevel");
+  }
+
   goToLevel()
   { 
     this.viewCtrl.dismiss(); 
-    this.navCtrl.push(LoadingPage, {lastNav:this.navCtrl, level:this.level, typeOfGame:this.typeOfGame});
+    this.navCtrl.push(LoadingPage, {lastNav:this.navCtrl, level:this.level, typeOfGame:this.typeOfGame,maxLevel:this.maxLevel});
     this.navCtrl.remove(this.navCtrl.length()-1);
   }
   ionViewDidLoad() {

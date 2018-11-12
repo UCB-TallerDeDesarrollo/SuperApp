@@ -149,10 +149,10 @@ export class UserProgress{
     nextEasySuper(actualLevelSuper: number) {
 
         if (actualLevelSuper<15)
-        {
+        { 
         if (actualLevelSuper==this.easyLevelSuper)
         {
-            this.easyLevelSuper++;
+            this.easyLevelSuper++; 
             this.coins = this.coins+ (2 * 2);
         }
         }
