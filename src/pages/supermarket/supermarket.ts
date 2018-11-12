@@ -152,11 +152,12 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
       const changeLevel = this.modalController.create(
         SelectLevelPage, 
         {
-            level    : this.game.Level, 
-            lastNav  : this.navController, 
-            maxLevel : 60,
-            gamePage : this,
-            typeOfGame: "supermarket"                
+            level : this.game.Level, 
+            lastNav : this.navController, 
+            maxLevel  : this.game.MaxLevel,
+            minLevel  : this.game.MinLevel,
+            gamePage  : this,
+            typeOfGame  : "supermarket"             
         }
     );
     changeLevel.onDidDismiss(
@@ -197,7 +198,6 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
   private getProductNameByElement(htmlElement){
     let title=htmlElement.querySelector('p').textContent;
-    console.log(title);
     return title;
   }
   
@@ -221,7 +221,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
 
   public showModalWin(): void {
     if(this.game.Level<60){
-      const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {level: this.game.Level + 1, lastNav:this.navController});
+      let nextLevel = this.game.Level+1;
+      const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {level: nextLevel, lastNav:this.navController,maxLevel:nextLevel});
       levelCompleteModal.present();
     }else{
       this.navController.pop();
