@@ -1,3 +1,4 @@
+import { LoginStatus } from './../../providers/login/LoginStatus';
 import { CategoryProvider } from './../../providers/category/category';
 import { Component, OnInit, AfterViewInit, OnDestroy, AfterViewChecked } from '@angular/core'; 
 import { NavController, NavParams, Platform, ModalController } from 'ionic-angular'; 
@@ -20,7 +21,7 @@ import { Category } from '../../entities/category';
 export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterViewChecked {
    
   game : SuperMarketGame;
-  level: number;
+  level: number; 
   products: Array<Product> = [];
   categories: Array<Category> = [];
   productsToBuy: any=[]; 
@@ -61,7 +62,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
 
   async prepareGame(){
-    this.level = this.navParams.get('level') || 1;
+    this.level = this.navParams.get('level') || 1; 
     this.supermarketDifficulty.updateLastLevel(this.level); 
     if((this.level >= 16 && this.level < 31) || this.level >= 46) {
       this.textClass = false;
@@ -70,7 +71,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
       this.imageClass = false;
     }
     this.products = await this.productsProvider.getProducts();
-    this.game = new SuperMarketGame(this.products,this.level); 
+    this.game = new SuperMarketGame(this.products,this.level,this.navParams.get('maxLevel')); 
     this.game.buildProducts();
     this.productsToBuy = this.game.ProductsToBuy;
     for(let index = 0; index < this.productsToBuy.length; ++index) {
