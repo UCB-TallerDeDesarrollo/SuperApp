@@ -10,11 +10,17 @@ export class SuperMarketGame {
     private productsToPlay : any = [];
     private productsToBuy : any= []; 
     private level: number;
+    private maxLevel: number;
+    private minLevel: number;
+    private difficulty: number;
     public isAdvancedLevel: boolean;
-    public constructor(products: any[],level: any) {
+    public constructor(products: any[],level: any,maxLevel:any) {
         this.countOfProducts = 0;
         this.products = products; 
         this.level = level;
+        this.setMinLevel();
+        this.maxLevel=maxLevel;
+        this.setDifficulty();
         this.isAdvancedLevel=false;
     }
     
@@ -141,6 +147,18 @@ export class SuperMarketGame {
 
     public get CountOfProducts(): any{
         return this.countOfProducts;
+    }
+
+    public get MaxLevel(): number{
+        return this.maxLevel;
+    }
+
+    public get MinLevel(): number{
+        return this.minLevel;
+    }
+
+    public get Difficulty() : number{
+        return this.difficulty;
     }
      
     public addPoint(): void {

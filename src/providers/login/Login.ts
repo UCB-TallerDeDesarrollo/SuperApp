@@ -47,4 +47,5 @@ export class Login{
       async updateCoins(){
         this.userProvider.updateCoins();
       }
+ 
 }

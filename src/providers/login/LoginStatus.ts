@@ -28,5 +28,5 @@ this.user=user;
     public static getImage()
     {
         return (this.user==null)?"assets/imgs/user.png":this.user.profilePictureURL;
-    }
+    } 
 }
