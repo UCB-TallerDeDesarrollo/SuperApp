@@ -23,37 +23,65 @@ export class SuperMarketGame {
         this.setDifficulty();
         this.isAdvancedLevel=false;
     }
+
+    private setDifficulty(){
+        if(this.levelBetween(1,15)){ 
+            this.difficulty=0;  
+        }else if(this.levelBetween(16,30)){ 
+            this.difficulty=1;  
+        }else if(this.levelBetween(31,45)){  
+            this.difficulty=2;  
+        }else if(this.levelBetween(46,60)){  
+            this.difficulty=3;  
+        } 
+    }
+
+    private setMinLevel(){
+        if(this.levelBetween(1,15)){ 
+            this.minLevel=1;  
+        }else if(this.levelBetween(16,30)){ 
+            this.minLevel=16;  
+        }else if(this.levelBetween(31,45)){  
+            this.minLevel=31;  
+        }else if(this.levelBetween(46,60)){  
+            this.minLevel=46;  
+        } 
+    }
     
+    private levelBetween(minLevel,maxLevel) {
+        return this.level >= minLevel && this.level < maxLevel+1;
+    } 
+
     public getQuantityByLevel(){
-        if(this.level>=1 && this.level<16){
-            this.isAdvancedLevel=false; 
+        if(this.levelBetween(1,15)){
+            this.isAdvancedLevel=false;
             return this.getQuantityFromEasyMode(this.level);
-        }else if(this.level>=16 && this.level<31){ 
+        }else if(this.levelBetween(16,30)){ 
             this.isAdvancedLevel=false;
             return this.getQuantityFromMediumMode(this.level);
-        }else if(this.level>=31 && this.level<46){ 
+        }else if(this.levelBetween(31,45)){ 
             this.isAdvancedLevel=true;
             return this.getQuantityFromHardMode(this.level);
-        }else if(this.level>=46 && this.level<61){ 
+        }else if(this.levelBetween(46,60)){ 
             this.isAdvancedLevel=true;
             return this.getQuantityFromExpertMode(this.level);
         }
     }
 
     private getQuantityFromEasyMode(level){
-        if(level>=1 && level<4){
+        if(this.levelBetween(1,3)){
             return 8;
         }
-        if(level>=4 && level<7){
+        if(this.levelBetween(4,6)){
             return 9;
         }
-        if(level>=7 && level<10){
+        if(this.levelBetween(7,9)){
             return 10;
         }
-        if(level>=10 && level<13){
+        if(this.levelBetween(10,12)){
             return 11;
         }
-        if(level>=13 && level<16){
+        if(this.levelBetween(13,15)){
             return 12;
         } 
         return 8;
