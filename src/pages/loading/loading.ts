@@ -16,13 +16,15 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class LoadingPage {
   public level:number;
+  public maxLevel: number;
   public lastNav:NavController;
   public typeOfGame : string; 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.level=navParams.get("level");
-   this.lastNav=navParams.get("lastNav");
-   this.typeOfGame=navParams.get("typeOfGame"); 
-   this.navCtrl=this.lastNav;
+    this.maxLevel=navParams.get('maxLevel');
+    this.lastNav=navParams.get("lastNav");
+    this.typeOfGame=navParams.get("typeOfGame"); 
+    this.navCtrl=this.lastNav;
   }
 
   ionViewDidEnter(){
@@ -33,7 +35,7 @@ export class LoadingPage {
   init()
   {
     if(this.typeOfGame==="supermarket"){
-      this.navCtrl.push(SupermarketPage, {level: this.level }); 
+      this.navCtrl.push(SupermarketPage, {level: this.level ,maxLevel:this.maxLevel}); 
     }else{
       this.navCtrl.push(WordPage, {level: this.level});
     }
