@@ -23,6 +23,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public selectorName    : string;
     public imageSound      : string;
     public coins           : number;
+    public isDisabled      :boolean;
 
     constructor(
         public navController       : NavController,
@@ -33,7 +34,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private audioProvider      : AudioProvider,
         private navParams          : NavParams,
         private login              : Login,
-        private productProdiver    : ProductsProvider
+        private productProdiver    : ProductsProvider,
     ) {
         this.prepareGame();
         this.changeSoundIcon();
@@ -62,6 +63,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     private async prepareGame() {
         await this.prepareLevel();
         this.coinsOfUser();
+        this.isDisabled = false;
         this.backgroundColor = this.colorService.getRandomBackgroundColor();
         this.game.buildLetters(this.generateLettersWithColor());
     }
@@ -212,9 +214,11 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
     public reduceCoins(){
         if(this.coins >= 10){
+            this.isDisabled=true;
             this.downgradeCoins();
             this.coins=this.coins-10;
             this.efect(this.game.MessyWord);
+            
         }
          
     }
