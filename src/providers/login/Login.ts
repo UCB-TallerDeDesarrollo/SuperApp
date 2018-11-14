@@ -39,7 +39,7 @@ export class Login{
       async saveProgress(level:number)
       {
           LoginStatus.userProgress.nextLevel(level);
-        this.userProvider.updateProgress(level);
+            await this.userProvider.updateProgress(level);
       }
       async saveProgressSuper(level:number)
       {

@@ -1,3 +1,4 @@
+import { Login } from './../../providers/login/Login';
 import { LoadingPage } from './../loading/loading';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
@@ -19,10 +20,12 @@ export class SelectLevelPage {
   public imageSound   :   String;
   public gamePage     :   any;
   public typeOfGame : any;
+
   constructor(
     public navCtrl        : NavController,
     public navParams      : NavParams,
     public viewCtrl       : ViewController,
+    public login          : Login,
     private audioProvider : AudioProvider)
      {
     this.level=this.navParams.get("level");
@@ -54,8 +57,9 @@ export class SelectLevelPage {
   ionViewDidLoad() {
     
   }
-  unlockLevel(){
-
+  async unlockLevel(){
+    await this.login.saveProgress(this.level-1);
+    this.setupUnlockedLevels();
   }
   next()
   {
