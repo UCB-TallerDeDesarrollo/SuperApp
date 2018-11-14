@@ -260,7 +260,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     const PADDING = 32;
     const HEIGHT_CONTAINER = document.getElementById('high_container').offsetHeight;
     let height = HEIGHT_WINDOW - HEIGHT_BAR - PADDING - HEIGHT_CONTAINER;
-    document.getElementById('carrito').setAttribute('style', `height: ${height + 70}px`);
+    document.getElementById('carrito').setAttribute('style', `height: ${height + 45}px`);
   }
   public playPronunciationOfTheProductName(word:string) {
     this.audioProvider.playPronunciationOfTheProductName(word);
