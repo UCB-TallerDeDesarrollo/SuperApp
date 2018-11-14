@@ -104,7 +104,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
             await this.login.saveProgress(this.game.Level);
             setTimeout(() => {
                 this.playLevelCompleteSoundAndPronunciationOfTheProductName();
-            }, 250);
+            }, 700);
             this.showModalWin();
         }
     }
