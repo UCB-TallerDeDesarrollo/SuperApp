@@ -48,5 +48,9 @@ export class Login{
       async updateCoins(){
         this.userProvider.updateCoins();
       }
+      async buyLevel(){
+       await this.userProvider.updateCoins();
+      }
+
  
 }

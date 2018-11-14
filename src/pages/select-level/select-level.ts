@@ -20,6 +20,7 @@ export class SelectLevelPage {
   public imageSound   :   String;
   public gamePage     :   any;
   public typeOfGame : any;
+  public hasMoney:boolean;
 
   constructor(
     public navCtrl        : NavController,
@@ -47,7 +48,10 @@ export class SelectLevelPage {
     }
     this.maxLevel=200;
   }
-
+  public async buyLevel(){
+    await this.login.buyLevel();
+    await this.unlockLevel();
+  }
   goToLevel()
   { 
     this.viewCtrl.dismiss(); 
@@ -70,6 +74,7 @@ export class SelectLevelPage {
   {
     this.levelEnabled=this.thisLevelIsUnlocked();
     this.levelAvaiableToUnlock=this.isAvaiableToUnlocked();
+    this.hasMoney=LoginStatus.userProgress.coins>=10;
   }
   previus()
   {

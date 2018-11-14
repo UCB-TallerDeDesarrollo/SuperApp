@@ -100,4 +100,10 @@ export class UserProvider {
         user.userProgress.updateCoins();
         await this.saveUser(user);
     }
+    async buyLevel(){
+        let userInfo:string=LoginStatus.username;
+        let user=await this.getUserByUsername(userInfo);
+        user.userProgress.buyLevel();
+        await this.saveUser(user);
+    }
 }

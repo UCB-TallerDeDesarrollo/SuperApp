@@ -49,6 +49,9 @@ export class UserProgress{
     public updateCoins(){
         this.coins=this.coins-10;
     }
+    public buyLevel(){
+        this.coins=this.coins-25;
+    }
     public nextLevel(actualLevel:number)
     {
         this.nextEasy(actualLevel);
