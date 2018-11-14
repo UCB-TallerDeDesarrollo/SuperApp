@@ -50,6 +50,7 @@ export class SelectLevelPage {
   }
   public async buyLevel(){
     await this.login.buyLevel();
+    await this.login.saveProgress(this.level-1, true);
     await this.unlockLevel();
   }
   goToLevel()
@@ -62,7 +63,6 @@ export class SelectLevelPage {
     
   }
   async unlockLevel(){
-    await this.login.saveProgress(this.level-1);
     this.setupUnlockedLevels();
   }
   next()
@@ -74,7 +74,7 @@ export class SelectLevelPage {
   {
     this.levelEnabled=this.thisLevelIsUnlocked();
     this.levelAvaiableToUnlock=this.isAvaiableToUnlocked();
-    this.hasMoney=LoginStatus.userProgress.coins>=10;
+    this.hasMoney=LoginStatus.userProgress.coins>=25;
   }
   previus()
   {

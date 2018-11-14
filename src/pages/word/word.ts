@@ -1,3 +1,4 @@
+import { LoginStatus } from './../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
 import { User } from './../../entities/user';
 import { SelectLevelPage } from './../select-level/select-level';
@@ -101,7 +102,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public async showEndView() {
         this.game.addCount();
         if(this.game.isGameOver()) {
-            await this.login.saveProgress(this.game.Level);
+            await this.login.saveProgress(this.game.Level, false);
             setTimeout(() => {
                 this.playLevelCompleteSoundAndPronunciationOfTheProductName();
             }, 700);
@@ -141,6 +142,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         changeLevel.onDidDismiss(
             ()=>{
                 this.changeSoundIcon();
+                this.coins=LoginStatus.userProgress.coins;
             }
         );
         changeLevel.present();

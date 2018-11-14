@@ -36,20 +36,23 @@ export class Login{
             LoginStatus.setUserProgress(existUser.userProgress);
         }
       }
-      async saveProgress(level:number)
+      async saveProgress(level:number, isBuy:boolean)
       {
-          LoginStatus.userProgress.nextLevel(level);
-            await this.userProvider.updateProgress(level);
+          LoginStatus.userProgress.nextLevel(level, isBuy);
+            await this.userProvider.updateProgress(level, isBuy);
       }
       async saveProgressSuper(level:number)
       {
         this.userProvider.updateProgressSuper(level);
       } 
       async updateCoins(){
+        
         this.userProvider.updateCoins();
       }
       async buyLevel(){
-       await this.userProvider.updateCoins();
+        LoginStatus.userProgress.buyLevel();
+       await this.userProvider.buyLevel();
+       
       }
 
  

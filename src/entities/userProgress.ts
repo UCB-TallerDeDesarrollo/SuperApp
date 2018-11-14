@@ -17,7 +17,7 @@ export class UserProgress{
         this.hardLevelSuper=hardLevelSuper;
         this.extremeLevelSuper=extremeLevelSuper;
         this.coins=0;
-        
+        this.lastCoins=this.coins;
     }
     @PrimaryGeneratedColumn()
     id: number;
@@ -41,6 +41,8 @@ export class UserProgress{
     @Column()
     extremeLevelSuper:number;
 
+    lastCoins:number;
+
     @Column()
     coins: number;
 /*    @OneToOne(type=>User, user=>user.userProgress)
@@ -50,14 +52,15 @@ export class UserProgress{
         this.coins=this.coins-10;
     }
     public buyLevel(){
-        this.coins=this.coins-25;
+        this.coins=this.coins-25; 
     }
-    public nextLevel(actualLevel:number)
+    public nextLevel(actualLevel:number, isBuy:boolean)
     {
-        this.nextEasy(actualLevel);
-        this.nextMedium(actualLevel);
-        this.nextHard(actualLevel);
-        this.nextExtreme(actualLevel);
+        this.lastCoins=this.coins;
+        this.nextEasy(actualLevel, isBuy);
+        this.nextMedium(actualLevel, isBuy);
+        this.nextHard(actualLevel, isBuy);
+        this.nextExtreme(actualLevel, isBuy);
     }
     public nextLevelSuper(actualLevel:number)
     {
@@ -66,7 +69,7 @@ export class UserProgress{
         this.nextHardSuper(actualLevel);
         this.nextExtremeSuper(actualLevel);
     }
-    nextExtreme(actualLevel: number): any {
+    nextExtreme(actualLevel: number, isBuy:boolean): any {
        
         if (actualLevel>=125 && actualLevel<200)
         {
@@ -74,42 +77,50 @@ export class UserProgress{
             if (actualLevel==this.extremeLevel)
             {
                 this.extremeLevel++;
-                this.coins = this.coins+ (2 * 5);
+                if (!isBuy)
+                {this.coins = this.coins+ (2 * 5);}
             }
         }
     }
-    nextHard(actualLevel: number): any {
+    nextHard(actualLevel: number, isBuy:boolean): any {
         
         if (actualLevel>=31 && actualLevel<124)
         {
             if(actualLevel==this.hardLevel)
             {
                 this.hardLevel++;
-                this.coins = this.coins+ (2 * 4);
+                if (!isBuy){
+                    this.coins = this.coins+ (2 * 4);
+                }
+                
             }
             
         }
     }
-    nextMedium(actualLevel: number): any {
+    nextMedium(actualLevel: number, isBuy:boolean): any {
         
         if (actualLevel>=16 && actualLevel<30)
         {
             if (actualLevel==this.mediumLevel)
             {
                 this.mediumLevel++;
-                this.coins = this.coins+ (2 * 3);
+                if (!isBuy){
+                this.coins = this.coins+ (2 * 3);}
             }
             
         }
     }
-    nextEasy(actualLevel: number) {
+    nextEasy(actualLevel: number, isBuy:boolean) {
         
         if (actualLevel<15)
         {
         if (actualLevel==this.easyLevel)
         {
             this.easyLevel++;
-            this.coins =this.coins+ ( 2 * 2);
+            if(!isBuy){
+
+                this.coins =this.coins+ ( 2 * 2);}
+            
         }
         }
     }
