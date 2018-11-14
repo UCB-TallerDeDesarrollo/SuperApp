@@ -62,6 +62,7 @@
 
 .item-container {
     display: flex;
+
     justify-content: center;
     padding-left: 0%;
     position: relative;
@@ -165,3 +166,8 @@
 .help-coin {
     background-color: #9BBB6E;
 }
+.help-button{
+    position: absolute !important;
+    left:15px !important;
+    bottom: 0px;
+ }

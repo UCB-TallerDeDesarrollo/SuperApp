@@ -23,17 +23,18 @@
         <div *ngFor="let letter of game.SortedWord" class="{{letter.name}} relative-container objetive-container" dragula="{{selectorName}}"></div>
     </ul>
     <img [src]="(game.Product != null) ? game.Product.ImageURL : ''" class="product" (click)="playPronunciationOfTheProductName()">
-    <button ion-button round color="dark" [disabled]="isDisabled"  (click)="reduceCoins()">
-        <ion-icon name="help-circle"></ion-icon>
-    </button>
 </ion-content>
 
-<ion-footer style="text-align: center">
-    <ul class="item-container">
-        <div class="{{letter.name}} relative-container wordsss {{i}}" *ngFor="let letter of game.MessyWord; let i = index" [attr.data-index]="i" dragula="{{selectorName}}"> 
-            <div class="letter_container">
-                <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
+<ion-footer>
+        <div class="item-container">           
+            <div class="{{letter.name}} relative-container wordsss {{i}}" *ngFor="let letter of game.MessyWord; let i = index" [attr.data-index]="i" dragula="{{selectorName}}"  style="text-align: center"> 
+                <div class="letter_container">
+                    <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
+                </div>
             </div>
+            <button ion-button round color="dark" [disabled]="isDisabled"  (click)="reduceCoins()" class="help-buton">
+                    <ion-icon name="help-circle"></ion-icon>
+            </button>
         </div>
-    </ul>
+        
 </ion-footer>
