@@ -87,8 +87,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
                     this.game.setElements(product, level);
                 }
                 else {
-                    let randomPosition = Math.floor(Math.random() * products.length - 1);
-                    console.log(products);
+                    let randomPosition = Math.floor(Math.random() * products.length);
                     let product: Product = Product.createProduct(
                         products[randomPosition].id,
                         products[randomPosition].title,
