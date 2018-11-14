@@ -55,6 +55,34 @@
   font-weight: 1000;
 }
 
+.modal-level-button-unlock{
+  position: absolute;
+  text-align: center;
+  background-color:rgb(89, 202, 89);
+  border-radius: 10%;
+  border:2px solid white;
+  color: white;
+  width: 35%;
+  height: 20%;
+  left: 33%;
+  bottom:2%;
+  font-size: 2vw;
+  font-weight: 1000;
+}
+.modal-level-button-lock{
+  position: absolute;
+  text-align: center;
+  background-color:rgb(89, 202, 89);
+  border-radius: 10%;
+  border:2px solid white;
+  color: white;
+  width: 35%;
+  height: 20%;
+  left: 33%;
+  bottom:2%;
+  font-size: 2vw;
+  font-weight: 1000;
+}
 .previus {
  position: absolute;
  top: 40%;
@@ -69,7 +97,12 @@
  }
  
 
+.buy-level{
 
+}
+.coin{
+
+}
 
 
 

@@ -34,7 +34,10 @@
             </div>
         </div>
         <button class="modal-level-button-play" (click)="goToLevel()" *ngIf="levelEnabled">JUGAR</button>
-        <button class="modal-level-button-play" (click)="goToLevel()" *ngIf="!levelEnabled && levelAvaiableToUnlock">COMPRAR</button>
-        <button class="modal-level-button-play" (click)="goToLevel()" *ngIf="!levelEnabled && !levelAvaiableToUnlock">NADA</button>
+        <button class="modal-level-button-unlock" (click)="goToLevel()" *ngIf="!levelEnabled && levelAvaiableToUnlock">
+            DESBLOQUEAR 10
+        </button>
+        <button class="modal-level-button-lock" (click)="goToLevel()" disabled *ngIf="!levelEnabled && !levelAvaiableToUnlock">
+            BLOQUEADO</button>
     </div>
 </div>
