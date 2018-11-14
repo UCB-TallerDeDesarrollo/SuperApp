@@ -26,15 +26,16 @@
 </ion-content>
 
 <ion-footer>
-        <div class="item-container">           
+        <div class="item-container">  
+                <button ion-button round color="dark" [disabled]="isDisabled"  (click)="reduceCoins()" class="help-button">
+                        <ion-icon name="help-circle"></ion-icon>
+                </button>         
             <div class="{{letter.name}} relative-container wordsss {{i}}" *ngFor="let letter of game.MessyWord; let i = index" [attr.data-index]="i" dragula="{{selectorName}}"  style="text-align: center"> 
                 <div class="letter_container">
                     <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
                 </div>
             </div>
-            <button ion-button round color="dark" [disabled]="isDisabled"  (click)="reduceCoins()" class="help-buton">
-                    <ion-icon name="help-circle"></ion-icon>
-            </button>
+           
         </div>
         
 </ion-footer>

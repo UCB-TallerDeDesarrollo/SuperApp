@@ -65,7 +65,7 @@
 
     justify-content: center;
     padding-left: 0%;
-    position: relative;
+    //position: relative;
     &--shortest{
         width: 60%;
         margin-top: 15%;
@@ -168,6 +168,5 @@
 }
 .help-button{
     position: absolute !important;
-    left:15px !important;
-    bottom: 0px;
+    left: 0px;
  }
