@@ -2,6 +2,7 @@ import { LoadingPage } from './../loading/loading';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
+import { LoginStatus } from '../../providers/login/LoginStatus';
 
 @Component({
   selector: 'page-select-level',
@@ -9,6 +10,8 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 })
 export class SelectLevelPage {
   public level        :   number;
+  public levelEnabled:boolean;
+  public levelAvaiableToUnlock:boolean;
   public minLevel: number;
   public actualLevel  :   number;
   private lastNav     :   NavController;
@@ -30,6 +33,8 @@ export class SelectLevelPage {
     this.actualLevel=this.level;
     this.navCtrl=this.lastNav;
     this.changeSoundIcon();
+    this.levelEnabled=this.thisLevelIsUnlocked();
+    this.levelAvaiableToUnlock=this.isAvaiableToUnlocked();
   }
 
   loadLevels(){
@@ -38,7 +43,7 @@ export class SelectLevelPage {
     }else{
       this.minLevel=1;
     }
-    this.maxLevel=this.navParams.get("maxLevel");
+    this.maxLevel=200;
   }
 
   goToLevel()
@@ -53,6 +58,8 @@ export class SelectLevelPage {
   next()
   {
     this.level++;
+    this.levelEnabled=this.thisLevelIsUnlocked();
+    this.levelAvaiableToUnlock=this.isAvaiableToUnlocked();
   }
   previus()
   {
@@ -61,8 +68,55 @@ export class SelectLevelPage {
     {
       this.level=1;
     }
-
+    this.levelEnabled=this.thisLevelIsUnlocked();
+    this.levelAvaiableToUnlock=this.isAvaiableToUnlocked();
+  }
+  isAvaiableToUnlocked()
+  {
+    let easyLevel=LoginStatus.userProgress.easyLevel;
+    let mediumLevel=LoginStatus.userProgress.mediumLevel;
+    let hardLevel=LoginStatus.userProgress.hardLevel;
+    let extremeLevel=LoginStatus.userProgress.extremeLevel;
+    if (this.level>0 && this.level<16)
+    {
+      return this.level==easyLevel+1;
+    }
+    if (this.level>=16 && this.level<31)
+    {
+      return this.level==mediumLevel+1;
+    }
+    if (this.level>=31 && this.level<46)
+    {
+      return this.level==hardLevel+1;
+    }
+    if (this.level>=125)
+    {
+      return this.level==extremeLevel+1;
+    }
+  }
+  thisLevelIsUnlocked()
+  {
     
+    let easyLevel=LoginStatus.userProgress.easyLevel;
+    let mediumLevel=LoginStatus.userProgress.mediumLevel;
+    let hardLevel=LoginStatus.userProgress.hardLevel;
+    let extremeLevel=LoginStatus.userProgress.extremeLevel;
+    if (this.level>0 && this.level<16)
+    {
+      return this.level<=easyLevel;
+    }
+    if (this.level>=16 && this.level<31)
+    {
+      return this.level<=mediumLevel;
+    }
+    if (this.level>=31 && this.level<46)
+    {
+      return this.level<=hardLevel;
+    }
+    if (this.level>=125)
+    {
+      return this.level<=extremeLevel;
+    }
   }
   public changeSoundIcon(){
     if(this.audioProvider.isMuted()){

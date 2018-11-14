@@ -33,6 +33,8 @@
                 <img src="/assets/imgs/nextlevel.png" (click)="next()">
             </div>
         </div>
-        <button class="modal-level-button-play" (click)="goToLevel()">JUGAR</button>
+        <button class="modal-level-button-play" (click)="goToLevel()" *ngIf="levelEnabled">JUGAR</button>
+        <button class="modal-level-button-play" (click)="goToLevel()" *ngIf="!levelEnabled && levelAvaiableToUnlock">COMPRAR</button>
+        <button class="modal-level-button-play" (click)="goToLevel()" *ngIf="!levelEnabled && !levelAvaiableToUnlock">NADA</button>
     </div>
 </div>
