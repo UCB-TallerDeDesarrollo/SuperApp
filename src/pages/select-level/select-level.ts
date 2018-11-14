@@ -33,8 +33,7 @@ export class SelectLevelPage {
     this.actualLevel=this.level;
     this.navCtrl=this.lastNav;
     this.changeSoundIcon();
-    this.levelEnabled=this.thisLevelIsUnlocked();
-    this.levelAvaiableToUnlock=this.isAvaiableToUnlocked();
+    this.setupUnlockedLevels();
   }
 
   loadLevels(){
@@ -55,9 +54,16 @@ export class SelectLevelPage {
   ionViewDidLoad() {
     
   }
+  unlockLevel(){
+
+  }
   next()
   {
     this.level++;
+    this.setupUnlockedLevels();
+  }
+  setupUnlockedLevels()
+  {
     this.levelEnabled=this.thisLevelIsUnlocked();
     this.levelAvaiableToUnlock=this.isAvaiableToUnlocked();
   }
@@ -68,8 +74,7 @@ export class SelectLevelPage {
     {
       this.level=1;
     }
-    this.levelEnabled=this.thisLevelIsUnlocked();
-    this.levelAvaiableToUnlock=this.isAvaiableToUnlocked();
+    this.setupUnlockedLevels();
   }
   isAvaiableToUnlocked()
   {
