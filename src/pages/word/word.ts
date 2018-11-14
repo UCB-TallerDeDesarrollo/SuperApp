@@ -1,3 +1,4 @@
+import { LoginStatus } from './../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
 import { User } from './../../entities/user';
 import { SelectLevelPage } from './../select-level/select-level';
@@ -23,6 +24,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public selectorName    : string;
     public imageSound      : string;
     public coins           : number;
+    public isDisabled      :boolean;
 
     constructor(
         public navController       : NavController,
@@ -33,7 +35,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private audioProvider      : AudioProvider,
         private navParams          : NavParams,
         private login              : Login,
-        private productProdiver    : ProductsProvider
+        private productProdiver    : ProductsProvider,
     ) {
         this.prepareGame();
         this.changeSoundIcon();
@@ -62,6 +64,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     private async prepareGame() {
         await this.prepareLevel();
         this.coinsOfUser();
+        this.isDisabled = false;
         this.backgroundColor = this.colorService.getRandomBackgroundColor();
         this.game.buildLetters(this.generateLettersWithColor());
     }
@@ -101,10 +104,10 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public async showEndView() {
         this.game.addCount();
         if(this.game.isGameOver()) {
-            await this.login.saveProgress(this.game.Level);
+            await this.login.saveProgress(this.game.Level, false);
             setTimeout(() => {
                 this.playLevelCompleteSoundAndPronunciationOfTheProductName();
-            }, 250);
+            }, 700);
             this.showModalWin();
         }
     }
@@ -141,6 +144,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         changeLevel.onDidDismiss(
             ()=>{
                 this.changeSoundIcon();
+                this.coins=LoginStatus.userProgress.coins;
             }
         );
         changeLevel.present();
@@ -210,11 +214,14 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     public async downgradeCoins(){
         await this.login.updateCoins();
     }
+    
     public reduceCoins(){
         if(this.coins >= 10){
+            this.isDisabled=true;
             this.downgradeCoins();
             this.coins=this.coins-10;
             this.efect(this.game.MessyWord);
+            
         }
          
     }

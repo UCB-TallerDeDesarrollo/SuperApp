@@ -1,7 +1,9 @@
+import { Login } from './../../providers/login/Login';
 import { LoadingPage } from './../loading/loading';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
+import { LoginStatus } from '../../providers/login/LoginStatus';
 
 @Component({
   selector: 'page-select-level',
@@ -9,6 +11,8 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 })
 export class SelectLevelPage {
   public level        :   number;
+  public levelEnabled:boolean;
+  public levelAvaiableToUnlock:boolean;
   public minLevel: number;
   public actualLevel  :   number;
   private lastNav     :   NavController;
@@ -16,10 +20,13 @@ export class SelectLevelPage {
   public imageSound   :   String;
   public gamePage     :   any;
   public typeOfGame : any;
+  public hasMoney:boolean;
+
   constructor(
     public navCtrl        : NavController,
     public navParams      : NavParams,
     public viewCtrl       : ViewController,
+    public login          : Login,
     private audioProvider : AudioProvider)
      {
     this.level=this.navParams.get("level");
@@ -30,6 +37,7 @@ export class SelectLevelPage {
     this.actualLevel=this.level;
     this.navCtrl=this.lastNav;
     this.changeSoundIcon();
+    this.setupUnlockedLevels();
   }
 
   loadLevels(){
@@ -38,9 +46,13 @@ export class SelectLevelPage {
     }else{
       this.minLevel=1;
     }
-    this.maxLevel=this.navParams.get("maxLevel");
+    this.maxLevel=200;
   }
-
+  public async buyLevel(){
+    await this.login.buyLevel();
+    await this.login.saveProgress(this.level-1, true);
+    await this.unlockLevel();
+  }
   goToLevel()
   { 
     this.viewCtrl.dismiss(); 
@@ -50,9 +62,19 @@ export class SelectLevelPage {
   ionViewDidLoad() {
     
   }
+  async unlockLevel(){
+    this.setupUnlockedLevels();
+  }
   next()
   {
     this.level++;
+    this.setupUnlockedLevels();
+  }
+  setupUnlockedLevels()
+  {
+    this.levelEnabled=this.thisLevelIsUnlocked();
+    this.levelAvaiableToUnlock=this.isAvaiableToUnlocked();
+    this.hasMoney=LoginStatus.userProgress.coins>=25;
   }
   previus()
   {
@@ -61,8 +83,54 @@ export class SelectLevelPage {
     {
       this.level=1;
     }
-
+    this.setupUnlockedLevels();
+  }
+  isAvaiableToUnlocked()
+  {
+    let easyLevel=LoginStatus.userProgress.easyLevel;
+    let mediumLevel=LoginStatus.userProgress.mediumLevel;
+    let hardLevel=LoginStatus.userProgress.hardLevel;
+    let extremeLevel=LoginStatus.userProgress.extremeLevel;
+    if (this.level>0 && this.level<16)
+    {
+      return this.level==easyLevel+1;
+    }
+    if (this.level>=16 && this.level<31)
+    {
+      return this.level==mediumLevel+1;
+    }
+    if (this.level>=31 && this.level<46)
+    {
+      return this.level==hardLevel+1;
+    }
+    if (this.level>=125)
+    {
+      return this.level==extremeLevel+1;
+    }
+  }
+  thisLevelIsUnlocked()
+  {
     
+    let easyLevel=LoginStatus.userProgress.easyLevel;
+    let mediumLevel=LoginStatus.userProgress.mediumLevel;
+    let hardLevel=LoginStatus.userProgress.hardLevel;
+    let extremeLevel=LoginStatus.userProgress.extremeLevel;
+    if (this.level>0 && this.level<16)
+    {
+      return this.level<=easyLevel;
+    }
+    if (this.level>=16 && this.level<31)
+    {
+      return this.level<=mediumLevel;
+    }
+    if (this.level>=31 && this.level<46)
+    {
+      return this.level<=hardLevel;
+    }
+    if (this.level>=125)
+    {
+      return this.level<=extremeLevel;
+    }
   }
   public changeSoundIcon(){
     if(this.audioProvider.isMuted()){

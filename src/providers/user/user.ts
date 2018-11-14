@@ -59,11 +59,11 @@ export class UserProvider {
     
         return count;
     }
-    async updateProgress(level:number)
+    async updateProgress(level:number, isBuy:boolean)
     {
         let userInfo:string=LoginStatus.username;
         let user=await this.getUserByUsername(userInfo);
-        user.userProgress.nextLevel(level);
+        user.userProgress.nextLevel(level, isBuy);
         await this.saveUser(user);
     }
     async updateProgressSuper(level:number)
@@ -98,6 +98,12 @@ export class UserProvider {
         let userInfo:string=LoginStatus.username;
         let user=await this.getUserByUsername(userInfo);
         user.userProgress.updateCoins();
+        await this.saveUser(user);
+    }
+    async buyLevel(){
+        let userInfo:string=LoginStatus.username;
+        let user=await this.getUserByUsername(userInfo);
+        user.userProgress.buyLevel();
         await this.saveUser(user);
     }
 }
