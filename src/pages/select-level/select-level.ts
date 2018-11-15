@@ -46,7 +46,8 @@ export class SelectLevelPage {
     }else{
       this.minLevel=1;
     }
-    this.maxLevel=200;
+    this.maxLevel=this.navParams.get("maxLevel");
+    console.log("min level: "+this.minLevel+" maxLevel: "+this.maxLevel);
   }
   public async buyLevel(){
     await this.login.buyLevel();
@@ -72,9 +73,15 @@ export class SelectLevelPage {
   }
   setupUnlockedLevels()
   {
-    this.levelEnabled=this.thisLevelIsUnlocked();
-    this.levelAvaiableToUnlock=this.isAvaiableToUnlocked();
-    this.hasMoney=LoginStatus.userProgress.coins>=25;
+    if(this.typeOfGame==="words"){
+      this.levelEnabled=this.thisLevelIsUnlocked();
+      this.levelAvaiableToUnlock=this.isAvaiableToUnlocked();
+      this.hasMoney=LoginStatus.userProgress.coins>=25;
+    }else{
+      this.levelEnabled=true;
+      this.levelAvaiableToUnlock=false;
+      this.hasMoney=true;
+    }
   }
   previus()
   {
