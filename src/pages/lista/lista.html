@@ -45,9 +45,9 @@
       <ion-list>
         <div *ngFor="let productOnList of productsOnList">
           <div class="product-section" (click)="onClickDeleteAProduct(productOnList)">
-              <img class="product-listed" src="{{productOnList.image}}">
+              <img class="product-listed" src="{{productOnList.product.image}}">
             <div class="product-description-section">
-              <p class="product-description"> {{productOnList.title}} </p>
+              <p class="product-description"> {{productOnList.product.title}} </p>
             </div>
           </div>
         </div>
