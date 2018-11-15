@@ -68,27 +68,6 @@ export class CreateUserPage {
     this.navCtrl.pop();
   }
 
- async takePhoto()
-  {
-    this.options = {
-      quality: 100,
-      sourceType: this.camera.PictureSourceType.CAMERA,
-      saveToPhotoAlbum: true,
-      correctOrientation: true,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      mediaType: this.camera.MediaType.VIDEO
-    }
-    await this.camera.getPicture(this.options)
-      .then((imageData)=>{
-        this.Picture = "data:image/jpeg;base64,"+imageData;
-      }).then((path) => {
-        this.path = path;
-      }).catch((error) => {
-        console.log(error);
-      })
-      this.Image=this.Picture;
-  }
-
   async takePicture(source) {
     try {
       let cameraOptions: CameraOptions = {

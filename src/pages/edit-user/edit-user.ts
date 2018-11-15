@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, Select } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { LoginStatus } from '../../providers/login/LoginStatus';
-import { Camera } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 import { AvatarProvider } from '../../shared/providers/AvatarProvider';
 import { Login } from '../../providers/login/Login';
@@ -74,27 +74,31 @@ export class EditUserPage {
     }
   }
 
- async takePhoto()
-  {
-    this.options = {
-      quality: 100,
-      sourceType: this.camera.PictureSourceType.CAMERA,
-      saveToPhotoAlbum: true,
-      correctOrientation: true,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      mediaType: this.camera.MediaType.VIDEO
+  async takePicture(source) {
+    try {
+      let cameraOptions: CameraOptions = {
+        quality: 50,
+        targetWidth: 800,
+        targetHeight: 800,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        correctOrientation: true,
+        saveToPhotoAlbum: (source == 'camera') ? true : false,
+        allowEdit: true
+      };
+      
+      cameraOptions.sourceType = (source == 'camera') ? this.camera.PictureSourceType.CAMERA :
+                                                        this.camera.PictureSourceType.PHOTOLIBRARY;
+      
+      const result = await this.camera.getPicture(cameraOptions);
+      const image = 'data:image/jpeg;base64,' + result;
+
+      this.Image = image;
+      
+    } catch(e) {
+      console.log(e);
     }
-    await this.camera.getPicture(this.options)
-      .then((imageData)=>{
-        this.Picture = "data:image/jpeg;base64,"+imageData;
-        this.isenabled=true;
-      }).then((path) => {
-        this.path = path;
-      }).catch((error) => {
-        console.log(error);
-      })
-      this.Image=this.Picture;
-      var a=1;
   }
 
   deleteImage()
