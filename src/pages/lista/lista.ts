@@ -32,7 +32,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   imageSound: String;
   productPageIndex: number;
   categoriesPageIndex: number;
-  productsOnList: Array<Product> = [];
+  productsOnList: Array<ProductList> = [];
   numberOfProductsOnList: number;
   onViewProducts: Array<Product> = [];
   onViewCategories: Array<{id: number, name: string}>=[];
@@ -74,11 +74,12 @@ export class ListaPage implements OnInit, AfterViewInit {
       console.error(error);
     });
     this.changeSoundIcon();
-    this.reloadProductsOnList();
+    this.loadProductsOnList();
     this.chargeProducts();
   }
 
   chargeProducts(){
+    console.log(this.products);
     let bound = this.productPageIndex+this.ON_VIEW_LIST_LENGTH;
     if(bound > this.products.length){
       bound = this.products.length;
@@ -101,7 +102,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     }).catch(error => {
       console.error(error);
     });
-    this.reloadProductsOnList();
+    //this.loadProductsOnList();
     this.initializerVariables();
     this.changeSoundIcon();
   }
@@ -265,7 +266,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   deleteListOfProducts() {
     this.productListProvider.deleteProductListByListId(this.navParams.get("listId"))
     .then(result => {
-      if(result) this.reloadProductsOnList();
+      if(result) this.loadProductsOnList();
     }).catch(error => {
       console.error(error);
     });
@@ -276,7 +277,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     }).catch(error => {
       console.log(error);
     });
-    this.reloadProductsOnList();
+    this.loadProductsOnList();
     this.productListProvider.getCountByListId(this.navParams.get("listId"))
     .then(result => {
       this.numberOfProductsOnList = result;
@@ -289,15 +290,20 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.audioProvider.playPronunciationOfTheProductName(word);
   }
 
-  reloadProductsOnList() {
-    this.productListProvider.getProductListByListId(this.navParams.get("listId"))
+  loadProductsOnList() {
+    let listId=this.navParams.get("listId");
+    this.productListProvider.getProductListByListId(listId)
     .then(productList => {
       this.productsOnList.splice(0, this.productsOnList.length);
       productList.forEach(productOfProductList => {
         this.productsProvider.getProductById(productOfProductList.product_id)
-        .then(productToProductList => {
-          this.productsOnList.push(productToProductList);
-          this.products=this.products.filter(product => product.id!=productToProductList.id);
+        .then(product => {
+          let productList=new ProductList();
+          productList.list_id=listId;
+          productList.product_id=product.id;
+          productList.product=product;
+          this.productsOnList.push(productList);
+          this.products=this.products.filter(product => product.id!=product.id);
           this.chargeProducts();
         }).catch(error => {
           console.log(error);
