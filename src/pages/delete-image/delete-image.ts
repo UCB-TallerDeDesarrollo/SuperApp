@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { EditUserPage } from '../edit-user/edit-user';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the DeleteImagePage page.

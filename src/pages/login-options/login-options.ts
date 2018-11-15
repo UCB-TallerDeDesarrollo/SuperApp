@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
+import { NavController, ToastController, ModalController } from 'ionic-angular';
 import { ViewUserPage } from '../view-user/view-user';
 import { UserLoginPage } from '../user-login/user-login';
 import { CreateUserPage } from '../create-user/create-user';

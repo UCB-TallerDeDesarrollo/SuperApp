@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, Select, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, Select, ModalController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { LoginStatus } from '../../providers/login/LoginStatus';
 import { Camera } from '@ionic-native/camera';
