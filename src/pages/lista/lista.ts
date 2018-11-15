@@ -134,33 +134,28 @@ export class ListaPage implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       let product_id = + (el.id.split("-")[1]);
-      this.productsProvider.getProductById(product_id)
-      .then(p => {
-        let productListTemp = new ProductList();
-        productListTemp.list_id = this.navParams.get("listId");
-        productListTemp.product_id = p.id;
-        this.productListProvider.saveProductList(productListTemp)
-        .then(response => {
-          if(response) this.reloadProductsOnList();
-        }).catch(error => {
-          console.error(error);
-        });
-        this.audioProvider.playPronunciationOfTheProductName(p.title);
-        this.productsProvider.updateProduct(p)
-        .then(response => {
-          if(response) this.onSelectCategory(this.selectedCategory);
-        }).catch(error => {
-          console.log(error);
-        });
-        this.productListProvider.getCountByListId(this.navParams.get("listId"))
-        .then(result => {
-          this.numberOfProductsOnList = result;
-        }).catch(error => {
-          console.error(error);
-        });
+      let product=this.products.find(el=>el.id===product_id);
+      let productListTemp = new ProductList();
+      productListTemp.list_id = this.navParams.get("listId");
+      productListTemp.product_id = product.id;
+      productListTemp.product=product;
+      console.log(productListTemp);
+      //this.productListProvider.saveProductList(productListTemp)
+      this.productsOnList.push(productListTemp);
+      console.log(this.productsOnList);
+      this.products=this.products.filter(prod => prod.id!==product.id);
+      console.log(this.products);
+      this.chargeProducts();
+      this.audioProvider.playPronunciationOfTheProductName(product.title);
+      /*this.productsProvider.updateProduct(product)
+      .then(response => {
+        if(response) {
+          this.onSelectCategory(this.selectedCategory)
+        };
       }).catch(error => {
         console.log(error);
-      });
+      });*/
+      this.numberOfProductsOnList = this.productsOnList.length;
       el.remove();
     });
   }
@@ -211,8 +206,17 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.selectedCategory = category;
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
     .then(products => {
-      this.products=products;
-      this.reloadProductsOnList();
+      this.products=products.filter(product => {
+        let isNotOnList =true;
+        for(let productList of this.productsOnList){
+          if(product.id===productList.product.id){
+            isNotOnList=false;
+            break;
+          }
+        }
+        return isNotOnList;
+      });
+      //this.loadProductsOnList();
       this.productPageIndex = 0;
       this.chargeProducts();
     }).catch(error => {
@@ -251,7 +255,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
     .then(products => {
       this.products = products;
-      this.reloadProductsOnList();
+      this.loadProductsOnList();
       this.chargeProducts();
     }).catch(error => {
       console.log(error);
