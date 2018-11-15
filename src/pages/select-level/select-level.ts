@@ -46,7 +46,8 @@ export class SelectLevelPage {
     }else{
       this.minLevel=1;
     }
-    this.maxLevel=200;
+    this.maxLevel=this.navParams.get("maxLevel");
+    console.log("min level: "+this.minLevel+" maxLevel: "+this.maxLevel);
   }
   public async buyLevel(){
     await this.login.buyLevel();
