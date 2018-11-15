@@ -7,7 +7,6 @@
 <ion-content padding class={{backgroundColor}}>
     <div class="level-header">
         <h1 class="change-level" (click)="changeLevel()">NIVEL {{game.Level}}</h1>
-        <ion-icon name="logo-bitcoin">  {{coins}}</ion-icon>
     </div>
     <div class="music-logo">
         <img [src]="imageSound" (click)="stopSound()">
@@ -35,7 +34,12 @@
                     <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
                 </div>
             </div>
-           
+            <div class="coin-icon">
+                <img src="assets/icon/coin.png" class="coin-icon">
+            </div>
+            <div class="coins-amount">
+                <h1 class="change-level" >{{coins}}</h1>
+            </div>
         </div>
         
 </ion-footer>
