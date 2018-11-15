@@ -73,9 +73,15 @@ export class SelectLevelPage {
   }
   setupUnlockedLevels()
   {
-    this.levelEnabled=this.thisLevelIsUnlocked();
-    this.levelAvaiableToUnlock=this.isAvaiableToUnlocked();
-    this.hasMoney=LoginStatus.userProgress.coins>=25;
+    if(this.typeOfGame==="words"){
+      this.levelEnabled=this.thisLevelIsUnlocked();
+      this.levelAvaiableToUnlock=this.isAvaiableToUnlocked();
+      this.hasMoney=LoginStatus.userProgress.coins>=25;
+    }else{
+      this.levelEnabled=true;
+      this.levelAvaiableToUnlock=false;
+      this.hasMoney=true;
+    }
   }
   previus()
   {
