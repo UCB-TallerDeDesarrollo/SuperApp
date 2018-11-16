@@ -33,7 +33,6 @@ export class ListaPage implements OnInit, AfterViewInit {
   productPageIndex: number;
   categoriesPageIndex: number;
   productsOnList: Array<ProductList> = [];
-  numberOfProductsOnList: number;
   onViewProducts: Array<Product> = [];
   onViewCategories: Array<{id: number, name: string}>=[];
   ON_VIEW_LIST_LENGTH = 12;
@@ -79,7 +78,6 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   chargeProducts(){
-    console.log(this.products);
     let bound = this.productPageIndex+this.ON_VIEW_LIST_LENGTH;
     if(bound > this.products.length){
       bound = this.products.length;
@@ -102,7 +100,6 @@ export class ListaPage implements OnInit, AfterViewInit {
     }).catch(error => {
       console.error(error);
     });
-    //this.loadProductsOnList();
     this.initializerVariables();
     this.changeSoundIcon();
   }
@@ -140,23 +137,10 @@ export class ListaPage implements OnInit, AfterViewInit {
       productListTemp.list_id = this.navParams.get("listId");
       productListTemp.product_id = product.id;
       productListTemp.product=product;
-      console.log(productListTemp);
-      //this.productListProvider.saveProductList(productListTemp)
       this.productsOnList.push(productListTemp);
-      console.log(this.productsOnList);
       this.products=this.products.filter(prod => prod.id!==product.id);
-      console.log(this.products);
       this.chargeProducts();
       this.audioProvider.playPronunciationOfTheProductName(product.title);
-      /*this.productsProvider.updateProduct(product)
-      .then(response => {
-        if(response) {
-          this.onSelectCategory(this.selectedCategory)
-        };
-      }).catch(error => {
-        console.log(error);
-      });*/
-      this.numberOfProductsOnList = this.productsOnList.length;
       el.remove();
     });
   }
@@ -217,7 +201,6 @@ export class ListaPage implements OnInit, AfterViewInit {
         }
         return isNotOnList;
       });
-      //this.loadProductsOnList();
       this.productPageIndex = 0;
       this.chargeProducts();
     }).catch(error => {
@@ -248,42 +231,15 @@ export class ListaPage implements OnInit, AfterViewInit {
     alert.present();
   }
 
-  onClickDeleteAProduct(product) {
-    let productId=product.id;
-    let listId=this.navParams.get("listId");
-    this.productListProvider.deleteProductListByProductIdAndListId(productId, listId);
-
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
-    .then(products => {
-      this.products = products;
-      this.loadProductsOnList();
-      this.chargeProducts();
-    }).catch(error => {
-      console.log(error);
-    });
+  onClickDeleteAProduct(productOfList) {
+    let productId=productOfList.product.id;
+    this.productsOnList=this.productsOnList.filter(onList=>onList.product_id!==productId);
+    this.onSelectCategory(this.selectedCategory);    
   }
 
   deleteListOfProducts() {
-    this.productListProvider.deleteProductListByListId(this.navParams.get("listId"))
-    .then(result => {
-      if(result) this.loadProductsOnList();
-    }).catch(error => {
-      console.error(error);
-    });
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
-    .then(products => {
-      this.products = products;
-      this.chargeProducts();
-    }).catch(error => {
-      console.log(error);
-    });
-    this.loadProductsOnList();
-    this.productListProvider.getCountByListId(this.navParams.get("listId"))
-    .then(result => {
-      this.numberOfProductsOnList = result;
-    }).catch(error => {
-      console.error(error);
-    });
+    this.productsOnList=[];
+    this.onSelectCategory(this.selectedCategory);
   }
 
   public playPronunciationOfTheProductName(word:string) {
@@ -311,12 +267,6 @@ export class ListaPage implements OnInit, AfterViewInit {
       });
     }).catch(error => {
       console.log(error);
-    });
-    this.productListProvider.getCountByListId(this.navParams.get("listId"))
-    .then(result => {
-      this.numberOfProductsOnList = result;
-    }).catch(error => {
-      console.error(error);
     });
   }
 }
