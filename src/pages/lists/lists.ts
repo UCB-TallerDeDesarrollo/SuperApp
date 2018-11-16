@@ -10,7 +10,7 @@ import { User } from '../../entities/user';
 import { ListProvider } from '../../providers/list/list';
 import { Login } from '../../providers/login/Login';
 import { EditListPage } from '../edit-list/edit-list';
-import {ConfirmationPage} from './../confirmation/confirmation';
+import { ConfirmationPage } from './../confirmation/confirmation';
 
 @IonicPage()
 @Component({

@@ -1,7 +1,7 @@
 import { ListProvider } from './../../providers/list/list';
 import { ProductListProvider } from './../../providers/product-list/product-list';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController, AlertController, NavParams } from 'ionic-angular';
+import { NavController, AlertController, NavParams, ModalController } from 'ionic-angular';
 import { ProductsPage } from '../products/products';
 import { DragulaService } from 'ng2-dragula';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
@@ -16,6 +16,7 @@ import { LoginStatus } from '../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
 import { Login } from '../../providers/login/Login';
 import { ListsPage } from './../lists/lists';
+import { ConfirmationPage } from './../confirmation/confirmation';
 
 @Component({
   selector: 'page-lista',
@@ -51,7 +52,8 @@ export class ListaPage implements OnInit, AfterViewInit {
               public productListProvider: ProductListProvider,
               public listProvider: ListProvider,
               public userProvider: UserProvider,
-              private login: Login) {
+              private login: Login,
+              private modalController: ModalController) {
     this.prepareAnonimusUser();
     this.list.name="NUEVA LISTA";
     this.productPageIndex=0;
@@ -292,6 +294,13 @@ export class ListaPage implements OnInit, AfterViewInit {
         console.error(error);
       });
     }
+  }
+
+  confirm(){
+    let callback=()=>{this.deleteList()};
+    let message="¿Realmente quieres eliminar la lista "+this.list.name+"?";
+    const confirmationModal = this.modalController.create(ConfirmationPage,{callback:callback, message:message});
+    confirmationModal.present();
   }
 
   deleteList(){
