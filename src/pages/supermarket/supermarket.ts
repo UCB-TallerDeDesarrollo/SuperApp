@@ -154,7 +154,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
         {
             level : this.game.Level, 
             lastNav : this.navController, 
-            maxLevel  : 60,
+            maxLevel  : this.game.MaxLevel,
             minLevel  : this.game.MinLevel,
             gamePage  : this,
             typeOfGame  : "supermarket"             
