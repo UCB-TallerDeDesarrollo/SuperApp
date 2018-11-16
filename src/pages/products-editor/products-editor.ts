@@ -152,11 +152,11 @@ export class ProductsEditorPage implements OnDestroy {
         }
         this.soundStatus[index] = false;
 
-        this.audioProvider.playPronunciationOfWord(product_title, function() {
+        /*this.audioProvider.playPronunciationOfWord(product_title, function() {
           this.soundStatus[index] = true;
-        });
+        });*/
 
-        //this.audioProvider.playPronunciationOfTheProductName(product_title);
+        this.audioProvider.playPronunciationOfTheProductName(product_title);
       }else{
         if(this.audio != undefined) {
           this.audio.stop();
