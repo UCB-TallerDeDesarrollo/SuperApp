@@ -154,14 +154,14 @@ export class ProductsEditorPage implements OnDestroy {
 
         this.audioProvider.playPronunciationOfWord(product_title).then(response => {
           if(response != null) {
-            return response;
+            response.then(() => {
+              console.log('OK');
+              this.soundStatus[index] = true;    
+            });
           }
           else {
             throw 'break';
           }
-        }).then(() => {
-          console.log('OK');
-          this.soundStatus[index] = true;
         }).catch(() => {
           this.soundStatus[index] = true;
         })
