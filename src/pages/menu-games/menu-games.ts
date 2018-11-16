@@ -57,8 +57,9 @@ export class MenuGamesPage {
   popPage(){
       this.navController.pop();
   }
+
   pushPageList(){
-    this.navController.push(ListsPage);
+    this.navController.push(ListaPage, { listId: -1 });
   }
 
   async databaseInitializer() {
