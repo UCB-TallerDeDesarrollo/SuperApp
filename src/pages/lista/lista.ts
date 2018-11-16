@@ -294,6 +294,20 @@ export class ListaPage implements OnInit, AfterViewInit {
     }
   }
 
+  deleteList(){
+    this.productListProvider.deleteProductListByListId(this.list.id)
+    .then(response => {
+      if(!response) console.error("Inconsistent list information");
+    })
+    this.listProvider.deleteList(this.list.id)
+    .then(response => {
+      if(!response) console.error("Inconsistent list information");
+    });
+    this.list=new List;
+    this.list.name="NUEVA LISTA";
+    this.productsOnList=[];
+  }
+
   openList(){
     this.navCtrl.pop();
     this.navCtrl.push(ListsPage);
