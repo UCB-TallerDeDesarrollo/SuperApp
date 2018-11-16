@@ -1,3 +1,4 @@
+import { Letter } from './../../interfaces/letter';
 import { LoginStatus } from './../../providers/login/LoginStatus';
 import { SelectLevelPage } from './../select-level/select-level';
 import { LevelCompletePage } from './../level-complete/level-complete';
@@ -151,8 +152,23 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.audioProvider.changeState();
         this.changeSoundIcon();
     }
+    public getFirstLetterAvailable(){
+        let availableLetter = "";
+        let sortWord = [];
+        for (let i =0 ;i<this.game.SortedWord.length; i++){
+            sortWord.push(this.game.SortedWord[i].letter);
+        }
+        let b = sortWord.toString();
+        for (let i =0; i<this.game.MessyWord.length; i++){
+            if(b.includes(this.game.MessyWord[i].letter)){
+                availableLetter = this.game.MessyWord[i].letter;
+                break;
+            }
+        }
+        return availableLetter;
+    }
     public efect(word: string){
-        let searched = this.game.MessyWord[0].letter;
+        let searched = this.getFirstLetterAvailable();
         let aux = document.getElementsByClassName("objetive-container");
         let found;
         for (var i = 0; i < aux.length; i++) {
@@ -213,7 +229,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
     
     public reduceCoins(){
-        if(this.coins >= 10){
+        if(0==0){
             this.isDisabled=true;
             this.downgradeCoins();
             this.coins=this.coins-10;
