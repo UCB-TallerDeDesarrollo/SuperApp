@@ -33,9 +33,27 @@
         background-image: url('../../assets/imgs/shelves.png');
         display: flex;
         width: 100%;
-        background-size: 50vw 70vh;
+        background-size: 50vw 72.5vh;
         background-repeat: no-repeat;
         height: 80%;
+        @media screen and (max-width: 1367px) {
+            background-size: 50vw 75vh;
+        }
+        @media screen and (max-width: 824px) {
+            background-size: 50vw 71vh;
+        }
+        @media screen and (max-width: 813px) {
+            background-size: 50vw 71vh;
+        }
+        @media screen and (max-width: 668px) {
+            background-size: 50vw 73vh;
+        }
+        @media screen and (max-width: 641px) {
+            background-size: 50vw 72.5vh;
+        }
+        @media screen and (max-width: 568px) {
+            background-size: 50vw 70vh;
+        }
         .products-to-play {
             width: 60%;
             margin: 0;
@@ -76,8 +94,8 @@
                 @media screen and (max-width: 1367px) {
                     width: 11vw;
                     height: 4vh;
-                    margin-bottom: 8.8vh;
-                    margin-top: 8.5vh;
+                    margin-bottom: 11.2vh;
+                    margin-top: 8vh;
                     margin-left: 0vw;
                     padding: 0px;
                     position: sticky;
@@ -106,9 +124,39 @@
                 @media screen and (max-width: 1025px) {
                     width: 11vw;
                     height: 4vh;
-                    margin-bottom: 11.2vh;
-                    margin-top: 6vh;
+                    margin-bottom: 12.7vh;
+                    margin-top: 5.5vh;
                     margin-left: 0vw;
+                    padding: 0px;
+                    position: sticky;
+                    .product-info {
+                        border: solid 1px black;
+                        border-radius: 8px;
+                        background-color: #fff;
+                        overflow: hidden;
+                        font-family: Arial;
+                        font-weight: bold;
+                        .product-store {
+                            object-fit: fill;
+                            width: 100%;
+                        }
+                        .product-name {
+                            font-size: 1em;
+                            overflow: hidden;
+                        }
+                        .hidden-product {
+                            visibility: hidden;
+                            font-size: 1em;
+                            overflow: hidden;
+                        }
+                    }
+                }
+                @media screen and (max-width: 961px) {
+                    width: 9vw;
+                    height: 4vh;
+                    margin-bottom: 13vh;
+                    margin-top: 4vh;
+                    margin-left: 1vw;
                     padding: 0px;
                     position: sticky;
                     .product-info {
@@ -136,8 +184,8 @@
                 @media screen and (max-width: 824px) {
                     width: 9vw;
                     height: 4vh;
-                    margin-bottom: 12vh;
-                    margin-top: 5vh;
+                    margin-bottom: 13vh;
+                    margin-top: 4.5vh;
                     margin-left: 1vw;
                     padding: 0px;
                     position: sticky;
@@ -166,8 +214,38 @@
                 @media screen and (max-width: 813px) {
                     width: 9vw;
                     height: 4vh;
-                    margin-bottom: 13vh;
-                    margin-top: 4vh;
+                    margin-bottom: 14.9vh;
+                    margin-top: 2.8vh;
+                    margin-left: 1vw;
+                    padding: 0px;
+                    position: sticky;
+                    .product-info {
+                        border: solid 1px black;
+                        border-radius: 8px;
+                        background-color: #fff;
+                        overflow: hidden;
+                        font-family: Arial;
+                        font-weight: bold;
+                        .product-store {
+                            object-fit: fill;
+                            width: 100%;
+                        }
+                        .product-name {
+                            font-size: 0.55em;
+                            overflow: hidden;
+                        }
+                        .hidden-product {
+                            visibility: hidden;
+                            font-size: 0.55em;
+                            overflow: hidden;
+                        }
+                    }
+                }
+                @media screen and (max-width: 741px) {
+                    width: 9vw;
+                    height: 4vh;
+                    margin-bottom: 15.5vh;
+                    margin-top: 2vh;
                     margin-left: 1vw;
                     padding: 0px;
                     position: sticky;
@@ -196,8 +274,8 @@
                 @media screen and (max-width: 737px) {
                     width: 9vw;
                     height: 4vh;
-                    margin-bottom: 12.4vh;
-                    margin-top: 5.1vh;
+                    margin-bottom: 13.7vh;
+                    margin-top: 4vh;
                     margin-left: 10px;
                     padding: 0px;
                     position: sticky;
@@ -226,8 +304,8 @@
                 @media screen and (max-width: 668px) {
                     width: 10vw;
                     height: 4vh;
-                    margin-bottom: 13vh;
-                    margin-top: 4vh;
+                    margin-bottom: 14.6vh;
+                    margin-top: 3.5vh;
                     margin-left: 1vw;
                     padding: 0px;
                     position: sticky;
@@ -255,8 +333,8 @@
                 @media screen and (max-width: 641px) {
                     width: 10vw;
                     height: 4vh;
-                    margin-bottom: 13vh;
-                    margin-top: 4vh;
+                    margin-bottom: 14.5vh;
+                    margin-top: 3.5vh;
                     margin-left: 1vw;
                     padding: 0px;
                     position: sticky;
@@ -292,8 +370,8 @@
                 @media screen and (max-width: 568px) {
                     width: 10vw;
                     height: 4vh;
-                    margin-bottom: 11vh;
-                    margin-top: 6vh;
+                    margin-bottom: 12.7vh;
+                    margin-top: 4.5vh;
                     margin-left: 1vw;
                     padding: 0px;
                     position: sticky;
@@ -417,6 +495,35 @@
                     margin-bottom: 105px;
                     margin-top: 20px;
                     margin-left: 30px;
+                    .product-info {
+                        border: solid 1px black;
+                        border-radius: 8px;
+                        background-color: #fff;
+                        overflow: hidden;
+                        font-family: Arial;
+                        font-weight: bold;
+                        .product-store {
+                            object-fit: fill;
+                            width: 100%;
+                        }
+                        .product-name {
+                            font-size: 1em;
+                            overflow: hidden;
+                        }
+                        .hidden-product {
+                            visibility: hidden;
+                            font-size: 1em;
+                            overflow: hidden;
+                        }
+                    }
+                }
+                @media screen and (max-width: 961px) {
+                    width: 19%;
+                    height: 0%;
+                    padding: 0px;
+                    margin-bottom: 87px;
+                    margin-top: 7px;
+                    margin-left: 28px;
                     .product-info {
                         border: solid 1px black;
                         border-radius: 8px;
@@ -681,6 +788,9 @@
         }
         @media screen and (max-width: 1024px) {
             height: 77px;
+        }
+        @media screen and (max-width: 961px) {
+            height: 56px;
         }
         @media screen and (max-width: 824px) {
             height: 42px;
