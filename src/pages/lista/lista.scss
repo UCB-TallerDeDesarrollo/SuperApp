@@ -175,15 +175,27 @@
 
         .product-name {
           font-size: 65%;
-
-          /*@media screen and (min-width: 1024px) and (max-width: 1367px) {
-            font-size: 1.5em;
-          }*/
-
           text-align: center;
           margin-top: -2px;
         }
       }
+    }
+  }
+
+  .icon{
+    width: 4vw;
+    height: 8vh;
+    display: inline-block;
+    position: relative;
+    left:80%;
+    .save{
+      left: 87%;
+    }
+    .open{
+      left: 80%;
+    }
+    .delete{
+      left: 73%;
     }
   }
 
@@ -514,8 +526,20 @@
 .hide{
   display: none;
 }
+
 .back-arrow {
   background-color: transparent;
   box-shadow: none;
 }
 
+.create-list{
+  border-radius: 20px !important;
+  width: 50%;
+  position: relative;
+  left: 20%;
+  margin-top: -6%;
+}
+
+.input-text{
+  width: 60%;
+}

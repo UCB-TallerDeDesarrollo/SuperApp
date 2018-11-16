@@ -3,7 +3,6 @@ import { ProductListProvider } from './../../providers/product-list/product-list
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NavController, AlertController, NavParams } from 'ionic-angular';
 import { ProductsPage } from '../products/products';
-import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { Category } from '../../entities/category';
@@ -13,6 +12,10 @@ import { CategoryProvider } from '../../providers/category/category';
 import { ProductsProvider } from '../../providers/product/product';
 import { ProductList } from '../../entities/productList';
 import { List } from '../../entities/list';
+import { EditListPage } from './../edit-list/edit-list';
+import { CreateListPage } from './../create-list/create-list';
+import { UserProvider } from './../../providers/user/user';
+import { Login } from '../../providers/login/Login';
 
 @Component({
   selector: 'page-lista',
@@ -46,7 +49,10 @@ export class ListaPage implements OnInit, AfterViewInit {
               private audioProvider: AudioProvider,
               private alertCtrl: AlertController,
               public productListProvider: ProductListProvider,
-              public listProvider: ListProvider) {
+              public listProvider: ListProvider,
+              public userProvider: UserProvider,
+              private login: Login) {
+    this.prepareAnonimusUser();
     this.list.name="NUEVA LISTA";
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
@@ -272,4 +278,29 @@ export class ListaPage implements OnInit, AfterViewInit {
       console.log(error);
     });
   }
+
+  async saveList() {
+    
+  }
+
+  editName(){
+    let title=<HTMLBodyElement>document.querySelector("#list-name");
+    let form=<HTMLBodyElement>document.querySelector("#name-form");
+    title.classList.add("hide");
+    form.classList.remove("hide");
+  }
+
+  saveListsName(){
+    let title=<HTMLBodyElement>document.querySelector("#list-name");
+    let form=<HTMLBodyElement>document.querySelector("#name-form");
+    this.list.name=this.list.name.toUpperCase();
+    title.classList.remove("hide");
+    form.classList.add("hide");
+  }
+
+  async prepareAnonimusUser() {
+    await this.userProvider.prepareAnonimusUser();
+    await this.login.loadingGameData();
+  }
+
 }
