@@ -29,6 +29,7 @@ export class ProductsEditorPage implements OnDestroy {
   audio: MediaObject;
   playing: boolean = true;
   rowSelected;
+  soundStatus: boolean[];
 
   constructor(private platform: Platform,
               public navCtrl: NavController,
@@ -60,6 +61,10 @@ export class ProductsEditorPage implements OnDestroy {
     this.productsProvider.getProducts()
     .then(products => {
       this.products = products.filter(product=>product.on_list==1);
+      this.soundStatus = new Array<boolean>(products.length);
+      for(let index = 0; index < products.length; ++index) {
+        this.soundStatus[index] = true;
+      }
     }).catch(error =>{
       console.error(error);
     });
@@ -139,11 +144,24 @@ export class ProductsEditorPage implements OnDestroy {
     }
   }
 
-  public playSoundOfWord(product_title :string, product_audio :string) {
-    if(product_audio == " "){
-      this.audioProvider.playPronunciationOfTheProductName(product_title);
-    }else{
-      this.playAudio(product_audio);
+  public playSoundOfWord(product_title :string, product_audio :string, index: number) {
+    if(this.platform.is('cordova') || true) {
+      if(product_audio != " "){
+        for(let index = 0; index < this.soundStatus.length; ++index) {
+          this.soundStatus[index] = true;
+        }
+        this.soundStatus[index] = false;
+        this.audioProvider.playPronunciationOfTheProductName(product_title);
+      }else{
+        if(this.audio != undefined) {
+          this.audio.stop();
+        }
+        for(let index = 0; index < this.soundStatus.length; ++index) {
+          this.soundStatus[index] = true;
+        }
+        this.soundStatus[index] = false;
+        this.playAudio(product_audio);
+      }
     }
   }
 
@@ -165,9 +183,14 @@ export class ProductsEditorPage implements OnDestroy {
     },
     2000);
   }
-  stopAudio(){
-    this.audio.stop();
-    this.playing=true;
+
+  stopAudio(product_audio :string, index: number){
+    this.soundStatus[index] = true;
+    if(product_audio == " "){
+    
+    }else{
+      this.audio.stop();
+    }
   }
 
   confirm(product: Product){
