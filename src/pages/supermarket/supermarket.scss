@@ -1,16 +1,11 @@
 .supermarket-container {
-    
     background-image: url(../../assets/imgs/backgroundlista0.jpg);
     background-size: contain;
     background-repeat: round;
-
     .nav-bar-market {
-        
         float: left;
         display: inline-flex;
         width: 100%;
-        margin-bottom: 10px;
-
         &__button {
             box-shadow: none;
             background-color: transparent;
@@ -18,12 +13,9 @@
             padding: 5px;
             margin: auto;
         }
-
         &__header {
-            
             margin: 5px;
             width: 100%;
-
             .title {
                 color: white;
                 text-align: center;
@@ -31,36 +23,24 @@
                 margin: auto;
             }
         }
-
         &__sound {
             margin: auto;
             width: 60px;
             height: 50px;
         }
-        
     }
-
     .products-supermaket-container {
-        
         background-image: url('../../assets/imgs/shelves.png');
         display: flex;
         width: 100%;
-        background-size: 50% 100%;
+        background-size: 50vw 70vh;
         background-repeat: no-repeat;
         height: 80%;
-
         .products-to-play {
-
-            width: 50%;
-            margin: 10px;
-            margin-left: 50px;
-
-            @media screen and (max-width: 1367px) {
-                margin: 10px;
-            }
-
+            width: 60%;
+            margin: 0;
+            margin-left: 1.5vw;
             .product-block {
-
                 display: inline-block;
                 width: 150px;
                 height: 20px;
@@ -70,9 +50,7 @@
                 float: left;
                 z-index: 9999;
                 position: sticky;
-
                 .product-info {
-
                     border: solid 1px black;
                     border-radius: 8px;
                     background-color: #fff;
@@ -83,51 +61,41 @@
                     left: 0px;
                     top: 0px;
                     width: 100%;
-                    
                     .product-store {
                         object-fit: fill;
                         width: 100%;
                     }
-                    
                     .product-name {
                         font-size: 0.85em;
                     }
-                    
                     .hidden-product {
                         font-size: 0.85em;
                         visibility: hidden;
                     }
                 }
-
                 @media screen and (max-width: 1367px) {
-                    
-                    width: 120px;
-                    height: 20px;
-                    margin-bottom: 119px;
-                    margin-top: 100px;
-                    margin-left: 25px;
+                    width: 11vw;
+                    height: 4vh;
+                    margin-bottom: 8.8vh;
+                    margin-top: 8.5vh;
+                    margin-left: 0vw;
                     padding: 0px;
                     position: sticky;
-                    
                     .product-info {
-
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-
                         .product-name {
                             font-size: 1.3em;
                             overflow: hidden;
                         }
-
                         .hidden-product {
                             visibility: hidden;
                             font-size: 1.3em;
@@ -135,36 +103,29 @@
                         }
                     }
                 }
-
                 @media screen and (max-width: 1025px) {
-                    
-                    width: 90px;
+                    width: 11vw;
+                    height: 4vh;
+                    margin-bottom: 11.2vh;
+                    margin-top: 6vh;
+                    margin-left: 0vw;
                     padding: 0px;
-                    height: 20px;
-                    margin-bottom: 110px;
-                    margin-top: 50px;
-                    margin-left: 15px;
                     position: sticky;
-
                     .product-info {
-
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-
                         .product-name {
                             font-size: 1em;
                             overflow: hidden;
                         }
-
                         .hidden-product {
                             visibility: hidden;
                             font-size: 1em;
@@ -172,112 +133,89 @@
                         }
                     }
                 }
-
                 @media screen and (max-width: 824px) {
-                    
-                    width: 60px;
-                    height: 20px;
+                    width: 9vw;
+                    height: 4vh;
+                    margin-bottom: 12vh;
+                    margin-top: 5vh;
+                    margin-left: 1vw;
                     padding: 0px;
-                    margin-bottom: 58px;
-                    margin-top: 15px;
-                    margin-left: 17px;
                     position: sticky;
-
                     .product-info {
-
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-
                         .product-name {
                             font-size: 0.55em;
                             overflow: hidden;
                         }
-
                         .hidden-product {
                             visibility: hidden;
                             font-size: 0.55em;
                             overflow: hidden;
                         }
                     }
-
                 }
-
                 @media screen and (max-width: 813px) {
-                    
-                    width: 60px;
-                    height: 20px;
+                    width: 9vw;
+                    height: 4vh;
+                    margin-bottom: 13vh;
+                    margin-top: 4vh;
+                    margin-left: 1vw;
                     padding: 0px;
-                    margin-bottom: 55px;
-                    margin-top: 9px;
-                    margin-left: 17px;
                     position: sticky;
-
                     .product-info {
-
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-
                         .product-name {
                             font-size: 0.55em;
                             overflow: hidden;
                         }
-
                         .hidden-product {
                             visibility: hidden;
                             font-size: 0.55em;
                             overflow: hidden;
                         }
                     }
-
                 }
-
                 @media screen and (max-width: 737px) {
-                    
-                    width: 60px;
-                    height: 20px;
-                    padding: 0px;
-                    margin-bottom: 58px;
-                    margin-top: 15px;
+                    width: 9vw;
+                    height: 4vh;
+                    margin-bottom: 12.4vh;
+                    margin-top: 5.1vh;
                     margin-left: 10px;
+                    padding: 0px;
                     position: sticky;
-
                     .product-info {
-
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-
                         .product-name {
                             font-size: 0.55em;
                             overflow: hidden;
                         }
-
                         .hidden-product {
                             visibility: hidden;
                             font-size: 0.55em;
@@ -285,219 +223,186 @@
                         }
                     }
                 }
-
                 @media screen and (max-width: 668px) {
-                    
-                    width: 60px;
-                    height: 20px;
+                    width: 10vw;
+                    height: 4vh;
+                    margin-bottom: 13vh;
+                    margin-top: 4vh;
+                    margin-left: 1vw;
                     padding: 0px;
-                    margin-bottom: 56px;
-                    margin-top: 8px;
                     position: sticky;
-                    margin-left: 5px;
-
                     .product-info {
-
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-
                         .product-name {
                             font-size: 0.55em;
                             overflow: hidden;
                         }
-
                         .hidden-product {
                             font-size: 0.55em;
                             visibility: hidden;
                         }
                     }
                 }
-
                 @media screen and (max-width: 641px) {
-                    
-                    width: 60px;
-                    height: 20px;
+                    width: 10vw;
+                    height: 4vh;
+                    margin-bottom: 13vh;
+                    margin-top: 4vh;
+                    margin-left: 1vw;
                     padding: 0px;
-                    margin-bottom: 52px;
-                    margin-top: 8px;
-                    margin-left: 5px;
                     position: sticky;
-
                     .product-info {
-
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-
                         .product-name {
                             font-size: 0.55em;
                             overflow: hidden;
                         }
-
                         .hidden-product {
                             font-size: 0.55em;
                             visibility: hidden;
                         }
                     }
                 }
-
-                @media screen and (max-width: 569px) {
-                    
-                    width: 50px;
-                    height: 20px;
+                @media screen and (max-width: 570px) {
+                    width: 10vw;
+                    height: 4vh;
+                    margin-bottom: 15.5vh;
+                    margin-top: 2vh;
+                    margin-left: 1vw;
                     padding: 0px;
-                    margin-bottom: 40px;
-                    margin-top: 10px;
-                    margin-left: 5px;
+                }
+                @media screen and (max-width: 568px) {
+                    width: 10vw;
+                    height: 4vh;
+                    margin-bottom: 11vh;
+                    margin-top: 6vh;
+                    margin-left: 1vw;
+                    padding: 0px;
                     position: sticky;
-
                     .product-info {
-
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-
                         .product-name {
                             font-size: 0.45em;
                             overflow: hidden;
                         }
-
                         .hidden-product {
                             font-size: 0.45em;
                             visibility: hidden;
                         }
                     }
                 }
-
             }
-
         }
-
         .products-to-buy {
-
             width: 50%;
-            height: 80%;
+            height: 70%;
             border: solid 2px black;
-            border-radius: 8px;
+            border-radius: 20px;
             background-color: #fff;
             text-align: center;
-    
+            @media screen and (min-width: 1023px) and (max-width: 1367px) {
+                height: 60%;
+            }
             .title {
                 margin-top: 10px;
                 font-size: 2em;
-   
+                font-weight: bold;
                 @media screen and (max-width: 1367px) {
                     margin-top: 10px;
                     font-size: 4em;
                 }
-
                 @media screen and (max-width: 824px) {
                     margin-top: 10px;
                     font-size: 2em;
                 }
-
                 @media screen and (max-width: 668px) {
                     margin-top: 10px;
                     font-size: 1.5em;
                 }
-
                 @media screen and (max-width: 569px) {
                     margin-top: 10px;
                     font-size: 1.5em;
                 }
             }
-    
             .product-block {
-    
                 display: inline-block;
-                width: 180px;
-                height: 50px;
+                width: 150px;
+                height: 60px;
                 padding: 30px;
                 margin-bottom: 65px;
-                margin-top: 50px;
+                margin-top: 30px;
                 margin-left: 40px;
                 float: left;
                 z-index: 1;
-    
-    
                 .product-info {
-    
                     border: solid 1px black;
                     border-radius: 8px;
                     background-color: #fff;
                     overflow: hidden;
                     font-family: Arial;
                     font-weight: bold;
-                    
                     .product-store {
                         object-fit: fill;
                         width: 100%;
                     }
-                    
                     .product-name {
                         font-size: 0.85em;
                     }
-                    
                     .hidden-product {
                         font-size: 0.85em;
                         visibility: hidden;
                         object-fit: fill;
                     }
                 }
-    
                 @media screen and (max-width: 1367px) {
-                    
-                    width: 120px;
-                    height: 20px;
-                    margin-top: 120px;
+                    width: 17%;
+                    height: 0%;
                     margin-left: 60px;
                     padding: 0px;
                     margin-right: 26px;
-                    
+                    margin-bottom: 120px;
                     .product-info {
-    
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-    
                         .product-name {
                             font-size: 1.3em;
                             overflow: hidden;
                         }
-    
                         .hidden-product {
                             visibility: hidden;
                             font-size: 1.3em;
@@ -505,35 +410,28 @@
                         }
                     }
                 }
-    
                 @media screen and (max-width: 1025px) {
-                    
-                    width: 90px;
+                    width: 20%;
+                    height: 0%;
                     padding: 0px;
-                    height: 20px;
                     margin-bottom: 105px;
-                    margin-top: 50px;
-                    margin-left: 40px;
-    
+                    margin-top: 20px;
+                    margin-left: 30px;
                     .product-info {
-    
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-    
                         .product-name {
                             font-size: 1em;
                             overflow: hidden;
                         }
-    
                         .hidden-product {
                             visibility: hidden;
                             font-size: 1em;
@@ -541,111 +439,90 @@
                         }
                     }
                 }
-    
                 @media screen and (max-width: 824px) {
-                    
-                    width: 60px;
-                    height: 20px;
+                    width: 18%;
+                    height: 4%;
                     padding: 0px;
-                    margin-bottom: 55px;
-                    margin-top: 15px;
-                    margin-left: 35px;
-                    margin-right: 30px;
-
+                    margin-top: 10px;
+                    margin-left: 15px;
+                    margin-right: 15px;
+                    margin-bottom: 0px;
+                    float: none;
                     .product-info {
-    
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-    
                         .product-name {
                             font-size: 0.55em;
                             overflow: hidden;
                         }
-    
                         .hidden-product {
                             visibility: hidden;
                             font-size: 0.55em;
                             overflow: hidden;
                         }
                     }
-    
                 }
-    
                 @media screen and (max-width: 813px) {
-                    
-                    width: 60px;
-                    height: 20px;
+                    width: 16%;
+                    height: 3%;
                     padding: 0px;
                     margin-bottom: 55px;
                     margin-top: 5px;
                     margin-left: 35px;
-    
+                    float: left;
                     .product-info {
-    
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-    
                         .product-name {
                             font-size: 0.55em;
                             overflow: hidden;
                         }
-    
                         .hidden-product {
                             visibility: hidden;
                             font-size: 0.55em;
                             overflow: hidden;
                         }
                     }
-    
                 }
-    
                 @media screen and (max-width: 737px) {
-                    
-                    width: 60px;
-                    height: 20px;
+                    width: 18%;
+                    height: 4%;
                     padding: 0px;
-                    margin-bottom: 55px;
-                    margin-top: 18px;
-                    margin-left: 20px;
+                    margin-top: 10px;
+                    margin-left: 15px;
+                    margin-right: 15px;
                     float: none;
-    
                     .product-info {
-    
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-    
                         .product-name {
                             font-size: 0.55em;
                             overflow: hidden;
                         }
-    
                         .hidden-product {
                             visibility: hidden;
                             font-size: 0.55em;
@@ -653,163 +530,108 @@
                         }
                     }
                 }
-    
                 @media screen and (max-width: 668px) {
-                    
-                    width: 60px;
-                    height: 20px;
+                    width: 19%;
+                    height: 3%;
                     padding: 0px;
                     margin-bottom: 54px;
                     margin-top: 10px;
-                    margin-left: 5px;
-                    float: right;
-
+                    float: none;
                     .product-info {
-    
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-    
                         .product-name {
                             font-size: 0.55em;
                             overflow: hidden;
                         }
-    
                         .hidden-product {
                             font-size: 0.55em;
                             visibility: hidden;
                         }
                     }
                 }
-    
                 @media screen and (max-width: 641px) {
-                    
-                    width: 60px;
-                    height: 20px;
+                    width: 21%;
+                    height: 3%;
                     padding: 0px;
                     margin-bottom: 57px;
                     margin-top: 2px;
                     margin-left: 7px;
                     margin-right: 6px;
                     float: none;
-    
                     .product-info {
-    
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-    
                         .product-name {
                             font-size: 0.55em;
                             overflow: hidden;
                         }
-    
                         .hidden-product {
                             font-size: 0.55em;
                             visibility: hidden;
                         }
                     }
                 }
-    
                 @media screen and (max-width: 569px) {
-                    
-                    width: 50px;
-                    height: 20px;
+                    width: 23%;
+                    height: 4%;
                     padding: 0px;
                     margin-bottom: 42px;
                     margin-top: 10px;
                     margin-left: 8px;
                     float: none;
-    
                     .product-info {
-    
                         border: solid 1px black;
                         border-radius: 8px;
                         background-color: #fff;
                         overflow: hidden;
                         font-family: Arial;
                         font-weight: bold;
-                        
                         .product-store {
                             object-fit: fill;
                             width: 100%;
                         }
-    
                         .product-name {
                             font-size: 0.45em;
                             overflow: hidden;
                         }
-    
                         .hidden-product {
                             font-size: 0.45em;
                             visibility: hidden;
                         }
                     }
                 }
-    
             }
         }
-        
     }
-
     .carrito_container {
-
         position: absolute;
-        margin-top: -150px;
+        bottom: 0px;
+        overflow: hidden;
         left: 70%;
-
         @media screen and (max-width: 1367px) {
-            margin-top: -190px;
-            left: 65%;
+            left: 62%;
         }
-
-        @media screen and (max-width: 1025px) {
-            margin-top: -145px;
-            left: 65%;
-        }
-
         @media screen and (max-width: 824px) {
-            margin-top: -85px;
-            left: 70%;
-        }
-
-        @media screen and (max-width: 813px) {
-            margin-top: -80px;
-            left: 70%;
-        }
-
-        @media screen and (max-width: 737px) {
-            margin-top: -84px;
-            left: 70%;
-        }
-
-        @media screen and (max-width: 668px) {
-            margin-top: -70px;
-            left: 70%;
-        }
-
-        @media screen and (max-width: 569px) {
-            margin-top: -70px;
-            left: 70%;
+            left: 67%;
         }
     }
-
     .product-block {
         display: inline-block;
         margin: 2px;
@@ -850,7 +672,6 @@
             height: 50px;
         }
     }
-
     .product-store {
         object-fit: fill;
         width: 70%;
@@ -874,149 +695,121 @@
             height: 30px;
         }
     }
-
     .product-name {
         font-size: 0.35em;
         text-align: center;
         margin-top: -3px;
     }
-
     .icon-image {
         height: 100%;
     }
-
     .gu-hide {
         left: -9999px !important;
     }
-
     .gu-unselectable {
         user-select: none !important;
     }
-
     .gu-transit {
         visibility: hidden;
         font-size: 0.05em;
         text-align: center;
         padding-bottom: 10px;
     }
-
     .hide {
         display: none;
     }
-
     .categories-block {
         display: inline-block;
         width: 54%;
         float: left;
-
         @media screen and (max-width: 1367px) {
             margin-top: -25px;
             margin-bottom: -50px;
             width: 60%;
         }
-
         @media screen and (max-width: 1025px) {
             margin-top: -25px;
             margin-bottom: -50px;
             width: 60%;
         }
-
         @media screen and (max-width: 824px) {
             margin-top: -25px;
             margin-bottom: -50px;
             width: 54%;
         }
-
         @media screen and (max-width: 813px) {
             margin-top: -25px;
             margin-bottom: -50px;
             width: 54%;
         }
-
         @media screen and (max-width: 737px) {
             margin-top: -25px;
             margin-bottom: -50px;
             width: 54%;
         }
-
         @media screen and (max-width: 732px) {
             margin-top: -25px;
             margin-bottom: -50px;
             width: 54%;
         }
-
         @media screen and (max-width: 668px) {
             margin-top: -25px;
             margin-bottom: -50px;
             width: 54%;
         }
-
         @media screen and (max-width: 641px) {
             margin-top: -25px;
             margin-bottom: -50px;
             width: 54%;
         }
-
         @media screen and (max-width: 569px) {
             margin-top: -25px;
             margin-bottom: -50px;
             width: 54%;
         }
-
-
         .category-button {
             width: 40vw;
             object-fit: contain;
         }
-
         .hide {
             display: none;
         }
     }
-
     .product-container {
-
         position: relative;
         height: 70px;
-
         @media screen and (max-width: 1367px) {
-            height: 120px;
+            height: 11vh;
         }
-
         @media screen and (max-width: 1025px) {
-            height: 100px;
+            height: 14vh;
         }
-
         @media screen and (max-width: 824px) {
-            height: 60px;
+            height: 14vh;
         }
-
         @media screen and (max-width: 813px) {
-            height: 60px;
+            height: 15vh;
         }
-
         @media screen and (max-width: 737px) {
-            height: 62px;
+            height: 15vh;
         }
-
+        //641 - 17vh
         @media screen and (max-width: 732px) {
-            height: 62px;
+            height: 14vh;
         }
-
+        //569 - 640
         @media screen and (max-width: 641px) {
-            height: 60px;
+            height: 15vh;
         }
-
+        //480 - 568
         @media screen and (max-width: 569px) {
-            height: 50px;
+            height: 14vh;
         }
     }
-
     .flex-container {
         display: flex;
         justify-content: center;
     }
-    
     .product-absolute {
         position: absolute;
         top: 0;
@@ -1025,15 +818,12 @@
         width: 100%;
         visibility: hidden;
     }
-
     .center-element {
         position: absolute;
         top: 50%;
     }
-
     .arrow {
         height: 8vh;
         width: 3.8vw;
     }
-
 }
