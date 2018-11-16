@@ -77,7 +77,6 @@ export class ListaPage implements OnInit, AfterViewInit {
     });
     this.chargeList();
     this.changeSoundIcon();
-    this.chargeProducts();
   }
 
   chargeList(){
@@ -283,16 +282,26 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   async saveList() {
     if(this.list.id){
-      this.listProvider.updateList(this.list);
+      this.listProvider.updateList(this.list).then(success => {
+        this.saveProductList();
+      });
     }else{
       this.userProvider.getUserByUsername(LoginStatus.username)
       .then(user => {
         this.list.user_id = user.id;
-        this.listProvider.saveList(this.list);
-        console.log(this.list);
+        this.listProvider.saveList(this.list).then(success => {
+          this.saveProductList();
+        });
       }).catch(error => {
         console.error(error);
       });
+    }
+  }
+
+  async saveProductList(){
+    for(let onList of this.productsOnList){
+      onList.list_id=this.list.id;
+      this.productListProvider.saveProductList(onList);
     }
   }
 
