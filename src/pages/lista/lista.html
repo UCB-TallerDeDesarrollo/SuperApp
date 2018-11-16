@@ -24,7 +24,7 @@
   </div>
   <ion-row>
     <ion-col>
-      <img src="assets/imgs/arrowgreen.png" class="{{ products.length>12 ? 'arrow' : 'hide' }}" alt="" (click)="nextProductPage()">
+      <img src="assets/imgs/arrowgreen.png" class="{{ products.length>ON_VIEW_LIST_LENGTH ? 'arrow' : 'hide' }}" alt="" (click)="nextProductPage()">
     </ion-col>
   </ion-row>
   <div class="list_categories-block">
@@ -33,7 +33,7 @@
         <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
       </ion-col>
       <ion-col>
-        <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>4 ? 'arrow' : 'hide' }}" alt="" (click)="nextCategoryPage()">
+        <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>ON_VIEW_CATEGORIES_LENGTH ? 'arrow' : 'hide' }}" alt="" (click)="nextCategoryPage()">
       </ion-col>
     </ion-row>
   </div>

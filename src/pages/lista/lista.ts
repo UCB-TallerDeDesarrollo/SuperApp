@@ -21,7 +21,7 @@ import { List } from '../../entities/list';
 })
 export class ListaPage implements OnInit, AfterViewInit {
 
-  list = new List;
+  list = new List();
   path_images = '../../assets/imgs/Products/';
   defaultCategoryId:number = 1;
   actualSelectedElement:any;
@@ -47,6 +47,7 @@ export class ListaPage implements OnInit, AfterViewInit {
               private alertCtrl: AlertController,
               public productListProvider: ProductListProvider,
               public listProvider: ListProvider) {
+    this.list.name="NUEVA LISTA";
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId);
@@ -66,15 +67,22 @@ export class ListaPage implements OnInit, AfterViewInit {
     .catch(error => {
       console.log(error);
     });
-    listProvider.getListById(this.navParams.get("listId"))
-    .then(list => {
-      this.list = list;
-    }).catch(error => {
-      console.error(error);
-    });
+    this.chargeList();
     this.changeSoundIcon();
-    this.loadProductsOnList();
     this.chargeProducts();
+  }
+
+  chargeList(){
+    let listId=this.navParams.get("listId");
+    if(listId>-1){
+      this.listProvider.getListById(listId)
+      .then(list => {
+        this.list = list;
+        this.loadProductsOnList();
+      }).catch(error => {
+        console.error(error);
+      });
+    }
   }
 
   chargeProducts(){
@@ -94,12 +102,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   ionViewWillEnter() {
-    this.listProvider.getListById(this.navParams.get("listId"))
-    .then(list => {
-      this.list = list;
-    }).catch(error => {
-      console.error(error);
-    });
+    this.chargeList();
     this.initializerVariables();
     this.changeSoundIcon();
   }
