@@ -57,6 +57,7 @@ export class ListsPage {
   }
 
   listPage(list_id: number) {
+    this.navCtrl.pop();
     this.navCtrl.push(ListaPage, { listId: list_id });
   }
 

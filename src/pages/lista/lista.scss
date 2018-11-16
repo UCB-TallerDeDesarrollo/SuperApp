@@ -11,9 +11,9 @@
   .main-title {
     position: absolute;
     text-align: center;
-    width: 100%;
+    width: 50%;
     top:30%; 
-    left:0;
+    left:25%;
 
     @media screen and (min-width: 1023px) and (max-width: 1367px) {
       font-size: 1em;
@@ -187,15 +187,15 @@
     height: 8vh;
     display: inline-block;
     position: relative;
-    left:80%;
+    left:75%;
     .save{
-      left: 87%;
+      left: 60%;
     }
     .open{
-      left: 80%;
+      left: 60%;
     }
     .delete{
-      left: 73%;
+      left: 60%;
     }
   }
 

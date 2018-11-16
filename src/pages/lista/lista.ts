@@ -12,10 +12,10 @@ import { CategoryProvider } from '../../providers/category/category';
 import { ProductsProvider } from '../../providers/product/product';
 import { ProductList } from '../../entities/productList';
 import { List } from '../../entities/list';
-import { EditListPage } from './../edit-list/edit-list';
-import { CreateListPage } from './../create-list/create-list';
+import { LoginStatus } from '../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
 import { Login } from '../../providers/login/Login';
+import { ListsPage } from './../lists/lists';
 
 @Component({
   selector: 'page-lista',
@@ -280,7 +280,23 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   async saveList() {
-    
+    if(this.list.id){
+      this.listProvider.updateList(this.list);
+    }else{
+      this.userProvider.getUserByUsername(LoginStatus.username)
+      .then(user => {
+        this.list.user_id = user.id;
+        this.listProvider.saveList(this.list);
+        console.log(this.list);
+      }).catch(error => {
+        console.error(error);
+      });
+    }
+  }
+
+  openList(){
+    this.navCtrl.pop();
+    this.navCtrl.push(ListsPage);
   }
 
   editName(){
