@@ -229,7 +229,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
     
     public reduceCoins(){
-        if(0==0){
+        if(this.coins >= 10){
             this.isDisabled=true;
             this.downgradeCoins();
             this.coins=this.coins-10;
