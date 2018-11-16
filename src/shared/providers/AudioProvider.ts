@@ -4,4 +4,5 @@ export abstract class AudioProvider {
     abstract isMuted():boolean;
     abstract playLevelCompleteSound(): void;
     abstract playPronunciationOfTheProductName(productName: string): void;
+    abstract playPronunciationOfWord(word: string);
 }

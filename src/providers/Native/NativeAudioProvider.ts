@@ -68,6 +68,21 @@ export class NativeAudioProvider implements AudioProvider {
               .catch((reason: any) => console.log(reason));
         }
     }
+
+    public playPronunciationOfWord(word: string) {
+        if (NativeAudioProvider.isMuted == false) {
+            word = this.fixAudioOfProduct(word);
+            return this.tts.speak({
+                text: word,
+                locale: 'es-MX',
+                rate: 0.80
+            });
+        }
+        else {
+            return null;
+        }
+    }
+
     private fixAudioOfProduct(productName:string): any {
         if (productName=="CAFE")
         {

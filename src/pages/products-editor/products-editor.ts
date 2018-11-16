@@ -145,13 +145,28 @@ export class ProductsEditorPage implements OnDestroy {
   }
 
   public playSoundOfWord(product_title :string, product_audio :string, index: number) {
-    if(this.platform.is('cordova') || true) {
+    if(this.platform.is('cordova')) {
       if(product_audio != " "){
         for(let index = 0; index < this.soundStatus.length; ++index) {
           this.soundStatus[index] = true;
         }
         this.soundStatus[index] = false;
-        this.audioProvider.playPronunciationOfTheProductName(product_title);
+
+        this.audioProvider.playPronunciationOfWord(product_title).then(response => {
+          if(response != null) {
+            return response;
+          }
+          else {
+            throw 'break';
+          }
+        }).then(() => {
+          console.log('OK');
+          this.soundStatus[index] = true;
+        }).catch(() => {
+          this.soundStatus[index] = true;
+        })
+
+        //this.audioProvider.playPronunciationOfTheProductName(product_title);
       }else{
         if(this.audio != undefined) {
           this.audio.stop();
