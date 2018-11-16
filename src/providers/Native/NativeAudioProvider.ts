@@ -69,17 +69,19 @@ export class NativeAudioProvider implements AudioProvider {
         }
     }
 
-    public playPronunciationOfWord(word: string) {
+    public playPronunciationOfWord(word: string, callback: any) {
         if (NativeAudioProvider.isMuted == false) {
             word = this.fixAudioOfProduct(word);
-            return this.tts.speak({
+            this.tts.speak({
                 text: word,
                 locale: 'es-MX',
                 rate: 0.80
-            });
+            }).then(() => {
+                callback();
+            })
         }
         else {
-            return null;
+            callback();
         }
     }
 

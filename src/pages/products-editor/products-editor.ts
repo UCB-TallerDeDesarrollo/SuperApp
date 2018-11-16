@@ -152,19 +152,9 @@ export class ProductsEditorPage implements OnDestroy {
         }
         this.soundStatus[index] = false;
 
-        this.audioProvider.playPronunciationOfWord(product_title).then(response => {
-          if(response != null) {
-            response.then(() => {
-              console.log('OK');
-              this.soundStatus[index] = true;    
-            });
-          }
-          else {
-            throw 'break';
-          }
-        }).catch(() => {
+        this.audioProvider.playPronunciationOfWord(product_title, function() {
           this.soundStatus[index] = true;
-        })
+        });
 
         //this.audioProvider.playPronunciationOfTheProductName(product_title);
       }else{
