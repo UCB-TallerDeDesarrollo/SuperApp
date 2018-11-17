@@ -103,8 +103,7 @@ export class CreateProductPage {
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true,
       saveToPhotoAlbum: action,
-      sourceType: type,
-      allowEdit: true
+      sourceType: type
     }
     this.camera.getPicture(this.options)
       .then((imageData)=>{
