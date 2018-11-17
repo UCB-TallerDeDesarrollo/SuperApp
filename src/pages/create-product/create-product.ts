@@ -8,6 +8,7 @@ import { Category } from '../../entities/category';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+import { type } from 'os';
 
 @IonicPage()
 @Component({
@@ -72,24 +73,38 @@ export class CreateProductPage {
     });
   }
 
-  callFunctionCamera(){
-    this.takePicture();
+  callFunctionCamera(option: number){
+    let type;
+    let action;
+    switch (option) {
+      case 1:
+        type = this.camera.PictureSourceType.CAMERA;
+        action = true;
+        break;
+      case 2:
+        type = this.camera.PictureSourceType.PHOTOLIBRARY;
+        action = false;
+        break;
+    }
+    this.takePicture(type, action);
   }
 
   afterSaveProduct(){
     this.navCtrl.pop();
   }
 
-  takePicture(){
+  takePicture(type: any, action: boolean){
     this.options = {
-      quality: 80,
-      targetWidth: 225,
-      targetHeight: 225,
-      sourceType: this.camera.PictureSourceType.CAMERA,
-      saveToPhotoAlbum: true,
-      correctOrientation: true,
+      quality: 50,
+      targetWidth: 800,
+      targetHeight: 800,
       destinationType: this.camera.DestinationType.DATA_URL,
-      mediaType: this.camera.MediaType.VIDEO
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      saveToPhotoAlbum: action,
+      sourceType: type,
+      allowEdit: true
     }
     this.camera.getPicture(this.options)
       .then((imageData)=>{
