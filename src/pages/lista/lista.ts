@@ -62,12 +62,16 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.categoriesPageIndex=0;
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId);
 
-    categoryProvider.getCategories()
-    .then(categories => {
-      this.categories = categories;
-      this.chargeCategories();
-    })
-    .catch(error => {
+    userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      categoryProvider.getCategoriesByUserId(user.id)
+      .then(categories => {
+        this.categories = categories;
+        this.chargeCategories();
+      }).catch(error => {
+        console.log(error);
+      });
+    }).catch(error => {
       console.log(error);
     });
 
@@ -75,8 +79,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     .then(products => {
       this.products = products;
       this.chargeProducts();
-    })
-    .catch(error => {
+    }).catch(error => {
       console.log(error);
     });
   }
