@@ -62,7 +62,7 @@ export class ListsPage {
   }
 
   createList() {
-    this.navCtrl.push(CreateListPage);
+    this.navCtrl.push(ListaPage, { listId: -1 });
   }
 
   async prepareAnonimusUser() {
