@@ -41,8 +41,7 @@ export class CreateProductPage {
               public camera: Camera,
               private formBuilder: FormBuilder,
               public platform: Platform,
-              public userProvider: UserProvider,
-              public login: Login) {
+              public userProvider: UserProvider) {
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
       category: ['', Validators.required]

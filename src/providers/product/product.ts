@@ -22,12 +22,13 @@ export class ProductsProvider {
       result = false;
     }
     return result;
-  }
+  } 
 
-  async getProducts(): Promise<Array<Product>> {
+  async getProductsByUserId(user_id: number): Promise<Array<Product>> {
     let result: Array<Product>
     try {
       result = await this.productRepository.createQueryBuilder()
+                                            .where("user_id = :user_id", {user_id: user_id})
                                             .orderBy('id', 'ASC')
                                             .getMany();
     } catch (error) {

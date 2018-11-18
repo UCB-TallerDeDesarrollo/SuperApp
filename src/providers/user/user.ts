@@ -138,6 +138,7 @@ export class UserProvider {
               for (const p in products) {
                 if(currentCategory.name === Categories.getCategoryById(products[p].categoryId).name) {
                   let product = new Product();
+                  product.user_id = user_id;
                   product.image = products[p].image;
                   product.state = 1;
                   product.audio = " ";
