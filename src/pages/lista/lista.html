@@ -4,10 +4,23 @@
 
 <ion-content no-bounce padding class="main-list">
   <ion-navbar transparent>
+    <div class="{{ list.id ? 'icon delete' : 'hide' }}">
+        <img src="../../assets/imgs/delete-icon.png" alt="" (click)="confirm()">
+    </div>
+    <div class="icon open">
+        <img src="../../assets/imgs/open.svg" alt="" (click)="openList()">
+    </div>
+    <div class="icon save">
+        <img src="../../assets/imgs/save-icon.png" alt="" (click)="saveList()">
+    </div>
     <div class="music-logo">
       <img [src]="imageSound" alt="" (click)="stopSound()">
     </div>
-    <ion-title class="main-title">{{list.name}}</ion-title> 
+    <ion-title id="list-name" class="main-title" (click)="editName()">{{list.name}}</ion-title> 
+    <ion-item id="name-form" class="create-list hide">
+      <ion-label>Nombre</ion-label>
+      <ion-input text-uppercase type="text" [(ngModel)]="list.name" name="name" class="input-text" (keyup.enter)="saveListsName()"></ion-input>
+    </ion-item>
   </ion-navbar>  
   <div class="category-title">{{selectedCategory.name}}</div>
   <div class="products_stand">    
@@ -24,7 +37,7 @@
   </div>
   <ion-row>
     <ion-col>
-      <img src="assets/imgs/arrowgreen.png" class="{{ products.length>12 ? 'arrow' : 'hide' }}" alt="" (click)="nextProductPage()">
+      <img src="assets/imgs/arrowgreen.png" class="{{ products.length>ON_VIEW_LIST_LENGTH ? 'arrow' : 'hide' }}" alt="" (click)="nextProductPage()">
     </ion-col>
   </ion-row>
   <div class="list_categories-block">
@@ -33,7 +46,7 @@
         <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
       </ion-col>
       <ion-col>
-        <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>4 ? 'arrow' : 'hide' }}" alt="" (click)="nextCategoryPage()">
+        <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>ON_VIEW_CATEGORIES_LENGTH ? 'arrow' : 'hide' }}" alt="" (click)="nextCategoryPage()">
       </ion-col>
     </ion-row>
   </div>

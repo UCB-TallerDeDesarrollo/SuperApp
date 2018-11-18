@@ -11,9 +11,9 @@
   .main-title {
     position: absolute;
     text-align: center;
-    width: 100%;
+    width: 50%;
     top:30%; 
-    left:0;
+    left:25%;
 
     @media screen and (min-width: 1023px) and (max-width: 1367px) {
       font-size: 1em;
@@ -175,15 +175,27 @@
 
         .product-name {
           font-size: 65%;
-
-          /*@media screen and (min-width: 1024px) and (max-width: 1367px) {
-            font-size: 1.5em;
-          }*/
-
           text-align: center;
           margin-top: -2px;
         }
       }
+    }
+  }
+
+  .icon{
+    width: 4vw;
+    height: 8vh;
+    display: inline-block;
+    position: relative;
+    left:75%;
+    .save{
+      left: 60%;
+    }
+    .open{
+      left: 60%;
+    }
+    .delete{
+      left: 60%;
     }
   }
 
@@ -514,8 +526,20 @@
 .hide{
   display: none;
 }
+
 .back-arrow {
   background-color: transparent;
   box-shadow: none;
 }
 
+.create-list{
+  border-radius: 20px !important;
+  width: 50%;
+  position: relative;
+  left: 20%;
+  margin-top: -6%;
+}
+
+.input-text{
+  width: 60%;
+}

@@ -14,7 +14,7 @@ export class ListProvider {
   async saveList(list: List): Promise<Boolean> {
     let result: Boolean;
     try {
-      await this.listRepository.save(list);
+      list = await this.listRepository.save(list);
       result = true;
     } catch (error) {
       console.error(error);
