@@ -11,6 +11,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { type } from 'os';
+import { Login } from '../../providers/login/Login';
 
 @IonicPage()
 @Component({
@@ -40,8 +41,9 @@ export class CreateProductPage {
               public camera: Camera,
               private formBuilder: FormBuilder,
               public platform: Platform,
-              public userProvider: UserProvider) {
-
+              public userProvider: UserProvider,
+              public login: Login) {
+    async() => await this.prepareAnonimusUser();
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
       category: ['', Validators.required]
@@ -138,5 +140,10 @@ export class CreateProductPage {
   stopRecord() {
     this.audio.stopRecord();
     this.recording = false;
+  }
+
+  async prepareAnonimusUser() {
+    await this.userProvider.prepareAnonimusUser();
+    await this.login.loadingGameData();
   }
 }

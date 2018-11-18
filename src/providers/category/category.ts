@@ -50,10 +50,11 @@ export class CategoryProvider {
     return result;
   }
 
-  async countCategories(): Promise<number>{
+  async countCategories(user_id: number): Promise<number>{
     let result: number;
     try {
       result = await this.categoryRepository.createQueryBuilder('category')
+                                            .where("user_id = :user_id", {user_id: user_id})
                                             .orderBy('id', 'ASC')
                                             .getCount();
     } catch (error) {

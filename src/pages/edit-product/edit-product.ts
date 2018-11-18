@@ -10,6 +10,7 @@ import { Category } from '../../entities/category';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+import { Login } from '../../providers/login/Login';
 
 
 @IonicPage()
@@ -40,7 +41,9 @@ export class EditProductPage {
               private formBuilder: FormBuilder,
               public platform: Platform,
               public alertCtrl: AlertController,
-              public userProvider: UserProvider) {
+              public userProvider: UserProvider,
+              public login: Login) {
+    async() => await this.prepareAnonimusUser();
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
       category: ['', Validators.required]
@@ -141,5 +144,10 @@ export class EditProductPage {
   public disableRecordedSound(){
     this.filePath = " ";
     this.audio.release();
+  }
+
+  async prepareAnonimusUser() {
+    await this.userProvider.prepareAnonimusUser();
+    await this.login.loadingGameData();
   }
 }

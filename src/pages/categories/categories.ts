@@ -8,6 +8,7 @@ import { CreateCategoryPage } from '../create-category/create-category';
 import { ProductsProvider } from '../../providers/product/product';
 import { EditCategoryPage } from '../edit-category/edit-category';
 import { ConfirmationPage } from './../confirmation/confirmation';
+import { Login } from '../../providers/login/Login';
 
 @IonicPage()
 @Component({
@@ -25,7 +26,9 @@ export class CategoriesPage {
               public categoryProvider: CategoryProvider,
               public productsProvider: ProductsProvider,
               public modalController:ModalController,
-              public userProvider: UserProvider) {
+              public userProvider: UserProvider,
+              public login: Login) {
+    async() => await this.prepareAnonimusUser();
     userProvider.getUserByUsername(LoginStatus.username)
     .then(user => {
       categoryProvider.getCategoryByNameAndUserId("OTROS", user.id)
@@ -89,5 +92,10 @@ export class CategoriesPage {
 
   editCategory(category_id: number) {
     this.navCtrl.push(EditCategoryPage, { categoryId: category_id })
+  }
+
+  async prepareAnonimusUser() {
+    await this.userProvider.prepareAnonimusUser();
+    await this.login.loadingGameData();
   }
 }
