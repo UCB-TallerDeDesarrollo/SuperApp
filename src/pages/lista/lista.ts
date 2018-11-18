@@ -37,6 +37,8 @@ export class ListaPage implements OnInit, AfterViewInit {
   productPageIndex: number;
   categoriesPageIndex: number;
   productsOnList: Array<ProductList> = [];
+  toAddProducts: Array<ProductList> = [];
+  toDeleteProducts: Array<ProductList> = [];
   onViewProducts: Array<Product> = [];
   onViewCategories: Array<{id: number, name: string}>=[];
   ON_VIEW_LIST_LENGTH = 12;
@@ -148,6 +150,7 @@ export class ListaPage implements OnInit, AfterViewInit {
       productListTemp.product_id = product.id;
       productListTemp.product=product;
       this.productsOnList.push(productListTemp);
+      this.addToQueueList(productListTemp);
       this.products=this.products.filter(prod => prod.id!==product.id);
       this.chargeProducts();
       this.audioProvider.playPronunciationOfTheProductName(product.title);
@@ -244,12 +247,28 @@ export class ListaPage implements OnInit, AfterViewInit {
   onClickDeleteAProduct(productOfList) {
     let productId=productOfList.product.id;
     this.productsOnList=this.productsOnList.filter(onList=>onList.product_id!==productId);
+    this.addToDeleteQueue(productOfList);
     this.onSelectCategory(this.selectedCategory);    
   }
 
   deleteListOfProducts() {
+    this.toDeleteProducts=this.productsOnList;
     this.productsOnList=[];
     this.onSelectCategory(this.selectedCategory);
+  }
+
+  addToDeleteQueue(productList: ProductList){
+    if(this.list.id){
+      this.toAddProducts=this.toAddProducts.filter(product => product.product_id!==productList.product_id);
+      this.toDeleteProducts.push(productList);
+    }
+  }
+  
+  addToQueueList(productList: ProductList){
+    if(this.list.id){
+      this.toDeleteProducts=this.toAddProducts.filter(product => product.product_id!==productList.product_id);
+      this.toAddProducts.push(productList);
+    }
   }
 
   public playPronunciationOfTheProductName(word:string) {
@@ -283,14 +302,14 @@ export class ListaPage implements OnInit, AfterViewInit {
   async saveList() {
     if(this.list.id){
       this.listProvider.updateList(this.list).then(success => {
-        this.saveProductList();
+        this.saveProductList(false);
       });
     }else{
       this.userProvider.getUserByUsername(LoginStatus.username)
       .then(user => {
         this.list.user_id = user.id;
         this.listProvider.saveList(this.list).then(success => {
-          this.saveProductList();
+          this.saveProductList(true);
         });
       }).catch(error => {
         console.error(error);
@@ -298,10 +317,26 @@ export class ListaPage implements OnInit, AfterViewInit {
     }
   }
 
-  async saveProductList(){
-    for(let onList of this.productsOnList){
+  async saveProductList(newList: boolean){
+    if(!newList){
+      this.saveAuxiliarLists();
+    }
+    else{
+      for(let onList of this.productsOnList){
+        onList.list_id=this.list.id;
+        this.productListProvider.saveProductList(onList);
+      }
+    }
+  }
+
+  saveAuxiliarLists(){
+    for(let onList of this.toAddProducts){
       onList.list_id=this.list.id;
       this.productListProvider.saveProductList(onList);
+    }
+    for(let onList of this.toDeleteProducts){
+      onList.list_id=this.list.id;
+      this.productListProvider.deleteProductListByListId(onList.id);
     }
   }
 
