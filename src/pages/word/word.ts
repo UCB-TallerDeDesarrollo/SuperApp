@@ -222,7 +222,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
    
     public playPronunciationOfTheLetter(letter: string): void {
-        this.audioProvider.playPronunciationOfTheProductName(letter);
+        this.audioProvider.playPronunciationOfTheProductName(letter.toLowerCase());
     }
     public async downgradeCoins(){
         await this.login.updateCoins();
