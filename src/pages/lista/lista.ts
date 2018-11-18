@@ -332,8 +332,6 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   async saveAuxiliarLists(){
-    console.log(this.toAddProducts);
-    console.log(this.toDeleteProducts);
     for(let onList of this.toAddProducts){
       onList.list_id=this.list.id;
       await this.productListProvider.saveProductList(onList);

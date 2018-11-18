@@ -62,6 +62,7 @@ export class ListsPage {
   }
 
   createList() {
+    this.navCtrl.pop();
     this.navCtrl.push(ListaPage, { listId: -1 });
   }
 
