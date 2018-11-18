@@ -25,6 +25,9 @@ export class Product {
     @Column({name: "category_id"})
     category_id: number;
 
+    @Column({name: "user_id"})
+    user_id: number;
+
     @OneToMany(type => ProductLevel, productLevel => productLevel.product)
     productLevel: ProductLevel[];
 }
