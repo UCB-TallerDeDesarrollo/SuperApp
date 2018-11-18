@@ -17,6 +17,7 @@ import { UserProvider } from './../../providers/user/user';
 import { Login } from '../../providers/login/Login';
 import { ListsPage } from './../lists/lists';
 import { ConfirmationPage } from './../confirmation/confirmation';
+import { ConsoleReporter } from 'jasmine';
 
 @Component({
   selector: 'page-lista',
@@ -61,6 +62,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
     this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId);
+
     categoryProvider.getCategories()
     .then(categories => {
       this.categories = categories;
@@ -69,6 +71,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     .catch(error => {
       console.log(error);
     });
+
     productsProvider.getProductsByCategoryOnlyActive(this.defaultCategoryId)
     .then(products => {
       this.products = products;
@@ -77,7 +80,11 @@ export class ListaPage implements OnInit, AfterViewInit {
     .catch(error => {
       console.log(error);
     });
+  }
+
+  ionViewWillEnter() {
     this.chargeList();
+    this.initializerVariables();
     this.changeSoundIcon();
   }
 
@@ -108,12 +115,6 @@ export class ListaPage implements OnInit, AfterViewInit {
       bound = this.categories.length;
     }
     this.onViewCategories = this.categories.slice(this.categoriesPageIndex, bound);
-  }
-
-  ionViewWillEnter() {
-    this.chargeList();
-    this.initializerVariables();
-    this.changeSoundIcon();
   }
 
   initializerVariables() {
@@ -276,7 +277,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   loadProductsOnList() {
-    let listId=this.navParams.get("listId");
+    let listId=this.list.id;
     this.productListProvider.getProductListByListId(listId)
     .then(productList => {
       this.productsOnList.splice(0, this.productsOnList.length);
@@ -288,7 +289,7 @@ export class ListaPage implements OnInit, AfterViewInit {
           productList.product_id=product.id;
           productList.product=product;
           this.productsOnList.push(productList);
-          this.products=this.products.filter(product => product.id!=product.id);
+          this.products=this.products.filter(prod => prod.id!==product.id);
           this.chargeProducts();
         }).catch(error => {
           console.log(error);
