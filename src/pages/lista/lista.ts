@@ -17,7 +17,6 @@ import { UserProvider } from './../../providers/user/user';
 import { Login } from '../../providers/login/Login';
 import { ListsPage } from './../lists/lists';
 import { ConfirmationPage } from './../confirmation/confirmation';
-import { ConsoleReporter } from 'jasmine';
 
 @Component({
   selector: 'page-lista',
@@ -245,6 +244,21 @@ export class ListaPage implements OnInit, AfterViewInit {
     alert.present();
   }
 
+  alertSucessSaveList(){
+    let alert = this.alertCtrl.create({
+      title: 'Guardado Satisfactoriamente',
+      message: 'Se guardo la lista '+this.list.name,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
   onClickDeleteAProduct(productOfList) {
     let productId=productOfList.product.id;
     this.productsOnList=this.productsOnList.filter(onList=>onList.product_id!==productId);
@@ -323,11 +337,13 @@ export class ListaPage implements OnInit, AfterViewInit {
   async saveProductList(newList: boolean){
     if(!newList){
       await this.saveAuxiliarLists();
+      this.alertSucessSaveList();
     }
     else{
       for(let onList of this.productsOnList){
         onList.list_id=this.list.id;
         await this.productListProvider.saveProductList(onList);
+        this.alertSucessSaveList();
       }
     }
   }
