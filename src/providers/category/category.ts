@@ -101,7 +101,7 @@ export class CategoryProvider {
     try {
       result = await this.categoryRepository.createQueryBuilder('category')
                                             .where("name = :name", {name: name_})
-                                            .and("user_id = :user_id", {user_id: user_id})
+                                            .andWhere("user_id = :user_id", {user_id: user_id})
                                             .getOne();
     } catch (error) {
       console.error(error);

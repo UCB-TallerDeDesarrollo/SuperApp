@@ -6,7 +6,6 @@ import { User as UserEntity, User } from '../../entities/user';
 //import { User as UserModel } from '../../shared/models/User.model';
 import { getRepository, Repository } from 'typeorm';
 import { LoginStatus } from '../login/LoginStatus';
-import { ProductProvider } from '../../shared/providers/ProductProvider';
 import { Categories } from '../FakeService/Categories';
 import { Category } from '../../entities/category';
 import { FakeProducts } from '../FakeService/FakeProducts';
@@ -31,7 +30,12 @@ export class UserProvider {
         let progressUser=userEntity.userProgress;
         progressUser.userId=userEntity.id;
         await this.progress.save(progressUser);
-
+        this.getUserByUsername(userEntity.username)
+        .then(user => {
+            (async() => {await this.productsAndCategoriesInitializer(user.id)})();
+        }).catch(error => {
+            console.error(error);
+        });
     }
 
     async getUserByUsername(user_username: string) {
@@ -117,7 +121,7 @@ export class UserProvider {
     }
 
 
-  async databaseInitializer(user_id: number) {
+  async productsAndCategoriesInitializer(user_id: number) {
     const count_category = await this.categoryProvider.countCategories(user_id);
     if(count_category == 0) {
       let categories = Categories.getCategories();
