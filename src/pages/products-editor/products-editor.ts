@@ -63,9 +63,14 @@ export class ProductsEditorPage implements OnDestroy {
   }
 
   reloadProducts() {
-    this.productsProvider.getProducts()
-    .then(products => {
-      this.products = products.filter(product=>product.on_list==1);
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.productsProvider.getProductsByUserId(user.id)
+      .then(products => {
+        this.products = products.filter(product=>product.on_list==1);
+      }).catch(error =>{
+        console.error(error);
+      });
     }).catch(error =>{
       console.error(error);
     });
