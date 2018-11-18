@@ -1,3 +1,5 @@
+import { LoginStatus } from './../../providers/login/LoginStatus';
+import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { ProductsProvider } from '../../providers/product/product';
@@ -37,7 +39,8 @@ export class CreateProductPage {
               public categoryProvider: CategoryProvider,
               public camera: Camera,
               private formBuilder: FormBuilder,
-              public platform: Platform) {
+              public platform: Platform,
+              public userProvider: UserProvider) {
 
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -51,9 +54,14 @@ export class CreateProductPage {
       console.error(error);
     });
 
-    categoryProvider.getCategories()
-    .then(categories => {
-      this.categories = categories;
+    userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      categoryProvider.getCategoriesByUserId(user.id)
+      .then(categories => {
+        this.categories = categories;
+      }).catch(error => {
+        console.error(error);
+      });
     }).catch(error => {
       console.error(error);
     });
