@@ -1,16 +1,16 @@
 <ion-header no-border text-center> 
   <ion-navbar transparent>
+    <ion-title id="list-name" (click)="editName()">{{list.name}}</ion-title> 
     <div class="{{ list.id ? 'icon delete' : 'hide' }}, music-logo">
         <ion-icon name="trash" (click)="confirm()"></ion-icon>        
     </div>
     <ion-icon class="music-logo" name="folder-open" (click)="openList()"></ion-icon>
     <div class="music-logo">
-        <img src="../../assets/imgs/save-icon.png" alt="" (click)="saveList()">
+        <img src="../../assets/imgs/save-icon.svg" alt="" (click)="saveList()">
     </div>
     <div class="music-logo">
       <img [src]="imageSound" alt="" (click)="stopSound()">
     </div>
-    <ion-title id="list-name" (click)="editName()">{{list.name}}</ion-title> 
     <ion-item id="name-form" class="create-list hide">
       <ion-label>Nombre</ion-label>
       <ion-input text-uppercase type="text" [(ngModel)]="list.name" name="name" class="input-text" (keyup.enter)="saveListsName()"></ion-input>
