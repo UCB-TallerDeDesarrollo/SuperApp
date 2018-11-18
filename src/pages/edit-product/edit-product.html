@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding class="main-product">
-  <form (ngSubmit)="saveProductForm()">
+  <form>
     <ion-item [formGroup]="productForm" class="product-form-top">
       <ion-label>Categoria</ion-label>
       <ion-select [(ngModel)]="product.category_id" name="category" formControlName="category">
@@ -33,6 +33,6 @@
       <ion-label>Activo</ion-label>
       <ion-checkbox [(ngModel)]="product.state" name="state"></ion-checkbox>
     </ion-item>
-    <button ion-button type="submit" [disabled]="!productForm.valid" block>Guardar</button>
+    <button ion-button (click)="saveProductForm()" [disabled]="!productForm.valid" block>Guardar</button>
   </form>
 </ion-content>
