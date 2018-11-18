@@ -17,6 +17,7 @@ import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import {ConfirmationPage} from './../confirmation/confirmation';
 import { Login } from '../../providers/login/Login';
+import { LoginStatus } from '../../providers/login/LoginStatus';
 
 @IonicPage()
 @Component({
