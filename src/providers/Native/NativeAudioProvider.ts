@@ -49,7 +49,9 @@ export class NativeAudioProvider implements AudioProvider {
         if(NativeAudioProvider.isMuted == false)
         {
             if(this.isRealDevice()) {
-                this.nativeAudio.play('levelComplete');
+                //this.nativeAudio.play('levelComplete');
+                const audio = new Audio('assets/sounds/levelComplete.mp3');
+                audio.play();
             }
             else {
                 (<HTMLAudioElement>this.levelComplete.cloneNode(true)).play();
