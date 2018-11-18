@@ -44,7 +44,6 @@ export class ProductsEditorPage implements OnDestroy {
               private modalController: ModalController,
               public userProvider: UserProvider,
               public login: Login) {
-    console.log("prepareAnonimusUser");
     (async() => {
       await this.prepareAnonimusUser();
       this.reloadProducts();

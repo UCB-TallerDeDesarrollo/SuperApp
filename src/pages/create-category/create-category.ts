@@ -31,7 +31,6 @@ export class CreateCategoryPage {
   }
 
   async saveCategoryForm() {
-    console.log(LoginStatus.username);
     this.userProvider.getUserByUsername(LoginStatus.username)
     .then(user => {
       this.category.user_id = user.id;
