@@ -71,22 +71,35 @@ export class EditProductPage {
     });
   }
 
-  callFunctionCamera(){
-    this.takePicture();
+  callFunctionCamera(option: number){
+    let type;
+    let action;
+    switch (option) {
+      case 1:
+        type = this.camera.PictureSourceType.CAMERA;
+        action = true;
+        break;
+      case 2:
+        type = this.camera.PictureSourceType.PHOTOLIBRARY;
+        action = false;
+        break;
+    }
+    this.takePicture(type, action);
   }
 
   afterSaveProduct(){
     this.navCtrl.pop();
   }
 
-  takePicture(){
+  takePicture(type: any, action: boolean){
     this.options = {
       quality: 100,
-      sourceType: this.camera.PictureSourceType.CAMERA,
-      saveToPhotoAlbum: true,
-      correctOrientation: true,
       destinationType: this.camera.DestinationType.DATA_URL,
-      mediaType: this.camera.MediaType.VIDEO
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      saveToPhotoAlbum: action,
+      sourceType: type
     }
     this.camera.getPicture(this.options)
       .then((imageData)=>{
