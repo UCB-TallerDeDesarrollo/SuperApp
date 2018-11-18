@@ -266,7 +266,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   
   addToQueueList(productList: ProductList){
     if(this.list.id){
-      this.toDeleteProducts=this.toAddProducts.filter(product => product.product_id!==productList.product_id);
+      this.toDeleteProducts=this.toDeleteProducts.filter(product => product.product_id!==productList.product_id);
       this.toAddProducts.push(productList);
     }
   }
@@ -301,8 +301,10 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   async saveList() {
     if(this.list.id){
-      this.listProvider.updateList(this.list).then(success => {
-        this.saveProductList(false);
+      this.listProvider.updateList(this.list)
+      .then(
+        async (success) => {
+        await this.saveProductList(false);
       });
     }else{
       this.userProvider.getUserByUsername(LoginStatus.username)
@@ -319,25 +321,29 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   async saveProductList(newList: boolean){
     if(!newList){
-      this.saveAuxiliarLists();
+      await this.saveAuxiliarLists();
     }
     else{
       for(let onList of this.productsOnList){
         onList.list_id=this.list.id;
-        this.productListProvider.saveProductList(onList);
+        await this.productListProvider.saveProductList(onList);
       }
     }
   }
 
-  saveAuxiliarLists(){
+  async saveAuxiliarLists(){
+    console.log(this.toAddProducts);
+    console.log(this.toDeleteProducts);
     for(let onList of this.toAddProducts){
       onList.list_id=this.list.id;
-      this.productListProvider.saveProductList(onList);
+      await this.productListProvider.saveProductList(onList);
     }
     for(let onList of this.toDeleteProducts){
       onList.list_id=this.list.id;
-      this.productListProvider.deleteProductListByListId(onList.id);
+      await this.productListProvider.deleteProductListByProductIdAndListId(onList.product_id, onList.list_id);
     }
+    this.toAddProducts=[];
+    this.toDeleteProducts=[];
   }
 
   confirm(){
