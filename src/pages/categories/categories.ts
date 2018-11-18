@@ -1,3 +1,5 @@
+import { LoginStatus } from './../../providers/login/LoginStatus';
+import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Category } from '../../entities/category';
@@ -22,12 +24,18 @@ export class CategoriesPage {
               public navParams: NavParams,
               public categoryProvider: CategoryProvider,
               public productsProvider: ProductsProvider,
-              public modalController:ModalController,) {
-    categoryProvider.getCategoryByName("OTROS")
-    .then(other => {
-      this.other = other;
-    })
-    .catch(error => {
+              public modalController:ModalController,
+              public userProvider: UserProvider) {
+    userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      categoryProvider.getCategoryByNameAndUserId("OTROS", user.id)
+      .then(other => {
+        this.other = other;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    }).catch(error => {
       console.error(error);
     });
   }
@@ -37,9 +45,14 @@ export class CategoriesPage {
   }
 
   reloadCategories() {
-    this.categoryProvider.getCategories()
-    .then(categories => {
-      this.categories = categories;
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.categoryProvider.getCategoriesByUserId(user.id)
+      .then(categories => {
+        this.categories = categories;
+      }).catch(error => {
+        console.error(error);
+      });
     }).catch(error => {
       console.error(error);
     });
