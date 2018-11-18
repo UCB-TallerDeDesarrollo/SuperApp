@@ -43,7 +43,6 @@ export class CreateProductPage {
               public platform: Platform,
               public userProvider: UserProvider,
               public login: Login) {
-    async() => await this.prepareAnonimusUser();
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
       category: ['', Validators.required]
@@ -72,12 +71,18 @@ export class CreateProductPage {
   }
 
   async saveProductForm() {
-    this.product.image = this.Image;
-    this.product.audio = this.filePath;
-    this.product.title = this.product.title.toUpperCase();
-    this.productsProvider.saveProduct(this.product)
-    .then(result => {
-      if(result) this.afterSaveProduct();
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.product.user_id = user.id;
+      this.product.image = this.Image;
+      this.product.audio = this.filePath;
+      this.product.title = this.product.title.toUpperCase();
+      this.productsProvider.saveProduct(this.product)
+      .then(result => {
+        if(result) this.afterSaveProduct();
+      }).catch(error => {
+        console.error(error);
+      });
     }).catch(error => {
       console.error(error);
     });
@@ -140,10 +145,5 @@ export class CreateProductPage {
   stopRecord() {
     this.audio.stopRecord();
     this.recording = false;
-  }
-
-  async prepareAnonimusUser() {
-    await this.userProvider.prepareAnonimusUser();
-    await this.login.loadingGameData();
   }
 }
