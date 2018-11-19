@@ -337,15 +337,14 @@ export class ListaPage implements OnInit, AfterViewInit {
   async saveProductList(newList: boolean){
     if(!newList){
       await this.saveAuxiliarLists();
-      this.alertSucessSaveList();
     }
     else{
       for(let onList of this.productsOnList){
         onList.list_id=this.list.id;
         await this.productListProvider.saveProductList(onList);
-        this.alertSucessSaveList();
       }
     }
+    this.alertSucessSaveList();
   }
 
   async saveAuxiliarLists(){
