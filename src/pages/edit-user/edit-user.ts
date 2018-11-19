@@ -66,9 +66,7 @@ export class EditUserPage {
       LoginStatus.setLoginSuccess(this.username);
       this.login.login(this.username);
       LoginStatus.user=user;
-      this.navCtrl.push(HomePage, {}, {animate:true, direction:'back'});
-      this.navCtrl.remove(this.navCtrl.length()-1);
-      this.navCtrl.remove(this.navCtrl.length()-2);
+      this.navCtrl.setRoot(HomePage, {}, {animate:true, direction:'back'});
     }
     catch
     {
