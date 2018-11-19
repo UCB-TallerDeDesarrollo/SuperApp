@@ -140,11 +140,11 @@ export class ProductsEditorPage implements OnDestroy {
         this.soundStatus[index] = true;
       }
       this.soundStatus[index] = false;
-      this.playAudio(product_audio);
+      this.playAudio(product_audio, index);
     }
   }
 
-  playAudio(file) {
+  playAudio(file, index: number) {
     this.playing = false;
     if (this.platform.is('ios')) {
       this.filePath = file;
@@ -155,6 +155,9 @@ export class ProductsEditorPage implements OnDestroy {
     }
     this.audio.play();
     this.audio.setVolume(1.0); 
+    this.audio.onSuccess.subscribe(() => {
+      this.soundStatus[index] = true;
+    });
 
     setTimeout(() => 
     {
