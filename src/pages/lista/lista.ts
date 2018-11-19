@@ -58,8 +58,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.list.name="NUEVA LISTA";
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
-    this.selectedCategory = Categories.getCategoryById(this.defaultCategoryId);
-
+    this.selectedCategory=Categories.getCategoryById(1);
     userProvider.getUserByUsername(LoginStatus.username)
     .then(user => {
       categoryProvider.getCategoriesByUserId(user.id)
@@ -85,6 +84,8 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.chargeList();
     this.initializerVariables();
     this.changeSoundIcon();
+    this.selectedCategory = this.categories[0];
+    this.defaultCategoryId=this.categories[0].id;
   }
 
   chargeList(){
