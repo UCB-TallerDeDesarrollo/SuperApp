@@ -1,5 +1,6 @@
+import { HomePage } from './../home/home';
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ToastController, Select, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, Select, ModalController, ViewController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { LoginStatus } from '../../providers/login/LoginStatus';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -19,6 +20,7 @@ import { DeleteImagePage } from '../delete-image/delete-image';
 })
 export class EditUserPage {
   @ViewChild('select') select1: Select;
+  private lastNavCtrl:NavController;
   public static deleteImageOption:boolean=false;
   public username: string;
   public birthdate: Date=new Date();
@@ -31,8 +33,9 @@ export class EditUserPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider,
               private toastCtrl: ToastController, public camera:Camera, public avatarProvider: AvatarProvider,
-              public alertCtrl:AlertController, public login:Login, public modalCtrl:ModalController) {
+              public alertCtrl:AlertController, public login:Login, public modalCtrl:ModalController, public viewCtrl:ViewController) {
           this.avatars = this.avatarProvider.getAvatars();
+          this.lastNavCtrl=navParams.get("navCtrl");
   }
   async ionViewDidLoad() {
     var user=await this.userProvider.getUserByUsername(LoginStatus.username);
@@ -45,7 +48,7 @@ export class EditUserPage {
         this.isenabled=false;
       }
   }
-
+ 
   async saveUser()
   {
     var user=await this.userProvider.getUserByUsername(LoginStatus.username);
@@ -62,7 +65,10 @@ export class EditUserPage {
       toast.present();
       LoginStatus.setLoginSuccess(this.username);
       this.login.login(this.username);
-      this.navCtrl.pop();
+      LoginStatus.user=user;
+      this.navCtrl.push(HomePage, {}, {animate:true, direction:'back'});
+      this.navCtrl.remove(this.navCtrl.length()-1);
+      this.navCtrl.remove(this.navCtrl.length()-2);
     }
     catch
     {
