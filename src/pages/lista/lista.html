@@ -3,8 +3,10 @@
     <div style="margin-right: 30%;">
       <ion-title id="list-name" (click)="editName()">{{list.name}}</ion-title> 
     </div> 
-    <div class="{{ list.id ? 'icon delete' : 'hide' }}, delete-icon">
-        <img src="../../assets/imgs/delete-icon.svg" alt="" (click)="confirm()">       
+    <div class="{{ list.id ? 'icon delete' : 'hide' }}">
+      <div class="delete-icon">
+        <img src="../../assets/imgs/delete-icon.svg" alt="" (click)="confirm()">
+      </div>               
     </div>
     <div class="open-icon">
         <img src="../../assets/imgs/open.svg" alt="" (click)="openList()">
