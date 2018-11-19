@@ -1,5 +1,5 @@
 <ion-header>
-    
+
 </ion-header>
 
 <ion-content no-bounce padding class="main-list">
@@ -16,14 +16,14 @@
     <div class="music-logo">
       <img [src]="imageSound" alt="" (click)="stopSound()">
     </div>
-    <ion-title id="list-name" class="main-title" (click)="editName()">{{list.name}}</ion-title> 
+    <ion-title id="list-name" class="main-title" (click)="editName()">{{list.name}}</ion-title>
     <ion-item id="name-form" class="create-list hide">
       <ion-label>Nombre</ion-label>
       <ion-input text-uppercase type="text" [(ngModel)]="list.name" name="name" class="input-text" (keyup.enter)="saveListsName()"></ion-input>
     </ion-item>
-  </ion-navbar>  
+  </ion-navbar>
   <div class="category-title">{{selectedCategory.name}}</div>
-  <div class="products_stand">    
+  <div class="products_stand">
     <ion-list>
       <ion-row>
         <div class="product-block" *ngFor="let product of onViewProducts" id="{{product.title}}" dragula="PRODUCT">

@@ -1,17 +1,12 @@
 import { UserProvider } from './../../providers/user/user';
-import { SupermarketPage } from '../supermarket/supermarket'; 
 import { Component } from '@angular/core';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { ListaPage } from '../lista/lista';
-import { Category } from '../../entities/category';
-import { Product } from '../../entities/product';
-import { Categories } from '../../providers/FakeService/Categories';
 import { CategoryProvider } from '../../providers/category/category';
-import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { ProductsProvider } from '../../providers/product/product';
-import { ListsPage } from '../lists/lists';
+import { Login } from '../../providers/login/Login';
 
 
 @IonicPage()
@@ -27,8 +22,10 @@ export class MenuGamesPage {
               private audioProvider: AudioProvider,
               public productsProvider: ProductsProvider,
               public categoryProvider: CategoryProvider,
-              public userProvide:UserProvider
-          ) {
+              public userProvide:UserProvider,
+              public userProvider: UserProvider,
+              public login: Login) {
+    this.prepareAnonimusUser();
     this.changeSoundIcon();
   }
 
@@ -61,5 +58,12 @@ export class MenuGamesPage {
   pushPageList(){
     this.navController.push(ListaPage, { listId: -1 });
   }
+
+
+  async prepareAnonimusUser() {
+    await this.userProvider.prepareAnonimusUser();
+    await this.login.loadingGameData();
+  }
+
 
 }
