@@ -117,6 +117,10 @@ export class ProductsEditorPage implements OnDestroy {
     this.navCtrl.push(ProductsEditorPage, { data: this.navParams.data.data });
   }
 
+  public offSound(index) {
+    this.soundStatus[index] = true;
+  }
+
   public playSoundOfWord(product_title :string, product_audio :string, index: number) {
     if(product_audio == " "){
       for(let index = 0; index < this.soundStatus.length; ++index) {
@@ -124,9 +128,7 @@ export class ProductsEditorPage implements OnDestroy {
       }
       this.soundStatus[index] = false;
 
-      this.audioProvider.playPronunciationOfWord(product_title, function() {
-        this.soundStatus[index] = true;
-      });
+      this.audioProvider.playPronunciationOfWord(product_title, this, index);
 
       //this.audioProvider.playPronunciationOfTheProductName(product_title);
     }else{

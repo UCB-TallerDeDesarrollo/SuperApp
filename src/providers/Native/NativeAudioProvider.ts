@@ -71,7 +71,7 @@ export class NativeAudioProvider implements AudioProvider {
         }
     }
 
-    public playPronunciationOfWord(word: string, callback: any) {
+    public playPronunciationOfWord(word: string, page: any, index: number) {
         if (NativeAudioProvider.isMuted == false) {
             word = this.fixAudioOfProduct(word);
             this.tts.speak({
@@ -79,11 +79,14 @@ export class NativeAudioProvider implements AudioProvider {
                 locale: 'es-MX',
                 rate: 0.80
             }).then(() => {
-                callback();
-            })
+                page.offSound(index);
+            }).catch((reason: any) => {
+                console.log(reason);
+                page.offSound(index);
+            });
         }
         else {
-            callback();
+            page.offSound(index);
         }
     }
 
