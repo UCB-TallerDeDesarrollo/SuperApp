@@ -5,4 +5,5 @@ export abstract class AudioProvider {
     abstract playLevelCompleteSound(): void;
     abstract playPronunciationOfTheProductName(productName: string): void;
     abstract playPronunciationOfWord(word: string, page: any, index: number);
+    abstract stopSound();
 }

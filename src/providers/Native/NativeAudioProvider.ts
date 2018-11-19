@@ -44,6 +44,9 @@ export class NativeAudioProvider implements AudioProvider {
         }
     }
 
+    public stopSound() {
+        this.tts.stop();
+    }
 
     public playLevelCompleteSound(): void {
         if(NativeAudioProvider.isMuted == false)

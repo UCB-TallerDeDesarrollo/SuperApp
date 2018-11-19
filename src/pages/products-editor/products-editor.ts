@@ -122,6 +122,10 @@ export class ProductsEditorPage implements OnDestroy {
   }
 
   public playSoundOfWord(product_title :string, product_audio :string, index: number) {
+    if(this.audio != undefined) {
+      this.audio.stop();
+    }
+    this.audioProvider.stopSound();
     if(product_audio == " "){
       for(let index = 0; index < this.soundStatus.length; ++index) {
         this.soundStatus[index] = true;
@@ -132,9 +136,6 @@ export class ProductsEditorPage implements OnDestroy {
 
       //this.audioProvider.playPronunciationOfTheProductName(product_title);
     }else{
-      if(this.audio != undefined) {
-        this.audio.stop();
-      }
       for(let index = 0; index < this.soundStatus.length; ++index) {
         this.soundStatus[index] = true;
       }
