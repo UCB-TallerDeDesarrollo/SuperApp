@@ -1,3 +1,4 @@
+import { UserProvider } from './../../providers/user/user';
 import { Letter } from './../../interfaces/letter';
 import { LoginStatus } from './../../providers/login/LoginStatus';
 import { SelectLevelPage } from './../select-level/select-level';
@@ -12,6 +13,7 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { Product } from '../../shared/models/Product.model';
 import { Login } from '../../providers/login/Login';
 import { ProductsProvider } from '../../providers/product/product';
+import { User } from '../../entities/user';
 @Component({
     selector: 'page-word',
     templateUrl: 'word.html'
@@ -35,6 +37,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private navParams          : NavParams,
         private login              : Login,
         private productProdiver    : ProductsProvider,
+        private userProvider       : UserProvider
     ) {
         this.prepareGame();
         this.changeSoundIcon();
@@ -80,7 +83,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
             this.game.setElements(product, level);
         }
         else {
-            await this.productProdiver.getProducts().then(products => {
+            let user: User = await this.userProvider.getUserByUsername(LoginStatus.username);
+            await this.productProdiver.getProductsByUserId(user.id).then(products => {
                 if(products.length == 0) {
                     let product: Product = this.productsProdiver.getProductOfActualLevel(level);
                     this.game.setElements(product, level);
