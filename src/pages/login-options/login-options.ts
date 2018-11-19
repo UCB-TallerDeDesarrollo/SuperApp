@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController, ModalController } from 'ionic-angular';
+import { NavController, ToastController, ModalController, ViewController, NavParams } from 'ionic-angular';
 import { ViewUserPage } from '../view-user/view-user';
 import { UserLoginPage } from '../user-login/user-login';
 import { CreateUserPage } from '../create-user/create-user';
@@ -20,7 +20,7 @@ export class LoginOptionsPage {
   Image: string;
   constructor(
       public navCtrl:NavController, public toastCtrl:ToastController,
-      public modalCtrl:ModalController
+      public modalCtrl:ModalController, private viewCtrl:ViewController, private navParams:NavParams
   )
   {
     
@@ -28,6 +28,12 @@ export class LoginOptionsPage {
   ngOnInit(){ 
     this.changeLoginIcons();
   }
+  ionViewDidEnter(){ 
+    var a=1;
+   }
+   ionViewWillEnter(){
+    var a=1;
+   }
   show(): any {
       this.navCtrl.push(ViewUserPage);
     }
@@ -39,8 +45,10 @@ export class LoginOptionsPage {
       this.navCtrl.push(CreateUserPage);
     }
   
-    edit() {
-      this.navCtrl.push(EditUserPage);
+    async edit() {
+      await this.navCtrl.push(EditUserPage, {navCtrl:this.navCtrl});
+      let updated=this.navParams.get("updated");
+      let a=1;
     }
   
     delete() {
