@@ -32,6 +32,7 @@ export class ProductsEditorPage implements OnDestroy {
   audio: MediaObject;
   playing: boolean = true;
   rowSelected;
+  soundStatus: boolean[];
 
   constructor(private platform: Platform,
               public navCtrl: NavController,
@@ -69,6 +70,10 @@ export class ProductsEditorPage implements OnDestroy {
       this.productsProvider.getProductsByUserId(user.id)
       .then(products => {
         this.products = products.filter(product=>product.on_list==1);
+        this.soundStatus = new Array<boolean>(products.length);
+        for(let index = 0; index < products.length; ++index) {
+          this.soundStatus[index] = true;
+        }
       }).catch(error =>{
         console.error(error);
       });
@@ -111,15 +116,35 @@ export class ProductsEditorPage implements OnDestroy {
     this.navCtrl.pop();
     this.navCtrl.push(ProductsEditorPage, { data: this.navParams.data.data });
   }
-  public playSoundOfWord(product_title :string, product_audio :string) {
+
+  public offSound(index) {
+    this.soundStatus[index] = true;
+  }
+
+  public playSoundOfWord(product_title :string, product_audio :string, index: number) {
+    if(this.audio != undefined) {
+      this.audio.stop();
+    }
+    this.audioProvider.stopSound();
     if(product_audio == " "){
-      this.audioProvider.playPronunciationOfTheProductName(product_title);
+      for(let index = 0; index < this.soundStatus.length; ++index) {
+        this.soundStatus[index] = true;
+      }
+      this.soundStatus[index] = false;
+
+      this.audioProvider.playPronunciationOfWord(product_title, this, index);
+
+      //this.audioProvider.playPronunciationOfTheProductName(product_title);
     }else{
-      this.playAudio(product_audio);
+      for(let index = 0; index < this.soundStatus.length; ++index) {
+        this.soundStatus[index] = true;
+      }
+      this.soundStatus[index] = false;
+      this.playAudio(product_audio, index);
     }
   }
 
-  playAudio(file) {
+  playAudio(file, index: number) {
     this.playing = false;
     if (this.platform.is('ios')) {
       this.filePath = file;
@@ -130,6 +155,9 @@ export class ProductsEditorPage implements OnDestroy {
     }
     this.audio.play();
     this.audio.setVolume(1.0); 
+    this.audio.onSuccess.subscribe(() => {
+      this.soundStatus[index] = true;
+    });
 
     setTimeout(() => 
     {
@@ -137,9 +165,13 @@ export class ProductsEditorPage implements OnDestroy {
     },
     2000);
   }
-  stopAudio(){
-    this.audio.stop();
-    this.playing=true;
+
+  stopAudio(product_audio :string, index: number){
+    this.soundStatus[index] = true;
+    if(this.audio != undefined) {
+      this.audio.stop();
+    }
+    this.audioProvider.stopSound();
   }
 
   confirm(product: Product){
