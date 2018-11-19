@@ -1,3 +1,4 @@
+import { UserProvider } from './../../providers/user/user';
 import { LoginStatus } from './../../providers/login/LoginStatus';
 import { CategoryProvider } from './../../providers/category/category';
 import { Component, OnInit, AfterViewInit, OnDestroy, AfterViewChecked } from '@angular/core'; 
@@ -13,6 +14,7 @@ import { SupermarketDifficultyProvider } from '../../shared/providers/Supermarke
 import { SelectLevelPage } from './../select-level/select-level';
 import { Login } from '../../providers/login/Login';
 import { Category } from '../../entities/category';
+import { User } from '../../entities/user';
 
 @Component({
   selector: 'page-supermarket',
@@ -52,8 +54,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     private dragDropProvider: SupermarketDragDropProvider,
     private platform: Platform,
     private supermarketDifficulty: SupermarketDifficultyProvider,
-    private login:Login
-  ) {
+    private login:Login,
+    public userProvider: UserProvider) {
     this.selectorName = 'PRODUCT-' + Math.random();
     this.countOfProducts = 0;
     this.carImage="assets/imgs/"+this.countOfProducts+".png";
@@ -70,7 +72,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     if(this.level >= 31) {
       this.imageClass = false;
     }
-    this.products = await this.productsProvider.getProducts();
+    let user: User = await this.userProvider.getUserByUsername(LoginStatus.username);
+    this.products = await this.productsProvider.getProductsByUserId(user.id);
     this.game = new SuperMarketGame(this.products,this.level,this.navParams.get('maxLevel')); 
     this.game.buildProducts();
     this.productsToBuy = this.game.ProductsToBuy;

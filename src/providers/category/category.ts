@@ -23,10 +23,11 @@ export class CategoryProvider {
     return result;
   }
 
-  async getCategories(): Promise<Array<Category>> {
+  async getCategoriesByUserId(user_id: number): Promise<Array<Category>> {
     let result: Array<Category>;
     try {
       result = await this.categoryRepository.createQueryBuilder('category')
+                                            .where("user_id = :user_id", {user_id: user_id})
                                             .orderBy('id', 'ASC')
                                             .getMany();
     } catch (error) {
@@ -49,10 +50,11 @@ export class CategoryProvider {
     return result;
   }
 
-  async countCategories(): Promise<number>{
+  async countCategories(user_id: number): Promise<number>{
     let result: number;
     try {
       result = await this.categoryRepository.createQueryBuilder('category')
+                                            .where("user_id = :user_id", {user_id: user_id})
                                             .orderBy('id', 'ASC')
                                             .getCount();
     } catch (error) {
@@ -94,11 +96,12 @@ export class CategoryProvider {
     return result;
   }
 
-  async getCategoryByName(name_: string): Promise<Category> {
+  async getCategoryByNameAndUserId(name_: string, user_id: number): Promise<Category> {
     let result: Category;
     try {
       result = await this.categoryRepository.createQueryBuilder('category')
                                             .where("name = :name", {name: name_})
+                                            .andWhere("user_id = :user_id", {user_id: user_id})
                                             .getOne();
     } catch (error) {
       console.error(error);

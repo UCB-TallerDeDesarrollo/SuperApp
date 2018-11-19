@@ -1,6 +1,6 @@
 import { ListProvider } from './../../providers/list/list';
 import { ProductListProvider } from './../../providers/product-list/product-list';
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NavController, AlertController, NavParams, ModalController } from 'ionic-angular';
 import { ProductsPage } from '../products/products';
 import { DragulaService } from 'ng2-dragula';
@@ -14,7 +14,6 @@ import { ProductList } from '../../entities/productList';
 import { List } from '../../entities/list';
 import { LoginStatus } from '../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
-import { Login } from '../../providers/login/Login';
 import { ListsPage } from './../lists/lists';
 import { ConfirmationPage } from './../confirmation/confirmation';
 
@@ -43,6 +42,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   onViewCategories: Array<{id: number, name: string}>=[];
   ON_VIEW_LIST_LENGTH = 12;
   ON_VIEW_CATEGORIES_LENGTH = 3;
+  
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -54,29 +54,29 @@ export class ListaPage implements OnInit, AfterViewInit {
               public productListProvider: ProductListProvider,
               public listProvider: ListProvider,
               public userProvider: UserProvider,
-              private login: Login,
               private modalController: ModalController) {
-    this.prepareAnonimusUser();
     this.list.name="NUEVA LISTA";
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
-    this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId);
+    this.selectedCategory = Categories.getCategoryById(this.defaultCategoryId);
 
-    categoryProvider.getCategories()
-    .then(categories => {
-      this.categories = categories;
-      this.chargeCategories();
-    })
-    .catch(error => {
-      console.log(error);
-    });
-
-    productsProvider.getProductsByCategoryOnlyActive(this.defaultCategoryId)
-    .then(products => {
-      this.products = products;
-      this.chargeProducts();
-    })
-    .catch(error => {
+    userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      categoryProvider.getCategoriesByUserId(user.id)
+      .then(categories => {
+        this.categories = categories;
+        this.chargeCategories();
+      }).catch(error => {
+        console.log(error);
+      });
+      productsProvider.getProductsByCategoryAndUserIdOnlyActive(this.defaultCategoryId, user.id)
+      .then(products => {
+        this.products = products;
+        this.chargeProducts();
+      }).catch(error => {
+        console.log(error);
+      });
+    }).catch(error => {
       console.log(error);
     });
   }
@@ -117,10 +117,15 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   initializerVariables() {
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
-    .then(products => {
-      this.products = products;
-      this.chargeProducts();
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.productsProvider.getProductsByCategoryAndUserIdOnlyActive(this.selectedCategory.id, user.id)
+      .then(products => {
+        this.products = products;
+        this.chargeProducts();
+      }).catch(error => {
+        console.log(error);
+      });
     }).catch(error => {
       console.log(error);
     });
@@ -202,20 +207,25 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   onSelectCategory(category){
     this.selectedCategory = category;
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
-    .then(products => {
-      this.products=products.filter(product => {
-        let isNotOnList =true;
-        for(let productList of this.productsOnList){
-          if(product.id===productList.product.id){
-            isNotOnList=false;
-            break;
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.productsProvider.getProductsByCategoryAndUserIdOnlyActive(this.selectedCategory.id, user.id)
+      .then(products => {
+        this.products=products.filter(product => {
+          let isNotOnList =true;
+          for(let productList of this.productsOnList){
+            if(product.id===productList.product.id){
+              isNotOnList=false;
+              break;
+            }
           }
-        }
-        return isNotOnList;
+          return isNotOnList;
+        });
+        this.productPageIndex = 0;
+        this.chargeProducts();
+      }).catch(error => {
+        console.log(error);
       });
-      this.productPageIndex = 0;
-      this.chargeProducts();
     }).catch(error => {
       console.log(error);
     });
@@ -400,10 +410,4 @@ export class ListaPage implements OnInit, AfterViewInit {
     title.classList.remove("hide");
     form.classList.add("hide");
   }
-
-  async prepareAnonimusUser() {
-    await this.userProvider.prepareAnonimusUser();
-    await this.login.loadingGameData();
-  }
-
 }

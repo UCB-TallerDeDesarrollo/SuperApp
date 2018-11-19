@@ -10,6 +10,9 @@ export class Category {
     @Column({name: "name"})
     name: string;
 
+    @Column({name: "user_id"})
+    user_id: number;
+
     products: Array<Product>=[];
 
     public addProduct(product){

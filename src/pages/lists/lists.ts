@@ -2,7 +2,6 @@ import { ProductListProvider } from './../../providers/product-list/product-list
 import { ListaPage } from './../lista/lista';
 import { LoginStatus } from './../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
-import { CreateListPage } from './../create-list/create-list';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { List } from '../../entities/list';
