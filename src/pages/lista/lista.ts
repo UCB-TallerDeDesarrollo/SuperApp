@@ -43,6 +43,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   onViewCategories: Array<{id: number, name: string}>=[];
   ON_VIEW_LIST_LENGTH = 12;
   ON_VIEW_CATEGORIES_LENGTH = 3;
+  
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -60,7 +61,19 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.list.name="NUEVA LISTA";
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
-    this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId);
+    userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      categoryProvider.getCategoryByNameAndUserId("OTROS", user.id)
+      .then(category => {
+        this.defaultCategoryId = category.id;
+        this.selectedCategory.id = category.id;
+        this.selectedCategory.name = category.name;
+      }).catch(error => {
+        console.log(error);
+      });
+    }).catch(error => {
+      console.log(error);
+    });
 
     userProvider.getUserByUsername(LoginStatus.username)
     .then(user => {
