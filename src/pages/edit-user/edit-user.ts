@@ -1,11 +1,13 @@
+import { HomePage } from './../home/home';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, Select } from 'ionic-angular';
+import { NavController, NavParams, ToastController, Select, ModalController, ViewController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { LoginStatus } from '../../providers/login/LoginStatus';
-import { Camera } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 import { AvatarProvider } from '../../shared/providers/AvatarProvider';
 import { Login } from '../../providers/login/Login';
+import { DeleteImagePage } from '../delete-image/delete-image';
 /**
  * Generated class for the EditUserPage page.
  *
@@ -18,6 +20,8 @@ import { Login } from '../../providers/login/Login';
 })
 export class EditUserPage {
   @ViewChild('select') select1: Select;
+  private lastNavCtrl:NavController;
+  public static deleteImageOption:boolean=false;
   public username: string;
   public birthdate: Date=new Date();
   options: { quality: number; sourceType: number; saveToPhotoAlbum: boolean; correctOrientation: boolean; destinationType: number; mediaType: number; };
@@ -29,8 +33,9 @@ export class EditUserPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider,
               private toastCtrl: ToastController, public camera:Camera, public avatarProvider: AvatarProvider,
-              public alertCtrl:AlertController, public login:Login) {
+              public alertCtrl:AlertController, public login:Login, public modalCtrl:ModalController, public viewCtrl:ViewController) {
           this.avatars = this.avatarProvider.getAvatars();
+          this.lastNavCtrl=navParams.get("navCtrl");
   }
   async ionViewDidLoad() {
     var user=await this.userProvider.getUserByUsername(LoginStatus.username);
@@ -43,7 +48,7 @@ export class EditUserPage {
         this.isenabled=false;
       }
   }
-
+ 
   async saveUser()
   {
     var user=await this.userProvider.getUserByUsername(LoginStatus.username);
@@ -60,7 +65,8 @@ export class EditUserPage {
       toast.present();
       LoginStatus.setLoginSuccess(this.username);
       this.login.login(this.username);
-      this.navCtrl.pop();
+      LoginStatus.user=user;
+      this.navCtrl.setRoot(HomePage, {}, {animate:true, direction:'back'});
     }
     catch
     {
@@ -74,51 +80,44 @@ export class EditUserPage {
     }
   }
 
- async takePhoto()
-  {
-    this.options = {
-      quality: 100,
-      sourceType: this.camera.PictureSourceType.CAMERA,
-      saveToPhotoAlbum: true,
-      correctOrientation: true,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      mediaType: this.camera.MediaType.VIDEO
+  async takePicture(source) {
+    try {
+      let cameraOptions: CameraOptions = {
+        quality: 50,
+        targetWidth: 800,
+        targetHeight: 800,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        correctOrientation: true,
+        saveToPhotoAlbum: (source == 'camera') ? true : false,
+        allowEdit: true
+      };
+      
+      cameraOptions.sourceType = (source == 'camera') ? this.camera.PictureSourceType.CAMERA :
+                                                        this.camera.PictureSourceType.PHOTOLIBRARY;
+      
+      const result = await this.camera.getPicture(cameraOptions);
+      const image = 'data:image/jpeg;base64,' + result;
+
+      this.Image = image;
+      
+    } catch(e) {
+      console.log(e);
     }
-    await this.camera.getPicture(this.options)
-      .then((imageData)=>{
-        this.Picture = "data:image/jpeg;base64,"+imageData;
-        this.isenabled=true;
-      }).then((path) => {
-        this.path = path;
-      }).catch((error) => {
-        console.log(error);
-      })
-      this.Image=this.Picture;
-      var a=1;
   }
 
-  deleteImage()
+  async deleteImage()
   {
-    const confirm = this.alertCtrl.create({
-      title: '¿Estás seguro de eliminar tu foto de usuario?',
-      message: '',
-      buttons: [
-        {
-          text: 'No',
-          handler: () => {
-            
-          }
-        },
-        {
-          text: 'Si',
-          handler: () => {
-            this.Image ="assets/imgs/avatars/avatar0.png";
-            this.isenabled=false;
-          }
-        }
-      ]
+    const modal=this.modalCtrl.create(DeleteImagePage);
+    modal.onDidDismiss(data=>{
+      if (data)
+      {
+        this.Image ="assets/imgs/avatars/avatar0.png";
+        this.isenabled=false;
+      }
     });
-    confirm.present();
+    await modal.present();
   }
   showSelect(){
     this.select1.open();

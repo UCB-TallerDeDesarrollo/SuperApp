@@ -1,6 +1,6 @@
-import { LoginStatus } from './../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
-import { User } from './../../entities/user';
+import { Letter } from './../../interfaces/letter';
+import { LoginStatus } from './../../providers/login/LoginStatus';
 import { SelectLevelPage } from './../select-level/select-level';
 import { LevelCompletePage } from './../level-complete/level-complete';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
@@ -13,6 +13,7 @@ import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { Product } from '../../shared/models/Product.model';
 import { Login } from '../../providers/login/Login';
 import { ProductsProvider } from '../../providers/product/product';
+import { User } from '../../entities/user';
 @Component({
     selector: 'page-word',
     templateUrl: 'word.html'
@@ -36,6 +37,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         private navParams          : NavParams,
         private login              : Login,
         private productProdiver    : ProductsProvider,
+        private userProvider       : UserProvider
     ) {
         this.prepareGame();
         this.changeSoundIcon();
@@ -81,7 +83,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
             this.game.setElements(product, level);
         }
         else {
-            await this.productProdiver.getProducts().then(products => {
+            let user: User = await this.userProvider.getUserByUsername(LoginStatus.username);
+            await this.productProdiver.getProductsByUserId(user.id).then(products => {
                 if(products.length == 0) {
                     let product: Product = this.productsProdiver.getProductOfActualLevel(level);
                     this.game.setElements(product, level);
@@ -112,7 +115,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public showModalWin(): void {
-        const levelCompleteModal = this.modalController.create(LevelCompletePage, {level: this.game.Level + 1, lastNav:this.navController});
+        const levelCompleteModal = this.modalController.create(LevelCompletePage, {level: this.game.Level + 1, lastNav:this.navController,maxLevel:200});
         levelCompleteModal.present();
     }
 
@@ -153,8 +156,23 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         this.audioProvider.changeState();
         this.changeSoundIcon();
     }
+    public getFirstLetterAvailable(){
+        let availableLetter = "";
+        let sortWord = [];
+        for (let i =0 ;i<this.game.SortedWord.length; i++){
+            sortWord.push(this.game.SortedWord[i].letter);
+        }
+        let b = sortWord.toString();
+        for (let i =0; i<this.game.MessyWord.length; i++){
+            if(b.includes(this.game.MessyWord[i].letter)){
+                availableLetter = this.game.MessyWord[i].letter;
+                break;
+            }
+        }
+        return availableLetter;
+    }
     public efect(word: string){
-        let searched = this.game.MessyWord[0].letter;
+        let searched = this.getFirstLetterAvailable();
         let aux = document.getElementsByClassName("objetive-container");
         let found;
         for (var i = 0; i < aux.length; i++) {
@@ -208,7 +226,7 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
     }
    
     public playPronunciationOfTheLetter(letter: string): void {
-        this.audioProvider.playPronunciationOfTheProductName(letter);
+        this.audioProvider.playPronunciationOfTheProductName(letter.toLowerCase());
     }
     public async downgradeCoins(){
         await this.login.updateCoins();

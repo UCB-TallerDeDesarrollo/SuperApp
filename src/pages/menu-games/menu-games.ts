@@ -1,17 +1,12 @@
 import { UserProvider } from './../../providers/user/user';
-import { SupermarketPage } from '../supermarket/supermarket'; 
 import { Component } from '@angular/core';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { ListaPage } from '../lista/lista';
-import { Category } from '../../entities/category';
-import { Product } from '../../entities/product';
-import { Categories } from '../../providers/FakeService/Categories';
 import { CategoryProvider } from '../../providers/category/category';
-import { FakeProducts } from '../../providers/FakeService/FakeProducts';
 import { ProductsProvider } from '../../providers/product/product';
-import { ListsPage } from '../lists/lists';
+import { Login } from '../../providers/login/Login';
 
 
 @IonicPage()
@@ -27,8 +22,10 @@ export class MenuGamesPage {
               private audioProvider: AudioProvider,
               public productsProvider: ProductsProvider,
               public categoryProvider: CategoryProvider,
-              public userProvide:UserProvider
-          ) {
+              public userProvide:UserProvider,
+              public userProvider: UserProvider,
+              public login: Login) {
+    this.prepareAnonimusUser();
     this.changeSoundIcon();
   }
 
@@ -57,51 +54,16 @@ export class MenuGamesPage {
   popPage(){
       this.navController.pop();
   }
+
   pushPageList(){
-    this.navController.push(ListsPage);
+    this.navController.push(ListaPage, { listId: -1 });
   }
 
-  async databaseInitializer() {
-    const count_product = await this.productsProvider.countProducts();
-    const count_category = await this.categoryProvider.countCategories();
-    if(count_category == 0) {
-      let categories = Categories.getCategories();
-      for(const c in categories) {
-        let category = new Category();
-        category.name = categories[c].name;
-        this.categoryProvider.saveCategory(category)
-        .then(response => {
-          if(response) {
-            this.categoryProvider.getCategoryByName(category.name)
-            .then(currentCategory => {
-              let products = FakeProducts.getProducts()
-              for (const p in products) {
-                if(currentCategory.name === Categories.getCategoryById(products[p].categoryId).name) {
-                  let product = new Product();
-                  product.image = products[p].image;
-                  product.state = 1;
-                  product.audio = " ";
-                  product.title = products[p].title;
-                  product.category_id = currentCategory.id;
-                  this.productsProvider.saveProduct(product)
-                  .then(response => {
-                    if(!response) console.error("Inconsistent product information");
-                  }).catch(error => {
-                    console.error(error);
-                  });
-                }
-              }
-            })
-          }
-        }).catch(error => {
-          console.error(error);
-        });
-      }
-    }
+
+  async prepareAnonimusUser() {
+    await this.userProvider.prepareAnonimusUser();
+    await this.login.loadingGameData();
   }
 
- ionViewDidLoad() {
-    this.databaseInitializer();
-  }
 
 }

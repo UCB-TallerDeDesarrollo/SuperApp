@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding class="main-product">
-  <form (ngSubmit)="saveProductForm()">
+  <form>
     <ion-item [formGroup]="productForm" class="product-form-top">
       <ion-label>Categoria</ion-label>
       <ion-select [(ngModel)]="product.category_id" name="category" formControlName="category">
@@ -13,11 +13,15 @@
       </ion-select>
     </ion-item>
     <ion-item>
-        <img (click)="callFunctionCamera()" src="{{Image}}" />
+        <img src="{{Image}}" />
     </ion-item>
     <ion-item [formGroup]="productForm">
       <ion-label>Nombre del Item</ion-label>
       <ion-input text-uppercase type="text" maxlength="20" formControlName="title" [(ngModel)]="product.title" name="title" value="{{product.title}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button ion-button primary (click)="callFunctionCamera(1)"><ion-icon name="md-camera"></ion-icon>&nbsp;&nbsp;Camara</button>
+      <button ion-button primary (click)="callFunctionCamera(2)"><ion-icon name="images"></ion-icon>&nbsp;&nbsp;Galeria</button>
     </ion-item>
     <ion-item>
       <button ion-button primary (click)="stopRecord()" *ngIf="recording"><ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Detener/Guardar</button>
@@ -29,6 +33,6 @@
       <ion-label>Activo</ion-label>
       <ion-checkbox [(ngModel)]="product.state" name="state"></ion-checkbox>
     </ion-item>
-    <button ion-button type="submit" [disabled]="!productForm.valid" block>Guardar</button>
+    <button ion-button (click)="saveProductForm()" [disabled]="!productForm.valid" block>Guardar</button>
   </form>
 </ion-content>

@@ -2,7 +2,6 @@ import { ProductListProvider } from './../../providers/product-list/product-list
 import { ListaPage } from './../lista/lista';
 import { LoginStatus } from './../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
-import { CreateListPage } from './../create-list/create-list';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { List } from '../../entities/list';
@@ -10,7 +9,7 @@ import { User } from '../../entities/user';
 import { ListProvider } from '../../providers/list/list';
 import { Login } from '../../providers/login/Login';
 import { EditListPage } from '../edit-list/edit-list';
-import {ConfirmationPage} from './../confirmation/confirmation';
+import { ConfirmationPage } from './../confirmation/confirmation';
 
 @IonicPage()
 @Component({
@@ -57,11 +56,13 @@ export class ListsPage {
   }
 
   listPage(list_id: number) {
+    this.navCtrl.pop();
     this.navCtrl.push(ListaPage, { listId: list_id });
   }
 
   createList() {
-    this.navCtrl.push(CreateListPage);
+    this.navCtrl.pop();
+    this.navCtrl.push(ListaPage, { listId: -1 });
   }
 
   async prepareAnonimusUser() {

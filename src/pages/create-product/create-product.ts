@@ -1,3 +1,5 @@
+import { LoginStatus } from './../../providers/login/LoginStatus';
+import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { ProductsProvider } from '../../providers/product/product';
@@ -8,6 +10,8 @@ import { Category } from '../../entities/category';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+import { type } from 'os';
+import { Login } from '../../providers/login/Login';
 
 @IonicPage()
 @Component({
@@ -36,8 +40,8 @@ export class CreateProductPage {
               public categoryProvider: CategoryProvider,
               public camera: Camera,
               private formBuilder: FormBuilder,
-              public platform: Platform) {
-
+              public platform: Platform,
+              public userProvider: UserProvider) {
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
       category: ['', Validators.required]
@@ -50,9 +54,14 @@ export class CreateProductPage {
       console.error(error);
     });
 
-    categoryProvider.getCategories()
-    .then(categories => {
-      this.categories = categories;
+    userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      categoryProvider.getCategoriesByUserId(user.id)
+      .then(categories => {
+        this.categories = categories;
+      }).catch(error => {
+        console.error(error);
+      });
     }).catch(error => {
       console.error(error);
     });
@@ -61,35 +70,54 @@ export class CreateProductPage {
   }
 
   async saveProductForm() {
-    this.product.image = this.Image;
-    this.product.audio = this.filePath;
-    this.product.title = this.product.title.toUpperCase();
-    this.productsProvider.saveProduct(this.product)
-    .then(result => {
-      if(result) this.afterSaveProduct();
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.product.user_id = user.id;
+      this.product.image = this.Image;
+      this.product.audio = this.filePath;
+      this.product.title = this.product.title.toUpperCase();
+      this.productsProvider.saveProduct(this.product)
+      .then(result => {
+        if(result) this.afterSaveProduct();
+      }).catch(error => {
+        console.error(error);
+      });
     }).catch(error => {
       console.error(error);
     });
   }
 
-  callFunctionCamera(){
-    this.takePicture();
+  callFunctionCamera(option: number){
+    let type;
+    let action;
+    switch (option) {
+      case 1:
+        type = this.camera.PictureSourceType.CAMERA;
+        action = true;
+        break;
+      case 2:
+        type = this.camera.PictureSourceType.PHOTOLIBRARY;
+        action = false;
+        break;
+    }
+    this.takePicture(type, action);
   }
 
   afterSaveProduct(){
     this.navCtrl.pop();
   }
 
-  takePicture(){
+  takePicture(type: any, action: boolean){
     this.options = {
-      quality: 80,
-      targetWidth: 225,
-      targetHeight: 225,
-      sourceType: this.camera.PictureSourceType.CAMERA,
-      saveToPhotoAlbum: true,
-      correctOrientation: true,
+      quality: 50,
+      targetWidth: 800,
+      targetHeight: 800,
       destinationType: this.camera.DestinationType.DATA_URL,
-      mediaType: this.camera.MediaType.VIDEO
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      saveToPhotoAlbum: action,
+      sourceType: type
     }
     this.camera.getPicture(this.options)
       .then((imageData)=>{

@@ -1,9 +1,8 @@
 import { ListProvider } from './../../providers/list/list';
 import { ProductListProvider } from './../../providers/product-list/product-list';
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NavController, AlertController, NavParams } from 'ionic-angular';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { NavController, AlertController, NavParams, ModalController } from 'ionic-angular';
 import { ProductsPage } from '../products/products';
-import { FakeListProducts } from '../../providers/FakeService/FakeListProducts';
 import { DragulaService } from 'ng2-dragula';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { Category } from '../../entities/category';
@@ -13,6 +12,10 @@ import { CategoryProvider } from '../../providers/category/category';
 import { ProductsProvider } from '../../providers/product/product';
 import { ProductList } from '../../entities/productList';
 import { List } from '../../entities/list';
+import { LoginStatus } from '../../providers/login/LoginStatus';
+import { UserProvider } from './../../providers/user/user';
+import { ListsPage } from './../lists/lists';
+import { ConfirmationPage } from './../confirmation/confirmation';
 
 @Component({
   selector: 'page-lista',
@@ -21,7 +24,7 @@ import { List } from '../../entities/list';
 })
 export class ListaPage implements OnInit, AfterViewInit {
 
-  list = new List;
+  list = new List();
   path_images = '../../assets/imgs/Products/';
   defaultCategoryId:number = 1;
   actualSelectedElement:any;
@@ -32,12 +35,14 @@ export class ListaPage implements OnInit, AfterViewInit {
   imageSound: String;
   productPageIndex: number;
   categoriesPageIndex: number;
-  productsOnList: Array<Product> = [];
-  numberOfProductsOnList: number;
+  productsOnList: Array<ProductList> = [];
+  toAddProducts: Array<ProductList> = [];
+  toDeleteProducts: Array<ProductList> = [];
   onViewProducts: Array<Product> = [];
   onViewCategories: Array<{id: number, name: string}>=[];
   ON_VIEW_LIST_LENGTH = 12;
   ON_VIEW_CATEGORIES_LENGTH = 3;
+  
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -47,35 +52,52 @@ export class ListaPage implements OnInit, AfterViewInit {
               private audioProvider: AudioProvider,
               private alertCtrl: AlertController,
               public productListProvider: ProductListProvider,
-              public listProvider: ListProvider) {
+              public listProvider: ListProvider,
+              public userProvider: UserProvider,
+              private modalController: ModalController) {
+    this.list.name="NUEVA LISTA";
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
-    this.selectedCategory=Categories.getCategoryById(this.defaultCategoryId);
-    categoryProvider.getCategories()
-    .then(categories => {
-      this.categories = categories;
-      this.chargeCategories();
-    })
-    .catch(error => {
-      console.log(error);
-    });
-    productsProvider.getProductsByCategoryOnlyActive(this.defaultCategoryId)
-    .then(products => {
-      this.products = products;
-      this.chargeProducts();
-    })
-    .catch(error => {
-      console.log(error);
-    });
-    listProvider.getListById(this.navParams.get("listId"))
-    .then(list => {
-      this.list = list;
+    this.selectedCategory = Categories.getCategoryById(this.defaultCategoryId);
+
+    userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      categoryProvider.getCategoriesByUserId(user.id)
+      .then(categories => {
+        this.categories = categories;
+        this.chargeCategories();
+      }).catch(error => {
+        console.log(error);
+      });
+      productsProvider.getProductsByCategoryAndUserIdOnlyActive(this.defaultCategoryId, user.id)
+      .then(products => {
+        this.products = products;
+        this.chargeProducts();
+      }).catch(error => {
+        console.log(error);
+      });
     }).catch(error => {
-      console.error(error);
+      console.log(error);
     });
+  }
+
+  ionViewWillEnter() {
+    this.chargeList();
+    this.initializerVariables();
     this.changeSoundIcon();
-    this.reloadProductsOnList();
-    this.chargeProducts();
+  }
+
+  chargeList(){
+    let listId=this.navParams.get("listId");
+    if(listId>-1){
+      this.listProvider.getListById(listId)
+      .then(list => {
+        this.list = list;
+        this.loadProductsOnList();
+      }).catch(error => {
+        console.error(error);
+      });
+    }
   }
 
   chargeProducts(){
@@ -94,23 +116,16 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.onViewCategories = this.categories.slice(this.categoriesPageIndex, bound);
   }
 
-  ionViewWillEnter() {
-    this.listProvider.getListById(this.navParams.get("listId"))
-    .then(list => {
-      this.list = list;
-    }).catch(error => {
-      console.error(error);
-    });
-    this.reloadProductsOnList();
-    this.initializerVariables();
-    this.changeSoundIcon();
-  }
-
   initializerVariables() {
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
-    .then(products => {
-      this.products = products;
-      this.chargeProducts();
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.productsProvider.getProductsByCategoryAndUserIdOnlyActive(this.selectedCategory.id, user.id)
+      .then(products => {
+        this.products = products;
+        this.chargeProducts();
+      }).catch(error => {
+        console.log(error);
+      });
     }).catch(error => {
       console.log(error);
     });
@@ -134,33 +149,16 @@ export class ListaPage implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dragulaService.drop("PRODUCT").subscribe(({ el, target, source, sibling }) => {
       let product_id = + (el.id.split("-")[1]);
-      this.productsProvider.getProductById(product_id)
-      .then(p => {
-        let productListTemp = new ProductList();
-        productListTemp.list_id = this.navParams.get("listId");
-        productListTemp.product_id = p.id;
-        this.productListProvider.saveProductList(productListTemp)
-        .then(response => {
-          if(response) this.reloadProductsOnList();
-        }).catch(error => {
-          console.error(error);
-        });
-        this.audioProvider.playPronunciationOfTheProductName(p.title);
-        this.productsProvider.updateProduct(p)
-        .then(response => {
-          if(response) this.onSelectCategory(this.selectedCategory);
-        }).catch(error => {
-          console.log(error);
-        });
-        this.productListProvider.getCountByListId(this.navParams.get("listId"))
-        .then(result => {
-          this.numberOfProductsOnList = result;
-        }).catch(error => {
-          console.error(error);
-        });
-      }).catch(error => {
-        console.log(error);
-      });
+      let product=this.products.find(el=>el.id===product_id);
+      let productListTemp = new ProductList();
+      productListTemp.list_id = this.navParams.get("listId");
+      productListTemp.product_id = product.id;
+      productListTemp.product=product;
+      this.productsOnList.push(productListTemp);
+      this.addToQueueList(productListTemp);
+      this.products=this.products.filter(prod => prod.id!==product.id);
+      this.chargeProducts();
+      this.audioProvider.playPronunciationOfTheProductName(product.title);
       el.remove();
     });
   }
@@ -209,12 +207,25 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   onSelectCategory(category){
     this.selectedCategory = category;
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
-    .then(products => {
-      this.products=products;
-      this.reloadProductsOnList();
-      this.productPageIndex = 0;
-      this.chargeProducts();
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.productsProvider.getProductsByCategoryAndUserIdOnlyActive(this.selectedCategory.id, user.id)
+      .then(products => {
+        this.products=products.filter(product => {
+          let isNotOnList =true;
+          for(let productList of this.productsOnList){
+            if(product.id===productList.product.id){
+              isNotOnList=false;
+              break;
+            }
+          }
+          return isNotOnList;
+        });
+        this.productPageIndex = 0;
+        this.chargeProducts();
+      }).catch(error => {
+        console.log(error);
+      });
     }).catch(error => {
       console.log(error);
     });
@@ -243,57 +254,66 @@ export class ListaPage implements OnInit, AfterViewInit {
     alert.present();
   }
 
-  onClickDeleteAProduct(product) {
-    let productId=product.id;
-    let listId=this.navParams.get("listId");
-    this.productListProvider.deleteProductListByProductIdAndListId(productId, listId);
-
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
-    .then(products => {
-      this.products = products;
-      this.reloadProductsOnList();
-      this.chargeProducts();
-    }).catch(error => {
-      console.log(error);
+  alertSucessSaveList(){
+    let alert = this.alertCtrl.create({
+      title: 'Guardado Satisfactoriamente',
+      message: 'Se guardo la lista '+this.list.name,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+          }
+        }
+      ]
     });
+    alert.present();
+  }
+
+  onClickDeleteAProduct(productOfList) {
+    let productId=productOfList.product.id;
+    this.productsOnList=this.productsOnList.filter(onList=>onList.product_id!==productId);
+    this.addToDeleteQueue(productOfList);
+    this.onSelectCategory(this.selectedCategory);    
   }
 
   deleteListOfProducts() {
-    this.productListProvider.deleteProductListByListId(this.navParams.get("listId"))
-    .then(result => {
-      if(result) this.reloadProductsOnList();
-    }).catch(error => {
-      console.error(error);
-    });
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
-    .then(products => {
-      this.products = products;
-      this.chargeProducts();
-    }).catch(error => {
-      console.log(error);
-    });
-    this.reloadProductsOnList();
-    this.productListProvider.getCountByListId(this.navParams.get("listId"))
-    .then(result => {
-      this.numberOfProductsOnList = result;
-    }).catch(error => {
-      console.error(error);
-    });
+    this.toDeleteProducts=this.productsOnList;
+    this.productsOnList=[];
+    this.onSelectCategory(this.selectedCategory);
+  }
+
+  addToDeleteQueue(productList: ProductList){
+    if(this.list.id){
+      this.toAddProducts=this.toAddProducts.filter(product => product.product_id!==productList.product_id);
+      this.toDeleteProducts.push(productList);
+    }
+  }
+  
+  addToQueueList(productList: ProductList){
+    if(this.list.id){
+      this.toDeleteProducts=this.toDeleteProducts.filter(product => product.product_id!==productList.product_id);
+      this.toAddProducts.push(productList);
+    }
   }
 
   public playPronunciationOfTheProductName(word:string) {
     this.audioProvider.playPronunciationOfTheProductName(word);
   }
 
-  reloadProductsOnList() {
-    this.productListProvider.getProductListByListId(this.navParams.get("listId"))
+  loadProductsOnList() {
+    let listId=this.list.id;
+    this.productListProvider.getProductListByListId(listId)
     .then(productList => {
       this.productsOnList.splice(0, this.productsOnList.length);
       productList.forEach(productOfProductList => {
         this.productsProvider.getProductById(productOfProductList.product_id)
-        .then(productToProductList => {
-          this.productsOnList.push(productToProductList);
-          this.products=this.products.filter(product => product.id!=productToProductList.id);
+        .then(product => {
+          let productList=new ProductList();
+          productList.list_id=listId;
+          productList.product_id=product.id;
+          productList.product=product;
+          this.productsOnList.push(productList);
+          this.products=this.products.filter(prod => prod.id!==product.id);
           this.chargeProducts();
         }).catch(error => {
           console.log(error);
@@ -302,11 +322,92 @@ export class ListaPage implements OnInit, AfterViewInit {
     }).catch(error => {
       console.log(error);
     });
-    this.productListProvider.getCountByListId(this.navParams.get("listId"))
-    .then(result => {
-      this.numberOfProductsOnList = result;
-    }).catch(error => {
-      console.error(error);
+  }
+
+  async saveList() {
+    if(this.list.id){
+      this.listProvider.updateList(this.list)
+      .then(
+        async (success) => {
+        await this.saveProductList(false);
+      });
+    }else{
+      this.userProvider.getUserByUsername(LoginStatus.username)
+      .then(user => {
+        this.list.user_id = user.id;
+        this.listProvider.saveList(this.list).then(success => {
+          this.saveProductList(true);
+        });
+      }).catch(error => {
+        console.error(error);
+      });
+    }
+  }
+
+  async saveProductList(newList: boolean){
+    if(!newList){
+      await this.saveAuxiliarLists();
+    }
+    else{
+      for(let onList of this.productsOnList){
+        onList.list_id=this.list.id;
+        await this.productListProvider.saveProductList(onList);
+      }
+    }
+    this.alertSucessSaveList();
+  }
+
+  async saveAuxiliarLists(){
+    for(let onList of this.toAddProducts){
+      onList.list_id=this.list.id;
+      await this.productListProvider.saveProductList(onList);
+    }
+    for(let onList of this.toDeleteProducts){
+      onList.list_id=this.list.id;
+      await this.productListProvider.deleteProductListByProductIdAndListId(onList.product_id, onList.list_id);
+    }
+    this.toAddProducts=[];
+    this.toDeleteProducts=[];
+  }
+
+  confirm(){
+    let callback=()=>{this.deleteList()};
+    let message="¿Realmente quieres eliminar la lista "+this.list.name+"?";
+    const confirmationModal = this.modalController.create(ConfirmationPage,{callback:callback, message:message});
+    confirmationModal.present();
+  }
+
+  deleteList(){
+    this.productListProvider.deleteProductListByListId(this.list.id)
+    .then(response => {
+      if(!response) console.error("Inconsistent list information");
+    })
+    this.listProvider.deleteList(this.list.id)
+    .then(response => {
+      if(!response) console.error("Inconsistent list information");
     });
+    this.list=new List;
+    this.list.name="NUEVA LISTA";
+    this.productsOnList=[];
+  }
+
+  openList(){
+    this.navCtrl.pop();
+    this.navCtrl.push(ListsPage);
+  }
+
+  editName(){
+    let title=<HTMLBodyElement>document.querySelector("#list-name");
+    let form=<HTMLBodyElement>document.querySelector("#name-form");
+    title.classList.add("hide");
+    form.classList.remove("hide");
+  }
+
+  saveListsName(){
+    let title=<HTMLBodyElement>document.querySelector("#list-name");
+    let form=<HTMLBodyElement>document.querySelector("#name-form");
+    this.list.name=this.list.name.toUpperCase();
+    title.classList.remove("hide");
+    form.classList.add("hide");
   }
 }

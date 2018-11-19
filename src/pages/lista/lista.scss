@@ -1,25 +1,14 @@
 .main-list {
   background-image: url("../../assets/imgs/backgroundlista0.jpg");
-  background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   overflow-y: hidden !important;
   padding: 2px !important;
 
   .scroll-content{
      overflow: hidden;
 }
-
-  .main-title {
-    position: absolute;
-    text-align: center;
-    width: 100%;
-    top:30%; 
-    left:0;
-
-    @media screen and (min-width: 1023px) and (max-width: 1367px) {
-      font-size: 1em;
-    }
-  }
-
   .list_categories-block {
     display: inline-block;
     width: 54%;
@@ -32,8 +21,8 @@
   }
   ion-header[transparent] .toolbar-background { 
     background: transparent;
+    box-shadow: 0px;
   }
-
   .category-title{
     display:block;
     color: black;
@@ -51,13 +40,13 @@
     }
   }
 
-  .products_stand {
+  .shelves {
     width: 48% !important;
     height: 70%;
     min-height: 60%;
     float: left;
     padding-left: 6%;
-    background-image: url("../../assets/imgs/shelves.png");
+    background-image: url("../../assets/imgs/shelves_list.png");
     background-size: 100% 100%;
 
     @media screen and (max-width: 750px) {
@@ -76,31 +65,48 @@
 
     .product-block {
       display: flex;
-      margin: 7px;
+      margin-top: 2.8%; 
 
-      @media screen and (max-width: 1367px) {
+      @media screen and (max-height: 1024px) {              
+        margin-top: 4.5%;
+      }
+
+      @media screen and (max-height: 768px) {
         margin-left: 5px;
-        margin-right: 5px;
-        margin-top: 4.2%;
+        margin-right: 5px;        
+        margin-top: 7.2%;
+      }
+      
+      @media screen and (max-height: 414px){
+        margin-top: 3.6%;
       }
 
-      @media (max-height: 375px) and (max-width: 812px) {
-        margin-top: 1.8%;
-      }
-           
-      @media screen and (max-width: 667px) {
-        margin: 1px;
+      @media screen and (max-height: 411px){
         margin-top: 3.4%;
       }
 
-      @media screen and (max-width: 640px) {
-        margin: 3px;
-        margin-top: 11px;
+      @media screen and (max-height: 375px){
+        margin-top: 0.8%;
+      }
+      
+      @media (max-height: 360px) and (max-width: 640px){
+        margin-top: 0.4%;
       }
 
-      @media screen and (max-width: 568px) {
-        margin: 3px;
-        margin-top: 7px;
+      @media (max-height: 360px) and (max-width: 640px){
+        margin-top: 2.4%;
+      }
+
+      @media screen and (max-height: 360px){
+        margin-top: 0;
+      }
+
+      @media screen and (max-height: 320px){
+        margin-top: 0.2%;
+      }
+
+      @media screen and (max-width: 700px){
+        margin-right: 3px;
       }
 
       .product-info {
@@ -175,11 +181,6 @@
 
         .product-name {
           font-size: 65%;
-
-          /*@media screen and (min-width: 1024px) and (max-width: 1367px) {
-            font-size: 1.5em;
-          }*/
-
           text-align: center;
           margin-top: -2px;
         }
@@ -187,17 +188,34 @@
     }
   }
 
+  .icon{
+    width: 4vw;
+    height: 8vh;
+    display: inline-block;
+    position: relative;
+    left:75%;
+    .save{
+      left: 60%;
+    }
+    .open{
+      left: 60%;
+    }
+    .delete{
+      left: 60%;
+    }
+  }
+
   .objetive-container {
     float: right;
     width: 41%;
-    height: 88%;
+    height: 100%;
     border: none;
     background-image: url(../../assets/imgs/sheet.png);
-    background-size: cover;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     padding: 6px;
     padding-top: 5%;
-    transform: translateY(-86%);
+    transform: translateY(-73%);
 
     .scroll-container {
       width: 100%;
@@ -226,7 +244,11 @@
         border: solid 3px #d6d6d6;
         position: relative;
         width: 100%;
-        padding: 6px;      
+        padding: 6px;
+
+        @media screen and (min-height: 768px) {
+          height: 98px;
+        }
 
         .product-description-section {
           object-fit: fill;
@@ -257,14 +279,9 @@
           background-color: #fff;
           overflow: hidden;
 
-          @media screen and (max-width: 1367px) {
-            width: 220px;
-            height: 180px;
-          }
-
-          @media screen and (max-width: 1024px) {
-            width: 150px;
-            height: 130px;
+          @media screen and (max-width: 1336px) {
+            width: 80px;
+            height: 80px;
           }
 
           @media screen and (max-width: 824px) {
@@ -441,26 +458,6 @@
     }
 }
 
-.cant-product {
-    position: absolute;
-    visibility: visible;
-    background: url("../../assets/imgs/bigsquare.png") no-repeat;
-    background-size: cover;
-    width: 150px;
-    height: 150px;
-    right: 1%;
-    top: 30%;
-}
-
-.number {
-    position: relative;
-    top: 8%;
-    left: 10%;
-    width: 80%;
-    font-size: 100px;
-    text-align: center;
-}
-
 .gu-mirror {
     margin: 0 !important;
     z-index: -9999 !important;
@@ -514,8 +511,40 @@
 .hide{
   display: none;
 }
+
 .back-arrow {
   background-color: transparent;
   box-shadow: none;
 }
 
+.create-list{
+  border-radius: 20px !important;
+  width: 50%;
+  position: relative;
+  left: 10%;
+}
+
+.sound-icon{
+    position: fixed;
+    right: 0px;
+    top: 1%;
+    width: 8%;
+}
+.save-icon{
+  width: 5%;
+  position: fixed;
+  right: 8%;
+  top: 20%;
+}
+.open-icon{
+  width: 5%;
+  position: fixed;
+  right: 16%;
+  top: 20%;
+}
+.delete-icon{
+  width: 5%;
+  position: fixed;
+  right: 24%;
+  top: 20%;
+}

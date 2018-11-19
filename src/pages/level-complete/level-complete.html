@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 
-  <div class="modal_container" id="modal"> 
+<div class="modal_container" id="modal"> 
     <div class="modal">
       <div class="modal_heading">
         <span >
@@ -28,10 +28,13 @@
           <span class="modal_heading2">
             PR&Oacute;XIMO NIVEL
             <h2>{{level}}</h2>
+            <div class="star_container">
+              <div class="difficulty-container__star">
+                <div class="star star__enabled" *ngFor="let pos of generateArray(cantStars)"></div>
+                <div class="star" *ngFor="let pos of generateArray(5 - cantStars)"></div>
+              </div>
+            </div>
           </span>
-          <div class="modal_nextlevel">
-           
-          </div>
           
           <button class="newGameButton" (click)="nextLevel()">
             <a class="newGameLink" >JUGAR</a>

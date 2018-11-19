@@ -1,16 +1,33 @@
-<ion-header>
-    
+<ion-header no-border text-center> 
+  <ion-navbar transparent>
+    <div style="margin-right: 30%;">
+      <ion-title id="list-name" (click)="editName()">{{list.name}}</ion-title> 
+    </div> 
+    <div class="{{ list.id ? 'icon delete' : 'hide' }}">
+      <div class="delete-icon">
+        <img src="../../assets/imgs/delete-icon.svg" alt="" (click)="confirm()">
+      </div>               
+    </div>
+    <div class="open-icon">
+        <img src="../../assets/imgs/open.svg" alt="" (click)="openList()">
+    </div>
+    <div class="save-icon">
+        <img src="../../assets/imgs/save-icon.svg" alt="" (click)="saveList()">
+    </div>
+    <div class="sound-icon">
+      <img [src]="imageSound" alt="" (click)="stopSound()">
+    </div>
+    <ion-item id="name-form" class="create-list hide">
+      <ion-label>Nombre</ion-label>
+      <ion-input text-uppercase type="text" [(ngModel)]="list.name" name="name" class="input-text" (keyup.enter)="saveListsName()"></ion-input>
+    </ion-item>
+  </ion-navbar>    
 </ion-header>
 
 <ion-content no-bounce padding class="main-list">
-  <ion-navbar transparent>
-    <div class="music-logo">
-      <img [src]="imageSound" alt="" (click)="stopSound()">
-    </div>
-    <ion-title class="main-title">{{list.name}}</ion-title> 
-  </ion-navbar>  
+
   <div class="category-title">{{selectedCategory.name}}</div>
-  <div class="products_stand">    
+  <div class="shelves">    
     <ion-list>
       <ion-row>
         <div class="product-block" *ngFor="let product of onViewProducts" id="{{product.title}}" dragula="PRODUCT">
@@ -24,7 +41,7 @@
   </div>
   <ion-row>
     <ion-col>
-      <img src="assets/imgs/arrowgreen.png" class="{{ products.length>12 ? 'arrow' : 'hide' }}" alt="" (click)="nextProductPage()">
+      <img src="assets/imgs/arrowgreen.png" class="{{ products.length>ON_VIEW_LIST_LENGTH ? 'arrow' : 'hide' }}" alt="" (click)="nextProductPage()">
     </ion-col>
   </ion-row>
   <div class="list_categories-block">
@@ -33,21 +50,21 @@
         <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
       </ion-col>
       <ion-col>
-        <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>4 ? 'arrow' : 'hide' }}" alt="" (click)="nextCategoryPage()">
+        <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>ON_VIEW_CATEGORIES_LENGTH ? 'arrow' : 'hide' }}" alt="" (click)="nextCategoryPage()">
       </ion-col>
     </ion-row>
   </div>
 
   <div id="ignore-item" class="objetive-container" dragula="PRODUCT">
-    <ion-title style="object-fit: fill;">Cantidad de productos: {{numberOfProductsOnList}}</ion-title>
+    <ion-title style="object-fit: fill;">Cantidad de productos: {{productsOnList.length}}</ion-title>
     <button ion-button full class="button" (click)="onClickDeleteList()">Borrar lista</button>
     <ion-scroll scrollY="true" class="scroll-container">
       <ion-list>
         <div *ngFor="let productOnList of productsOnList">
           <div class="product-section" (click)="onClickDeleteAProduct(productOnList)">
-              <img class="product-listed" src="{{productOnList.image}}">
+              <img class="product-listed" src="{{productOnList.product.image}}">
             <div class="product-description-section">
-              <p class="product-description"> {{productOnList.title}} </p>
+              <p class="product-description"> {{productOnList.product.title}} </p>
             </div>
           </div>
         </div>

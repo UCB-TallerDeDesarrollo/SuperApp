@@ -1,5 +1,4 @@
 page-edit-user {
-
     .image_user{
         height: 15vw; 
         width: 15vw; 
@@ -26,10 +25,15 @@ page-edit-user {
         left: 5%;
         top: 95%;
     }
+    .album{
+        position: absolute;
+        left: 18%;
+        top: 95%;
+    }
     .deleteImage
     {
         position: absolute;
-        left: 22%;
+        left: 32%;
         top: 95%;
     }
 }
