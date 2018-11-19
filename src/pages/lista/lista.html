@@ -1,29 +1,31 @@
-<ion-header>
-    
-</ion-header>
-
-<ion-content no-bounce padding class="main-list">
+<ion-header no-border text-center> 
   <ion-navbar transparent>
-    <div class="{{ list.id ? 'icon delete' : 'hide' }}">
-        <img src="../../assets/imgs/delete-icon.png" alt="" (click)="confirm()">
+    <div style="margin-right: 30%;">
+      <ion-title id="list-name" (click)="editName()">{{list.name}}</ion-title> 
+    </div> 
+    <div class="{{ list.id ? 'icon delete' : 'hide' }}, delete-icon">
+        <img src="../../assets/imgs/delete-icon.svg" alt="" (click)="confirm()">       
     </div>
-    <div class="icon open">
+    <div class="open-icon">
         <img src="../../assets/imgs/open.svg" alt="" (click)="openList()">
     </div>
-    <div class="icon save">
-        <img src="../../assets/imgs/save-icon.png" alt="" (click)="saveList()">
+    <div class="save-icon">
+        <img src="../../assets/imgs/save-icon.svg" alt="" (click)="saveList()">
     </div>
-    <div class="music-logo">
+    <div class="sound-icon">
       <img [src]="imageSound" alt="" (click)="stopSound()">
     </div>
-    <ion-title id="list-name" class="main-title" (click)="editName()">{{list.name}}</ion-title> 
     <ion-item id="name-form" class="create-list hide">
       <ion-label>Nombre</ion-label>
       <ion-input text-uppercase type="text" [(ngModel)]="list.name" name="name" class="input-text" (keyup.enter)="saveListsName()"></ion-input>
     </ion-item>
-  </ion-navbar>  
+  </ion-navbar>    
+</ion-header>
+
+<ion-content no-bounce padding class="main-list">
+
   <div class="category-title">{{selectedCategory.name}}</div>
-  <div class="products_stand">    
+  <div class="shelves">    
     <ion-list>
       <ion-row>
         <div class="product-block" *ngFor="let product of onViewProducts" id="{{product.title}}" dragula="PRODUCT">
