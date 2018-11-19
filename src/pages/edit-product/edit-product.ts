@@ -1,3 +1,5 @@
+import { LoginStatus } from './../../providers/login/LoginStatus';
+import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { ProductsProvider } from '../../providers/product/product';
@@ -8,6 +10,7 @@ import { Category } from '../../entities/category';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+import { Login } from '../../providers/login/Login';
 
 
 @IonicPage()
@@ -37,7 +40,10 @@ export class EditProductPage {
               public camera: Camera,
               private formBuilder: FormBuilder,
               public platform: Platform,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              public userProvider: UserProvider,
+              public login: Login) {
+    async() => await this.prepareAnonimusUser();
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
       category: ['', Validators.required]
@@ -51,9 +57,14 @@ export class EditProductPage {
       console.error(error);
     });
 
-    this.categoryProvider.getCategories()
-    .then(categories => {
-      this.categories = categories;
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.categoryProvider.getCategoriesByUserId(user.id)
+      .then(categories => {
+        this.categories = categories;
+      }).catch(error => {
+        console.error(error);
+      });
     }).catch(error => {
       console.error(error);
     });
@@ -133,5 +144,10 @@ export class EditProductPage {
   public disableRecordedSound(){
     this.filePath = " ";
     this.audio.release();
+  }
+
+  async prepareAnonimusUser() {
+    await this.userProvider.prepareAnonimusUser();
+    await this.login.loadingGameData();
   }
 }

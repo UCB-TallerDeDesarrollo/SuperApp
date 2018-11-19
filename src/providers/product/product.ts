@@ -22,12 +22,13 @@ export class ProductsProvider {
       result = false;
     }
     return result;
-  }
+  } 
 
-  async getProducts(): Promise<Array<Product>> {
+  async getProductsByUserId(user_id: number): Promise<Array<Product>> {
     let result: Array<Product>
     try {
       result = await this.productRepository.createQueryBuilder()
+                                            .where("user_id = :user_id", {user_id: user_id})
                                             .orderBy('id', 'ASC')
                                             .getMany();
     } catch (error) {
@@ -113,12 +114,13 @@ export class ProductsProvider {
     return result;
   }
 
-  async getProductsByCategoryOnlyActive(category_id: number): Promise<Array<Product>> {
+  async getProductsByCategoryAndUserIdOnlyActive(category_id: number, user_id: number): Promise<Array<Product>> {
     let result: Array<Product>;
     try {
       result = await this.productRepository.createQueryBuilder()
                                             .where("category_id = :categoryId", { categoryId: category_id })
                                             .andWhere("state = :state", { state: 1 })
+                                            .andWhere("user_id = :user_id", { user_id: user_id})
                                             .orderBy('id', 'ASC')
                                             .getMany();
     } catch (error) {
