@@ -1,14 +1,18 @@
 <ion-header no-border text-center> 
   <ion-navbar transparent>
-    <ion-title id="list-name" (click)="editName()">{{list.name}}</ion-title> 
-    <div class="{{ list.id ? 'icon delete' : 'hide' }}, music-logo">
-        <ion-icon name="trash" (click)="confirm()"></ion-icon>        
+    <div style="margin-right: 30%;">
+      <ion-title id="list-name" (click)="editName()">{{list.name}}</ion-title> 
+    </div> 
+    <div class="{{ list.id ? 'icon delete' : 'hide' }}, delete-icon">
+        <img src="../../assets/imgs/delete-icon.svg" alt="" (click)="confirm()">       
     </div>
-    <ion-icon class="music-logo" name="folder-open" (click)="openList()"></ion-icon>
-    <div class="music-logo">
+    <div class="open-icon">
+        <img src="../../assets/imgs/open.svg" alt="" (click)="openList()">
+    </div>
+    <div class="save-icon">
         <img src="../../assets/imgs/save-icon.svg" alt="" (click)="saveList()">
     </div>
-    <div class="music-logo">
+    <div class="sound-icon">
       <img [src]="imageSound" alt="" (click)="stopSound()">
     </div>
     <ion-item id="name-form" class="create-list hide">

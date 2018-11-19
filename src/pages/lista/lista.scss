@@ -23,7 +23,6 @@
     background: transparent;
     box-shadow: 0px;
   }
-
   .category-title{
     display:block;
     color: black;
@@ -245,7 +244,11 @@
         border: solid 3px #d6d6d6;
         position: relative;
         width: 100%;
-        padding: 6px;      
+        padding: 6px;
+
+        @media screen and (min-height: 768px) {
+          height: 98px;
+        }
 
         .product-description-section {
           object-fit: fill;
@@ -276,14 +279,9 @@
           background-color: #fff;
           overflow: hidden;
 
-          @media screen and (max-width: 1367px) {
-            width: 220px;
-            height: 180px;
-          }
-
-          @media screen and (max-width: 1024px) {
-            width: 150px;
-            height: 130px;
+          @media screen and (max-width: 1336px) {
+            width: 80px;
+            height: 80px;
           }
 
           @media screen and (max-width: 824px) {
@@ -523,5 +521,30 @@
   border-radius: 20px !important;
   width: 50%;
   position: relative;
-  left: 20%;
+  left: 10%;
+}
+
+.sound-icon{
+    position: fixed;
+    right: 0px;
+    top: 1%;
+    width: 8%;
+}
+.save-icon{
+  width: 5%;
+  position: fixed;
+  right: 8%;
+  top: 20%;
+}
+.open-icon{
+  width: 5%;
+  position: fixed;
+  right: 16%;
+  top: 20%;
+}
+.delete-icon{
+  width: 5%;
+  position: fixed;
+  right: 24%;
+  top: 20%;
 }
