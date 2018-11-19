@@ -44,6 +44,17 @@ export class NativeAudioProvider implements AudioProvider {
         }
     }
 
+    public stopSound() {
+        /*this.tts.stop()
+            .then(() => console.log('Success'))
+            .catch((reason: any) => console.log(reason));*/
+        this.tts.speak({
+            text: '',
+            locale: 'es-MX',
+            rate: 0.80
+        }).then(() => console.log('Success'))
+            .catch((reason: any) => console.log(reason));
+    }
 
     public playLevelCompleteSound(): void {
         if(NativeAudioProvider.isMuted == false)
@@ -70,6 +81,26 @@ export class NativeAudioProvider implements AudioProvider {
               .catch((reason: any) => console.log(reason));
         }
     }
+
+    public playPronunciationOfWord(word: string, page: any, index: number) {
+        if (NativeAudioProvider.isMuted == false) {
+            word = this.fixAudioOfProduct(word);
+            this.tts.speak({
+                text: word,
+                locale: 'es-MX',
+                rate: 0.80
+            }).then(() => {
+                page.offSound(index);
+            }).catch((reason: any) => {
+                console.log(reason);
+                page.offSound(index);
+            });
+        }
+        else {
+            page.offSound(index);
+        }
+    }
+
     private fixAudioOfProduct(productName:string): any {
         if (productName=="CAFE")
         {
