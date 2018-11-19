@@ -45,7 +45,15 @@ export class NativeAudioProvider implements AudioProvider {
     }
 
     public stopSound() {
-        this.tts.stop();
+        /*this.tts.stop()
+            .then(() => console.log('Success'))
+            .catch((reason: any) => console.log(reason));*/
+        this.tts.speak({
+            text: '',
+            locale: 'es-MX',
+            rate: 0.80
+        }).then(() => console.log('Success'))
+            .catch((reason: any) => console.log(reason));
     }
 
     public playLevelCompleteSound(): void {
