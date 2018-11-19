@@ -75,10 +75,15 @@ export class ListaPage implements OnInit, AfterViewInit {
       console.log(error);
     });
 
-    productsProvider.getProductsByCategoryOnlyActive(this.defaultCategoryId)
-    .then(products => {
-      this.products = products;
-      this.chargeProducts();
+    userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      productsProvider.getProductsByCategoryAndUserIdOnlyActive(this.defaultCategoryId, user.id)
+      .then(products => {
+        this.products = products;
+        this.chargeProducts();
+      }).catch(error => {
+        console.log(error);
+      });
     }).catch(error => {
       console.log(error);
     });
@@ -120,10 +125,15 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   initializerVariables() {
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
-    .then(products => {
-      this.products = products;
-      this.chargeProducts();
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.productsProvider.getProductsByCategoryAndUserIdOnlyActive(this.selectedCategory.id, user.id)
+      .then(products => {
+        this.products = products;
+        this.chargeProducts();
+      }).catch(error => {
+        console.log(error);
+      });
     }).catch(error => {
       console.log(error);
     });
@@ -205,20 +215,25 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   onSelectCategory(category){
     this.selectedCategory = category;
-    this.productsProvider.getProductsByCategoryOnlyActive(this.selectedCategory.id)
-    .then(products => {
-      this.products=products.filter(product => {
-        let isNotOnList =true;
-        for(let productList of this.productsOnList){
-          if(product.id===productList.product.id){
-            isNotOnList=false;
-            break;
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.productsProvider.getProductsByCategoryAndUserIdOnlyActive(this.selectedCategory.id, user.id)
+      .then(products => {
+        this.products=products.filter(product => {
+          let isNotOnList =true;
+          for(let productList of this.productsOnList){
+            if(product.id===productList.product.id){
+              isNotOnList=false;
+              break;
+            }
           }
-        }
-        return isNotOnList;
+          return isNotOnList;
+        });
+        this.productPageIndex = 0;
+        this.chargeProducts();
+      }).catch(error => {
+        console.log(error);
       });
-      this.productPageIndex = 0;
-      this.chargeProducts();
     }).catch(error => {
       console.log(error);
     });
