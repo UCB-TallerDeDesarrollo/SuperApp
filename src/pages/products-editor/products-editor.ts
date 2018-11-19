@@ -165,11 +165,8 @@ export class ProductsEditorPage implements OnDestroy {
 
   stopAudio(product_audio :string, index: number){
     this.soundStatus[index] = true;
-    if(product_audio == " "){
-    
-    }else{
-      this.audio.stop();
-    }
+    this.audio.stop();
+    this.audioProvider.stopSound();
   }
 
   confirm(product: Product){
