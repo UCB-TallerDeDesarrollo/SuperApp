@@ -292,5 +292,22 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   } 
 
   public reduceCoins(){
+          this.actionClueProduct();   
+  async actionClueProduct(){
+      let wrongProducts = ArrayManager.getWrongElements(this.productsToPlay,this.productsToBuy); 
+      let productToRemove = ArrayManager.get_random_element(wrongProducts); 
+      this.removeWrongProduct(productToRemove);
   }
+  
+  removeWrongProduct(productToRemove){
+    this.productsToPlay.splice(this.productsToPlay.indexOf(productToRemove),1); 
+    if(this.game.isAdvancedLevel){
+      let index = this.onViewProducts.indexOf(productToRemove);
+      this.takeProductOut(productToRemove.id);    
+      if(index!==-1){
+        this.onViewProducts.splice(index,1);
+      }
+    }
+  }
+
 }
