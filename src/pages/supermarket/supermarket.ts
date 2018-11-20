@@ -291,8 +291,19 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     this.dragDropProvider.finalize(this.selectorName);
   } 
 
+  public async updateCoinsOfUser(){
+    await this.login.updateCoins();
+  }
+
   public reduceCoins(){
+      if(this.coins >= 10){
+          this.isDisabled=true;
+          this.updateCoinsOfUser();
+          this.coins=this.coins-10;
           this.actionClueProduct();   
+      }    
+  }
+
   async actionClueProduct(){
       let wrongProducts = ArrayManager.getWrongElements(this.productsToPlay,this.productsToBuy); 
       let productToRemove = ArrayManager.get_random_element(wrongProducts); 
