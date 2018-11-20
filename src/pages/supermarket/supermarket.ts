@@ -88,13 +88,18 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
       this.productsList.push(`play-${this.productsToBuy[index].title}`);
     }
     this.productsToPlay = this.game.ProductsToPlay;
+    await this.loadProducts();
+  } 
+
+
+  async loadProducts(){
     if(this.game.isAdvancedLevel){
       await this.chargeCategoriesGlobal();
     }
     else{
       this.onViewProducts=this.productsToPlay;
     }
-  } 
+  }
 
   async chargeCategoriesGlobal(){
     for(let product of this.productsToPlay){
@@ -173,6 +178,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     changeLevel.onDidDismiss(
         ()=>{
             this.changeSoundIcon();
+            this.coins=LoginStatus.userProgress.coins;
         }
     );
     changeLevel.present();
@@ -180,7 +186,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
 
   public async showEndView(element) {
 
-    this.game.addPoint();
+    this.game.addPoint(); 
     this.removeProductByElement(element);
     this.audioProvider.playPronunciationOfTheProductName(this.getProductNameByElement(element));
     this.countOfProducts=this.countOfProducts+1;
@@ -285,4 +291,6 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     this.dragDropProvider.finalize(this.selectorName);
   } 
 
+  public reduceCoins(){
+  }
 }
