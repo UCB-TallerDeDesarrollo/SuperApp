@@ -1,3 +1,4 @@
+import { ArrayManager } from './../../Managers/ArrayManager';
 import { UserProvider } from './../../providers/user/user';
 import { LoginStatus } from './../../providers/login/LoginStatus';
 import { CategoryProvider } from './../../providers/category/category';
@@ -40,10 +41,10 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   onViewProducts: Array<Product> = [];
   onViewCategories: Array<{id: number, name: string}>=[];
   defaultCategoryId:number=0;
-
+  public coins           : number;
   public textClass: boolean = true;
   public imageClass: boolean = true;
-  
+  public isDisabled      :boolean;
   constructor(
     public navController: NavController,
     public navParams: NavParams,
@@ -63,9 +64,15 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     this.changeSoundIcon();
   }
 
+  coinsOfUser()
+  {
+    this.login.userProvider.getAmountOfCoins().then((value)=>this.coins = value)
+  }
+
   async prepareGame(){
     this.level = this.navParams.get('level') || 1; 
-    this.supermarketDifficulty.updateLastLevel(this.level); 
+    this.supermarketDifficulty.updateLastLevel(this.level);
+    this.coinsOfUser();
     if((this.level >= 16 && this.level < 31) || this.level >= 46) {
       this.textClass = false;
     }
