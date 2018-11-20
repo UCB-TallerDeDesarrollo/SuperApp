@@ -24,9 +24,26 @@
             }
         }
         &__sound {
-            margin: auto;
-            width: 60px;
-            height: 50px;
+            position: fixed;
+            right: 0px;
+            top: 1%;
+            width: 8%;
+        }
+        &__coin-icon {
+            margin-left: 4vw;
+            img {
+                margin-top: 1.6vh;
+            }
+        }
+        &__coins-amount {
+            margin-left: 1vw;
+            .coins-number {
+                color: white;
+                margin-top: 1.6vh;
+            }
+        }
+        &__help-button {
+            margin-left: 4vw;
         }
     }
     .products-supermaket-container {

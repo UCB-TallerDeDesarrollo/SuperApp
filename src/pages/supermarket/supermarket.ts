@@ -1,3 +1,4 @@
+import { ArrayManager } from './../../Managers/ArrayManager';
 import { UserProvider } from './../../providers/user/user';
 import { LoginStatus } from './../../providers/login/LoginStatus';
 import { CategoryProvider } from './../../providers/category/category';
@@ -40,10 +41,10 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   onViewProducts: Array<Product> = [];
   onViewCategories: Array<{id: number, name: string}>=[];
   defaultCategoryId:number=0;
-
+  public coins           : number;
   public textClass: boolean = true;
   public imageClass: boolean = true;
-  
+  public isDisabled      :boolean;
   constructor(
     public navController: NavController,
     public navParams: NavParams,
@@ -63,9 +64,15 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     this.changeSoundIcon();
   }
 
+  coinsOfUser()
+  {
+    this.login.userProvider.getAmountOfCoins().then((value)=>this.coins = value)
+  }
+
   async prepareGame(){
     this.level = this.navParams.get('level') || 1; 
-    this.supermarketDifficulty.updateLastLevel(this.level); 
+    this.supermarketDifficulty.updateLastLevel(this.level);
+    this.coinsOfUser();
     if((this.level >= 16 && this.level < 31) || this.level >= 46) {
       this.textClass = false;
     }
@@ -81,13 +88,18 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
       this.productsList.push(`play-${this.productsToBuy[index].title}`);
     }
     this.productsToPlay = this.game.ProductsToPlay;
+    await this.loadProducts();
+  } 
+
+
+  async loadProducts(){
     if(this.game.isAdvancedLevel){
       await this.chargeCategoriesGlobal();
     }
     else{
       this.onViewProducts=this.productsToPlay;
     }
-  } 
+  }
 
   async chargeCategoriesGlobal(){
     for(let product of this.productsToPlay){
@@ -166,6 +178,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     changeLevel.onDidDismiss(
         ()=>{
             this.changeSoundIcon();
+            this.coins=LoginStatus.userProgress.coins;
         }
     );
     changeLevel.present();
@@ -173,7 +186,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
 
   public async showEndView(element) {
 
-    this.game.addPoint();
+    this.game.addPoint(); 
     this.removeProductByElement(element);
     this.audioProvider.playPronunciationOfTheProductName(this.getProductNameByElement(element));
     this.countOfProducts=this.countOfProducts+1;
@@ -277,5 +290,35 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   ngOnDestroy(): void { 
     this.dragDropProvider.finalize(this.selectorName);
   } 
+
+  public async updateCoinsOfUser(){
+    await this.login.updateCoins();
+  }
+
+  public reduceCoins(){
+      if(this.coins >= 10){
+          this.isDisabled=true;
+          this.updateCoinsOfUser();
+          this.coins=this.coins-10;
+          this.actionClueProduct();   
+      }    
+  }
+
+  async actionClueProduct(){
+      let wrongProducts = ArrayManager.getWrongElements(this.productsToPlay,this.productsToBuy); 
+      let productToRemove = ArrayManager.get_random_element(wrongProducts); 
+      this.removeWrongProduct(productToRemove);
+  }
+  
+  removeWrongProduct(productToRemove){
+    this.productsToPlay.splice(this.productsToPlay.indexOf(productToRemove),1); 
+    if(this.game.isAdvancedLevel){
+      let index = this.onViewProducts.indexOf(productToRemove);
+      this.takeProductOut(productToRemove.id);    
+      if(index!==-1){
+        this.onViewProducts.splice(index,1);
+      }
+    }
+  }
 
 }
