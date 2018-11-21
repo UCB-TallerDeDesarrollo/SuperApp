@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { AvatarProvider } from '../../shared/providers/AvatarProvider';
 
 /**
@@ -15,7 +15,7 @@ import { AvatarProvider } from '../../shared/providers/AvatarProvider';
 })
 export class SelectAvatarPage {
   public avatars: { id: number, name: string } [];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public avatarProvider: AvatarProvider) {
+  constructor(public navCtrl: NavController, public viewCtrl:ViewController, public navParams: NavParams, public avatarProvider: AvatarProvider) {
     this.avatars = this.avatarProvider.getAvatars();
   }
 
