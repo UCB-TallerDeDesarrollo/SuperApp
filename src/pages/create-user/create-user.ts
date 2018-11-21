@@ -97,7 +97,6 @@ export class CreateUserPage {
   }
 
   async showSelect(){
-    //this.select1.open();
     let selectAvatar=this.modalCtrl.create(SelectAvatarPage);
     selectAvatar.onDidDismiss(
       (data)=>{
