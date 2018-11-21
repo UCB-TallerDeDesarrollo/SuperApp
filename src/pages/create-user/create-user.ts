@@ -96,18 +96,22 @@ export class CreateUserPage {
     }
   }
 
-  showSelect(){
+  async showSelect(){
     //this.select1.open();
     let selectAvatar=this.modalCtrl.create(SelectAvatarPage);
     selectAvatar.onDidDismiss(
-      (idAvatar)=>{
-          if (idAvatar!=null)
+      (data)=>{
+          if (data!=null)
           {
-            this.Image="assets/imgs/avatars/avatar"+idAvatar+".png";
+            this.changeImage(data);
           }
       }
     );
-    selectAvatar.present();
+    await selectAvatar.present();
   }
-
+  changeImage(data)
+  {
+    let reference:string="assets/imgs/avatars/avatar"+data.idAvatar+".png";
+    this.Image=reference;
+  }
 }
