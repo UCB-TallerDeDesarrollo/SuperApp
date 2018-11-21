@@ -22,5 +22,7 @@ export class SelectAvatarPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SelectAvatarPage');
   }
-
+  selectAvatar(idAvatar:number){
+    this.viewCtrl.dismiss({idAvatar:idAvatar});
+  }
 }

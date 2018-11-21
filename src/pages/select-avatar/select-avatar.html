@@ -6,11 +6,11 @@
               <ion-icon name="arrow-back"></ion-icon>
           </button>
       </ion-buttons>
-    <h3 class="avatar-message">Haga click en el avatar que desee</h3>
+    <h3 class="avatar-message">Haga click en el avatar para seleccionar</h3>
     <div class="avatars">
       <div *ngFor="let avatar of avatars">
           <div class="avatar-image">
-            <img src="assets/imgs/avatars/avatar{{avatar.id}}.png">
+            <img src="assets/imgs/avatars/avatar{{avatar.id}}.png" (click)="selectAvatar(avatar.id)">
             <h5>{{avatar.name}}</h5>
           </div>
       </div>
