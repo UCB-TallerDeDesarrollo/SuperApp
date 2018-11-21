@@ -1,14 +1,20 @@
 <div class="modal-back">
     
   <div class="modal-select">
-
+      <ion-buttons left>
+          <button ion-button icon-only class="back-arrow-avatar" (click)="viewCtrl.dismiss()">
+              <ion-icon name="arrow-back"></ion-icon>
+          </button>
+      </ion-buttons>
+    <h3 class="avatar-message">Haga click en el avatar que desee</h3>
     <div class="avatars">
-      
+      <div *ngFor="let avatar of avatars">
+          <div class="avatar-image">
+            <img src="assets/imgs/avatars/avatar{{avatar.id}}.png">
+            <h5>{{avatar.name}}</h5>
+          </div>
+      </div>
    </div>
-   <div class="actions">
-    <img class="yes" src="assets/imgs/check-symbol.png">
-    <img class="no" src="assets/imgs/delete.png">
 
-  </div>
   </div>
    
