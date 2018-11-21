@@ -9,11 +9,11 @@
     </button>
     <h3 class="tittle">Ingresar como</h3>
     <div class="users-content">
-    <ion-list class="users-select"*ngFor="let user of users">
-      <ion-item class="user" (click)="login(user.username)" >
-        <img class="user-image" src="{{user.profilePictureURL}}" item-start>
-        <h3 class="username">{{user.username}}</h3>
-      </ion-item>
-    </ion-list> 
-  </div>
+        <div *ngFor="let user of users">
+            <div class="user">
+              <img class="image" src="{{user.profilePictureURL}}" (click)="login(user.username)">
+              <h5>{{user.username}}</h5>
+            </div>
+      </div>
+    </div>
 </ion-content>
