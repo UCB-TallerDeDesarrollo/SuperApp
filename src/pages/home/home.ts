@@ -7,6 +7,7 @@ import { MenuGamesPage } from './../menu-games/menu-games';
 import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { ProductsEditorPage } from '../products-editor/products-editor';
 import { AboutPage } from '../about/about';
+import { SelectAvatarPage } from '../select-avatar/select-avatar';
 
 @Component({
   selector: 'page-home',
@@ -61,6 +62,11 @@ export class HomePage {
 
   pushaboutPage(){
     this.navCtrl.push(AboutPage);
+  }
+
+  push()
+  {
+    this.navCtrl.push(SelectAvatarPage);
   }
 
 }
