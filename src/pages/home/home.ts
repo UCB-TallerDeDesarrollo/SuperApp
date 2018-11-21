@@ -64,9 +64,4 @@ export class HomePage {
     this.navCtrl.push(AboutPage);
   }
 
-  push()
-  {
-    this.navCtrl.push(SelectAvatarPage);
-  }
-
 }
