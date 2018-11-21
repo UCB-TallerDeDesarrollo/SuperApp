@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AvatarProvider } from '../../shared/providers/AvatarProvider';
 
 /**
  * Generated class for the SelectAvatarPage page.
@@ -13,8 +14,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'select-avatar.html',
 })
 export class SelectAvatarPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public avatars: { id: number, name: string } [];
+  constructor(public navCtrl: NavController, public navParams: NavParams, public avatarProvider: AvatarProvider) {
+    this.avatars = this.avatarProvider.getAvatars();
   }
 
   ionViewDidLoad() {
