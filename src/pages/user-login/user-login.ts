@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams, ToastController } from 'ionic-angular';
+import {NavController, NavParams, ToastController, List } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { Login } from '../../providers/login/Login';
 import { LoginOptionsPage } from '../login-options/login-options';
@@ -17,7 +17,16 @@ export class UserLoginPage{
     
   }
   async ionViewDidLoad(){
-    this.users= await this.userProvider.getAllUsers();
+    let usersList=await this.userProvider.getAllUsers();
+    let list:Array<User>=new Array<User>();
+    usersList.forEach(element => {
+      if(element.username!=="anonimus")
+      {
+        list.push(element);
+      }
+    });
+    list.sort();
+    this.users=list; 
   }
   public async login(username:string)
   {
