@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, Select } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, Select, ModalController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { User } from '../../entities/user';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AvatarProvider } from '../../shared/providers/AvatarProvider';
+import { SelectAvatarPage } from '../select-avatar/select-avatar';
 
 /**
  * Generated class for the CreateUserPage page.
@@ -27,7 +28,7 @@ export class CreateUserPage {
   path: void;
   public avatars: { id: number, name: string } [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider,
+  constructor(public navCtrl: NavController, public modalCtrl:ModalController, public navParams: NavParams, public userProvider: UserProvider,
               private toastCtrl: ToastController, public camera:Camera, public avatarProvider: AvatarProvider) {
               //this.Image="assets/imgs/user.png";
               this.avatars = this.avatarProvider.getAvatars();
@@ -96,7 +97,17 @@ export class CreateUserPage {
   }
 
   showSelect(){
-    this.select1.open();
+    //this.select1.open();
+    let selectAvatar=this.modalCtrl.create(SelectAvatarPage);
+    selectAvatar.onDidDismiss(
+      (idAvatar)=>{
+          if (idAvatar!=null)
+          {
+            this.Image="assets/imgs/avatars/avatar"+idAvatar+".png";
+          }
+      }
+    );
+    selectAvatar.present();
   }
 
 }
