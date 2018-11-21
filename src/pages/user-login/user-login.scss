@@ -1,3 +1,35 @@
 page-user-login {
-
+    .user{
+        position: relative;
+        left: 30%;
+        top:10%;
+        border: white;
+        border-radius: 10px;
+        background-color: transparent;
+        width: 40%;
+    }
+    .user-image {
+        
+        overflow: hidden;
+        height: 22%;
+        width: 22%;
+        max-height: 23%;
+        max-width: 23%; 
+    }
+    .username{
+        color:white;
+        text-align: center;
+        font-size: 3vw;
+    }
+    .users-content{
+        overflow-y:scroll;
+        height: 80%;
+    }
+    .users-select{
+        padding: 1px;        
+    }
+    .main{
+        background-image: linear-gradient( 135deg, #3C8CE7 10%, #00EAFF 100%);
+}
+    
 }
