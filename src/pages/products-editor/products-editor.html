@@ -23,7 +23,7 @@
       <ion-icon name="play" padding-left item-end (click)="playSoundOfWord(product.title, product.audio, i)" *ngIf="soundStatus[i]"></ion-icon>
       <ion-icon name="square" padding-left item-end (click)="stopAudio(product.audio, i)" *ngIf="!soundStatus[i]"></ion-icon>
       <ion-icon name="md-create" padding-products-editor item-end (click)="editProduct(product.id)"></ion-icon>          
-      <ion-icon name="{{ product.state ? 'md-checkmark-circle' : 'md-close-circle' }}" padding-products-editor item-end (click)="changeState(product.id, product.state)"></ion-icon>
+      <ion-icon name="{{ product.state ? 'md-checkmark-circle' : 'md-close-circle' }}" padding-products-editor item-end (click)="changeState(product.id, product.state, product)"></ion-icon>
       <button id="delete-{{product.id}}" clear class="hidden" (click)="confirm(product)">
         <img src="../../assets/imgs/delete.png">
       </button>
