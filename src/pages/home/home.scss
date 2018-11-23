@@ -74,12 +74,23 @@
     position: fixed;
     height: 100%;
     width: 100%;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.65);
     z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .select-button{
         background: rgba(60, 140, 231, 3);
         color: white;
         border: 3px solid white;
         border-radius: 50%;
+    }
+    .main-text{
+        color: white;
+        font-weight: 900;
+        font-size: 20px;
+        font-family: "Helvetica Neue", "Roboto", sans-serif;
+        width: 66%;
+        text-align: center;
     }
 }
