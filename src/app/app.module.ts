@@ -1,4 +1,3 @@
-import { SelectAvatarPage } from './../pages/select-avatar/select-avatar';
 import { CreateListPage } from './../pages/create-list/create-list';
 import { EditUserPage } from './../pages/edit-user/edit-user';
 import { LoadingPage } from './../pages/loading/loading';
@@ -99,8 +98,7 @@ import { DeleteImagePage } from '../pages/delete-image/delete-image';
     ListsPage,
     EditListPage,
     ConfirmationPage,
-    DeleteImagePage,
-    SelectAvatarPage
+    DeleteImagePage
   ],
   imports: [
     BrowserModule,
@@ -139,8 +137,7 @@ import { DeleteImagePage } from '../pages/delete-image/delete-image';
     ListsPage,
     EditListPage,
     ConfirmationPage,
-    DeleteImagePage,
-    SelectAvatarPage
+    DeleteImagePage
   ],
   providers: [
     StatusBar,

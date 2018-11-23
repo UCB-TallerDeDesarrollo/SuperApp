@@ -22,14 +22,4 @@ export class ArrayManager {
         return elements;
     }
 
-    static getWrongElements(bigArray:any[],littleArray:any[]){
-        let elements:any = [];
-        for (let element of bigArray) {
-            if(littleArray.indexOf(element) === -1){
-                elements.push(element);
-            }
-        }
-        return elements;
-    }
-
 }

@@ -8,7 +8,6 @@ import { AlertController } from 'ionic-angular';
 import { AvatarProvider } from '../../shared/providers/AvatarProvider';
 import { Login } from '../../providers/login/Login';
 import { DeleteImagePage } from '../delete-image/delete-image';
-import { SelectAvatarPage } from '../select-avatar/select-avatar';
 /**
  * Generated class for the EditUserPage page.
  *
@@ -120,21 +119,7 @@ export class EditUserPage {
     });
     await modal.present();
   }
-  async showSelect(){
-    let selectAvatar=this.modalCtrl.create(SelectAvatarPage);
-    selectAvatar.onDidDismiss(
-      (data)=>{
-          if (data!=null)
-          {
-            this.changeImage(data);
-          }
-      }
-    );
-    await selectAvatar.present();
-  }
-  changeImage(data)
-  {
-    let reference:string="assets/imgs/avatars/avatar"+data.idAvatar+".png";
-    this.Image=reference;
+  showSelect(){
+    this.select1.open();
   }
 }

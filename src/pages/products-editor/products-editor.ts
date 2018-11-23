@@ -107,14 +107,14 @@ export class ProductsEditorPage implements OnDestroy {
     this.navCtrl.push(EditProductPage, {data: product_id, categoryId: this.navParams.data.data});
   }
 
-  async changeState(product_id: number, product_state: number, product: any) {
+  async changeState(product_id: number, product_state: number) {
     if(product_state==1){
-      product.state = 0;
       await this.productsProvider.updateStateProduct(0, product_id);
     }else{
-      product.state = 1;
       await this.productsProvider.updateStateProduct(1, product_id);
     }
+    this.navCtrl.pop();
+    this.navCtrl.push(ProductsEditorPage, { data: this.navParams.data.data });
   }
 
   public offSound(index) {
