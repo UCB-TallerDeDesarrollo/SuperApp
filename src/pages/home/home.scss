@@ -69,3 +69,17 @@
     width: 500%;
     height: 500%;
 }
+
+.presentation{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    .select-button{
+        background: rgba(60, 140, 231, 3);
+        color: white;
+        border: 3px solid white;
+        border-radius: 50%;
+    }
+}
