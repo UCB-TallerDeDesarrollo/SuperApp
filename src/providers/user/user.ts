@@ -23,10 +23,7 @@ export class UserProvider {
         this.userRepository = getRepository('user') as Repository<UserEntity>;
         this.progress = getRepository('user_progress') as Repository<UserProgress>;
     }
-    async getAllUsers()
-    {
-        return await this.userRepository.find();
-    }
+
     async saveUser(userEntity: UserEntity) {
 
         await this.userRepository.save(userEntity);

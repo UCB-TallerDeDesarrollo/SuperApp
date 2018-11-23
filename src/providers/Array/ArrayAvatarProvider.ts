@@ -8,12 +8,6 @@ export class ArrayAvatarProvider implements AvatarProvider {
         { 'id': 3, 'name': "Serio" },
         { 'id': 4, 'name': "Pinguino" },
         { 'id': 5, 'name': "Robot" },
-        { 'id': 6, 'name': "Conejo" },
-        { 'id': 7, 'name': "Amiga" },
-        { 'id': 8, 'name': "Feliz" },
-        { 'id': 9, 'name': "Seria" },
-        { 'id': 10, 'name': "Rubia" },
-        { 'id': 11, 'name': "Super" }
     ]
 
     getAvatars(): { id: number; name: string; }[] {

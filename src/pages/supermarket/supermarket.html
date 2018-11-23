@@ -6,29 +6,14 @@
             <ion-icon name="arrow-back"></ion-icon>
         </button>
 
-        <div class="nav-bar-market__coin-icon">
-            <img class="coin-img" src="assets/icon/coin.png">
-        </div>
-
-        <div class="nav-bar-market__coins-amount">
-            <h1 class="coins-number">{{coins}}</h1>
-        </div>
-
-        <button class="nav-bar-market__help-button" ion-button round color="dark" [disabled]="isDisabled" (click)="reduceCoins()">
-                <ion-icon name="help-circle"></ion-icon>
-        </button>
-
-
         <div class="nav-bar-market__header">
             <h1 class="title" (click)="changeLevel()">NIVEL {{level}}</h1>
         </div>
 
-
-
         <div class="nav-bar-market__sound">
             <img [src]="imageSound" (click)="stopSound()">
         </div>
-
+        
     </div>
 
 
@@ -37,14 +22,14 @@
         <div class="products-to-play">
             <div class="product-block" *ngFor="let product of onViewProducts" id="play-{{product.title}}" dragula="{{selectorName}}">
                 <div id="productPlay-{{product.id}}" class="product-info">
-                    <img class="product-store" src="{{product.image}}" (click)="playPronunciationOfTheProductName(product.title)" />
+                    <img class="product-store" src="{{product.image}}" (click)="playPronunciationOfTheProductName(product.title)"/>
                     <p [class]="(textClass) ? 'product-name' : 'hidden-product'">{{product.title}}</p>
                 </div>
             </div>
         </div>
 
-        <div id="high_container" class="products-to-buy">
-
+         <div id="high_container" class="products-to-buy">
+           
             <div class="title">COMPRAR</div>
 
             <div class="product-block" *ngFor="let product of productsToBuy" id="{{product.title}}">
@@ -54,11 +39,11 @@
                     <img id="img-play-{{product.title}}" class="product-store product-absolute" src="../../assets/imgs/check-symbol.png" />
                     <p [class]="(imageClass) ? 'product-name' : 'product-name center-element'">{{product.title}}</p>
                 </div>
-
+            
             </div>
 
-        </div>
-
+        </div> 
+        
     </div>
 
     <div class="{{ categories.length>0 ? 'categories-block' : 'hide' }}">

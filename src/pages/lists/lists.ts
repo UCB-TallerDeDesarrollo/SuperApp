@@ -21,7 +21,6 @@ export class ListsPage {
   user: User;
   lists: Array<List>;
   rowSelected;
-  toEditPage:boolean;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -30,7 +29,6 @@ export class ListsPage {
               public userProvider: UserProvider,
               private login: Login,
               private modalController: ModalController) {
-    this.toEditPage=false;
   }
 
   ionViewWillEnter() {
@@ -54,16 +52,12 @@ export class ListsPage {
   }
 
   editList(list_id: number) {
-    this.toEditPage=true;
-    this.navCtrl.pop();
     this.navCtrl.push(EditListPage, { listId: list_id })
   }
 
   listPage(list_id: number) {
-    if(!this.toEditPage){
-      this.navCtrl.pop();
-      this.navCtrl.push(ListaPage, { listId: list_id });
-    }
+    this.navCtrl.pop();
+    this.navCtrl.push(ListaPage, { listId: list_id });
   }
 
   createList() {
