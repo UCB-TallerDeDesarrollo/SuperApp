@@ -13,9 +13,14 @@
 
 <ion-content padding class="main-lists" (click)="hideRowSelected()">
     <ion-list *ngFor="let list of lists">
-      <ion-item class="list-content" (click)=listPage(list.id)>
-        {{list.name}}
-        <ion-icon name="md-create" padding item-end (click)="editList(list.id)"></ion-icon>
-      </ion-item>
+      <ion-item-sliding #item class="list-content-sliding">
+        <ion-item class="list-content" (click)=listPage(list.id)>
+          {{list.name}}
+          <ion-icon name="md-create" padding item-end (click)="editList(list.id)"></ion-icon>
+        </ion-item>
+        <ion-item-options sliding="right">
+          <button ion-button color="primary" expandable (click)="confirm(list)">Delete</button>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-list>
   </ion-content>
