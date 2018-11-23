@@ -80,7 +80,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     });
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
     this.chargeList();
     this.initializerVariables();
     this.changeSoundIcon();
