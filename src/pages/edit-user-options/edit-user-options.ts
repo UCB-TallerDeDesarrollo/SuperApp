@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoginStatus } from '../../providers/login/LoginStatus';
 import { EditUserPage } from '../edit-user/edit-user';
-import { HomePage } from '../home/home';
 import { LoginOptionsPage } from '../login-options/login-options';
 
 /**
@@ -19,11 +18,9 @@ import { LoginOptionsPage } from '../login-options/login-options';
 })
 export class EditUserOptionsPage {
 
-  public userName: string;
   private loginOptions: LoginOptionsPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.userName = LoginStatus.user.username.toUpperCase();
     this.loginOptions=navParams.get("loginOptions");
   }
 
@@ -36,7 +33,7 @@ export class EditUserOptionsPage {
   }
 
   edit() {
-    this.navCtrl.push(EditUserPage);
+    this.navCtrl.push(EditUserPage, {loginOptions: this.loginOptions});
   }
 
   logout() {
