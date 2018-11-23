@@ -16,7 +16,8 @@ import { SelectAvatarPage } from '../select-avatar/select-avatar';
 export class HomePage {
 
   public imageSound:String;
-
+  public counter: number = 5;
+  
   constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public toastCtrl:ToastController, public alertCtrl:AlertController) {
     platform.ready().then(() => {
       if (platform.is('cordova')){

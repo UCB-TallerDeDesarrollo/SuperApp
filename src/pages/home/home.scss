@@ -79,6 +79,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     .select-button{
         background: rgba(60, 140, 231, 3);
         color: white;
@@ -92,5 +93,18 @@
         font-family: "Helvetica Neue", "Roboto", sans-serif;
         width: 66%;
         text-align: center;
+    }
+    .temporize{
+        margin-top: 15px;
+        height: 62px;
+        width: 62px;
+        border: 3px solid white;
+        border-radius: 50%;
+        color: white;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 56px;
+        font-size: 40px;
+        font-weight: 900;
     }
 }
