@@ -67,6 +67,7 @@ import { LongPressModule } from 'ionic-long-press';
 import { AvatarProvider } from '../shared/providers/AvatarProvider';
 import { ArrayAvatarProvider } from '../providers/Array/ArrayAvatarProvider';
 import { DeleteImagePage } from '../pages/delete-image/delete-image';
+import { EditUserOptionsPage } from '../pages/edit-user-options/edit-user-options';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { DeleteImagePage } from '../pages/delete-image/delete-image';
     EditListPage,
     ConfirmationPage,
     DeleteImagePage,
-    SelectAvatarPage
+    SelectAvatarPage,
+    EditUserOptionsPage
   ],
   imports: [
     BrowserModule,
@@ -140,7 +142,8 @@ import { DeleteImagePage } from '../pages/delete-image/delete-image';
     EditListPage,
     ConfirmationPage,
     DeleteImagePage,
-    SelectAvatarPage
+    SelectAvatarPage,
+    EditUserOptionsPage
   ],
   providers: [
     StatusBar,
