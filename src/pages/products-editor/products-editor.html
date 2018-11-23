@@ -17,17 +17,19 @@
 
 <ion-content padding class="main-editor" (click)="hideRowSelected()">
   <ion-list *ngFor="let product of products; let i = index" [attr.data-index]="i">
-    <ion-item ion-long-press [interval]="500" (onPressing)="active(product.id)" class="product-content">
-      <img class="product-image" src="{{product.image}}" item-start>
-      {{product.title}}
-      <ion-icon name="play" padding-left item-end (click)="playSoundOfWord(product.title, product.audio, i)" *ngIf="soundStatus[i]"></ion-icon>
-      <ion-icon name="square" padding-left item-end (click)="stopAudio(product.audio, i)" *ngIf="!soundStatus[i]"></ion-icon>
-      <ion-icon name="md-create" padding-products-editor item-end (click)="editProduct(product.id)"></ion-icon>          
-      <ion-icon name="{{ product.state ? 'md-checkmark-circle' : 'md-close-circle' }}" padding-products-editor item-end (click)="changeState(product.id, product.state, product)"></ion-icon>
-      <button id="delete-{{product.id}}" clear class="hidden" (click)="confirm(product)">
-        <img src="../../assets/imgs/delete.png">
-      </button>
-    </ion-item>
+    <ion-item-sliding #item class="product-content-sliding">
+      <ion-item ion-long-press [interval]="500" (onPressing)="active(product.id)" class="product-content" round>
+          <img class="product-image" src="{{product.image}}" item-start>
+          {{product.title}}
+          <ion-icon name="play" padding-left item-end (click)="playSoundOfWord(product.title, product.audio, i)" *ngIf="soundStatus[i]"></ion-icon>
+          <ion-icon name="square" padding-left item-end (click)="stopAudio(product.audio, i)" *ngIf="!soundStatus[i]"></ion-icon>
+          <ion-icon name="md-create" padding-products-editor item-end (click)="editProduct(product.id)"></ion-icon>          
+          <ion-icon name="{{ product.state ? 'md-checkmark-circle' : 'md-close-circle' }}" padding-products-editor item-end (click)="changeState(product.id, product.state, product)"></ion-icon>
+        </ion-item>
+        <ion-item-options slide="right">
+          <button ion-button color="danger" expandable id="delete-{{product.id}}" (click)="confirm(product)">Eliminar</button>
+        </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
 <ion-footer no-border>
