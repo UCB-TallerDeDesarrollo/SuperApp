@@ -1,15 +1,15 @@
 
-<img src={{Image}} style="width: 100px; height: 100px;">
-        <div id="loged_items">
-                        <button mini color="primary" (click)="logout()"><ion-icon name="md-exit" fab-size=""></ion-icon></button>
-                        <button mini color="primary" (click)="delete()"><ion-icon name="md-trash"></ion-icon></button>
-                        <button mini color="primary" (click)="edit()"><ion-icon name="md-settings"></ion-icon></button>
-                        <button mini color="primary" (click)="show()"><ion-icon name="md-eye"></ion-icon></button>
+<img src={{Image}} style="width: 100px; height: 100px;" (click)="showEditUserOptions()">
+<div id="loged_items">
+        <div class="loggedUsername">
+                {{userName}}
+                <img src="assets/icon/coin.png" class="user-coin-icon"> {{userCoins}}
         </div>
-        <div id="unloged_items">
-                <div class="buttons">
-                        <button ion-fab mini color="primary" (click)="login()"><ion-icon name="md-log-in" fab-size="mini"></ion-icon></button>
-                        <button ion-fab mini color="primary" (click)="create()"><ion-icon name="md-person-add"></ion-icon></button>
-                </div>
+</div>
+<div id="unloged_items">
+        <div class="buttons">
+                <button ion-fab mini color="primary" (click)="login()"><ion-icon name="md-log-in" fab-size="mini"></ion-icon></button>
+                <button ion-fab mini color="primary" (click)="create()"><ion-icon name="md-person-add"></ion-icon></button>
         </div>
+</div>
 

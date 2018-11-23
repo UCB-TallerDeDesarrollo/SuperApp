@@ -6,6 +6,7 @@ import { CreateUserPage } from '../create-user/create-user';
 import { EditUserPage } from '../edit-user/edit-user';
 import { DeleteUserPage } from '../delete-user/delete-user';
 import { LoginStatus } from '../../providers/login/LoginStatus';
+import { EditUserOptionsPage } from '../edit-user-options/edit-user-options';
 
 @Component({
   selector: 'page-login-options',
@@ -18,6 +19,8 @@ export class LoginOptionsPage {
   private loged_items:any;
   private unloged_items:any;
   Image: string;
+  public userName: string;
+  public userCoins: number;
   constructor(
       public navCtrl:NavController, public toastCtrl:ToastController,
       public modalCtrl:ModalController, private viewCtrl:ViewController, private navParams:NavParams
@@ -72,11 +75,21 @@ export class LoginOptionsPage {
        this.Image=LoginStatus.getImage();
        if (LoginStatus.logged)
        {
+         this.userName = LoginStatus.user.username.toUpperCase();
+         this.userCoins = LoginStatus.user.userProgress.coins;
          this.loged_items.hidden=false;
          this.unloged_items.hidden=true;
        }
        else
        {this.loged_items.hidden=true;
          this.unloged_items.hidden=false;}
-     }
+    }
+  
+    showEditUserOptions() {
+      if (LoginStatus.logged) {
+        const editUserOptionsModal = this.modalCtrl.create(EditUserOptionsPage, {loginOptions: this});
+        editUserOptionsModal.present();
+      }
+    }
+
 }

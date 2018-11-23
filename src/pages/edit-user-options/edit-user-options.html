@@ -1,0 +1,25 @@
+<!--
+  Generated template for the LevelCompletePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<div class="modal_options_container" id="modal"> 
+  <div class="modal_options">
+    <div class="modal_options_heading">
+      <span >
+        {{userName}}
+      </span>
+    </div>
+    <div class="modal_options_body">
+        <div class="optionButtons">
+          <button ion-fab mini color="primary" (click)="edit()"><ion-icon name="md-settings" fab-size="mini"></ion-icon></button>
+          <button ion-fab mini color="primary" (click)="logout()"><ion-icon name="md-exit" fab-size="mini"></ion-icon></button>
+          <button class="cancelButton" (click)="closeEditUserOptions()">
+            <a class="cancelLink" >CANCELAR</a>
+          </button>
+        </div>
+    </div>
+  </div>
+</div>
