@@ -7,21 +7,13 @@
     <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
       <ion-icon name="arrow-back"></ion-icon>
     </button>
-    <h3 class="tittle">Ingresar</h3>
-    <div class="form">
-      <div class="user_image">
-        <img src="assets/imgs/user.png">
+    <h3 class="tittle">Ingresar como</h3>
+    <div class="users-content">
+        <div *ngFor="let user of users">
+            <div class="user">
+              <img class="image" src="{{user.profilePictureURL}}" (click)="login(user.username)">
+              <h5>{{user.username}}</h5>
+            </div>
       </div>
-  <ion-list>
-    <ion-item>
-      <ion-label fixed>Usuario</ion-label>
-      <ion-input text-uppercase type="text" [(ngModel)]="username" (keyup.enter)="login()"></ion-input>
-    </ion-item>
-  </ion-list>
-  <div padding>
-      <button ion-button class="save_user_button"(click)="login()">Ingresar</button>
     </div>
-</div>
- 
-
 </ion-content>
