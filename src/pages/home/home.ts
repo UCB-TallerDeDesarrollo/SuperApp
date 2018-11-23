@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController, AlertController } from 'ionic-angular';
 import { Platform } from 'ionic-angular'; 
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
@@ -13,11 +13,11 @@ import { SelectAvatarPage } from '../select-avatar/select-avatar';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
   public imageSound:String;
-  public counter: number = 5;
-  
+  public counter: number = 6;
+
   constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public toastCtrl:ToastController, public alertCtrl:AlertController) {
     platform.ready().then(() => {
       if (platform.is('cordova')){
@@ -35,6 +35,16 @@ export class HomePage {
   }
   
  
+  ngOnInit(): void {
+    let myVar = setInterval(() => {
+      this.counter--;
+      if(this.counter <= 0) {
+        document.getElementById('start').classList.add('presentation-no-visible');
+        clearInterval(myVar);
+      }
+    }, 1000);
+  }
+
   stopSound(){
         this.audioProvider.changeState();
     this.changeSoundIcon();
