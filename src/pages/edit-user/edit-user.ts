@@ -9,6 +9,7 @@ import { AvatarProvider } from '../../shared/providers/AvatarProvider';
 import { Login } from '../../providers/login/Login';
 import { DeleteImagePage } from '../delete-image/delete-image';
 import { SelectAvatarPage } from '../select-avatar/select-avatar';
+import { LoginOptionsPage } from '../login-options/login-options';
 /**
  * Generated class for the EditUserPage page.
  *
@@ -31,12 +32,14 @@ export class EditUserPage {
   isenabled:boolean=false;
   public avatars: { id: number, name: string } [];
   Picture: string;
+  private loginOptions: LoginOptionsPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider,
               private toastCtrl: ToastController, public camera:Camera, public avatarProvider: AvatarProvider,
               public alertCtrl:AlertController, public login:Login, public modalCtrl:ModalController, public viewCtrl:ViewController) {
           this.avatars = this.avatarProvider.getAvatars();
           this.lastNavCtrl=navParams.get("navCtrl");
+          this.loginOptions=navParams.get("loginOptions");
   }
   async ionViewDidLoad() {
     var user=await this.userProvider.getUserByUsername(LoginStatus.username);
@@ -67,7 +70,9 @@ export class EditUserPage {
       LoginStatus.setLoginSuccess(this.username);
       this.login.login(this.username);
       LoginStatus.user=user;
-      this.navCtrl.setRoot(HomePage, {}, {animate:true, direction:'back'});
+      this.loginOptions.changeLoginIcons();
+      this.navCtrl.pop();
+      //this.navCtrl.setRoot(HomePage, {}, {animate:true, direction:'back'});
     }
     catch
     {
