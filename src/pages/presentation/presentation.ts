@@ -26,11 +26,9 @@ export class PresentationPage {
     platform.ready().then(async () => {
       if(localStorage['firstTimePresentation'] != 'TRUE') {
         localStorage['firstTimePresentation'] = 'TRUE';
-        console.log('ES LA PRIMERA VEZ');
         this.executeTemporize();
       }
       else {
-        console.log('NO ES LA PRIMERA VEZ');
         this.viewCtrl.dismiss();
       }
     });
