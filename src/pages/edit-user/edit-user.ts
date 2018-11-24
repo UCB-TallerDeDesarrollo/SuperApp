@@ -10,6 +10,7 @@ import { Login } from '../../providers/login/Login';
 import { DeleteImagePage } from '../delete-image/delete-image';
 import { SelectAvatarPage } from '../select-avatar/select-avatar';
 import { LoginOptionsPage } from '../login-options/login-options';
+import { DeleteUserPage } from '../delete-user/delete-user';
 /**
  * Generated class for the EditUserPage page.
  *
@@ -29,7 +30,6 @@ export class EditUserPage {
   options: { quality: number; sourceType: number; saveToPhotoAlbum: boolean; correctOrientation: boolean; destinationType: number; mediaType: number; };
   Image: string;
   path: void;
-  isenabled:boolean=false;
   public avatars: { id: number, name: string } [];
   Picture: string;
   private loginOptions: LoginOptionsPage;
@@ -46,11 +46,6 @@ export class EditUserPage {
     this.username=user.username;
     this.birthdate=user.birthdate;
     this.Image=user.profilePictureURL;
-    if(this.Image !== "assets/imgs/avatars/avatar0.png"){
-        this.isenabled=true; 
-      }else{
-        this.isenabled=false;
-      }
   }
  
   async saveUser()
@@ -112,19 +107,6 @@ export class EditUserPage {
       console.log(e);
     }
   }
-
-  async deleteImage()
-  {
-    const modal=this.modalCtrl.create(DeleteImagePage);
-    modal.onDidDismiss(data=>{
-      if (data)
-      {
-        this.Image ="assets/imgs/avatars/avatar0.png";
-        this.isenabled=false;
-      }
-    });
-    await modal.present();
-  }
   async showSelect(){
     let selectAvatar=this.modalCtrl.create(SelectAvatarPage);
     selectAvatar.onDidDismiss(
@@ -141,5 +123,20 @@ export class EditUserPage {
   {
     let reference:string="assets/imgs/avatars/avatar"+data.idAvatar+".png";
     this.Image=reference;
+  }
+
+  deleteCurrentUser() {
+    let modal=this.modalCtrl.create(DeleteUserPage, {userCtrl: this});
+    modal.present();
+  }
+
+  logout() {
+    LoginStatus.setLogout();
+    var toast=this.toastCtrl.create({
+      message:"Sesion finalizada",
+      duration:3000,
+      position: 'bottom'
+    });
+    toast.present();
   }
 }
