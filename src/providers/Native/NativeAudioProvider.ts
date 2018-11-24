@@ -94,6 +94,8 @@ export class NativeAudioProvider implements AudioProvider {
                 wordPage.showModalWin();
                 this.playLevelCompleteSound();
             }).catch((reason: any) => console.log(reason));
+        } else {
+            wordPage.showModalWin();
         }
     }
 
