@@ -16,6 +16,7 @@ import { SelectLevelPage } from './../select-level/select-level';
 import { Login } from '../../providers/login/Login';
 import { Category } from '../../entities/category';
 import { User } from '../../entities/user';
+import { PresentationProvider } from '../../providers/presentation/presentation';
 
 @Component({
   selector: 'page-supermarket',

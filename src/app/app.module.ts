@@ -46,6 +46,7 @@ import { EditCategoryPage } from '../pages/edit-category/edit-category';
 import { DragulaSupermarketDragDropProvider } from '../providers/Dragula/DragulaSupermarketDragDropProvider';
 import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDragDropProvider';
 import { UserProvider } from '../providers/user/user';
+import { PresentationProvider } from '../providers/presentation/presentation';
 import { CreateUserPage } from '../pages/create-user/create-user';
 import { UserLoginPage } from '../pages/user-login/user-login';
 import { Login } from '../providers/login/Login';
@@ -68,6 +69,7 @@ import { AvatarProvider } from '../shared/providers/AvatarProvider';
 import { ArrayAvatarProvider } from '../providers/Array/ArrayAvatarProvider';
 import { DeleteImagePage } from '../pages/delete-image/delete-image';
 import { EditUserOptionsPage } from '../pages/edit-user-options/edit-user-options';
+import { PresentationPage } from '../pages/presentation/presentation';
 
 @NgModule({
   declarations: [
@@ -102,7 +104,8 @@ import { EditUserOptionsPage } from '../pages/edit-user-options/edit-user-option
     ConfirmationPage,
     DeleteImagePage,
     SelectAvatarPage,
-    EditUserOptionsPage
+    EditUserOptionsPage,
+    PresentationPage
   ],
   imports: [
     BrowserModule,
@@ -143,7 +146,8 @@ import { EditUserOptionsPage } from '../pages/edit-user-options/edit-user-option
     ConfirmationPage,
     DeleteImagePage,
     SelectAvatarPage,
-    EditUserOptionsPage
+    EditUserOptionsPage,
+    PresentationPage
   ],
   providers: [
     StatusBar,
@@ -166,6 +170,7 @@ import { EditUserOptionsPage } from '../pages/edit-user-options/edit-user-option
     LevelProvider,
     ProductLevelProvider,
     UserProvider,
+    PresentationProvider,
     TextToSpeech,    Camera,
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]},
     File,
