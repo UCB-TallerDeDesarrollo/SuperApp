@@ -64,6 +64,8 @@ export class ListaPage implements OnInit, AfterViewInit {
       categoryProvider.getCategoriesByUserId(user.id)
       .then(categories => {
         this.categories = categories;
+        this.selectedCategory = this.categories[0];
+        this.defaultCategoryId = this.categories[0].id;
         this.chargeCategories();
       }).catch(error => {
         console.log(error);
@@ -81,20 +83,18 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   async ionViewDidEnter() {
-    await this.chargeList();
-    this.initializerVariables();
     this.changeSoundIcon();
-    this.selectedCategory = this.categories[0];
-    this.defaultCategoryId=this.categories[0].id;
+    this.chargeList();
+    //this.onSelectCategory(this.selectedCategory);
   }
 
-  async chargeList(){
+  chargeList(){
     let listId=this.navParams.get("listId");
     if(listId>-1){
       this.listProvider.getListById(listId)
       .then(async (list) => {
         this.list = list;
-        await this.loadProductsOnList();
+        this.loadProductsOnList();
       }).catch(error => {
         console.error(error);
       });
@@ -115,21 +115,6 @@ export class ListaPage implements OnInit, AfterViewInit {
       bound = this.categories.length;
     }
     this.onViewCategories = this.categories.slice(this.categoriesPageIndex, bound);
-  }
-
-  initializerVariables() {
-    this.userProvider.getUserByUsername(LoginStatus.username)
-    .then(user => {
-      this.productsProvider.getProductsByCategoryAndUserIdOnlyActive(this.selectedCategory.id, user.id)
-      .then(products => {
-        this.products = products;
-        this.chargeProducts();
-      }).catch(error => {
-        console.log(error);
-      });
-    }).catch(error => {
-      console.log(error);
-    });
   }
 
   ngOnInit() {
@@ -301,11 +286,10 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.audioProvider.playPronunciationOfTheProductName(word);
   }
 
-  async loadProductsOnList() {
+  loadProductsOnList() {
     let listId=this.list.id;
-    await this.productListProvider.getProductListByListId(listId)
+    this.productListProvider.getProductListByListId(listId)
     .then(productList => {
-      this.productsOnList.splice(0, this.productsOnList.length);
       productList.forEach(productOfProductList => {
         this.productsProvider.getProductById(productOfProductList.product_id)
         .then(product => {
