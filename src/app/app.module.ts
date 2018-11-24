@@ -69,6 +69,7 @@ import { AvatarProvider } from '../shared/providers/AvatarProvider';
 import { ArrayAvatarProvider } from '../providers/Array/ArrayAvatarProvider';
 import { DeleteImagePage } from '../pages/delete-image/delete-image';
 import { EditUserOptionsPage } from '../pages/edit-user-options/edit-user-options';
+import { PresentationPage } from '../pages/presentation/presentation';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { EditUserOptionsPage } from '../pages/edit-user-options/edit-user-option
     ConfirmationPage,
     DeleteImagePage,
     SelectAvatarPage,
-    EditUserOptionsPage
+    EditUserOptionsPage,
+    PresentationPage
   ],
   imports: [
     BrowserModule,
@@ -144,7 +146,8 @@ import { EditUserOptionsPage } from '../pages/edit-user-options/edit-user-option
     ConfirmationPage,
     DeleteImagePage,
     SelectAvatarPage,
-    EditUserOptionsPage
+    EditUserOptionsPage,
+    PresentationPage
   ],
   providers: [
     StatusBar,
