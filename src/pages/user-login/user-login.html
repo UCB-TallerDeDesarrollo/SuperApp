@@ -12,7 +12,7 @@
         <div *ngFor="let user of users">
             <div class="user">
               <img class="image" src="{{user.profilePictureURL}}" (click)="login(user.username)">
-              <h5>{{user.username}}</h5>
+              <h5>{{user.username.toUpperCase( )}}</h5>
             </div>
       </div>
     </div>

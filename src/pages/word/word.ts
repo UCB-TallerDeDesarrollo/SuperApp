@@ -108,9 +108,8 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
         if(this.game.isGameOver()) {
             await this.login.saveProgress(this.game.Level, false);
             setTimeout(() => {
-                this.playLevelCompleteSoundAndPronunciationOfTheProductName();
-            }, 700);
-            this.showModalWin();
+                this.audioProvider.playLevelCompleteSoundsAndShowModal(this.game.ResponseWord, this);
+            }, 800);
         }
     }
 
@@ -216,9 +215,9 @@ export class WordPage implements OnInit, AfterViewInit, OnDestroy {
 
     public playLevelCompleteSoundAndPronunciationOfTheProductName() {
         setTimeout(() => {
-            this.audioProvider.playPronunciationOfTheProductName(this.game.ResponseWord);
+            this.audioProvider.playPronunciationOfTheProductName(this.game.ResponseWord)
         }, 4000);
-        this.audioProvider.playLevelCompleteSound();
+        this.audioProvider.playLevelCompleteSound()
     }
 
     public playPronunciationOfTheProductName() {
