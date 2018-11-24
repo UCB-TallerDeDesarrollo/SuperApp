@@ -85,7 +85,6 @@ export class ListaPage implements OnInit, AfterViewInit {
   async ionViewDidEnter() {
     this.changeSoundIcon();
     this.chargeList();
-    //this.onSelectCategory(this.selectedCategory);
   }
 
   chargeList(){
@@ -365,14 +364,13 @@ export class ListaPage implements OnInit, AfterViewInit {
   async saveProductList(newList: boolean){
     if(!newList){
       await this.saveAuxiliarLists();
-      }
-      else{
+      }else{
         for(let onList of this.productsOnList){
           onList.list_id=this.list.id;
           await this.productListProvider.saveProductList(onList);
         }
       }
-      this.alertSucessSaveList();
+    this.alertSucessSaveList();
   }
 
   async saveAuxiliarLists(){
