@@ -2,6 +2,7 @@ import { NativeAudio } from '@ionic-native/native-audio';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { Platform } from 'ionic-angular';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { WordPage } from '../../pages/word/word';
 
 export class NativeAudioProvider implements AudioProvider {
     
@@ -79,6 +80,20 @@ export class NativeAudioProvider implements AudioProvider {
                 rate: 0.80
             }).then(() => console.log('Success'))
               .catch((reason: any) => console.log(reason));
+        }
+    }
+
+    public playLevelCompleteSoundsAndShowModal(productName: string, wordPage: WordPage): void {
+        if (NativeAudioProvider.isMuted == false) {
+            productName=this.fixAudioOfProduct(productName);
+            this.tts.speak({
+                text: productName,
+                locale: 'es-MX',
+                rate: 0.80
+            }).then(() => {
+                wordPage.showModalWin();
+                this.playLevelCompleteSound();
+            }).catch((reason: any) => console.log(reason));
         }
     }
 
