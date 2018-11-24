@@ -42,7 +42,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   onViewCategories: Array<{id: number, name: string}>=[];
   ON_VIEW_LIST_LENGTH = 12;
   ON_VIEW_CATEGORIES_LENGTH = 3;
-  
+  DEFAULT_NAME:string = "NUEVA LISTA";
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -55,7 +55,7 @@ export class ListaPage implements OnInit, AfterViewInit {
               public listProvider: ListProvider,
               public userProvider: UserProvider,
               private modalController: ModalController) {
-    this.list.name="NUEVA LISTA";
+    this.list.name = this.DEFAULT_NAME;
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
     this.selectedCategory=Categories.getCategoryById(1);
@@ -80,21 +80,21 @@ export class ListaPage implements OnInit, AfterViewInit {
     });
   }
 
-  ionViewDidEnter() {
-    this.chargeList();
+  async ionViewDidEnter() {
+    await this.chargeList();
     this.initializerVariables();
     this.changeSoundIcon();
     this.selectedCategory = this.categories[0];
     this.defaultCategoryId=this.categories[0].id;
   }
 
-  chargeList(){
+  async chargeList(){
     let listId=this.navParams.get("listId");
     if(listId>-1){
       this.listProvider.getListById(listId)
-      .then(list => {
+      .then(async (list) => {
         this.list = list;
-        this.loadProductsOnList();
+        await this.loadProductsOnList();
       }).catch(error => {
         console.error(error);
       });
@@ -301,15 +301,15 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.audioProvider.playPronunciationOfTheProductName(word);
   }
 
-  loadProductsOnList() {
+  async loadProductsOnList() {
     let listId=this.list.id;
-    this.productListProvider.getProductListByListId(listId)
+    await this.productListProvider.getProductListByListId(listId)
     .then(productList => {
       this.productsOnList.splice(0, this.productsOnList.length);
       productList.forEach(productOfProductList => {
         this.productsProvider.getProductById(productOfProductList.product_id)
         .then(product => {
-          let productList=new ProductList();
+          let productList = new ProductList();
           productList.list_id=listId;
           productList.product_id=product.id;
           productList.product=product;
@@ -325,7 +325,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     });
   }
 
-  async saveList() {
+  async saveList(){
     if(this.list.id){
       this.listProvider.updateList(this.list)
       .then(
@@ -334,8 +334,12 @@ export class ListaPage implements OnInit, AfterViewInit {
       });
     }else{
       this.userProvider.getUserByUsername(LoginStatus.username)
-      .then(user => {
+      .then(async (user) => {
         this.list.user_id = user.id;
+        if(this.list.name==this.DEFAULT_NAME){
+          let name: string = <string> await this.promptSaveList();
+          this.list.name = name;
+        }
         this.listProvider.saveList(this.list).then(success => {
           this.saveProductList(true);
         });
@@ -345,17 +349,46 @@ export class ListaPage implements OnInit, AfterViewInit {
     }
   }
 
+  async promptSaveList(){
+    return new Promise((resolve, reject) => {
+      let alert = this.alertCtrl.create({
+        title: 'Guardar Lista',
+        message: 'Introduzca un nombre para esta lista',
+        cssClass:'uppercaseText',
+        inputs: [
+          {
+            name: 'listName',
+            placeholder: 'Nombre de la lista'
+          }
+        ],
+        buttons: [
+          {
+            text: 'Guardar',
+            handler: (data) => {
+              resolve(data.listName.toUpperCase());
+            }
+          },
+          {
+            text: 'Cancelar',
+            role: 'cancel'
+          }
+        ]
+      });
+      alert.present()
+    });
+  }
+
   async saveProductList(newList: boolean){
     if(!newList){
       await this.saveAuxiliarLists();
-    }
-    else{
-      for(let onList of this.productsOnList){
-        onList.list_id=this.list.id;
-        await this.productListProvider.saveProductList(onList);
       }
-    }
-    this.alertSucessSaveList();
+      else{
+        for(let onList of this.productsOnList){
+          onList.list_id=this.list.id;
+          await this.productListProvider.saveProductList(onList);
+        }
+      }
+      this.alertSucessSaveList();
   }
 
   async saveAuxiliarLists(){
