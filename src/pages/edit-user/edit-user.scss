@@ -15,25 +15,25 @@ page-edit-user {
         top:0%;
         left:35%;
     }
-    .camera{
-        position: absolute;
-        right: 95%;
-        top: 95%;
-    }
     .select{
         position: absolute;
-        left: 5%;
+        left: -8%;
+        top: 95%;
+    }
+    .camera{
+        position: absolute;
+        left: 7%;
         top: 95%;
     }
     .album{
         position: absolute;
-        left: 18%;
+        left: 22%;
         top: 95%;
     }
-    .deleteImage
+    .deleteUser
     {
         position: absolute;
-        left: 32%;
-        top: 95%;
+        left: 50%;
+        top: 0%;
     }
 }
