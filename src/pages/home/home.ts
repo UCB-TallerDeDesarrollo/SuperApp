@@ -19,12 +19,12 @@ export class HomePage implements OnInit {
   public imageSound:String;
   public counter: number = 5;
 
-  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public toastCtrl:ToastController, public alertCtrl:AlertController, public presentationProvider:PresentationProvider) {
+  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public toastCtrl:ToastController, public alertCtrl:AlertController/*, public presentationProvider:PresentationProvider*/) {
     platform.ready().then(() => {
       if (platform.is('cordova')){
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
       }
-      this.executeTemporize();
+      //this.executeTemporize();
    }).catch(err=>{
      console.log('Error while loading platform', err);
    });
@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
     this.changeSoundIcon();
   }
   
-  public async executeTemporize() {
+  /*public async executeTemporize() {
     this.presentationProvider.isFirstTime().then(result => {
       if(result) {
         document.getElementById('start').classList.remove('presentation-no-visible');
@@ -49,7 +49,7 @@ export class HomePage implements OnInit {
         }, 1000);
       }
     });
-  }
+  }*/
 
   async ngOnInit() {
     

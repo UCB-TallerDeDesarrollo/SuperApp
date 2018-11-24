@@ -24,69 +24,63 @@ import { Presentation } from '../entities/presentation';
 export class MyApp {
   rootPage:any = HomePage;
 
-  async createDatabase() {
-    if (this.platform.is('cordova')) {
-      await createConnection({
-        type: 'cordova',
-        database: 'test',
-        location: 'default',
-        //logging: ['error', 'query', 'schema'],
-        synchronize: true,
-        entities: [
-          Category,
-          Product,
-          Level,
-          ProductLevel,
-          User,
-          UserProgress,
-          Difficulty, 
-          UserProgress,
-          SupermarketDifficulty,
-          Difficulty,
-          List,
-          ProductList,
-          Presentation
-        ]
-      });
-    } else {
-      await createConnection({
-        type: 'sqljs',
-        autoSave: true,
-        location: 'browser',
-        //logging: ['error', 'query', 'schema'],
-        synchronize: true,
-        dropSchema: true,
-        entities: [
-          Category,
-          Product,
-          Level,
-          ProductLevel,
-          User,
-          UserProgress,
-          SupermarketDifficulty,
-          Difficulty, 
-          UserProgress,
-          SupermarketDifficulty,
-          Difficulty,
-          List,
-          ProductList,
-          Presentation
-        ]
-      });
-    }
-  }
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public smartAudio: SmartAudio) {
-    this.buildApp();
-  }
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, smartAudio: SmartAudio) {
+    platform.ready().then(async () => {
+      statusBar.styleDefault();
+      statusBar.hide();
+      this.hideSplashScreen(splashScreen);
+      smartAudio.preload('mainSong', 'assets/audio/music.mp3');
 
-  async buildApp() {
-    await this.createDatabase();
-    this.platform.ready().then(async () => {
-      this.statusBar.styleDefault();
-      this.statusBar.hide();
-      this.hideSplashScreen(this.splashScreen);
-      this.smartAudio.preload('mainSong', 'assets/audio/music.mp3');
+      if (platform.is('cordova')) {
+        await createConnection({
+          type: 'cordova',
+          database: 'test',
+          location: 'default',
+          //logging: ['error', 'query', 'schema'],
+          synchronize: true,
+          entities: [
+            Category,
+            Product,
+            Level,
+            ProductLevel,
+            User,
+            UserProgress,
+            Difficulty, 
+            UserProgress,
+            SupermarketDifficulty,
+            Difficulty,
+            List,
+            ProductList,
+            Presentation
+          ]
+        });
+      } else {
+        await createConnection({
+          type: 'sqljs',
+          autoSave: true,
+          location: 'browser',
+          //logging: ['error', 'query', 'schema'],
+          synchronize: true,
+          dropSchema: true,
+          entities: [
+            Category,
+            Product,
+            Level,
+            ProductLevel,
+            User,
+            UserProgress,
+            SupermarketDifficulty,
+            Difficulty, 
+            UserProgress,
+            SupermarketDifficulty,
+            Difficulty,
+            List,
+            ProductList,
+            Presentation
+          ]
+        });
+      }
     });
   }
 
