@@ -8,6 +8,7 @@ import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { ProductsEditorPage } from '../products-editor/products-editor';
 import { AboutPage } from '../about/about';
 import { SelectAvatarPage } from '../select-avatar/select-avatar';
+import { PresentationProvider } from '../../providers/presentation/presentation';
 
 @Component({
   selector: 'page-home',
@@ -16,14 +17,14 @@ import { SelectAvatarPage } from '../select-avatar/select-avatar';
 export class HomePage implements OnInit {
 
   public imageSound:String;
-  public counter: number = 6;
+  public counter: number = 5;
 
-  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public toastCtrl:ToastController, public alertCtrl:AlertController) {
+  constructor(platform: Platform, public navCtrl: NavController, private screenOrientation: ScreenOrientation,private audioProvider: AudioProvider, public toastCtrl:ToastController, public alertCtrl:AlertController, public presentationProvider:PresentationProvider) {
     platform.ready().then(() => {
       if (platform.is('cordova')){
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
-        
       }
+      this.executeTemporize();
    }).catch(err=>{
      console.log('Error while loading platform', err);
    });
@@ -34,15 +35,24 @@ export class HomePage implements OnInit {
     this.changeSoundIcon();
   }
   
- 
-  ngOnInit(): void {
-    let myVar = setInterval(() => {
-      this.counter--;
-      if(this.counter <= 0) {
-        document.getElementById('start').classList.add('presentation-no-visible');
-        clearInterval(myVar);
+  public async executeTemporize() {
+    this.presentationProvider.isFirstTime().then(result => {
+      if(result) {
+        document.getElementById('start').classList.remove('presentation-no-visible');
+        let myVar = setInterval(() => {
+          this.counter--;
+          if(this.counter <= 0) {
+            document.getElementById('start').classList.add('presentation-no-visible');
+            this.presentationProvider.saveFirstTime();
+            clearInterval(myVar);
+          }
+        }, 1000);
       }
-    }, 1000);
+    });
+  }
+
+  async ngOnInit() {
+    
   }
 
   stopSound(){

@@ -46,6 +46,7 @@ import { EditCategoryPage } from '../pages/edit-category/edit-category';
 import { DragulaSupermarketDragDropProvider } from '../providers/Dragula/DragulaSupermarketDragDropProvider';
 import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDragDropProvider';
 import { UserProvider } from '../providers/user/user';
+import { PresentationProvider } from '../providers/presentation/presentation';
 import { CreateUserPage } from '../pages/create-user/create-user';
 import { UserLoginPage } from '../pages/user-login/user-login';
 import { Login } from '../providers/login/Login';
@@ -163,6 +164,7 @@ import { DeleteImagePage } from '../pages/delete-image/delete-image';
     LevelProvider,
     ProductLevelProvider,
     UserProvider,
+    PresentationProvider,
     TextToSpeech,    Camera,
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]},
     File,
