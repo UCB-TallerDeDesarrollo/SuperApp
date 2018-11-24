@@ -346,14 +346,13 @@ export class ListaPage implements OnInit, AfterViewInit {
         ],
         buttons: [
           {
+            text: 'Cancelar'
+          },
+          {
             text: 'Guardar',
             handler: (data) => {
               resolve(data.listName.toUpperCase());
             }
-          },
-          {
-            text: 'Cancelar',
-            role: 'cancel'
           }
         ]
       });
