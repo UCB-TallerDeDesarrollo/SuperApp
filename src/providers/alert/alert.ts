@@ -5,7 +5,10 @@ export class AlertProvider {
 
   constructor() {}
 
-  public generateBasicAlert(title: string, message: string, textButton: string, callbackButton){
+  public generateBasicAlert(title: string, 
+                            message: string, 
+                            textButton: string, 
+                            callbackButton){
     return {
       title: title,
       message: message,
@@ -13,12 +16,37 @@ export class AlertProvider {
         {
           text: textButton,
           handler: () => {
-            if(callbackButton)
-              callbackButton();
+            callbackButton();
           }
         }
       ]
     }
+  }
+
+  public generateConfirmationAlert(title: string, 
+                                   message: string, 
+                                   agreeButtonText: string, 
+                                   agreeCallback, 
+                                   disagreeButtonText: string, 
+                                   disagreeCallback){
+    return {
+      title: title,
+      message: message,
+      buttons: [
+        {
+          text: agreeButtonText,
+          handler: () => {
+            agreeCallback();
+          }
+        },
+        {
+          text: disagreeButtonText,
+          handler: () => {
+            disagreeCallback();
+          }
+        }
+      ]
+    };
   }
 
 }

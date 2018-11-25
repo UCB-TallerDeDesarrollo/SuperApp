@@ -221,25 +221,19 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   onClickDeleteList() {
-    let alert = this.alertCtrl.create({
-      title: 'Borrar toda la lista',
-      message: '¿Quieres borrar toda la lista de productos?',
-      buttons: [
-        {
-          text: 'Si',
-          handler: () => {
-            this.deleteListOfProducts();
-          }
-        },
-        {
-          text: 'No',
-          role: 'no',
-          handler: () => {
-            console.log('no clicked');
-          }
-        }
-      ]
-    });
+    let title: string = 'Borrar toda la lista';
+    let message: string = '¿Quieres borrar toda la lista de productos?';
+    let agreeButtonText = 'SI';
+    let agreeCallback = () => {this.deleteListOfProducts()};
+    let disagreeButtonText = 'NO';
+    let disagreeCallback = () => {};
+
+    let alert = this.alertCtrl.create(this.alertProvider.generateConfirmationAlert(title, 
+                                                                                   message, 
+                                                                                   agreeButtonText, 
+                                                                                   agreeCallback, 
+                                                                                   disagreeButtonText, 
+                                                                                   disagreeCallback));
     alert.present();
   }
 
