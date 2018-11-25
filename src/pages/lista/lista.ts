@@ -83,6 +83,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   async ionViewDidEnter() {
+    this.onSelectCategory(this.selectedCategory);
     this.changeSoundIcon();
     this.chargeList();
   }
