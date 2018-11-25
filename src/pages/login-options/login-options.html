@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 <img src={{Image}} style="width: 100px; height: 100px;">
         <div id="loged_items">
                         <button mini color="primary" (click)="logout()"><ion-icon name="md-exit" fab-size=""></ion-icon></button>
@@ -12,4 +13,19 @@
                         <button ion-fab mini color="primary" (click)="create()"><ion-icon name="md-person-add"></ion-icon></button>
                 </div>
         </div>
+=======
+<img src={{Image}} style="width: 100px; height: 100px;" (click)="showEditUserOptions()">
+<div id="loged_items">
+        <div class="loggedUsername">
+                {{userName}}
+                <img src="assets/icon/coin.png" class="user-coin-icon"> {{userCoins}}
+        </div>
+</div>
+<div id="unloged_items">
+        <div class="buttons">
+                <button ion-fab mini color="primary" (click)="login()"><ion-icon name="md-log-in" fab-size="mini"></ion-icon></button>
+                <button ion-fab mini color="primary" (click)="create()"><ion-icon name="md-person-add"></ion-icon></button>
+        </div>
+</div>
+>>>>>>> f131da311f69a56ce3fad5797aa073d7a131c0f5
 

@@ -15,6 +15,7 @@ import { UserProgress } from '../entities/userProgress';
 import { Difficulty } from '../entities/difficulty';
 import { List } from '../entities/list';
 import { ProductList } from '../entities/productList';
+import { Presentation } from '../entities/presentation';
 
 
 @Component({
@@ -50,7 +51,8 @@ export class MyApp {
             SupermarketDifficulty,
             Difficulty,
             List,
-            ProductList
+            ProductList,
+            Presentation
           ]
         });
       } else {
@@ -74,7 +76,8 @@ export class MyApp {
             SupermarketDifficulty,
             Difficulty,
             List,
-            ProductList
+            ProductList,
+            Presentation
           ]
         });
       }
