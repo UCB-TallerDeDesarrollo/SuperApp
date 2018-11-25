@@ -16,6 +16,8 @@ import { LoginStatus } from '../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
 import { ListsPage } from './../lists/lists';
 import { ConfirmationPage } from './../confirmation/confirmation';
+import { AlertProvider } from '../../providers/alert/alert'
+import { text } from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'page-lista',
@@ -54,7 +56,8 @@ export class ListaPage implements OnInit, AfterViewInit {
               public productListProvider: ProductListProvider,
               public listProvider: ListProvider,
               public userProvider: UserProvider,
-              private modalController: ModalController) {
+              private modalController: ModalController,
+              private alertProvider: AlertProvider) {
     this.list.name = this.DEFAULT_NAME;
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
@@ -241,17 +244,10 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   alertSucessSaveList(){
-    let alert = this.alertCtrl.create({
-      title: 'Guardado Satisfactoriamente',
-      message: 'Se guardo la lista '+this.list.name,
-      buttons: [
-        {
-          text: 'Ok',
-          handler: () => {
-          }
-        }
-      ]
-    });
+    let title: string = 'Guardado Satisfactoriamente';
+    let message: string = 'Se guardo la lista '+this.list.name;
+    let textButton: string = 'OK';
+    let alert = this.alertCtrl.create(this.alertProvider.generateBasicAlert(title, message, textButton, ()=>{} ));
     alert.present();
   }
 
