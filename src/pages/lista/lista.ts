@@ -17,7 +17,6 @@ import { UserProvider } from './../../providers/user/user';
 import { ListsPage } from './../lists/lists';
 import { ConfirmationPage } from './../confirmation/confirmation';
 import { AlertProvider } from '../../providers/alert/alert'
-import { text } from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'page-lista',
@@ -348,28 +347,23 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   async promptSaveList(){
     return new Promise((resolve, reject) => {
-      let alert = this.alertCtrl.create({
-        title: 'Guardar Lista',
-        message: 'Introduzca un nombre para esta lista',
-        cssClass:'uppercaseText',
-        inputs: [
-          {
-            name: 'listName',
-            placeholder: 'Nombre de la lista'
-          }
-        ],
-        buttons: [
-          {
-            text: 'Cancelar'
-          },
-          {
-            text: 'Guardar',
-            handler: (data) => {
-              resolve(data.listName.toUpperCase());
-            }
-          }
-        ]
-      });
+      let alert = this.alertCtrl.create(this.alertProvider.generatePromptAlert(
+                                                            'Guardar Lista',
+                                                            'Introduzca el nombre de la lista',
+                                                            [{
+                                                              name: 'listName',
+                                                              placeholder: 'Nombre de la lista'
+                                                            }],
+                                                            [{
+                                                              text: 'Cancelar'
+                                                            },
+                                                            {
+                                                              text: 'Guardar',
+                                                              handler: (data) => {
+                                                                resolve(data.listName.toUpperCase());
+                                                              }
+                                                            }],
+                                                            'uppercaseText'));
       alert.present()
     });
   }

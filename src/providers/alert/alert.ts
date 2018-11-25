@@ -53,4 +53,18 @@ export class AlertProvider {
     };
   }
 
+  public generatePromptAlert( title: string, 
+                              message: string, 
+                              inputs,
+                              buttons,
+                              cssClass: string){
+    return {
+      title: title,
+      message: message,
+      cssClass:cssClass,
+      inputs: inputs,
+      buttons: buttons
+    }
+  }
+
 }
