@@ -8,10 +8,12 @@ export class AlertProvider {
   public generateBasicAlert(title: string, 
                             message: string, 
                             textButton: string, 
-                            callbackButton){
+                            callbackButton,
+                            cssClass: string){
     return {
       title: title,
       message: message,
+      cssClass: cssClass,
       buttons: [
         {
           text: textButton,
@@ -28,10 +30,12 @@ export class AlertProvider {
                                    agreeButtonText: string, 
                                    agreeCallback, 
                                    disagreeButtonText: string, 
-                                   disagreeCallback){
+                                   disagreeCallback,
+                                   cssClass: string){
     return {
       title: title,
       message: message,
+      cssClass: cssClass,
       buttons: [
         {
           text: agreeButtonText,

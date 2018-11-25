@@ -233,7 +233,8 @@ export class ListaPage implements OnInit, AfterViewInit {
                                                                                    agreeButtonText, 
                                                                                    agreeCallback, 
                                                                                    disagreeButtonText, 
-                                                                                   disagreeCallback));
+                                                                                   disagreeCallback,
+                                                                                   ""));
     alert.present();
   }
 
@@ -241,7 +242,11 @@ export class ListaPage implements OnInit, AfterViewInit {
     let title: string = 'Guardado Satisfactoriamente';
     let message: string = 'Se guardo la lista '+this.list.name;
     let textButton: string = 'OK';
-    let alert = this.alertCtrl.create(this.alertProvider.generateBasicAlert(title, message, textButton, ()=>{} ));
+    let alert = this.alertCtrl.create(this.alertProvider.generateBasicAlert(title, 
+                                                                            message, 
+                                                                            textButton, 
+                                                                            ()=>{} ,
+                                                                            ""));
     alert.present();
   }
 
@@ -312,6 +317,10 @@ export class ListaPage implements OnInit, AfterViewInit {
         this.list.user_id = user.id;
         if(this.list.name==this.DEFAULT_NAME){
           let name: string = <string> await this.promptSaveList();
+          while(name == ""){
+            await this.blankNameAlert();
+            name = <string> await this.promptSaveList();
+          }
           this.list.name = name;
         }
         this.listProvider.saveList(this.list).then(success => {
@@ -321,6 +330,20 @@ export class ListaPage implements OnInit, AfterViewInit {
         console.error(error);
       });
     }
+  }
+
+  async blankNameAlert(){
+    return new Promise((resolve, reject) => {
+      let title: string = 'Nombre no puede estar vacio';
+      let message: string = 'El nombre de la lista no puede estar vacio';
+      let textButton: string = 'OK';
+      let alert = this.alertCtrl.create(this.alertProvider.generateBasicAlert(title, 
+                                                                              message, 
+                                                                              textButton, 
+                                                                              ()=>{resolve('OK');} ,
+                                                                              ""));
+      alert.present();
+    });
   }
 
   async promptSaveList(){
