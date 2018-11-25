@@ -16,6 +16,7 @@ import { LoginStatus } from '../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
 import { ListsPage } from './../lists/lists';
 import { ConfirmationPage } from './../confirmation/confirmation';
+import { AlertProvider } from '../../providers/alert/alert'
 
 @Component({
   selector: 'page-lista',
@@ -54,7 +55,8 @@ export class ListaPage implements OnInit, AfterViewInit {
               public productListProvider: ProductListProvider,
               public listProvider: ListProvider,
               public userProvider: UserProvider,
-              private modalController: ModalController) {
+              private modalController: ModalController,
+              private alertProvider: AlertProvider) {
     this.list.name = this.DEFAULT_NAME;
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
@@ -218,40 +220,32 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   onClickDeleteList() {
-    let alert = this.alertCtrl.create({
-      title: 'Borrar toda la lista',
-      message: '¿Quieres borrar toda la lista de productos?',
-      buttons: [
-        {
-          text: 'Si',
-          handler: () => {
-            this.deleteListOfProducts();
-          }
-        },
-        {
-          text: 'No',
-          role: 'no',
-          handler: () => {
-            console.log('no clicked');
-          }
-        }
-      ]
-    });
+    let title: string = 'Borrar toda la lista';
+    let message: string = '¿Quieres borrar toda la lista de productos?';
+    let agreeButtonText = 'SI';
+    let agreeCallback = () => {this.deleteListOfProducts()};
+    let disagreeButtonText = 'NO';
+    let disagreeCallback = () => {};
+
+    let alert = this.alertCtrl.create(this.alertProvider.generateConfirmationAlert(title, 
+                                                                                   message, 
+                                                                                   agreeButtonText, 
+                                                                                   agreeCallback, 
+                                                                                   disagreeButtonText, 
+                                                                                   disagreeCallback,
+                                                                                   ""));
     alert.present();
   }
 
   alertSucessSaveList(){
-    let alert = this.alertCtrl.create({
-      title: 'Guardado Satisfactoriamente',
-      message: 'Se guardo la lista '+this.list.name,
-      buttons: [
-        {
-          text: 'Ok',
-          handler: () => {
-          }
-        }
-      ]
-    });
+    let title: string = 'Guardado Satisfactoriamente';
+    let message: string = 'Se guardo la lista '+this.list.name;
+    let textButton: string = 'OK';
+    let alert = this.alertCtrl.create(this.alertProvider.generateBasicAlert(title, 
+                                                                            message, 
+                                                                            textButton, 
+                                                                            ()=>{} ,
+                                                                            ""));
     alert.present();
   }
 
@@ -322,6 +316,10 @@ export class ListaPage implements OnInit, AfterViewInit {
         this.list.user_id = user.id;
         if(this.list.name==this.DEFAULT_NAME){
           let name: string = <string> await this.promptSaveList();
+          while(name == ""){
+            await this.blankNameAlert();
+            name = <string> await this.promptSaveList();
+          }
           this.list.name = name;
         }
         this.listProvider.saveList(this.list).then(success => {
@@ -333,30 +331,39 @@ export class ListaPage implements OnInit, AfterViewInit {
     }
   }
 
+  async blankNameAlert(){
+    return new Promise((resolve, reject) => {
+      let title: string = 'Nombre no puede estar vacio';
+      let message: string = 'El nombre de la lista no puede estar vacio';
+      let textButton: string = 'OK';
+      let alert = this.alertCtrl.create(this.alertProvider.generateBasicAlert(title, 
+                                                                              message, 
+                                                                              textButton, 
+                                                                              ()=>{resolve('OK');} ,
+                                                                              ""));
+      alert.present();
+    });
+  }
+
   async promptSaveList(){
     return new Promise((resolve, reject) => {
-      let alert = this.alertCtrl.create({
-        title: 'Guardar Lista',
-        message: 'Introduzca un nombre para esta lista',
-        cssClass:'uppercaseText',
-        inputs: [
-          {
-            name: 'listName',
-            placeholder: 'Nombre de la lista'
-          }
-        ],
-        buttons: [
-          {
-            text: 'Cancelar'
-          },
-          {
-            text: 'Guardar',
-            handler: (data) => {
-              resolve(data.listName.toUpperCase());
-            }
-          }
-        ]
-      });
+      let alert = this.alertCtrl.create(this.alertProvider.generatePromptAlert(
+                                                            'Guardar Lista',
+                                                            'Introduzca el nombre de la lista',
+                                                            [{
+                                                              name: 'listName',
+                                                              placeholder: 'Nombre de la lista'
+                                                            }],
+                                                            [{
+                                                              text: 'Cancelar'
+                                                            },
+                                                            {
+                                                              text: 'Guardar',
+                                                              handler: (data) => {
+                                                                resolve(data.listName.toUpperCase());
+                                                              }
+                                                            }],
+                                                            'uppercaseText'));
       alert.present()
     });
   }
