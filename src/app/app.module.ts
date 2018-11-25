@@ -70,6 +70,7 @@ import { ArrayAvatarProvider } from '../providers/Array/ArrayAvatarProvider';
 import { DeleteImagePage } from '../pages/delete-image/delete-image';
 import { EditUserOptionsPage } from '../pages/edit-user-options/edit-user-options';
 import { PresentationPage } from '../pages/presentation/presentation';
+import { AlertProvider } from '../providers/alert/alert';
 
 @NgModule({
   declarations: [
@@ -177,7 +178,8 @@ import { PresentationPage } from '../pages/presentation/presentation';
     Media,
     ListProvider,
 
-    ProductListProvider
+    ProductListProvider,
+    AlertProvider
   ]
 })
 export class AppModule { }
