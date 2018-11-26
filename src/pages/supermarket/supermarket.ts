@@ -17,6 +17,7 @@ import { Login } from '../../providers/login/Login';
 import { Category } from '../../entities/category';
 import { User } from '../../entities/user';
 import { PresentationProvider } from '../../providers/presentation/presentation';
+import { ListsPage } from './../lists/lists';
 
 @Component({
   selector: 'page-supermarket',
@@ -47,6 +48,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   public imageClass: boolean = true;
   public isDisabled      :boolean;
   showListButton: boolean = false;
+  listId: number = -1;
+
   constructor(
     public navController: NavController,
     public navParams: NavParams,
@@ -73,6 +76,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
 
   async prepareGame(){
     this.level = this.navParams.get('level') || 1; 
+    this.listId = this.navParams.get('listId');
     this.supermarketDifficulty.updateLastLevel(this.level);
     this.coinsOfUser();
     if((this.level >= 16 && this.level < 31) || this.level >= 46) {
@@ -322,6 +326,12 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
         this.onViewProducts.splice(index,1);
       }
     }
+  }
+
+  openList(){
+    let maxLevel = this.navParams.get('maxLevel'); 
+    this.navController.pop();
+    this.navController.push(ListsPage, {SuperMarket:true, level:this.level, maxLevel: maxLevel});
   }
 
 }
