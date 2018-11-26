@@ -62,8 +62,10 @@ export class NativeAudioProvider implements AudioProvider {
         {
             if(this.isRealDevice()) {
                 //this.nativeAudio.play('levelComplete');
+                this.nativeAudio.setVolumeForComplexAsset('levelComplete',0.5);
                 const audio = new Audio('assets/sounds/levelComplete.mp3');
                 audio.play();
+            
             }
             else {
                 (<HTMLAudioElement>this.levelComplete.cloneNode(true)).play();
@@ -128,5 +130,11 @@ export class NativeAudioProvider implements AudioProvider {
 
     private isRealDevice(): boolean {
         return this.platform.is('cordova');
+    }
+    private soundIsNotMuted(): boolean{
+        if (NativeAudioProvider.isMuted==false)
+        return false;
+        else
+        return true;
     }
 }
