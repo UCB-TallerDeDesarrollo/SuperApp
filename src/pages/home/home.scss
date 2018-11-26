@@ -34,13 +34,12 @@
 .logo {
     display: flex;
     justify-content: center;
-
+     
     .superapp-logo {
 
-        height: 50%;
-        width: 25%;
-        padding-top: 5%;
-        padding-bottom: 5%;
+        height: 200px;
+        width: 200px;
+        padding-bottom: 7%;
 
         @media screen and (min-width: 810px) and (max-width: 813px) {
             height: 30%;
@@ -69,4 +68,54 @@
 .user_icon{
     width: 500%;
     height: 500%;
+}
+
+.presentation{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .select-button{
+        background: rgba(60, 140, 231, 3);
+        color: white;
+        border: 3px solid white;
+        border-radius: 50%;
+    }
+    .main-text{
+        color: white;
+        font-weight: 900;
+        font-size: 20px;
+        font-family: "Helvetica Neue", "Roboto", sans-serif;
+        width: 66%;
+        text-align: center;
+    }
+    .temporize{
+        margin-top: 15px;
+        height: 62px;
+        width: 62px;
+        border: 3px solid white;
+        border-radius: 50%;
+        color: white;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 56px;
+        font-size: 40px;
+        font-weight: 900;
+    }
+}
+
+.presentation-no-visible{
+    visibility: hidden;
+}
+
+.helpIcon{
+    width: 4.5vw;
+    height: 4.5vw;
+    background-image: url('../../assets/imgs/help.svg');
+    background-color: rgb(68, 145, 233);
 }

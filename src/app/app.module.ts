@@ -1,3 +1,4 @@
+import { SelectAvatarPage } from './../pages/select-avatar/select-avatar';
 import { CreateListPage } from './../pages/create-list/create-list';
 import { EditUserPage } from './../pages/edit-user/edit-user';
 import { LoadingPage } from './../pages/loading/loading';
@@ -45,6 +46,7 @@ import { EditCategoryPage } from '../pages/edit-category/edit-category';
 import { DragulaSupermarketDragDropProvider } from '../providers/Dragula/DragulaSupermarketDragDropProvider';
 import { SupermarketDragDropProvider } from '../shared/providers/SupermarketDragDropProvider';
 import { UserProvider } from '../providers/user/user';
+import { PresentationProvider } from '../providers/presentation/presentation';
 import { CreateUserPage } from '../pages/create-user/create-user';
 import { UserLoginPage } from '../pages/user-login/user-login';
 import { Login } from '../providers/login/Login';
@@ -65,6 +67,11 @@ import {ConfirmationPage} from '../pages/confirmation/confirmation';
 import { LongPressModule } from 'ionic-long-press';
 import { AvatarProvider } from '../shared/providers/AvatarProvider';
 import { ArrayAvatarProvider } from '../providers/Array/ArrayAvatarProvider';
+import { DeleteImagePage } from '../pages/delete-image/delete-image';
+import { EditUserOptionsPage } from '../pages/edit-user-options/edit-user-options';
+import { PresentationPage } from '../pages/presentation/presentation';
+import { AlertProvider } from '../providers/alert/alert';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 @NgModule({
   declarations: [
@@ -96,7 +103,12 @@ import { ArrayAvatarProvider } from '../providers/Array/ArrayAvatarProvider';
     CreateListPage,
     ListsPage,
     EditListPage,
-    ConfirmationPage
+    ConfirmationPage,
+    DeleteImagePage,
+    SelectAvatarPage,
+    EditUserOptionsPage,
+    TutorialPage,
+    PresentationPage
   ],
   imports: [
     BrowserModule,
@@ -134,7 +146,12 @@ import { ArrayAvatarProvider } from '../providers/Array/ArrayAvatarProvider';
     CreateListPage,
     ListsPage,
     EditListPage,
-    ConfirmationPage
+    ConfirmationPage,
+    DeleteImagePage,
+    SelectAvatarPage,
+    EditUserOptionsPage,
+    TutorialPage,
+    PresentationPage
   ],
   providers: [
     StatusBar,
@@ -157,13 +174,15 @@ import { ArrayAvatarProvider } from '../providers/Array/ArrayAvatarProvider';
     LevelProvider,
     ProductLevelProvider,
     UserProvider,
+    PresentationProvider,
     TextToSpeech,    Camera,
     {provide: AudioProvider, useClass: NativeAudioProvider, deps: [NativeAudio, Platform, TextToSpeech]},
     File,
     Media,
     ListProvider,
 
-    ProductListProvider
+    ProductListProvider,
+    AlertProvider
   ]
 })
 export class AppModule { }

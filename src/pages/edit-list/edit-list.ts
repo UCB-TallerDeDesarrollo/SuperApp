@@ -3,6 +3,7 @@ import { ListProvider } from './../../providers/list/list';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { List } from '../../entities/list';
+import { ListsPage } from '../lists/lists';
 
 
 @IonicPage()
@@ -42,5 +43,6 @@ export class EditListPage {
 
   afterSaveList() {
     this.navCtrl.pop();
+    this.navCtrl.push(ListsPage);
   }
 }

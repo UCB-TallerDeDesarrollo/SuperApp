@@ -1,3 +1,6 @@
+import { LoginStatus } from './../../providers/login/LoginStatus';
+import { Login } from './../../providers/login/Login';
+import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -19,17 +22,25 @@ export class CreateCategoryPage {
               public navParams: NavParams,
               public viewController: ViewController,
               public formBuilder: FormBuilder,
-              public categoryProvider: CategoryProvider) {
+              public categoryProvider: CategoryProvider,
+              public userProvider: UserProvider,
+              public login: Login) {
     this.categoryForm = this.formBuilder.group({
       name: ['', Validators.required]
     });
   }
 
   async saveCategoryForm() {
-    this.category.name = this.category.name.toUpperCase();
-    this.categoryProvider.saveCategory(this.category)
-    .then(response => {
-      if(response) this.afterSaveCategory();
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.category.user_id = user.id;
+      this.category.name = this.category.name.toUpperCase();
+      this.categoryProvider.saveCategory(this.category)
+      .then(response => {
+        if(response) this.afterSaveCategory();
+      }).catch(error => {
+        console.error(error);
+      });
     }).catch(error => {
       console.error(error);
     });

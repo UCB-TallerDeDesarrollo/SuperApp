@@ -1,7 +1,7 @@
-import { LoginOptionsPage } from './../login-options/login-options';
+import { EditUserPage } from './../edit-user/edit-user';
 import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { LoginStatus } from '../../providers/login/LoginStatus';
 
 
@@ -17,9 +17,9 @@ import { LoginStatus } from '../../providers/login/LoginStatus';
   templateUrl: 'delete-user.html',
 })
 export class DeleteUserPage {
-  private loginOptions:LoginOptionsPage;
+  private editUser:EditUserPage;
   constructor(public navCtrl: NavController, public navParams: NavParams, public userProv:UserProvider) {
-    this.loginOptions=navParams.get("userCtrl");
+    this.editUser=navParams.get("userCtrl");
   }
 
   ionViewDidLoad() {
@@ -29,7 +29,7 @@ export class DeleteUserPage {
   async delete()
   {
     await this.userProv.deleteUserByUserName(LoginStatus.username);
-    this.loginOptions.logout();
+    this.editUser.logout();
     location.reload();
   }
 

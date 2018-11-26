@@ -1,0 +1,70 @@
+page-select-avatar {
+    .modal-back{
+        width:100%;
+        height:100%;
+        position:absolute;
+        background:rgba(56, 56, 56, 0.8);
+        transition:all 500ms ease;
+    }
+    .back-arrow-avatar{
+        display: flex;
+        position: fixed;
+        top: 1%;
+        left: 1%;
+        box-shadow: none;
+        background-color: transparent;
+        color: white;
+        width: 48px;
+        height: 48px;
+    }
+    .modal-select{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-image: linear-gradient( 135deg, #3C8CE7 10%, #00EAFF 100%);
+      border-radius: 8%;
+      width: 80%;
+      height: 90%;
+    }
+    .avatar-message{
+        text-align: center;
+        color: white;
+        font-size: 3vw;
+    }
+    .avatars{
+        position: absolute;
+        left: 2%;
+        top: 30%;
+        width: 95%;
+        overflow-x: scroll;
+        display: flex;
+    }
+    .avatar-image{ 
+        position: relative;
+        width: 100px;
+        padding: 5%;
+        float: left;
+        h5{
+            line-height: 0px;
+            font-size: 2vw;
+            color: white;
+            text-align: center;
+        }
+    }
+    .actions{
+      position: absolute;
+      bottom:2%;
+    }
+    .yes{
+      position: relative;
+      left: 25%;
+      width: 10%;
+    }
+    
+    .no{
+      position: relative;
+      left: 60%;
+      width: 10%;
+    }
+}

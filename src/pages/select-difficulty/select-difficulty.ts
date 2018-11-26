@@ -124,7 +124,7 @@ export class SelectDifficultyPage {
             
             this.navCtrl.push(SupermarketPage, {level:LoginStatus.userProgress.easyLevelSuper,maxLevel:LoginStatus.userProgress.easyLevelSuper });
         }else{
-            this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.easyLevel });
+            this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.easyLevel,maxLevel:200 });
         }
           
     }
@@ -134,7 +134,7 @@ export class SelectDifficultyPage {
         if(this.typeOfGame==="supermarket"){
             this.navCtrl.push(SupermarketPage, {level:LoginStatus.userProgress.mediumLevelSuper,maxLevel:LoginStatus.userProgress.mediumLevelSuper });
         }else{
-            this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.mediumLevel });
+            this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.mediumLevel,maxLevel:200 });
         }
     }
 
@@ -142,7 +142,7 @@ export class SelectDifficultyPage {
         if(this.typeOfGame==="supermarket"){ 
             this.navCtrl.push(SupermarketPage, {level:LoginStatus.userProgress.hardLevelSuper,maxLevel:LoginStatus.userProgress.hardLevelSuper });
         }else{
-            this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.hardLevel });
+            this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.hardLevel,maxLevel:200 });
         }
     }
 
@@ -150,7 +150,7 @@ export class SelectDifficultyPage {
         if(this.typeOfGame==="supermarket"){
             this.navCtrl.push(SupermarketPage, {level:LoginStatus.userProgress.extremeLevelSuper,maxLevel:LoginStatus.userProgress.extremeLevelSuper});
         }else{
-            this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.extremeLevel });
+            this.navCtrl.push(WordPage, {level:LoginStatus.userProgress.extremeLevel,maxLevel:200 });
      }
     }
 

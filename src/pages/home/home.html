@@ -5,14 +5,15 @@
 </ion-header>
 
 <ion-content padding class="main">
-   <page-login-options></page-login-options>
+ 
     <div class="edit-logo">
         <img src="assets/icon/edit.png" alt="" (click)="pushEditorProducts()">
     </div>
 
     <div class="logo">
-        <img src="assets/imgs/shopping.svg" class="superapp-logo" alt="">
+        <page-login-options #loginOptions></page-login-options>
     </div>
+    
     <div class="game-images">
         <img src="assets/imgs/lista.png" class="menu_games" alt="" (click)="pushPageMenuGames()">
         <img src="assets/imgs/palabras.png" class="list" alt="" (click)="pushPageWordGame()">
@@ -65,6 +66,8 @@
                        c8.958,0,17.049-3.898,24.047-11.586c6.876-7.553,10.363-16.433,10.363-26.393C321.646,88.105,319.169,81.684,314.282,76.672z"/>
                </g>
                </svg></ion-icon></button>
+               <button class="helpIcon" (click)="pushPageTuto()">
+                </button>
             </ion-fab-list>
         </ion-fab>
     </div>

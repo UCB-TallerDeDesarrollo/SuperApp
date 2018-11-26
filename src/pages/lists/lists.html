@@ -4,7 +4,7 @@
     <ion-title>Listas</ion-title>
     <ion-buttons right>
       <button ion-button (click)="createList()">
-        Crear Lista
+        Crear Nueva Lista
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -13,13 +13,14 @@
 
 <ion-content padding class="main-lists" (click)="hideRowSelected()">
     <ion-list *ngFor="let list of lists">
-      <ion-item ion-long-press [interval]="500" (onPressing)="active(list.id)" class="list-content">
-        {{list.name}}
-        <ion-icon name="md-create" padding item-end (click)="editList(list.id)"></ion-icon>
-        <ion-icon name="md-game-controller-a" padding item-end (click)="listPage(list.id)"></ion-icon>
-        <button id="delete-{{list.id}}" clear class="hidden" (click)="confirm(list)">
-          <img src="../../assets/imgs/delete.png">
-        </button>
-      </ion-item>
+      <ion-item-sliding #item class="list-content-sliding">
+        <ion-item class="list-content" (click)=listPage(list.id)>
+          {{list.name}}
+          <ion-icon name="md-create" padding item-end (click)="editList(list.id)"></ion-icon>
+        </ion-item>
+        <ion-item-options sliding="right">
+          <button ion-button color="danger" expandable (click)="confirm(list)">Eliminar</button>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-list>
   </ion-content>

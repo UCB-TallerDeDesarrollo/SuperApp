@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, Select } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, Select, ModalController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { User } from '../../entities/user';
-import { Camera } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AvatarProvider } from '../../shared/providers/AvatarProvider';
+import { SelectAvatarPage } from '../select-avatar/select-avatar';
 
 /**
  * Generated class for the CreateUserPage page.
@@ -27,7 +28,7 @@ export class CreateUserPage {
   path: void;
   public avatars: { id: number, name: string } [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userProvider: UserProvider,
+  constructor(public navCtrl: NavController, public modalCtrl:ModalController, public navParams: NavParams, public userProvider: UserProvider,
               private toastCtrl: ToastController, public camera:Camera, public avatarProvider: AvatarProvider) {
               //this.Image="assets/imgs/user.png";
               this.avatars = this.avatarProvider.getAvatars();
@@ -68,28 +69,48 @@ export class CreateUserPage {
     this.navCtrl.pop();
   }
 
- async takePhoto()
-  {
-    this.options = {
-      quality: 100,
-      sourceType: this.camera.PictureSourceType.CAMERA,
-      saveToPhotoAlbum: true,
-      correctOrientation: true,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      mediaType: this.camera.MediaType.VIDEO
+  async takePicture(source) {
+    try {
+      let cameraOptions: CameraOptions = {
+        quality: 50,
+        targetWidth: 800,
+        targetHeight: 800,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        correctOrientation: true,
+        saveToPhotoAlbum: (source == 'camera') ? true : false,
+        allowEdit: true
+      };
+      
+      cameraOptions.sourceType = (source == 'camera') ? this.camera.PictureSourceType.CAMERA :
+                                                        this.camera.PictureSourceType.PHOTOLIBRARY;
+      
+      const result = await this.camera.getPicture(cameraOptions);
+      const image = 'data:image/jpeg;base64,' + result;
+
+      this.Image = image;
+      
+    } catch(e) {
+      console.log(e);
     }
-    await this.camera.getPicture(this.options)
-      .then((imageData)=>{
-        this.Picture = "data:image/jpeg;base64,"+imageData;
-      }).then((path) => {
-        this.path = path;
-      }).catch((error) => {
-        console.log(error);
-      })
-      this.Image=this.Picture;
-  }
-  showSelect(){
-    this.select1.open();
   }
 
+  async showSelect(){
+    let selectAvatar=this.modalCtrl.create(SelectAvatarPage);
+    selectAvatar.onDidDismiss(
+      (data)=>{
+          if (data!=null)
+          {
+            this.changeImage(data);
+          }
+      }
+    );
+    await selectAvatar.present();
+  }
+  changeImage(data)
+  {
+    let reference:string="assets/imgs/avatars/avatar"+data.idAvatar+".png";
+    this.Image=reference;
+  }
 }

@@ -13,11 +13,15 @@
       </ion-select>
     </ion-item>
     <ion-item>
-        <img (click)="callFunctionCamera()" src="{{Image}}" />
+        <img src="{{Image}}" />
     </ion-item>
     <ion-item [formGroup]="productForm">
       <ion-label>Nombre del Item</ion-label>
       <ion-input text-uppercase type="text" maxlength="20"   formControlName="title" [(ngModel)]="product.title" name="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button ion-button primary (click)="callFunctionCamera(1)"><ion-icon name="md-camera"></ion-icon>&nbsp;&nbsp;Camara</button>
+      <button ion-button primary (click)="callFunctionCamera(2)"><ion-icon name="images"></ion-icon>&nbsp;&nbsp;Galeria</button>
     </ion-item>
     <ion-item>
       <button ion-button primary (click)="stopRecord()" *ngIf="recording"><ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Detener/Guardar</button>
@@ -30,3 +34,4 @@
     <button ion-button type="submit" [disabled]="!productForm.valid" block>Guardar</button>
   </form>
 </ion-content>
+  
