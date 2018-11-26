@@ -29,11 +29,6 @@
             top: 1%;
             width: 8%;
         }
-        &__list {
-            position: fixed;
-            right: 10%;
-            top: 1%;
-        }
         &__coin-icon {
             margin-left: 4vw;
             img {
@@ -979,4 +974,9 @@
         height: 8vh;
         width: 3.8vw;
     }
+}
+
+.listButton{
+    margin-top: 1%;
+    right:25%;
 }

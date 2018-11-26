@@ -46,6 +46,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   public textClass: boolean = true;
   public imageClass: boolean = true;
   public isDisabled      :boolean;
+  showListButton: boolean = false;
   constructor(
     public navController: NavController,
     public navParams: NavParams,
@@ -96,6 +97,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   async loadProducts(){
     if(this.game.isAdvancedLevel){
       await this.chargeCategoriesGlobal();
+      this.showListButton=true;
     }
     else{
       this.onViewProducts=this.productsToPlay;

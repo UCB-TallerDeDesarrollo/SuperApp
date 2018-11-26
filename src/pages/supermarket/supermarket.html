@@ -23,8 +23,8 @@
             <h1 class="title" (click)="changeLevel()">NIVEL {{level}}</h1>
         </div>
 
-        <div class="nav-bar-market__list">
-            <ion-button>Importar Lista</ion-button>
+        <div [class]="(showListButton) ? '' : 'hide'">
+            <button ion-button class="listButton">Importar Lista</button>
         </div>
 
         <div class="nav-bar-market__sound">
