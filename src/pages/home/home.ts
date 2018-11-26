@@ -9,6 +9,7 @@ import { ProductsEditorPage } from '../products-editor/products-editor';
 import { AboutPage } from '../about/about';
 import { PresentationPage } from '../presentation/presentation';
 import { LoginOptionsPage } from '../login-options/login-options';
+import { TutorialPage } from './../tutorial/tutorial';
 
 @Component({
   selector: 'page-home',
@@ -66,6 +67,10 @@ export class HomePage implements OnInit {
  
   pushPageMenuGames(){
     this.navCtrl.push(MenuGamesPage);
+  }
+
+  pushPageTuto(){
+    this.navCtrl.push(TutorialPage);
   }
 
   pushPageWordGame(){
