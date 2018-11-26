@@ -46,8 +46,7 @@ export class PresentationPage {
     }, 1000);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PresentationPage');
+  endTemporize() {
+    this.counter = 0;
   }
-
 }
