@@ -84,16 +84,20 @@ export class NativeAudioProvider implements AudioProvider {
     }
 
     public playLevelCompleteSoundsAndShowModal(productName: string, wordPage: WordPage): void {
-        if (NativeAudioProvider.isMuted == false) {
-            productName=this.fixAudioOfProduct(productName);
-            this.tts.speak({
-                text: productName,
-                locale: 'es-MX',
-                rate: 0.80
-            }).then(() => {
+        if (this.isRealDevice()) {
+            if (NativeAudioProvider.isMuted == false) {
+                productName=this.fixAudioOfProduct(productName);
+                this.tts.speak({
+                    text: productName,
+                    locale: 'es-MX',
+                    rate: 0.80
+                }).then(() => {
+                    wordPage.showModalWin();
+                    this.playLevelCompleteSound();
+                }).catch((reason: any) => console.log(reason));
+            } else {
                 wordPage.showModalWin();
-                this.playLevelCompleteSound();
-            }).catch((reason: any) => console.log(reason));
+            }
         } else {
             wordPage.showModalWin();
         }

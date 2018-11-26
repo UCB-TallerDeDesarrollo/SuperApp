@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, ToastController, AlertController, ModalController } from 'ionic-angular';
 import { Platform } from 'ionic-angular'; 
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
@@ -8,6 +8,7 @@ import { SelectDifficultyPage } from '../select-difficulty/select-difficulty';
 import { ProductsEditorPage } from '../products-editor/products-editor';
 import { AboutPage } from '../about/about';
 import { PresentationPage } from '../presentation/presentation';
+import { LoginOptionsPage } from '../login-options/login-options';
 
 @Component({
   selector: 'page-home',
@@ -15,6 +16,8 @@ import { PresentationPage } from '../presentation/presentation';
 })
 export class HomePage implements OnInit {
 
+  
+  @ViewChild('loginOptions') loginOptions: LoginOptionsPage;
   public imageSound:String;
   public counter: number = 5;
 
@@ -36,10 +39,10 @@ export class HomePage implements OnInit {
      console.log('Error while loading platform', err);
    });
     this.changeSoundIcon(); 
-    
   }
   ionViewDidEnter() {  
     this.changeSoundIcon();
+    this.loginOptions.changeLoginIcons();
   }
 
   ngOnInit() {
