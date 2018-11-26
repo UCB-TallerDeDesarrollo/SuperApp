@@ -62,8 +62,10 @@ export class NativeAudioProvider implements AudioProvider {
         {
             if(this.isRealDevice()) {
                 //this.nativeAudio.play('levelComplete');
+                this.nativeAudio.setVolumeForComplexAsset('levelComplete',0.5);
                 const audio = new Audio('assets/sounds/levelComplete.mp3');
                 audio.play();
+            
             }
             else {
                 (<HTMLAudioElement>this.levelComplete.cloneNode(true)).play();
@@ -84,16 +86,20 @@ export class NativeAudioProvider implements AudioProvider {
     }
 
     public playLevelCompleteSoundsAndShowModal(productName: string, wordPage: WordPage): void {
-        if (NativeAudioProvider.isMuted == false) {
-            productName=this.fixAudioOfProduct(productName);
-            this.tts.speak({
-                text: productName,
-                locale: 'es-MX',
-                rate: 0.80
-            }).then(() => {
+        if (this.isRealDevice()) {
+            if (NativeAudioProvider.isMuted == false) {
+                productName=this.fixAudioOfProduct(productName);
+                this.tts.speak({
+                    text: productName,
+                    locale: 'es-MX',
+                    rate: 0.80
+                }).then(() => {
+                    wordPage.showModalWin();
+                    this.playLevelCompleteSound();
+                }).catch((reason: any) => console.log(reason));
+            } else {
                 wordPage.showModalWin();
-                this.playLevelCompleteSound();
-            }).catch((reason: any) => console.log(reason));
+            }
         } else {
             wordPage.showModalWin();
         }
@@ -128,5 +134,11 @@ export class NativeAudioProvider implements AudioProvider {
 
     private isRealDevice(): boolean {
         return this.platform.is('cordova');
+    }
+    private soundIsNotMuted(): boolean{
+        if (NativeAudioProvider.isMuted==false)
+        return false;
+        else
+        return true;
     }
 }

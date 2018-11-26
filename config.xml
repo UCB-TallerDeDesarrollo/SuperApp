@@ -83,24 +83,27 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
-    <plugin name="cordova-plugin-whitelist" spec="1.3.3" />
-    <plugin name="cordova-plugin-device" spec="2.0.2" />
-    <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
-    <plugin name="cordova-plugin-ionic-webview" spec="^2.0.0" />
-    <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+    <vs:toolsetVersion xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps">6.3.1</vs:toolsetVersion>
+    <preference name="windows-target-version" value="10.0" />
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <plugin name="cordova-plugin-device" spec="^2.0.2" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
+    <plugin name="cordova-plugin-ionic-webview" spec="^2.2.5">
+        <variable name="ANDROID_SUPPORT_ANNOTATIONS_VERSION" value="27.+" />
+    </plugin>
+    <plugin name="cordova-plugin-ionic-keyboard" spec="^2.1.3" />
     <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
-    <plugin name="cordova-plugin-tts" spec="0.2.3" />
+    <plugin name="cordova-plugin-tts" spec="^0.2.3" />
     <plugin name="cordova-plugin-media" spec="^5.0.2">
         <variable name="KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE" value="NO" />
     </plugin>
-    <plugin name="cordova-plugin-file" spec="^6.0.1" />
-    <vs:toolsetVersion xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps">6.3.1</vs:toolsetVersion>
-    <preference name="windows-target-version" value="10.0" />
-    <plugin name="uk.co.workingedge.cordova.plugin.sqliteporter" spec="1.0.5" />
-    <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
+    <plugin name="uk.co.workingedge.cordova.plugin.sqliteporter" spec="^1.1.0" />
+    <plugin name="cordova-sqlite-storage" spec="^2.5.2" />
     <engine name="windows" spec="4.4.2" />
     <engine name="ios" spec="4.5.5" />
-    <engine name="android" spec="7.1.2" />
+    <engine name="android" spec="7.0.0" />
+    <engine name="browser" spec="^5.0.4" />
 </widget>
