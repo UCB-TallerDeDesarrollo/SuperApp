@@ -1,4 +1,5 @@
 import { PrimaryGeneratedColumn, Column, Entity } from "typeorm";
+import { Product } from "./product";
 
 @Entity("list")
 export class List {
@@ -14,4 +15,6 @@ export class List {
 
     @Column({name: "on_view"})
     on_view: number = 1;
+
+    products: Array<Product> = [];
 }

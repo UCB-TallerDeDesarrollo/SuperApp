@@ -88,7 +88,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     let user: User = await this.userProvider.getUserByUsername(LoginStatus.username);
     this.products = await this.productsProvider.getProductsByUserId(user.id);
     this.game = new SuperMarketGame(this.products,this.level,this.navParams.get('maxLevel')); 
-    this.game.buildProducts();
+    this.game.buildProducts(this.listId);
     this.productsToBuy = this.game.ProductsToBuy;
     for(let index = 0; index < this.productsToBuy.length; ++index) {
       this.productsList.push(`play-${this.productsToBuy[index].title}`);

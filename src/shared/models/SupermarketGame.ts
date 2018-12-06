@@ -142,9 +142,13 @@ export class SuperMarketGame {
         return this.countOfProducts >= this.productsToBuy.length;
     }
 
-    public buildProducts(){
+    public buildProducts(listId){
         let numberOfProductsToPlay = this.getQuantityByLevel();
-        this.createProducts(numberOfProductsToPlay,6);
+        if(listId){
+            
+        }else{
+            this.createProducts(numberOfProductsToPlay, 6);
+        }
     }
 
     private createProducts(numberOfProductsToPlay:number,numberOfProductsToBuy:number) : void {
