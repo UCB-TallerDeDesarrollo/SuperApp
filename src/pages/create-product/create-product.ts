@@ -141,6 +141,7 @@ export class CreateProductPage {
     this.audio.startRecord();
     this.recording = true;
   }
+
   stopRecord() {
     this.audio.stopRecord();
     this.recording = false;

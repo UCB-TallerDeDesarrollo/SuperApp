@@ -38,6 +38,20 @@ export class ProductsProvider {
     return result;
   }
 
+  async isNameValid(name: string, user_id: number): Promise<Boolean> {
+    let result: number;
+    try {
+      result = await this.productRepository.createQueryBuilder()
+                                            .where("name = :name", { name: name})
+                                            .andWhere("user_id = :user_id", { user_id: user_id})
+                                            .getCount();
+    } catch (error) {
+      console.error(error);
+      result = 0;
+    }
+    return (result == 0);
+  }
+
   async getProductById(product_id: number): Promise<Product> {
     let result: Product;
     try {
