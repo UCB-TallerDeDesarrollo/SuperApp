@@ -277,26 +277,10 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   loadProductsOnList() {
-    let listId=this.list.id;
-    this.productListProvider.getProductListByListId(listId)
-    .then(productList => {
-      productList.forEach(productOfProductList => {
-        this.productsProvider.getProductById(productOfProductList.product_id)
-        .then(product => {
-          let productList = new ProductList();
-          productList.list_id=listId;
-          productList.product_id=product.id;
-          productList.product=product;
-          this.productsOnList.push(productList);
-          this.products=this.products.filter(prod => prod.id!==product.id);
-          this.chargeProducts();
-        }).catch(error => {
-          console.log(error);
-        })
-      });
-    }).catch(error => {
-      console.log(error);
-    });
+    for(let productOnList of this.list.products){
+      this.products = this.products.filter(product => {product.id != productOnList.product_id});
+    }    
+    this.chargeProducts();
   }
 
   async saveList(){
