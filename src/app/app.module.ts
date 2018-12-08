@@ -71,6 +71,7 @@ import { DeleteImagePage } from '../pages/delete-image/delete-image';
 import { EditUserOptionsPage } from '../pages/edit-user-options/edit-user-options';
 import { PresentationPage } from '../pages/presentation/presentation';
 import { AlertProvider } from '../providers/alert/alert';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import { AlertProvider } from '../providers/alert/alert';
     DeleteImagePage,
     SelectAvatarPage,
     EditUserOptionsPage,
+    TutorialPage,
     PresentationPage
   ],
   imports: [
@@ -148,6 +150,7 @@ import { AlertProvider } from '../providers/alert/alert';
     DeleteImagePage,
     SelectAvatarPage,
     EditUserOptionsPage,
+    TutorialPage,
     PresentationPage
   ],
   providers: [

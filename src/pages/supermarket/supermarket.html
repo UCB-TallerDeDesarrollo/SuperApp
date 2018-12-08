@@ -6,27 +6,28 @@
             <ion-icon name="arrow-back"></ion-icon>
         </button>
 
-        <div class="nav-bar-market__coin-icon">
-            <img class="coin-img" src="assets/icon/coin.png">
+        <div class="{{ categories.length>0 ? 'categories-block' : 'hide' }}">
+            <ion-row>
+                <ion-col class="category-button" *ngFor="let category of onViewCategories">
+                    <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
+                </ion-col>
+                <ion-col>
+                    <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>0 ? 'arrow' : 'hide' }}" (click)="nextCategoryPage()">
+                </ion-col>
+            </ion-row>
         </div>
-
-        <div class="nav-bar-market__coins-amount">
-            <h1 class="coins-number">{{coins}}</h1>
-        </div>
-
-        <button class="nav-bar-market__help-button" ion-button round color="dark" [disabled]="isDisabled" (click)="reduceCoins()">
-                <ion-icon name="help-circle"></ion-icon>
-        </button>
-
 
         <div class="nav-bar-market__header">
             <h1 class="title" (click)="changeLevel()">NIVEL {{level}}</h1>
         </div>
 
-        <div [class]="(showListButton) ? '' : 'hide'">
-            <button ion-button class="listButton" (click)="openList()">Importar Lista</button>
+        <div [class]="(imageClass) ? 'nav-bar-market__coin-icon' : 'nav-bar-market__coin-icon-two'">
+            <img id="id-coin-img" class="coin-img" src="assets/icon/coin.png">
         </div>
 
+        <div class="nav-bar-market__coins-amount">
+            <h1 class="coins-number">{{coins}}</h1>
+        </div>
         <div class="nav-bar-market__sound">
             <img [src]="imageSound" (click)="stopSound()">
         </div>
@@ -63,16 +64,11 @@
 
     </div>
 
-    <div class="{{ categories.length>0 ? 'categories-block' : 'hide' }}">
-        <ion-row>
-            <ion-col class="category-button" *ngFor="let category of onViewCategories">
-                <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
-            </ion-col>
-            <ion-col>
-                <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>3 ? 'arrow' : 'hide' }}" (click)="nextCategoryPage()">
-            </ion-col>
-        </ion-row>
-    </div>
+
+
+    <button class="market-help-button" ion-button round color="dark" [disabled]="isDisabled" (click)="reduceCoins()">
+            <ion-icon name="help-circle"></ion-icon>
+    </button>
 
     <div id="carrito" class="carrito_container">
         <img class="icon-image product-objetive-container" src="{{carImage}}" dragula="{{selectorName}}" />
