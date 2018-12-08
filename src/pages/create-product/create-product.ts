@@ -146,4 +146,19 @@ export class CreateProductPage {
     this.audio.stopRecord();
     this.recording = false;
   }
+
+
+  verifyName() {
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.productsProvider.isNameValid(this.product.title, user.id)
+      .then(result => {
+        console.log("result: ", result);
+      }).catch(error => {
+        console.error(error);
+      });
+    }).catch(error => {
+      console.error(error);
+    });
+  }
 }
