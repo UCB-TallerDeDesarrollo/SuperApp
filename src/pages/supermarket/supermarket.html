@@ -12,13 +12,17 @@
                     <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
                 </ion-col>
                 <ion-col>
-                    <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>0 ? 'arrow' : 'hide' }}" (click)="nextCategoryPage()">
+                    <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>3 ? 'arrow' : 'hide' }}" (click)="nextCategoryPage()">
                 </ion-col>
             </ion-row>
         </div>
 
         <div class="nav-bar-market__header">
             <h1 class="title" (click)="changeLevel()">NIVEL {{level}}</h1>
+        </div>
+
+        <div [class]="(showListButton) ? '' : 'hide'">
+            <button ion-button class="listButton" (click)="openList()">Importar Lista</button>
         </div>
 
         <div [class]="(imageClass) ? 'nav-bar-market__coin-icon' : 'nav-bar-market__coin-icon-two'">
