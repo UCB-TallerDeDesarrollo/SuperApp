@@ -1,3 +1,28 @@
 page-user-information {
-
+    .user-info{
+        position: absolute;
+        top:20px;
+        left: 70px;
+    }
+    .user-image{
+        position: relative;
+        height: 6vw; 
+        width: 6vw; 
+    }
+    .coin-image
+    {
+        position: absolute;
+        top: 1vw;
+        left: 7vw;
+        height: 3vw; 
+        width: 3vw; 
+    }
+    .coins-quantity{
+        position: absolute;
+        top: 0vw;
+        left: 10vw;
+        font-family: big john;
+        color: white;
+        font-size: 4vw;
+    }
 }

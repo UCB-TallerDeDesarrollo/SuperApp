@@ -14,11 +14,15 @@ export class UserInformationPage {
     return LoginStatus.username;
   }
   get coins(){
-    let a=LoginStatus.userProgress;
-    if (a==undefined)
+    let userProgress=LoginStatus.userProgress;
+    if (userProgress==undefined)
     {
-      a=new UserProgress(0,0,0,0,0,0,0,0,0);
+      userProgress=new UserProgress(0,0,0,0,0,0,0,0,0);
     }
-    return a.coins;
+    return userProgress.coins;
+  }
+  get Image()
+  {
+    return LoginStatus.getImage();
   }
 }
