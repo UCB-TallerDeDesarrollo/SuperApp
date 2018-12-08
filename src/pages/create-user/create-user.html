@@ -7,7 +7,7 @@
     <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
       <ion-icon name="arrow-back"></ion-icon>
     </button>
-    <h3 class="tittle">Crear usuario</h3>
+    <h3 class="tittle">CREAR USUARIO</h3>
     <div class="form">
         <div class="user_image">
           <img src={{Image}} class="image_user">
@@ -28,8 +28,8 @@
     <br>
     <br>
     <ion-item>
-      <ion-label fixed> Usuario</ion-label>
-      <ion-input text-uppercase type="text" [(ngModel)]="username" (keyup.enter)="saveUser()"></ion-input>
+      <ion-label fixed>USUARIO</ion-label>
+      <ion-input text-uppercase maxlength="8" type="text" [(ngModel)]="username" (keyup.enter)="saveUser()"></ion-input>
     </ion-item>
     <!--<ion-item>
       <ion-label fixed>Cumpleaños</ion-label>
@@ -37,7 +37,7 @@
     </ion-item>-->
   </ion-list>
   <div padding>
-      <button ion-button class="save_user_button"(click)="saveUser()">Crear usuario</button>
+      <button ion-button class="save_user_button"(click)="saveUser()">CREAR USUARIO</button>
     </div>
 </div>
  
