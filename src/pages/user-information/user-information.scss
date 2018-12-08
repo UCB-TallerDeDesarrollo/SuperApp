@@ -17,12 +17,20 @@ page-user-information {
         height: 3vw; 
         width: 3vw; 
     }
-    .coins-quantity{
+    .coins-quantity-white{
         position: absolute;
         top: 0vw;
         left: 10vw;
         font-family: big john;
         color: white;
+        font-size: 4vw;
+    }
+    .coins-quantity-dark{
+        position: absolute;
+        top: 0vw;
+        left: 10vw;
+        font-family: big john;
+        color: black;
         font-size: 4vw;
     }
 }

@@ -5,5 +5,6 @@
                 <img src="assets/icon/coin.png" class="coin-image">
   
         </div>
-        <div class="coins-quantity">{{coins}}</div>
+        <div *ngIf="darkTheme" class="coins-quantity-dark">{{coins}}</div>
+        <div *ngIf="!darkTheme" class="coins-quantity-white">{{coins}}</div>
 </div>
