@@ -91,15 +91,11 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   chargeList(){
+  async chargeList(){
     let listId=this.navParams.get("listId");
     if(listId>-1){
-      this.listProvider.getListById(listId)
-      .then(async (list) => {
-        this.list = list;
-        this.loadProductsOnList();
-      }).catch(error => {
-        console.error(error);
-      });
+      this.list = await this.listProvider.getFullObjectListById(listId);
+      this.loadProductsOnList();
     }
   }
 
