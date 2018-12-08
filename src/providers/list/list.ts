@@ -74,11 +74,17 @@ export class ListProvider {
     await this.getListById(listId).then(list => {
       fullList = list;
     });
-    let productList = await this.productListProvider.getAsyncProductListByListId(listId)
-    fullList.products = productList;
-    return new Promise<List>((resolve, reject) => {
-      resolve(fullList)
-    });
+    if(fullList){
+      let productList = await this.productListProvider.getAsyncProductListByListId(listId)
+      fullList.products = productList;
+      return new Promise<List>((resolve, reject) => {
+        resolve(fullList)
+      });
+    }else{
+      return new Promise<List>((resolve, reject) => {
+        resolve(null)
+      });
+    }
   }
 
   async getListsByUserId(user_id: number): Promise<Array<List>> {

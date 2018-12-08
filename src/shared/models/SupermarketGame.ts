@@ -1,6 +1,7 @@
-import { Product } from "./Product.model";
+import { List } from "../../entities/list";
 import { ArrayManager } from "../../Managers/ArrayManager";
-import { ProductsProvider } from '../../providers/product/product'; 
+import { Product } from "../../entities/product";
+import { ProductList } from "../../entities/productList";
 
 export class SuperMarketGame {
   
@@ -142,13 +143,41 @@ export class SuperMarketGame {
         return this.countOfProducts >= this.productsToBuy.length;
     }
 
-    public buildProducts(listId){
+    public buildProducts(list: List){
         let numberOfProductsToPlay = this.getQuantityByLevel();
-        if(listId){
-            
+        if(list){
+            this.createProductsByList(list);
         }else{
             this.createProducts(numberOfProductsToPlay, 6);
         }
+    }
+
+    private createProductsByList(list: List){
+        let listProducts: Array<Product>= this.extractProducts(list.products);
+        this.filterProducts(listProducts);
+        let numberOfProductsToPlay = this.getQuantityByLevel();
+        if(list.products.length>=6){
+            this.productsToBuy = listProducts;
+            numberOfProductsToPlay-=6;
+            this.productsToPlay = listProducts;
+            this.productsToPlay.push(ArrayManager.getManyRandomElements(numberOfProductsToPlay,this.products)); 
+        }else{
+            this.createProducts(numberOfProductsToPlay, 6);
+        }
+    }
+
+    private filterProducts(listProducts: Array<Product>){
+        for(let product of listProducts){
+            this.products = this.products.filter(prod => {prod.id != product.id});
+        }
+    }
+
+    private extractProducts(productsList: Array<ProductList>): Array<Product>{
+        let products: Array<Product>= [];
+        for(let productList of productsList){
+            products.push(productList.product);
+        }
+        return products;
     }
 
     private createProducts(numberOfProductsToPlay:number,numberOfProductsToBuy:number) : void {

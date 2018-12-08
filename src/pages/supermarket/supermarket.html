@@ -12,7 +12,7 @@
                     <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
                 </ion-col>
                 <ion-col>
-                    <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>3 ? 'arrow' : 'hide' }}" (click)="nextCategoryPage()">
+                    <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>ON_VIEW_CATEGORIES_LENGTH ? 'arrow' : 'hide' }}" (click)="nextCategoryPage()">
                 </ion-col>
             </ion-row>
         </div>
