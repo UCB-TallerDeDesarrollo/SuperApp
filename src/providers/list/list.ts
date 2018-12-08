@@ -3,13 +3,14 @@ import { getRepository, Repository } from 'typeorm';
 import { List } from '../../entities/list';
 import { ProductsProvider } from '../product/product';
 import { ProductListProvider } from '../product-list/product-list';
+import { ProductList } from '../../entities/productList';
 
 @Injectable()
 export class ListProvider {
 
   listRepository: any;
 
-  constructor(public productsProvider: ProductsProvider,public productListProvider: ProductListProvider) {
+  constructor(public productsProvider: ProductsProvider, public productListProvider: ProductListProvider) {
     this.listRepository = getRepository('list') as Repository<List>;
   }
 
@@ -70,13 +71,12 @@ export class ListProvider {
 
   async getFullObjectListById(listId: number){
     let fullList: List;
-    this.getListById(listId).then(list => {
-      fullList=list;
+    await this.getListById(listId).then(list => {
+      fullList = list;
     });
-    this.productListProvider.getProductListByListId(listId).then(productList => {
-      productList.forEach(productOfProductList => {}
-    })
-    return new Promise((resolve, reject) => {
+    let productList = await this.productListProvider.getAsyncProductListByListId(listId)
+    fullList.products = productList;
+    return new Promise<List>((resolve, reject) => {
       resolve(fullList)
     });
   }
