@@ -25,7 +25,7 @@ import { AlertProvider } from '../../providers/alert/alert'
 })
 export class ListaPage implements OnInit, AfterViewInit {
 
-  list = new List();
+  list: List;
   path_images = '../../assets/imgs/Products/';
   defaultCategoryId:number = 1;
   actualSelectedElement:any;
@@ -36,7 +36,6 @@ export class ListaPage implements OnInit, AfterViewInit {
   imageSound: String;
   productPageIndex: number;
   categoriesPageIndex: number;
-  productsOnList: Array<ProductList> = [];
   toAddProducts: Array<ProductList> = [];
   toDeleteProducts: Array<ProductList> = [];
   onViewProducts: Array<Product> = [];
@@ -57,6 +56,7 @@ export class ListaPage implements OnInit, AfterViewInit {
               public userProvider: UserProvider,
               private modalController: ModalController,
               private alertProvider: AlertProvider) {
+    this.list = new List;
     this.list.name = this.DEFAULT_NAME;
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
@@ -85,21 +85,16 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   async ionViewDidEnter() {
-    this.onSelectCategory(this.selectedCategory);
     this.changeSoundIcon();
-    this.chargeList();
+    await this.chargeList();
+    this.onSelectCategory(this.selectedCategory);
   }
 
-  chargeList(){
+  async chargeList(){
     let listId=this.navParams.get("listId");
     if(listId>-1){
-      this.listProvider.getListById(listId)
-      .then(async (list) => {
-        this.list = list;
-        this.loadProductsOnList();
-      }).catch(error => {
-        console.error(error);
-      });
+      this.list = await this.listProvider.getFullObjectListById(listId);
+      this.loadProductsOnList();
     }
   }
 
@@ -142,7 +137,7 @@ export class ListaPage implements OnInit, AfterViewInit {
       productListTemp.list_id = this.navParams.get("listId");
       productListTemp.product_id = product.id;
       productListTemp.product=product;
-      this.productsOnList.push(productListTemp);
+      this.list.products.push(productListTemp);
       this.addToQueueList(productListTemp);
       this.products=this.products.filter(prod => prod.id!==product.id);
       this.chargeProducts();
@@ -201,7 +196,7 @@ export class ListaPage implements OnInit, AfterViewInit {
       .then(products => {
         this.products=products.filter(product => {
           let isNotOnList =true;
-          for(let productList of this.productsOnList){
+          for(let productList of this.list.products){
             if(product.id===productList.product.id){
               isNotOnList=false;
               break;
@@ -251,14 +246,14 @@ export class ListaPage implements OnInit, AfterViewInit {
 
   onClickDeleteAProduct(productOfList) {
     let productId=productOfList.product.id;
-    this.productsOnList=this.productsOnList.filter(onList=>onList.product_id!==productId);
+    this.list.products=this.list.products.filter(onList=>onList.product_id!==productId);
     this.addToDeleteQueue(productOfList);
     this.onSelectCategory(this.selectedCategory);    
   }
 
   deleteListOfProducts() {
-    this.toDeleteProducts=this.productsOnList;
-    this.productsOnList=[];
+    this.toDeleteProducts=this.list.products;
+    this.list.products=[];
     this.onSelectCategory(this.selectedCategory);
   }
 
@@ -281,26 +276,10 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   loadProductsOnList() {
-    let listId=this.list.id;
-    this.productListProvider.getProductListByListId(listId)
-    .then(productList => {
-      productList.forEach(productOfProductList => {
-        this.productsProvider.getProductById(productOfProductList.product_id)
-        .then(product => {
-          let productList = new ProductList();
-          productList.list_id=listId;
-          productList.product_id=product.id;
-          productList.product=product;
-          this.productsOnList.push(productList);
-          this.products=this.products.filter(prod => prod.id!==product.id);
-          this.chargeProducts();
-        }).catch(error => {
-          console.log(error);
-        })
-      });
-    }).catch(error => {
-      console.log(error);
-    });
+    for(let productOnList of this.list.products){
+      this.products = this.products.filter(product => {product.id != productOnList.product_id});
+    }    
+    this.chargeProducts();
   }
 
   async saveList(){
@@ -372,7 +351,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     if(!newList){
       await this.saveAuxiliarLists();
       }else{
-        for(let onList of this.productsOnList){
+        for(let onList of this.list.products){
           onList.list_id=this.list.id;
           await this.productListProvider.saveProductList(onList);
         }
@@ -411,7 +390,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     });
     this.list=new List;
     this.list.name="NUEVA LISTA";
-    this.productsOnList=[];
+    this.list.products=[];
   }
 
   openList(){

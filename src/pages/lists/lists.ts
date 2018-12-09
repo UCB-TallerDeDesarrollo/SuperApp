@@ -10,6 +10,7 @@ import { ListProvider } from '../../providers/list/list';
 import { Login } from '../../providers/login/Login';
 import { EditListPage } from '../edit-list/edit-list';
 import { ConfirmationPage } from './../confirmation/confirmation';
+import { SupermarketPage } from './../supermarket/supermarket';
 
 @IonicPage()
 @Component({
@@ -21,7 +22,8 @@ export class ListsPage {
   user: User;
   lists: Array<List>;
   rowSelected;
-  toEditPage:boolean;
+  toEditPage: boolean;
+  toSuperMarketGame: boolean= false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -31,6 +33,7 @@ export class ListsPage {
               private login: Login,
               private modalController: ModalController) {
     this.toEditPage=false;
+    this.toSuperMarketGame = this.navParams.get('SuperMarket');
   }
 
   ionViewWillEnter() {
@@ -61,8 +64,16 @@ export class ListsPage {
 
   listPage(list_id: number) {
     if(!this.toEditPage){
-      this.navCtrl.pop();
-      this.navCtrl.push(ListaPage, { listId: list_id });
+      if(!this.toSuperMarketGame){
+        this.navCtrl.pop();
+        this.navCtrl.push(ListaPage, { listId: list_id });
+      }
+      else{
+        this.navCtrl.pop();
+        let level = this.navParams.get('level'); 
+        let maxLevel = this.navParams.get('maxLevel'); 
+        this.navCtrl.push(SupermarketPage, { listId: list_id, level: level, maxLevel: maxLevel});
+      }
     }
   }
 

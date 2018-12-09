@@ -65,6 +65,17 @@ export class ProductsProvider {
     return result;
   }
 
+  async getAsyncProductById(product_id: number){
+    let result: Product;
+    result = await this.productRepository.createQueryBuilder()
+                                          .where("id = :id", {id: product_id})
+                                          .getOne();
+                                          
+    return new Promise<Product>((resolve, reject) => {
+      resolve(result);
+    });
+  }
+
   async updateStateProduct(state_: number, product_id: number): Promise<Boolean>{
     let result: Boolean;
     try {
