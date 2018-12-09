@@ -10,8 +10,6 @@ import { Category } from '../../entities/category';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
-import { type } from 'os';
-import { Login } from '../../providers/login/Login';
 
 @IonicPage()
 @Component({
@@ -31,6 +29,7 @@ export class CreateProductPage {
   filePath: string = " ";
   fileName: string;
   audio: MediaObject;
+  isItAValidProduct: Boolean;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -42,6 +41,7 @@ export class CreateProductPage {
               private formBuilder: FormBuilder,
               public platform: Platform,
               public userProvider: UserProvider) {
+    this.isItAValidProduct = false;
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
       category: ['', Validators.required]
@@ -148,12 +148,13 @@ export class CreateProductPage {
   }
 
 
-  verifyName() {
+  isItATitleValid() {
     this.userProvider.getUserByUsername(LoginStatus.username)
     .then(user => {
-      this.productsProvider.isNameValid(this.product.title, user.id)
+      this.product.title = this.product.title.toUpperCase();
+      this.productsProvider.isItATitleValid(this.product.title, user.id)
       .then(result => {
-        console.log("result: ", result);
+        this.isItAValidProduct = result;
       }).catch(error => {
         console.error(error);
       });
