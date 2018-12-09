@@ -16,7 +16,9 @@ import { SelectLevelPage } from './../select-level/select-level';
 import { Login } from '../../providers/login/Login';
 import { Category } from '../../entities/category';
 import { User } from '../../entities/user';
-import { PresentationProvider } from '../../providers/presentation/presentation';
+import { List } from '../../entities/list';
+import { ListsPage } from './../lists/lists';
+import { ListProvider } from '../../providers/list/list'; 
 
 @Component({
   selector: 'page-supermarket',
@@ -36,7 +38,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   public productsList: string[] = [];
   public countOfProducts: number;
   ON_VIEW_LIST_LENGTH:number = 12;
-  ON_VIEW_CATEGORIES_LENGTH:number = 1;
+  ON_VIEW_CATEGORIES_LENGTH:number = 2;
   productPageIndex: number=0;
   categoriesPageIndex: number=0;
   onViewProducts: Array<Product> = [];
@@ -46,6 +48,9 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   public textClass: boolean = true;
   public imageClass: boolean = true;
   public isDisabled      :boolean;
+  showListButton: boolean = false;
+  listId: number = -1;
+
   constructor(
     public navController: NavController,
     public navParams: NavParams,
@@ -57,7 +62,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     private platform: Platform,
     private supermarketDifficulty: SupermarketDifficultyProvider,
     private login:Login,
-    public userProvider: UserProvider) {
+    public userProvider: UserProvider,
+    public listProvider: ListProvider) {
     this.selectorName = 'PRODUCT-' + Math.random();
     this.countOfProducts = 0;
     this.carImage="assets/imgs/"+this.countOfProducts+".png";
@@ -72,6 +78,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
 
   async prepareGame(){
     this.level = this.navParams.get('level') || 1; 
+    this.listId = this.navParams.get('listId');
+    let list:List = await this.listProvider.getFullObjectListById(this.listId);
     this.supermarketDifficulty.updateLastLevel(this.level);
     this.coinsOfUser();
     if((this.level >= 16 && this.level < 31) || this.level >= 46) {
@@ -83,12 +91,14 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     let user: User = await this.userProvider.getUserByUsername(LoginStatus.username);
     this.products = await this.productsProvider.getProductsByUserId(user.id);
     this.game = new SuperMarketGame(this.products,this.level,this.navParams.get('maxLevel')); 
-    this.game.buildProducts();
+    this.game.buildProducts(list);
     this.productsToBuy = this.game.ProductsToBuy;
     for(let index = 0; index < this.productsToBuy.length; ++index) {
       this.productsList.push(`play-${this.productsToBuy[index].title}`);
     }
     this.productsToPlay = this.game.ProductsToPlay;
+    /*console.log(this.productsToBuy);
+    console.log(this.productsToPlay);*/
     await this.loadProducts();
   } 
 
@@ -96,6 +106,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   async loadProducts(){
     if(this.game.isAdvancedLevel){
       await this.chargeCategoriesGlobal();
+      this.showListButton=true;
     }
     else{
       this.onViewProducts=this.productsToPlay;
@@ -320,6 +331,12 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
         this.onViewProducts.splice(index,1);
       }
     }
+  }
+
+  openList(){
+    let maxLevel = this.navParams.get('maxLevel'); 
+    this.navController.pop();
+    this.navController.push(ListsPage, {SuperMarket:true, level:this.level, maxLevel: maxLevel});
   }
 
 }

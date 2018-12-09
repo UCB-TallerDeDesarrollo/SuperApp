@@ -17,7 +17,7 @@
                     <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
                 </ion-col>
                 <ion-col>
-                    <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>0 ? 'arrow' : 'hide' }}" (click)="nextCategoryPage()">
+                    <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>ON_VIEW_CATEGORIES_LENGTH ? 'arrow' : 'hide' }}" (click)="nextCategoryPage()">
                 </ion-col>
             </ion-row>
         </div>
@@ -26,8 +26,11 @@
             <h1 class="title" (click)="changeLevel()">NIVEL {{level}}</h1>
         </div>
 
-            
+        <div [class]="(showListButton) ? '' : 'hide'">
+            <button ion-button class="listButton" (click)="openList()">JUGAR CON LISTA</button>
+        </div>
 
+            
         <div class="nav-bar-market__sound">
             <img [src]="imageSound" (click)="stopSound()">
         </div>

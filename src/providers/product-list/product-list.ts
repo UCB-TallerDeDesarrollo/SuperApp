@@ -1,13 +1,15 @@
 import { getRepository, Repository } from 'typeorm';
 import { Injectable } from '@angular/core';
 import { ProductList } from '../../entities/productList';
+import { ProductsProvider } from '../product/product';
+import { Product } from '../../entities/product';
 
 @Injectable()
 export class ProductListProvider {
 
   productListRepository: any;
 
-  constructor() {
+  constructor(public productsProvider: ProductsProvider) {
     this.productListRepository = getRepository('product_list') as Repository<ProductList>;
   }
 
@@ -34,6 +36,25 @@ export class ProductListProvider {
       result = null;
     }
     return result;
+  }
+
+  async getAsyncProductListByListId(list_id: number){
+    let result: Array<ProductList>;
+    try {
+      result = await this.productListRepository.createQueryBuilder()
+                                          .where("list_id = :listId", { listId: list_id})
+                                          .getMany();
+    } catch (error) {
+      console.error(error);
+      result = null;
+    }
+    for(let onList of result){
+      let productId = onList.product_id;
+      onList.product = await this.productsProvider.getAsyncProductById(productId);
+    }
+    return new Promise<Array<ProductList>>((resolve, reject) => {
+      resolve(result);
+    });
   }
 
   async deleteProductList(product_list_id: number): Promise<Boolean> {
