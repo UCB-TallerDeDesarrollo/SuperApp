@@ -30,6 +30,7 @@ export class EditProductPage {
   filePath: string = " ";
   fileName: string;
   audio: MediaObject;
+  isItAValidProduct: Boolean;
 
   constructor(public navCtrl: NavController,
               private media: Media,
@@ -43,6 +44,7 @@ export class EditProductPage {
               public alertCtrl: AlertController,
               public userProvider: UserProvider,
               public login: Login) {
+    this.isItAValidProduct = true;
     async() => await this.prepareAnonimusUser();
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -150,4 +152,20 @@ export class EditProductPage {
     await this.userProvider.prepareAnonimusUser();
     await this.login.loadingGameData();
   }
+
+  isItATitleValid() {
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.product.title = this.product.title.toUpperCase();
+      this.productsProvider.isItATitleValidForEdit(this.product.title, user.id)
+      .then(result => {
+        this.isItAValidProduct = result;
+      }).catch(error => {
+        console.error(error);
+      });
+    }).catch(error => {
+      console.error(error);
+    });
+  }
+
 }

@@ -147,7 +147,6 @@ export class CreateProductPage {
     this.recording = false;
   }
 
-
   isItATitleValid() {
     this.userProvider.getUserByUsername(LoginStatus.username)
     .then(user => {
