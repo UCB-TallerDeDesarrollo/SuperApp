@@ -26,6 +26,21 @@ export class ListProvider {
     return result;
   }
 
+
+  async isItANameValid(name: string, user_id: number): Promise<Boolean> {
+    let result: number;
+    try {
+      result = await this.listRepository.createQueryBuilder()
+                                        .where("name = :name", { name: name })
+                                        .andWhere("user_id = :user_id", { user_id: user_id})
+                                        .getCount();
+    } catch (error) {
+      console.error(error);
+      result = 0;
+    }
+    return (result == 0);
+  }
+
   async updateList(list: List): Promise<Boolean> {
     let result: Boolean;
     try {
