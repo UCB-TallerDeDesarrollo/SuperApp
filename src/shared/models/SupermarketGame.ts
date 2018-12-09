@@ -156,20 +156,25 @@ export class SuperMarketGame {
         let listProducts: Array<Product>= this.extractProducts(list.products);
         this.filterProducts(listProducts);
         let numberOfProductsToPlay = this.getQuantityByLevel();
-        if(list.products.length>=6){
-            this.productsToBuy = listProducts.slice(0,6);
-            numberOfProductsToPlay-=6;
-            this.productsToPlay = listProducts.slice(0,6);
-            this.addRandomProducts(numberOfProductsToPlay);
-        }else{
-            this.createProducts(numberOfProductsToPlay, 6);
+        if(listProducts.length < 6){
+            let numberToAdd = 6 - listProducts.length;
+            this.addRandomProductsTo(listProducts, numberToAdd);
+            this.filterProducts(listProducts);
         }
+        this.finalThreatment(listProducts, numberOfProductsToPlay);
     }
 
-    private addRandomProducts(number: number){
-        let productsToAdd: Array<Product> = ArrayManager.getManyRandomElements(number,this.products); 
+    private finalThreatment(listProducts, numberOfProductsToPlay){
+        this.productsToBuy = listProducts.slice(0,6);
+        numberOfProductsToPlay-=6;
+        this.productsToPlay = listProducts.slice(0,6);
+        this.addRandomProductsTo(this.productsToPlay ,numberOfProductsToPlay);
+    }
+
+    private addRandomProductsTo(array, numberToAdd: number){
+        let productsToAdd: Array<Product> = ArrayManager.getManyRandomElements(numberToAdd,this.products); 
         for(let product of productsToAdd){
-            this.productsToPlay.push(product);
+            array.push(product);
         }
     }
 
