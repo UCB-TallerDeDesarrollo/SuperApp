@@ -16,8 +16,12 @@ page-login-options {
         padding-left: 10%;
     }
     
-    img {
-        width: 100px;
-        height: 100px;
+    .image-user{
+        justify-content: center;
+        height: 15vw; 
+        width: 15vw; 
+       border: 2px solid transparent;
+       border-radius: 50%;
+       box-shadow: 0 0 5px gray;
     }
 }

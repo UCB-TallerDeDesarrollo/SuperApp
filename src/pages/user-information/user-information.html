@@ -1,0 +1,10 @@
+
+<div class="user-info">
+<img src={{Image}} class="user-image">
+        <div class="user-coins">
+                <img src="assets/icon/coin.png" class="coin-image">
+  
+        </div>
+        <div *ngIf="darkTheme" class="coins-quantity-dark">{{coins}}</div>
+        <div *ngIf="!darkTheme" class="coins-quantity-white">{{coins}}</div>
+</div>

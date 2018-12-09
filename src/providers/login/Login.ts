@@ -43,10 +43,11 @@ export class Login{
       }
       async saveProgressSuper(level:number)
       {
+        LoginStatus.userProgress.nextLevelSuper(level);
         this.userProvider.updateProgressSuper(level);
       } 
       async updateCoins(){
-        
+        LoginStatus.userProgress.updateCoins();
         this.userProvider.updateCoins();
       }
       async buyLevel(){
