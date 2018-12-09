@@ -17,6 +17,7 @@ export class CreateCategoryPage {
 
   category = new Category;
   categoryForm: FormGroup;
+  isItAValidCategory: Boolean;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -25,6 +26,7 @@ export class CreateCategoryPage {
               public categoryProvider: CategoryProvider,
               public userProvider: UserProvider,
               public login: Login) {
+    this.isItAValidCategory = false;
     this.categoryForm = this.formBuilder.group({
       name: ['', Validators.required]
     });
@@ -48,5 +50,20 @@ export class CreateCategoryPage {
 
   afterSaveCategory() {
     this.navCtrl.pop();
+  }
+
+  isItANameValid() {
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.category.name = this.category.name.toUpperCase();
+      this.categoryProvider.isItANameValid(this.category.name, user.id)
+      .then(result => {
+        this.isItAValidCategory = result;
+      }).catch(error => {
+        console.error(error);
+      });
+    }).catch(error => {
+      console.error(error);
+    });
   }
 }
