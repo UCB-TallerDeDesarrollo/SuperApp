@@ -1,7 +1,7 @@
 import { ListProvider } from './../../providers/list/list';
 import { ProductListProvider } from './../../providers/product-list/product-list';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { NavController, AlertController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, AlertController, NavParams, ModalController, ToastController } from 'ionic-angular';
 import { ProductsPage } from '../products/products';
 import { DragulaService } from 'ng2-dragula';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
@@ -55,7 +55,8 @@ export class ListaPage implements OnInit, AfterViewInit {
               public listProvider: ListProvider,
               public userProvider: UserProvider,
               private modalController: ModalController,
-              private alertProvider: AlertProvider) {
+              private alertProvider: AlertProvider,
+              public toastController: ToastController) {
     this.list = new List;
     this.list.name = this.DEFAULT_NAME;
     this.productPageIndex=0;
@@ -278,7 +279,7 @@ export class ListaPage implements OnInit, AfterViewInit {
   loadProductsOnList() {
     for(let productOnList of this.list.products){
       this.products = this.products.filter(product => {product.id != productOnList.product_id});
-    }    
+    }
     this.chargeProducts();
   }
 
@@ -301,9 +302,17 @@ export class ListaPage implements OnInit, AfterViewInit {
           }
           this.list.name = name;
         }
-        this.listProvider.saveList(this.list).then(success => {
-          this.saveProductList(true);
-        });
+        this.list.name = this.list.name.toUpperCase();
+        this.listProvider.isItANameValid(this.list.name, user.id)
+        .then(result => {
+          if(!result) {
+            this.nameAlreadyExist();
+          } else {
+            this.listProvider.saveList(this.list).then(success => {
+              this.saveProductList(true);
+            });
+          }
+        })
       }).catch(error => {
         console.error(error);
       });
@@ -411,5 +420,14 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.list.name=this.list.name.toUpperCase();
     title.classList.remove("hide");
     form.classList.add("hide");
+  }
+
+  nameAlreadyExist() {
+    let alertMessage = this.toastController.create({
+      message: 'YA EXISTE UNA LISTA CON EL NOMBRE: ' + this.list.name,
+      duration: 2000,
+      position: 'bottom'
+    });
+    alertMessage.present();
   }
 }

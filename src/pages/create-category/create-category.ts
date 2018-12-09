@@ -2,7 +2,7 @@ import { LoginStatus } from './../../providers/login/LoginStatus';
 import { Login } from './../../providers/login/Login';
 import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Category } from '../../entities/category';
 import { CategoryProvider } from '../../providers/category/category';
@@ -17,14 +17,17 @@ export class CreateCategoryPage {
 
   category = new Category;
   categoryForm: FormGroup;
+  isItAValidCategory: Boolean;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewController: ViewController,
               public formBuilder: FormBuilder,
               public categoryProvider: CategoryProvider,
               public userProvider: UserProvider,
-              public login: Login) {
+              public login: Login,
+              public toastController: ToastController) {
+    this.isItAValidCategory = false;
     this.categoryForm = this.formBuilder.group({
       name: ['', Validators.required]
     });
@@ -48,5 +51,32 @@ export class CreateCategoryPage {
 
   afterSaveCategory() {
     this.navCtrl.pop();
+  }
+
+  isItANameValid() {
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.category.name = this.category.name.toUpperCase();
+      this.categoryProvider.isItANameValid(this.category.name, user.id)
+      .then(result => {
+        this.isItAValidCategory = result;
+        if(this.isItAValidCategory) {
+          this.nameAlreadyExist();
+        }
+      }).catch(error => {
+        console.error(error);
+      });
+    }).catch(error => {
+      console.error(error);
+    });
+  }
+
+  nameAlreadyExist() {
+    let alertMessage = this.toastController.create({
+      message: 'YA EXISTE UNA CATEGORIA CON EL NOMBRE: ' + this.category.name,
+      duration: 2000,
+      position: 'bottom'
+    });
+    alertMessage.present();
   }
 }

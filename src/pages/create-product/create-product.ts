@@ -1,7 +1,7 @@
 import { LoginStatus } from './../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
 import { ProductsProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
 import { Camera } from '@ionic-native/camera';
@@ -10,8 +10,6 @@ import { Category } from '../../entities/category';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
-import { type } from 'os';
-import { Login } from '../../providers/login/Login';
 
 @IonicPage()
 @Component({
@@ -31,6 +29,7 @@ export class CreateProductPage {
   filePath: string = " ";
   fileName: string;
   audio: MediaObject;
+  isItAValidProduct: Boolean;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -41,7 +40,9 @@ export class CreateProductPage {
               public camera: Camera,
               private formBuilder: FormBuilder,
               public platform: Platform,
-              public userProvider: UserProvider) {
+              public userProvider: UserProvider,
+              public toastController: ToastController) {
+    this.isItAValidProduct = false;
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
       category: ['', Validators.required]
@@ -141,8 +142,36 @@ export class CreateProductPage {
     this.audio.startRecord();
     this.recording = true;
   }
+
   stopRecord() {
     this.audio.stopRecord();
     this.recording = false;
+  }
+
+  isItATitleValid() {
+    this.userProvider.getUserByUsername(LoginStatus.username)
+    .then(user => {
+      this.product.title = this.product.title.toUpperCase();
+      this.productsProvider.isItATitleValid(this.product.title, user.id)
+      .then(result => {
+        this.isItAValidProduct = result;
+        if(!this.isItAValidProduct) {
+          this.titleAlreadyExist();
+        }
+      }).catch(error => {
+        console.error(error);
+      });
+    }).catch(error => {
+      console.error(error);
+    });
+  }
+
+  titleAlreadyExist() {
+    let alertMessage = this.toastController.create({
+      message: 'YA EXISTE UN PRODUCTO CON EL TITULO: ' + this.product.title,
+      duration: 2000,
+      position: 'bottom'
+    });
+    alertMessage.present();
   }
 }

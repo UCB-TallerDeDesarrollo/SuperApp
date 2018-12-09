@@ -37,6 +37,20 @@ export class CategoryProvider {
     return result;
   }
 
+  async isItANameValid(name: string, user_id: number): Promise<Boolean> {
+    let result: number;
+    try {
+      result = await this.categoryRepository.createQueryBuilder()
+                                            .where("name = :name", { name: name })
+                                            .andWhere("user_id = :user_id", { user_id: user_id})
+                                            .getCount();
+    } catch (error) {
+      console.error(error);
+      result = 0;
+    }
+    return (result == 0);
+  }
+
   async getCategoryById(category_id: number): Promise<Category> {
     let result: Category;
     try {
