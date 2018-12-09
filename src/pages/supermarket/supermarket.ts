@@ -139,9 +139,9 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   changeToActiveCategoryColor(){
     let categoryName = this.categories[this.defaultCategoryId].name;
     let button = <HTMLElement> document.querySelector("#"+categoryName);
-    console.log(button);
+    
     if(button){
-      button.classList.remove("button-category-card");
+      //button.classList.remove("button-category-card");
       button.classList.add("activeBgColor");
     }
   }
@@ -151,7 +151,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
     let button = <HTMLElement> document.querySelector("#"+categoryName);
     if(button){
       button.classList.remove("activeBgColor");
-      button.classList.add("button-category-card");
+      //button.classList.add("button-category-card");
     }
   }
 

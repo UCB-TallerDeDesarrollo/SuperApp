@@ -872,7 +872,10 @@
         float: left;
         margin-left: 19vw;
         .button-category-card {
-            background-color: #b45fec;
+            background-color: #b056ec;
+            .activeBgColor{
+                background-color: #cfa3ec;
+            }
         }
         .category-button {
             width: 40vw;
@@ -941,8 +944,4 @@
     background-color: #b45fec;
     padding: 0.3em;
     font-size: 0.9em;
-}
-
-.activeBgColor{
-    background-color: rgb(236, 3, 185)
 }
