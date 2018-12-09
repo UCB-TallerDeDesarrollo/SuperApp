@@ -39,57 +39,75 @@
             </ion-card-content>
           </ion-card>
           <ion-list>
-            <ion-item>
-              <h2>Sobre SuperApp</h2>
-              <p>El juego abarca múltiples áreas para desarrollar el reconocimiento, gestión y compra de los productos necesarios en el día a día dentro de los supermercados.</p>
-              <button ion-button clear item-end>Ver</button>
-            </ion-item>
-            <ion-item>
-              <h2>Juego del Super Mercado</h2>
-              <p>En este juego deberás poner dentro del carrito de supermercado los elementos que figuran en la lista de compras.</p>
-              <button ion-button clear item-end>Ver</button>
-            </ion-item>
-            <ion-item>
-              <h2>Juego de las palabras</h2>
-              <p>En este juego deberás escribir letra por letra la palabra que se ve en la pantalla. Ten en cuenta que el orden no importa.</p>
-              <button ion-button clear item-end>Ver</button>
-            </ion-item>
-            <ion-item>
-              <h2>Cambiar de Nivel</h2>
-              <p>En ambos juegos puedes moverte dentro de los niveles ya jugados. Para esto debes tocar donde dice NIVEL # en el t´tulo del nivel actual y elegir otro nivel.</p>
-              <button ion-button clear item-end>Ver</button>
-            </ion-item>
-            <ion-item>
-              <h2>Lista del Super Mercado</h2>
-              <p>La lista del super sive para que puedas poner en el carrito cosas que necesites comprar y luego ir a la tienda y marcar cada item a medida que lo hayas encontrado y puesto en tu carrito de verdad. Además de los  items precargados puedes agregar nuevos o editarlos.</p>
-              <br>
-              <p>Para editar los items, debes ingresar al menú de edición tocando el nombre de la sección en la parte superior de la pantalla.</p>
-              <button ion-button clear item-end>Ver</button>
-            </ion-item>
-            <ion-item>
-              <h2>Volumen</h2>
-              <p>Al presionar el botón de Volumen se activan y desactivan todos los sonidos de la aplicación.</p>
-              <button ion-button clear item-end>Ver</button>
-            </ion-item>
-            <ion-item>
-              <h2>Usuarios</h2>
-              <p>Se puede crear diferentes usuarios escribiendo un nombre de usuario y eligiendo un avatar para el mismo, tomando una foto o eligiendo una imagen desde la galería del dispositivo.</p>
-              <br>
-              <p>El botón de al lado sirve para ingresar con los usuarios que ya fueron creados.</p>
-              <button ion-button clear item-end>Ver</button>
-            </ion-item>
-            <ion-item>
-              <h2>Editar productos</h2>
-              <p>Al presionar el icono indicado a continuación accederás a la lista de productos registrados del usuario actual.</p>
-              <br>
-              <p>En el mismo puedes:</p>
-              <p>•	Agregar un nuevo producto</p>
-              <br>
-              <p>•	Administrar las categorías</p>
-              <br>
-              <p>•	Escuchar el sonido de cada producto, editarlo y marcarlo o desmarcarlo como Activo para los juegos de la aplicación.</p>
-              <button ion-button clear item-end>Ver</button>
-            </ion-item>
+
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque1()">Sobre SuperApp</a></b><br>
+                  <div *ngIf="bloque1==true">
+                    <ul>
+                        <p>El juego abarca múltiples áreas para desarrollar el reconocimiento, gestión y compra de los productos necesarios en el día a día dentro de los supermercados.</p>
+                    </ul>
+              </div></div>
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque2()">Juego del Super Mercado</a></b><br>
+                  <div *ngIf="bloque2==true">
+                    <ul>
+                        <p>En este juego deberás poner dentro del carrito de supermercado los elementos que figuran en la lista de compras.</p>
+                    </ul>
+              </div></div>
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque3()">Juego de las Palabras</a></b><br>
+                  <div *ngIf="bloque3==true">
+                    <ul>
+                        <p>En este juego deberás escribir letra por letra la palabra que se ve en la pantalla. Ten en cuenta que el orden no importa.</p>
+                    </ul>
+              </div></div>
+
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque4()">Cambiar de Nivel</a></b><br>
+                  <div *ngIf="bloque4==true">
+                    <ul>
+                        <p>En ambos juegos puedes moverte dentro de los niveles ya jugados. Para esto debes tocar donde dice NIVEL # en el t´tulo del nivel actual y elegir otro nivel.</p>
+                    </ul>
+              </div></div>
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque5()">Lista del Super Mercado</a></b><br>
+                  <div *ngIf="bloque5==true">
+                    <ul>
+                        <p>La lista del super sive para que puedas poner en el carrito cosas que necesites comprar y luego ir a la tienda y marcar cada item a medida que lo hayas encontrado y puesto en tu carrito de verdad. Además de los  items precargados puedes agregar nuevos o editarlos.</p>
+                        <br>
+                        <p>Para editar los items, debes ingresar al menú de edición tocando el nombre de la sección en la parte superior de la pantalla.</p>
+                    </ul>
+              </div></div>
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque6()">Volumen</a></b><br>
+                  <div *ngIf="bloque6==true">
+                    <ul>
+                        <p>Al presionar el botón de Volumen se activan y desactivan todos los sonidos de la aplicación.</p>
+                    </ul>
+              </div></div>
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque7()">Usuarios</a></b><br>
+                  <div *ngIf="bloque7==true">
+                    <ul>
+                      <p>Se puede crear diferentes usuarios escribiendo un nombre de usuario y eligiendo un avatar para el mismo, tomando una foto o eligiendo una imagen desde la galería del dispositivo.</p>
+                      <br>
+                      <p>El botón de al lado sirve para ingresar con los usuarios que ya fueron creados.</p>
+                    </ul>
+              </div></div>   
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque8()">Editar Productos</a></b><br>
+                  <div *ngIf="bloque8==true">
+                    <ul>
+                      <p>Al presionar el icono indicado a continuación accederás a la lista de productos registrados del usuario actual.</p>
+                      <br>
+                      <p>En el mismo puedes:</p>
+                      <p>•	Agregar un nuevo producto</p>
+                      <br>
+                      <p>•	Administrar las categorías</p>
+                      <br>
+                      <p>•	Escuchar el sonido de cada producto, editarlo y marcarlo o desmarcarlo como Activo para los juegos de la aplicación.</p>
+                    </ul>
+              </div></div>  
           </ion-list>
 
       <ion-buttons end>
