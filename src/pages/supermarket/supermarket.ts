@@ -97,8 +97,8 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
       this.productsList.push(`play-${this.productsToBuy[index].title}`);
     }
     this.productsToPlay = this.game.ProductsToPlay;
-    console.log(this.productsToBuy);
-    console.log(this.productsToPlay);
+    /*console.log(this.productsToBuy);
+    console.log(this.productsToPlay);*/
     await this.loadProducts();
   } 
 

@@ -157,18 +157,25 @@ export class SuperMarketGame {
         this.filterProducts(listProducts);
         let numberOfProductsToPlay = this.getQuantityByLevel();
         if(list.products.length>=6){
-            this.productsToBuy = listProducts;
+            this.productsToBuy = listProducts.slice(0,6);
             numberOfProductsToPlay-=6;
-            this.productsToPlay = listProducts;
-            this.productsToPlay.push(ArrayManager.getManyRandomElements(numberOfProductsToPlay,this.products)); 
+            this.productsToPlay = listProducts.slice(0,6);
+            this.addRandomProducts(numberOfProductsToPlay);
         }else{
             this.createProducts(numberOfProductsToPlay, 6);
         }
     }
 
-    private filterProducts(listProducts: Array<Product>){
-        for(let product of listProducts){
-            this.products = this.products.filter(prod => {prod.id != product.id});
+    private addRandomProducts(number: number){
+        let productsToAdd: Array<Product> = ArrayManager.getManyRandomElements(number,this.products); 
+        for(let product of productsToAdd){
+            this.productsToPlay.push(product);
+        }
+    }
+
+    private filterProducts(listProducts: Array<Product>){        
+        for(let listProduct of listProducts){
+            this.products = this.products.filter(product => {return product.id != listProduct.id});
         }
     }
 
