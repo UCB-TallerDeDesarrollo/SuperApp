@@ -1,7 +1,7 @@
 import { LoginStatus } from './../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
 import { ProductsProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
 import { Camera } from '@ionic-native/camera';
@@ -40,7 +40,8 @@ export class CreateProductPage {
               public camera: Camera,
               private formBuilder: FormBuilder,
               public platform: Platform,
-              public userProvider: UserProvider) {
+              public userProvider: UserProvider,
+              public toastController: ToastController) {
     this.isItAValidProduct = false;
     this.productForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -154,11 +155,23 @@ export class CreateProductPage {
       this.productsProvider.isItATitleValid(this.product.title, user.id)
       .then(result => {
         this.isItAValidProduct = result;
+        if(!this.isItAValidProduct) {
+          this.titleAlreadyExist();
+        }
       }).catch(error => {
         console.error(error);
       });
     }).catch(error => {
       console.error(error);
     });
+  }
+
+  titleAlreadyExist() {
+    let alertMessage = this.toastController.create({
+      message: 'YA EXISTE UN PRODUCTO CON EL TITULO: ' + this.product.title,
+      duration: 2000,
+      position: 'bottom'
+    });
+    alertMessage.present();
   }
 }

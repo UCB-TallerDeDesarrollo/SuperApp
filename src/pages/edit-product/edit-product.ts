@@ -1,7 +1,7 @@
 import { LoginStatus } from './../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, AlertController, ToastController } from 'ionic-angular';
 import { ProductsProvider } from '../../providers/product/product';
 import { CategoryProvider } from '../../providers/category/category';
 import { Camera } from '@ionic-native/camera';
@@ -44,7 +44,8 @@ export class EditProductPage {
               public platform: Platform,
               public alertCtrl: AlertController,
               public userProvider: UserProvider,
-              public login: Login) {
+              public login: Login,
+              public toastController: ToastController) {
     this.isItAValidProduct = true;
     async() => await this.prepareAnonimusUser();
     this.productForm = this.formBuilder.group({
@@ -162,6 +163,9 @@ export class EditProductPage {
       this.productsProvider.isItATitleValid(this.product.title, user.id)
       .then(result => {
         this.isItAValidProduct = result || (this.currentTitle === this.product.title);
+        if(!this.isItAValidProduct) {
+          this.titleAlreadyExist();
+        }
       }).catch(error => {
         console.error(error);
       });
@@ -170,4 +174,12 @@ export class EditProductPage {
     });
   }
 
+  titleAlreadyExist() {
+    let alertMessage = this.toastController.create({
+      message: 'YA EXISTE UN PRODUCTO CON EL TITULO: ' + this.product.title,
+      duration: 2000,
+      position: 'bottom'
+    });
+    alertMessage.present();
+  }
 }
