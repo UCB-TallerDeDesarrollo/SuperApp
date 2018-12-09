@@ -1,26 +1,26 @@
 page-user-information {
     .user-info{
         position: absolute;
-        top:20px;
-        left: 70px;
+        top:23px;
+        left: 60px;
     }
     .user-image{
         position: relative;
-        height: 6vw; 
-        width: 6vw; 
+        height: 5vw; 
+        width: 5vw; 
     }
     .coin-image
     {
         position: absolute;
         top: 1vw;
-        left: 7vw;
-        height: 3vw; 
-        width: 3vw; 
+        left: 5.5vw;
+        height: 2vw; 
+        width: 2vw; 
     }
     .coins-quantity-white{
         position: absolute;
         top: 0vw;
-        left: 10vw;
+        left: 8vw;
         font-family: big john;
         color: white;
         font-size: 4vw;
@@ -28,7 +28,7 @@ page-user-information {
     .coins-quantity-dark{
         position: absolute;
         top: 0vw;
-        left: 10vw;
+        left: 8vw;
         font-family: big john;
         color: black;
         font-size: 4vw;
