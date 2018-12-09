@@ -9,7 +9,6 @@ import {SuperMarketGame} from '../../shared/models/SupermarketGame';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
 import { SupermarketDragDropProvider } from '../../shared/providers/SupermarketDragDropProvider';
 import { SupermarketLevelCompletePage } from './../supermarket-level-complete/supermarket-level-complete';
-import { LevelCompletePage } from './../level-complete/level-complete';
 import { Product } from '../../entities/product';
 import { SupermarketDifficultyProvider } from '../../shared/providers/SupermarketDifficultyProvider';
 import { SelectLevelPage } from './../select-level/select-level';
@@ -129,10 +128,31 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   }
 
   onSelectCategory(category){
-    let category_id=category.id;
-    this.defaultCategoryId=this.categories.findIndex((elem)=>{return elem.id===category_id;});
+    let category_id = category.id;
+    this.changeToInactiveCategoryColor();
+    this.defaultCategoryId = this.categories.findIndex((elem)=>{return elem.id===category_id;});
+    this.changeToActiveCategoryColor();
     this.productPageIndex = 0;
     this.chargeProducts();
+  }
+
+  changeToActiveCategoryColor(){
+    let categoryName = this.categories[this.defaultCategoryId].name;
+    let button = <HTMLElement> document.querySelector("#"+categoryName);
+    console.log(button);
+    if(button){
+      button.classList.remove("button-category-card");
+      button.classList.add("activeBgColor");
+    }
+  }
+
+  changeToInactiveCategoryColor(){
+    let categoryName = this.categories[this.defaultCategoryId].name;
+    let button = <HTMLElement> document.querySelector("#"+categoryName);
+    if(button){
+      button.classList.remove("activeBgColor");
+      button.classList.add("button-category-card");
+    }
   }
 
   chargeProducts(){
@@ -150,6 +170,7 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
       bound = this.categories.length;
     }
     this.onViewCategories = this.categories.slice(this.categoriesPageIndex, bound);
+    this.changeToActiveCategoryColor();
   }
 
   nextProductPage(){

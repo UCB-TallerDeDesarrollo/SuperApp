@@ -14,7 +14,7 @@
         <div class="{{ categories.length>0 ? 'categories-block' : 'hide' }}">
             <ion-row>
                 <ion-col class="category-button" *ngFor="let category of onViewCategories">
-                    <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
+                    <button class="button-category-card" (click)="onSelectCategory(category)" id="{{category.name}}">{{category.name}}</button>
                 </ion-col>
                 <ion-col>
                     <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>ON_VIEW_CATEGORIES_LENGTH ? 'arrow' : 'hide' }}" (click)="nextCategoryPage()">
