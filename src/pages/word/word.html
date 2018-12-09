@@ -1,4 +1,7 @@
 <ion-header>
+        <page-user-information>
+        
+            </page-user-information>
     <button ion-button icon-only class="back-arrow-dark" (click)="navController.pop()">
         <ion-icon name="arrow-back"></ion-icon>
     </button>                
@@ -6,7 +9,7 @@
 
 <ion-content padding class={{backgroundColor}}>
     <div class="level-header">
-        <h1 class="change-level" (click)="changeLevel()">NIVEL {{game.Level}}</h1>
+        <h3 class="change-level" (click)="changeLevel()">NIVEL {{game.Level}}</h3>
     </div>
     <div class="music-logo">
         <img [src]="imageSound" (click)="stopSound()">
@@ -34,12 +37,7 @@
                     <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
                 </div>
             </div>
-            <div class="coin-icon">
-                <img src="assets/icon/coin.png" class="coin-icon">
-            </div>
-            <div class="coins-amount">
-                <h1 class="change-level" >{{coins}}</h1>
-            </div>
+        
         </div>
         
 </ion-footer>

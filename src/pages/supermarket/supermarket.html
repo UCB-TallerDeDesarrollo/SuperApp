@@ -1,3 +1,8 @@
+<ion-header>
+        <page-user-information>
+        
+            </page-user-information>
+</ion-header>
 <ion-content no-bounce padding class="supermarket-container">
 
     <div class="nav-bar-market">
@@ -25,13 +30,7 @@
             <button ion-button class="listButton" (click)="openList()">Importar Lista</button>
         </div>
 
-        <div [class]="(imageClass) ? 'nav-bar-market__coin-icon' : 'nav-bar-market__coin-icon-two'">
-            <img id="id-coin-img" class="coin-img" src="assets/icon/coin.png">
-        </div>
-
-        <div class="nav-bar-market__coins-amount">
-            <h1 class="coins-number">{{coins}}</h1>
-        </div>
+            
         <div class="nav-bar-market__sound">
             <img [src]="imageSound" (click)="stopSound()">
         </div>

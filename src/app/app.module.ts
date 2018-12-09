@@ -1,3 +1,4 @@
+import { UserInformationPage } from './../pages/user-information/user-information';
 import { SelectAvatarPage } from './../pages/select-avatar/select-avatar';
 import { CreateListPage } from './../pages/create-list/create-list';
 import { EditUserPage } from './../pages/edit-user/edit-user';
@@ -108,7 +109,8 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
     SelectAvatarPage,
     EditUserOptionsPage,
     TutorialPage,
-    PresentationPage
+    PresentationPage,
+    UserInformationPage
   ],
   imports: [
     BrowserModule,
@@ -151,7 +153,8 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
     SelectAvatarPage,
     EditUserOptionsPage,
     TutorialPage,
-    PresentationPage
+    PresentationPage,
+    UserInformationPage
   ],
   providers: [
     StatusBar,

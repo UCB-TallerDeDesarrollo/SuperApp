@@ -15,13 +15,19 @@ page-user-login {
         float: left;
         h5{
             line-height: 0px;
-            font-size: 3vw;
+            font-size: 2vw;
             color: white;
             text-align: center;
         }
     }
     .image{ 
-        width: 100%;
+        width:100%;
+       border: 2px solid transparent;
+       border-radius: 50%;
+       box-shadow: 0 0 5px gray;
+       display: inline-block;
+       margin-left: auto;
+       margin-right: auto;
     }
     .main{
         background-image: linear-gradient( 135deg, #3C8CE7 10%, #00EAFF 100%);
