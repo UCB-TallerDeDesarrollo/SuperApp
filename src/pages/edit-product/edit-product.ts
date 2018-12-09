@@ -31,6 +31,7 @@ export class EditProductPage {
   fileName: string;
   audio: MediaObject;
   isItAValidProduct: Boolean;
+  currentTitle: string;
 
   constructor(public navCtrl: NavController,
               private media: Media,
@@ -53,6 +54,7 @@ export class EditProductPage {
     this.productsProvider.getProductById(navParams.data.data)
     .then(product => {
       this.product = product;
+      this.currentTitle = product.title;
       this.Image = product.image;
       this.filePath = product.audio;
     }).catch(error => {
@@ -157,9 +159,9 @@ export class EditProductPage {
     this.userProvider.getUserByUsername(LoginStatus.username)
     .then(user => {
       this.product.title = this.product.title.toUpperCase();
-      this.productsProvider.isItATitleValidForEdit(this.product.title, user.id)
+      this.productsProvider.isItATitleValid(this.product.title, user.id)
       .then(result => {
-        this.isItAValidProduct = result;
+        this.isItAValidProduct = result || (this.currentTitle === this.product.title);
       }).catch(error => {
         console.error(error);
       });
