@@ -62,6 +62,18 @@
         width: 100%;
     }
 }
+.music-logo-home {
+    position: fixed;
+    right: 0px;
+    bottom: 5%;
+    width: 8%;
+    height: 8%;
+
+    .music-icon {
+        height: 150%;
+        width: 100%;
+    }
+}
 .edit-logo{
     position:absolute;
     left: 1%;
@@ -117,3 +129,16 @@
     visibility: hidden;
 }
 
+.info-button {
+    left: 20%;
+    bottom: 0px;
+    position: fixed;
+    @media screen and (min-width: 567px) and (max-width: 639px) {
+        left: 22%;
+    }
+
+    @media screen and (min-width: 730px) {
+        left: 17%;
+    }
+
+}
