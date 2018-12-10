@@ -17,6 +17,6 @@ export class SplashPage {
   }
 
   delay() {
- 	return new Promise(resolve => setTimeout(resolve, 3000));
+ 	return new Promise(resolve => setTimeout(resolve, 5000));
   }
 }
