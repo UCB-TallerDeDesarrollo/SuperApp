@@ -26,7 +26,7 @@
 
 <ion-content no-bounce padding class="main-list">
 
-  <!-- <div class="category-title">{{selectedCategory.name}}</div> -->
+<div class="category-title">{{selectedCategory.name}}</div>
   <div class="shelves">    
     <div class="products-to-play">
         <div class="product-block" *ngFor="let product of onViewProducts" id="{{product.title}}" dragula="PRODUCT">
@@ -36,13 +36,15 @@
           </div>
         </div>
     </div>
-  </div>
- 
-  <div class="list-categories-block"> 
     <ion-row>
       <ion-col>
-        <img src="assets/imgs/arrowgreenleft.png" class="{{ products.length>ON_VIEW_LIST_LENGTH ? 'arrow' : 'hide' }}" alt="" (click)="nextProductPage()">
+        <img src="assets/imgs/arrowgreen.png" class="{{ products.length>ON_VIEW_LIST_LENGTH ? 'arrow' : 'hide' }}" alt="" (click)="nextProductPage()">
       </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="list-categories-block"> 
+    <ion-row>
       <ion-col class="list_category-button" *ngFor="let category of onViewCategories">
         <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
       </ion-col>
