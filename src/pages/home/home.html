@@ -1,7 +1,5 @@
 <ion-header>
-    <div class="music-logo">
-        <img [src]="imageSound" alt="" (click)="stopSound()">
-    </div>
+    
 </ion-header>
 
 <ion-content padding class="main">
@@ -55,4 +53,9 @@
             </button>
         </ion-fab>
     </div>
+
+    <div class="music-logo">
+        <img class="music-icon" [src]="imageSound" alt="" (click)="stopSound()">
+    </div>
+    
 </ion-content>

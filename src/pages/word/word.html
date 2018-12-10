@@ -11,9 +11,7 @@
     <div class="level-header">
         <h3 class="change-level" (click)="changeLevel()">NIVEL {{game.Level}}</h3>
     </div>
-    <div class="music-logo">
-        <img [src]="imageSound" (click)="stopSound()">
-    </div>
+    
     <ul [class]="(game.Level >= 16) ? 'item-container' : 'item-container easy-item-container'" >
         <div [class]="(game.Level >= 16) ? 'relative-container' : 'relative-container easy-relative-container'" *ngFor="let letter of game.SortedWord" (click)="playPronunciationOfTheProductName()"> 
             <div>
@@ -39,5 +37,7 @@
             </div>
         
         </div>
-        
+        <div class="music-logo">
+            <img class="music-icon" [src]="imageSound" (click)="stopSound()">
+        </div>
 </ion-footer>

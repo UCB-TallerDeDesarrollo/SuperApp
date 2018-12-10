@@ -51,10 +51,16 @@
     }
 }
 .music-logo{
-    position:fixed;
+    position: fixed;
     right: 0px;
-    top:1%;
+    bottom: 5%;
     width: 8%;
+    height: 8%;
+
+    .music-icon {
+        height: 150%;
+        width: 100%;
+    }
 }
 .edit-logo{
     position:absolute;
