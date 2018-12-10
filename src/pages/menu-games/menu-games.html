@@ -2,9 +2,9 @@
         <page-user-information>
         
             </page-user-information>
-    <div class="music-logo">
+    <!-- <div class="music-logo">
         <img [src]="imageSound" alt="" (click)="stopSound()">
-    </div>
+    </div> -->
 </ion-header>
 
 <ion-content padding class="main">
@@ -21,5 +21,8 @@
     <div class="game-images">
         <img src="assets/imgs/lista.png" class="image-super" alt="" (click)="pushPageSupermarket()">
         <img src="assets/imgs/lista_button.png" class="image-list" alt="" (click)="pushPageList()">
+    </div>
+    <div class="music-logo">
+        <img class="music-icon" [src]="imageSound" alt="" (click)="stopSound()">
     </div>
 </ion-content>
