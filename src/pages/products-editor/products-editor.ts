@@ -53,7 +53,7 @@ export class ProductsEditorPage implements OnDestroy {
     platform.ready()
     .then(() => {
       if (platform.is('cordova')){
-        this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+        this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
       }
     }).catch(err=> {
       console.error('Error while loading platform', err);
