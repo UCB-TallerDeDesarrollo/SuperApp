@@ -139,4 +139,12 @@ export class EditUserPage {
     });
     toast.present();
   }
+  validate()
+  {
+    var size=this.username.length;
+    if (size>8)
+    {
+      this.username=this.username.substring(0, size-1);
+    }
+  }
 }
