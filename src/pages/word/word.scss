@@ -167,8 +167,9 @@
     background-color: #9BBB6E;
 }
 .help-button{
-    position: absolute !important;
+    position: fixed !important;
     left: 0px;
+    bottom: -5px;
  }
 .coin-icon{
     height: 20px;

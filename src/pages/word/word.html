@@ -2,6 +2,7 @@
         <page-user-information>
         
             </page-user-information>
+            
     <button ion-button icon-only class="back-arrow-dark" (click)="navController.pop()">
         <ion-icon name="arrow-back"></ion-icon>
     </button>                
@@ -26,10 +27,8 @@
 </ion-content>
 
 <ion-footer>
+        <button ion-fab mini color="dark" (click)="reduceCoins()"  class="help-button" [disabled]="isDisabled" ><ion-icon name="md-help" fab-size="mini"></ion-icon></button>
         <div class="item-container">  
-                <button ion-button round color="dark" [disabled]="isDisabled"  (click)="reduceCoins()" class="help-button">
-                        <ion-icon name="help-circle"></ion-icon>
-                </button>         
             <div class="{{letter.name}} relative-container wordsss {{i}}" *ngFor="let letter of game.MessyWord; let i = index" [attr.data-index]="i" dragula="{{selectorName}}"  style="text-align: center"> 
                 <div class="letter_container">
                     <b class="letter" [ngStyle]="{'color': letter.color}">{{letter.letter}}</b>
