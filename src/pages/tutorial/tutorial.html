@@ -34,60 +34,163 @@
             <ion-card-header>
               <h2 ion-text color="dark" text-center>¡Bienvenido a SuperApp!</h2>
             </ion-card-header>
-            <ion-card-content>
-              <div text-justify>
-                  <p ion-text color="dark">El juego abarca múltiples áreas para desarrollar el reconocimiento, gestión y compra de los productos necesarios en el día a día dentro de los supermercados.</p>
-                  <br>
-                  <p ion-text color="dark">Al presionar el botón de Volumen se activan y desactivan todos los sonidos de la aplicación. Este botón se encuentra en la parte superior derecha del menú principal y también en todas las pestañas dentro del juego de SUPERMERCADO y el juego de PALABRAS</p>
-                  <br>
-                  <p ion-text color="dark">Al presionar el botón de Usuarios, se despliegan otros dos botones; uno para Crear usuario y otro para Ingresar, Este botón se encuentra en la parte inferior derecha del menú principal.</p>
-                  <br>
-                  <p ion-text color="dark">•	El botón Crear usuario, desplegado hacia arriba, sirve para crear un nuevo usuario. Se puede elegir un avatar, tomar una foto o eligir una imagen de la galería del dispositivo para el icono del nuevo usuario y se le debe asignar un nombre en el espacio “Usuario”.</p>
-                  <br>
-                  <p ion-text color="dark">•	El botón Ingresar, desplegado hacia la izquierda, sirve para ingresar con los usuarios que fueron creados escribiendo el nombre de alguno en el espacio “Usuario”.</p>
-                  <br>
-                  <p ion-text color="dark">Al presionar el botón de Información, se despliegan otros dos botones; uno para ver este tutorial y otro para ver información acerca de nuestro proyecto. Este botón de encuentra en la parte inferior izquierda del menú principal.</p>
-                  <br>
-                  <p ion-text color="dark">Al presionar el botón Editar accederás a la lista de productos registrados del usuario actual donde puedes:</p>
-                  <br>
-                  <p ion-text color="dark">•	Agregar un nuevo producto presionando el botón “Nuevo Item” en el cual, al presionarlo, luego podrás escoger una categoría, un nombre, una imagen, un audio y si estará o no Activo dentro de los juegos.</p>
-                  <br>
-                  <p ion-text color="dark">•	Administrar las CATEGORIAS presionando esta palabra en la esquina superior derecha en la cual luego podrás editar o eliminar una categoría existente y crear una NUEVA CATEGORIA.</p>
-                  <br>
-                  <p ion-text color="dark">•	Escuchar el sonido de cada producto, editarlo y marcarlo/desmarcarlo como Activo para los juegos de la aplicación  </p>
-                  <br>
-                  <p ion-text color="dark">La aplicación tiene el juego de SUPERMERCADO y el juego de PALABRAS.</p>
-                  <br>
-                  <p ion-text color="dark">Al presionar sobre el icono de SUPERMERCADO aparecerá el botón de una LISTA en el cual se podrán agregar productos de cada una de las categorías desde el almacén arrastrándolos hacia la lista y luego se podrá guardar esta, o ver una lista que fue anteriormente guardada con los iconos en la parte superior derecha. Una vez guardada la lista aparecerá otro icono para borrarla, Esta funcionalidad sirve para imitar listas de compras reales. </p>
-                  <br>
-                  <p ion-text color="dark">Al volver a presionar sobre el icono de SUPERMERCADO aparecerán las distintas dificultades del juego para empezar a jugar. </p>
-                  <br>
-                  <p ion-text color="dark">El juego de SUPERMERCADO consiste en arrastrar producto por producto cada uno de los productos de la lista COMPRAR hacia la figura del carrito desde el almacén.</p>
-                  <br>
-                  <p ion-text color="dark">•	El nivel es superado cuando todos los productos de la lista COMPRAR son arrastrados hacia el carrito.</p>
-                  <br>
-                  <p ion-text color="dark">•	Si se intenta arrastrar un producto que no está dentro de la lista COMPRAR desde la estantería hacia el carrito este volverá a la estantería debido a que no es uno de los productos que se tiene que comprar.</p>
-                  <br>
-                  <p ion-text color="dark">•	Se puede navegar en los distintos niveles del juego si estos fueron superados al jugarlos presionando la palabra NIVEL.</p>
-                  <br>
-                  <p ion-text color="dark">•	La cantidad de monedas mostrada en la esquina superior derecha de la pantalla se aumentan al pasar los niveles. Estás monedas se pueden cambiar por Pistas que se encuentran al lado derecho de estas monedas. En el juego de SUPERMERCADO, cambias 10 monedas por una Pista que quita un producto innecesario del almacén.  </p>
-                  <br>
-                  <p ion-text color="dark">Al presionar sobre el icono de PALABRAS en el menú principal aparecerán las distintas dificultades del juego para empezar a jugar.</p>
-                  <br>
-                  <p ion-text color="dark">El juego de PALABRAS consiste en arrastrar letra por letra cada una de las letras desplegadas en la parte inferior hacia una posición correcta en los espacios sobre las líneas horizontales de forma que se complete la palabra correctamente de acuerdo al producto de cada nivel.</p>
-                  <br>
-                  <p ion-text color="dark">•	El nivel es superado cuando todas las letras de la palabra son colocadas en los espacios sobre las líneas horizontales correctamente.</p>
-                  <br>
-                  <p ion-text color="dark">•	Si se intenta arrastrar una letra a un espacio en el que no corresponde está volverá a la lista de letras.</p>
-                  <br>
-                  <p ion-text color="dark">•	Se puede navegar en los distintos niveles del juego si estos fueron superados al jugarlos presionando la palabra NIVEL. </p>
-                  <br>
-                  <p ion-text color="dark">•	La cantidad de monedas mostrada en la esquina inferior izquierda de la pantalla se aumentan al pasar los niveles. Estás monedas se pueden cambiar por Pistas que se encuentran en la parte inferior izquierda. En el juego de PALABRAS, cambias 10 monedas por una Pista que te ayuda a posicionar la primera letra de la lista de letras. </p>
-                  <br>
-                  <p ion-text color="dark"></p>
-                </div>
-            </ion-card-content>
           </ion-card>
+
+          <ion-card color="stable">
+          <ion-list>
+
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque1()">Sobre SuperApp</a></b><br>
+                  <div *ngIf="bloque1==true">
+                    <ul>
+                      <br>  
+                      <p>El juego abarca múltiples áreas para desarrollar el reconocimiento, gestión y compra de los productos necesarios en el día a día dentro de los supermercados.</p>
+                      <br>
+                    </ul>
+              </div></div>
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque2()">Juego del Super Mercado</a></b><br>
+                  <div *ngIf="bloque2==true">
+                    <ul>
+                      <br>
+                      <p>En este juego deberás poner dentro del carrito de supermercado los elementos que figuran en la lista de compras.</p>
+                      <div class="videoGif">
+                        <img src="assets/imgs/tutorial/supermercado.gif" alt="">
+                      </div>
+                    </ul>
+              </div></div>
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque3()">Juego de las Palabras</a></b><br>
+                  <div *ngIf="bloque3==true">
+                    <ul>
+                      <br>
+                      <p>En este juego deberás escribir letra por letra la palabra que se ve en la pantalla. Ten en cuenta que el orden no importa.</p>
+                      <div class="videoGif">
+                        <img src="assets/imgs/tutorial/palabras.gif" alt="">
+                      </div>
+                    </ul>
+              </div></div>
+
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque4()">Cambiar de Nivel</a></b><br>
+                  <div *ngIf="bloque4==true">
+                    <ul>
+                      <br>
+                      <p>En ambos juegos puedes moverte dentro de los niveles ya jugados. Para esto debes tocar donde dice NIVEL # en el titulo del nivel actual y elegir otro nivel.</p>
+                      <div class="videoGif">
+                        <img src="assets/imgs/tutorial/cambiarNivel.gif" alt="">
+                      </div>                      
+                    </ul>
+              </div></div>
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque5()">Lista del Super Mercado</a></b><br>
+                  <div *ngIf="bloque5==true">
+                    <ul>
+                      <br>
+                      <p>La lista del super sive para que puedas poner en el carrito cosas que necesites comprar y luego ir a la tienda y marcar cada item a medida que lo hayas encontrado y puesto en tu carrito de verdad. Además de los  items precargados puedes agregar nuevos o editarlos.</p>
+                      <div class="videoGif">
+                        <img src="assets/imgs/tutorial/listaMercado.gif" alt="">
+                      </div>                      
+                      <p>Para editar los items, debes ingresar al menú de edición tocando el nombre de la sección en la parte superior de la pantalla.</p>
+                    </ul>
+              </div></div>
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque6()">Volumen</a></b><br>
+                  <div *ngIf="bloque6==true">
+                    <ul>
+                      <br>
+                      <p>Al presionar el botón de Volumen se activan y desactivan todos los sonidos de la aplicación.</p>
+                      <div class="videoGif">
+                        <img src="assets/imgs/tutorial/volumen.gif" alt="">
+                      </div>                      
+                    </ul>
+              </div></div>
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque7()">Usuarios</a></b><br>
+                  <div *ngIf="bloque7==true">
+                    <ul>
+                      <br>
+                      <p>Se puede crear diferentes usuarios escribiendo un nombre de usuario y eligiendo un avatar para el mismo, tomando una foto o eligiendo una imagen desde la galería del dispositivo.El botón de al lado sirve para ingresar con los usuarios que ya fueron creados.</p>                      
+                      <li>
+                        <br>
+                        <p>•	Crear usuario con un avatar</p>
+                        <div class="videoGif">
+                          <img src="assets/imgs/tutorial/crearusuario.gif" alt="">
+                        </div>
+                      </li>
+                      <li>
+                        <p>•	Crear usuario con una foto de la galería</p>
+                        <div class="videoGif">
+                          <img src="assets/imgs/tutorial/crearusuario3.gif" alt="">
+                        </div>
+                      </li>
+                      <li>
+                        <p>•	Crear usuario con una foto tomada con el dispositivo</p>
+                        <div class="videoGif">
+                          <img src="assets/imgs/tutorial/crearUsuariofoto.gif" alt="">
+                        </div>
+                      </li>
+                      <li>
+                        <p>•	Ingresar a la aplicación con un usuario creado</p>
+                        <div class="videoGif">
+                          <img src="assets/imgs/tutorial/ingresarConUsuario.gif" alt="">
+                        </div>
+                      </li>
+                      <li>
+                        <p>•	Cambiar usuario</p>
+                        <div class="videoGif">
+                          <img src="assets/imgs/tutorial/cambiarDeUsuario.gif" alt="">
+                        </div>
+                      </li>
+                      <li>
+                        <p>•	Editar usuario</p>
+                        <div class="videoGif">
+                          <img src="assets/imgs/tutorial/editarUsuario.gif" alt="">
+                        </div>
+                      </li>
+                      <li>
+                        <br>
+                        <p>•	Eliminar usuario</p>
+                        <div class="videoGif">
+                          <img src="assets/imgs/tutorial/eliminarUsuario.gif" alt="">
+                        </div>
+                      </li> 
+                    </ul>
+              </div></div>   
+              <div>
+                  <b><a class="MV-Boly" (click)="showHideBloque8()">Editar Productos</a></b><br>
+                  <div *ngIf="bloque8==true">
+                    <ul>
+                      <li>
+                        <br>
+                        <p>Al presionar el icono indicado a continuación accederás a la lista de productos registrados del usuario actual. En el mismo puedes:</p>
+                      </li>
+                      <li>
+                        <br>
+                        <p></p>
+                      </li>
+                      <li>
+                        <p>•	Agregar un nuevo producto</p>
+                        <div class="videoGifVertical">
+                          <img src="assets/imgs/tutorial/nuevoProducto.gif" alt="">
+                        </div>
+                      </li>
+                      <li>
+                        <p>•	Administrar las categorías</p>
+                        <div class="videoGifVertical">
+                          <img src="assets/imgs/tutorial/administrarCategoria.gif" alt="">
+                        </div>
+                      </li>
+                      <li>
+                        <p>•	Escuchar el sonido de cada producto, editarlo y marcarlo o desmarcarlo como Activo para los juegos de la aplicación.</p>
+                        <div class="videoGifVertical">
+                          <img src="assets/imgs/tutorial/reproducirSonido.gif" alt="">
+                        </div>
+                      </li>
+                    </ul>
+              </div></div>  
+          </ion-list>
+        </ion-card>
 
       <ion-buttons end>
           <button ion-button navPop>
@@ -95,9 +198,6 @@
             Aceptar
           </button>
         </ion-buttons>
-  
     </ion-card-content>
-  
   </ion-card>
-
 </ion-content>
