@@ -1,7 +1,7 @@
 <ion-header>
-        <page-user-information>
-        
-            </page-user-information>
+    <page-user-information>
+
+    </page-user-information>
 </ion-header>
 <ion-content no-bounce padding class="supermarket-container">
 
@@ -30,7 +30,7 @@
             <button ion-button class="listButton" (click)="openList()">JUGAR CON LISTA</button>
         </div>
 
-            
+
         <div class="nav-bar-market__sound">
             <img [src]="imageSound" (click)="stopSound()">
         </div>
@@ -68,7 +68,7 @@
     </div>
 
 
-    <button ion-fab mini color="dark" (click)="reduceCoins()"  class="market-help-button" [disabled]="isDisabled" ><ion-icon name="md-help" fab-size="mini"></ion-icon></button>
+    <button class="market-help-button" ion-fab mini color="dark" (click)="reduceCoins()" [disabled]="isDisabled"><ion-icon name="md-help" fab-size="mini"></ion-icon></button>
     <div id="carrito" class="carrito_container">
         <img class="icon-image product-objetive-container" src="{{carImage}}" dragula="{{selectorName}}" />
     </div>

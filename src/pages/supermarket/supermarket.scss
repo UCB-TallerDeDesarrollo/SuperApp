@@ -1,7 +1,31 @@
-.market-help-button {
+button.market-help-button.fab.fab-md.fab-md-dark {
     position: absolute !important;
     left: 0;
     margin-top: -3.8vh;
+    @media screen and (max-width: 1367px) {
+        margin-top: 3vh;
+    }
+    @media screen and (max-width: 824px) {
+        margin-top: -1vh;
+    }
+    @media screen and (max-width: 813px) {
+        margin-top: -1.6vh;
+    }
+    @media screen and (max-width: 741px) {
+        margin-top: -3vh;
+    }
+    @media screen and (max-width: 737px) {
+        margin-top: -2vh;
+    }
+    @media screen and (max-width: 668px) {
+        margin-top: -3vh;
+    }
+    @media screen and (max-width: 641px) {
+        margin-top: -3vh;
+    }
+    @media screen and (max-width: 569px) {
+        margin-top: -6vh;
+    }
 }
 
 .supermarket-container {
@@ -873,7 +897,7 @@
         margin-left: 19vw;
         .button-category-card {
             background-color: #b056ec;
-            .activeBgColor{
+            .activeBgColor {
                 background-color: #cfa3ec;
             }
         }
@@ -938,9 +962,9 @@
     }
 }
 
-.listButton{
+.listButton {
     margin-top: 1%;
-    right:0%;
+    right: 0%;
     background-color: #b45fec;
     padding: 0.3em;
     font-size: 0.9em;
