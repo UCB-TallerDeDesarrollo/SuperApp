@@ -113,4 +113,12 @@ export class CreateUserPage {
     let reference:string="assets/imgs/avatars/avatar"+data.idAvatar+".png";
     this.Image=reference;
   }
+  validate()
+  {
+    var size=this.username.length;
+    if (size>8)
+    {
+      this.username=this.username.substring(0, size-1);
+    }
+  }
 }

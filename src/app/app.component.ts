@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { SmartAudio } from '../providers/smart-audio/smart-audio';
 import { createConnection } from 'typeorm';
 import { HomePage } from '../pages/home/home';
+import { SplashPage } from '../pages/splash/splash';
 import { Product } from '../entities/product';
 import { Category } from '../entities/category';
 import { Level } from '../entities/level';
@@ -22,7 +23,7 @@ import { Presentation } from '../entities/presentation';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = HomePage;
+  rootPage:any = SplashPage;
 
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, smartAudio: SmartAudio) {

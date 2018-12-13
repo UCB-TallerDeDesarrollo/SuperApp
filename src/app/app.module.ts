@@ -73,6 +73,7 @@ import { EditUserOptionsPage } from '../pages/edit-user-options/edit-user-option
 import { PresentationPage } from '../pages/presentation/presentation';
 import { AlertProvider } from '../providers/alert/alert';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import { SplashPage } from '../pages/splash/splash';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
     EditUserOptionsPage,
     TutorialPage,
     PresentationPage,
-    UserInformationPage
+    UserInformationPage,
+    SplashPage
   ],
   imports: [
     BrowserModule,
@@ -154,7 +156,8 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
     EditUserOptionsPage,
     TutorialPage,
     PresentationPage,
-    UserInformationPage
+    UserInformationPage,
+    SplashPage
   ],
   providers: [
     StatusBar,

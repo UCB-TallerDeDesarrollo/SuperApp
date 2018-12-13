@@ -50,14 +50,6 @@ export class ProductsEditorPage implements OnDestroy {
       await this.prepareAnonimusUser();
       this.reloadProducts();
     })();
-    platform.ready()
-    .then(() => {
-      if (platform.is('cordova')){
-        this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-      }
-    }).catch(err=> {
-      console.error('Error while loading platform', err);
-    });
   }
 
   ionViewWillEnter() {
