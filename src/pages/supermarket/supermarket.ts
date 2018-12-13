@@ -269,7 +269,14 @@ export class SupermarketPage implements OnInit, AfterViewInit, OnDestroy, AfterV
   public showModalWin(): void {
     if(this.game.Level<60){
       let nextLevel = this.game.Level+1;
-      const levelCompleteModal = this.modalController.create(SupermarketLevelCompletePage, {level: nextLevel, lastNav:this.navController,maxLevel:nextLevel});
+      let currentDifficulty = this.game.Difficulty;
+      const levelCompleteModal = this.modalController.create(
+              SupermarketLevelCompletePage, 
+              { level: nextLevel, 
+                lastNav:this.navController,
+                maxLevel:nextLevel,
+                difficulty: currentDifficulty
+              });
       levelCompleteModal.present();
     }else{
       this.navController.pop();
