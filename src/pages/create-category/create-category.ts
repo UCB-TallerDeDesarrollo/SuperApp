@@ -60,7 +60,7 @@ export class CreateCategoryPage {
       this.categoryProvider.isItANameValid(this.category.name, user.id)
       .then(result => {
         this.isItAValidCategory = result;
-        if(this.isItAValidCategory) {
+        if(!this.isItAValidCategory) {
           this.nameAlreadyExist();
         }
       }).catch(error => {
