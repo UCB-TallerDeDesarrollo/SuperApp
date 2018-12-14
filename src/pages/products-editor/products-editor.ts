@@ -50,14 +50,6 @@ export class ProductsEditorPage implements OnDestroy {
       await this.prepareAnonimusUser();
       this.reloadProducts();
     })();
-    platform.ready()
-    .then(() => {
-      if (platform.is('cordova')){
-        this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-      }
-    }).catch(err=> {
-      console.error('Error while loading platform', err);
-    });
   }
 
   ionViewWillEnter() {
@@ -107,14 +99,14 @@ export class ProductsEditorPage implements OnDestroy {
     this.navCtrl.push(EditProductPage, {data: product_id, categoryId: this.navParams.data.data});
   }
 
-  async changeState(product_id: number, product_state: number) {
+  async changeState(product_id: number, product_state: number, product: any) {
     if(product_state==1){
+      product.state = 0;
       await this.productsProvider.updateStateProduct(0, product_id);
     }else{
+      product.state = 1;
       await this.productsProvider.updateStateProduct(1, product_id);
     }
-    this.navCtrl.pop();
-    this.navCtrl.push(ProductsEditorPage, { data: this.navParams.data.data });
   }
 
   public offSound(index) {

@@ -45,9 +45,25 @@ page-select-difficulty{
     }
 }
 
-.logo{
+.logo-super{
     display: flex;
     justify-content: center;
+    padding-top: 7%;
+    .superapp-logo {
+        height: 100px;
+        width: 100px;
+        padding-bottom: 7%;
+
+        @media screen and (min-width: 810px) and (max-width: 813px) {
+            height: 30%;
+            width: 20%;
+        }
+
+        @media screen and (min-width: 1023px) and (max-width: 1367px) {
+            height: 70%;
+            width: 40%;
+        }
+    }
 }
 
 .back-arrow{

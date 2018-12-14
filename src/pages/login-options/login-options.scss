@@ -1,3 +1,27 @@
 page-login-options {
-
+    .buttons{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .loggedUsername {
+        text-align: center;
+        font-family: big john;
+        color: white;
+        font-size: 200%;
+    }
+    
+    .user-coin-icon{
+        text-align: center;
+        padding-left: 10%;
+    }
+    
+    .image-user{
+        justify-content: center;
+        height: 15vw; 
+        width: 15vw; 
+       border: 2px solid transparent;
+       border-radius: 50%;
+       box-shadow: 0 0 5px gray;
+    }
 }

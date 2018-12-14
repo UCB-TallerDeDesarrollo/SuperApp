@@ -1,4 +1,3 @@
-
 <ion-content padding>
 
   <ion-card>
@@ -11,16 +10,6 @@
     </ion-card-header>
   
     <ion-card-content>
-        <div class="logo-container">
-          <div class="logo-superapp">
-            <div class="logo-img">
-              <img src="assets/imgs/shopping.svg" alt="">
-            </div>
-            <div class="logo-text">
-              <h1 ion-text color="light" >SUPER APP</h1>
-            </div>
-          </div>
-        </div>
 
           <ion-card color="stable">
             <ion-card-header>
@@ -28,53 +17,47 @@
             </ion-card-header>
             <ion-card-content>
               <div text-justify>
-                  <p ion-text color="dark">El objetivo principal del proyecto es llevar adelante una revolución en la forma de enseñarles contenidos a los niños y jóvenes con necesidades especiales, brindando solucione de software y acercándoles la tecnología informática; posicionado a la Argentina como generador de contenidos educativos para este segmento en Latinoamérica. De esta manera, se busca contribuir a la inclusión social, construyendo a una sociedad más integrada e inclusiva</p>
+                  <p ion-text color="dark">El objetivo principal del proyecto es llevar adelante una revolución en la forma de enseñarles contenidos a los niños y jóvenes con necesidades especiales, brindando soluciones de software y acercándoles la tecnología informática; posicionado a la Argentina como generador de contenidos educativos para este segmento en Latinoamérica. De esta manera, se busca contribuir a la inclusión social, construyendo a una sociedad más integrada e inclusiva</p>
               </div>
             </ion-card-content>
           </ion-card>
 
-          <ion-card>
-              <ion-card-header>
-                  <h2>Links de interés:</h2>
-              </ion-card-header>
-              <ion-card-content>
-                <div text-justify>
-                  <ul>
-                    <li>
-                        <a href="http://www.proyectodane.org/">www.proyectodane.org</a>
-                    </li>
-                    <li>
-                        <a href="https://www.facebook.com/Proyecto.Inclusion.DANE/">facebook.com/Proyecto.inclusion.DANE</a>
-                    </li>
-                  </ul>
-                </div>
-              </ion-card-content>
-          </ion-card>
+          <div>
+            <h2 ion-text color="dark" text-left>Coordinacion Del Proyecto:</h2>
+            <div class="dane-logo">
+              <img src="assets/imgs/tinc-logo.svg" alt="Fundacion Tinc ">
+            </div>
+          </div>
+          <div>
+            <h2 ion-text color="dark" text-left>Idea y Contenido:</h2>
+            <div class="dane-logo">
+              <img src="assets/imgs/fundasor-logo.svg" alt="Fundasor ">
+            </div>
+          </div>
+          <div>
+            <h2 ion-text color="dark" text-left>Desarrollo:</h2>
+            <div class="dane-logo">
+              <img src="assets/imgs/hexacta-logo.svg" alt="Hexacta ">
+            </div>
+          </div>
+          <div>
+            <h2 ion-text color="dark" text-left>Agradecimiento:</h2>
+            <h3 ion-text color="dark" text-left>A quienes forman parte de Fundasort:</h3> <br>
+            <div text-justify>    
+                <p ion-text color="dark">Lisandro Rodriguez, Mateo Rodriguez Garcia, Olivia RC, Lucia Fauve, Ivana Paola Navarro, Damián Alejandro Scigliano, Sebastian Ariel Caceres, Rocio Maria Vidiella, Paula Silvana Costa Gil</p>
+            </div><br>
+            <h3 ion-text color="dark" text-left>A staff de Hexacta:</h3> <br>
+            <div text-justify>    
+                <p ion-text color="dark">Luis Broeders, Gerardo Cabrera, Javier Fernandez, Julieta Fernandez, Tomas Franco, Macarena Iriarte, Ezequiel Meisomil, Mariela Morel, Diego Pedro, Jesica Taira, Veronica Vignoni</p>
+            </div>
+          </div>
+
+
 
           <ion-card>
             <ion-card-header>
-              <h2 ion-text color="dark">Coodinación del Proyecto:</h2>
-            </ion-card-header>
-            <ion-card-content>
-              <div text-justify>
-                  <p ion-text color="dark">Ing. Pablo Fiuza, Ing. Mariano Stampeña CESSI - Cámara de Empresas de Software y Servicios informaticos</p>
-              </div>
-            </ion-card-content>
-          </ion-card>
-
-          <ion-card>
-            <ion-card-header>
-              <h2 ion-text color="dark">Idea y Marco Conceptual:</h2>
-            </ion-card-header>
-            <ion-card-content>
-              <div text-justify>
-                  <p ion-text color="dark"> Lic. Daniel Edgea</p>
-              </div>
-            </ion-card-content>
-          </ion-card>
-
-          <ion-card>
-            <ion-card-header>
+              <h2>Docente: Israel Antezana Rojas</h2>
+              <br/>
               <h2 ion-text color="dark">Desarrollada por:</h2>
             </ion-card-header>
             <ion-card-content>
@@ -85,10 +68,10 @@
               <div padding>
                   <ion-segment [(ngModel)]="equipos">
                     <ion-segment-button value="equipo1">
-                        Equipo Scrum 1
+                        Equipo 1
                     </ion-segment-button>
                     <ion-segment-button value="equipo2">
-                        Equipo Scrum 2
+                        Equipo 2
                     </ion-segment-button>
                   </ion-segment>
               </div>
@@ -166,41 +149,6 @@
 
             </ion-card-content>
           </ion-card>
-
-          <ion-card>
-            <ion-card-header>
-              <h2 ion-text color="dark">Otros Colaboradores:</h2>
-            </ion-card-header>
-            <ion-card-content>
-              <div text-justify>
-                  <ul ion-text color="dark">
-                      <li>
-                        Graciela Roldán Schuth - Colego Los Robles
-                      </li>
-                      <li>
-                        Lic. Paula Casagrande
-                      </li>
-                      <li>
-                        Lic. Antonela Lailhacar
-                      </li>
-                      <li>
-                        Lic. Gabriela Goldfeder
-                      </li>
-                    </ul>
-              </div>
-            </ion-card-content>
-          </ion-card>
-
-          <ion-card>
-              <ion-card-header>
-                <h2 ion-text color="dark">Agradecimientos</h2>
-              </ion-card-header>
-              <ion-card-content>
-                <div text-justify>
-                    <p ion-text color="dark">Agradecemos especialmente a todas las persona, familiares, amigos y profesionales que colaboraron con nosotros ya sea aportando ideas, ayudando a probar el juego, o simplemente brindando su apoyo.</p>
-                </div>
-              </ion-card-content>
-            </ion-card>
 
       <ion-buttons end>
           <button ion-button navPop>

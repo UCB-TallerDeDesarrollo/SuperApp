@@ -1,6 +1,7 @@
-import { Product } from "./Product.model";
+import { List } from "../../entities/list";
 import { ArrayManager } from "../../Managers/ArrayManager";
-import { ProductsProvider } from '../../providers/product/product'; 
+import { Product } from "../../entities/product";
+import { ProductList } from "../../entities/productList";
 
 export class SuperMarketGame {
   
@@ -142,9 +143,53 @@ export class SuperMarketGame {
         return this.countOfProducts >= this.productsToBuy.length;
     }
 
-    public buildProducts(){
+    public buildProducts(list: List){
         let numberOfProductsToPlay = this.getQuantityByLevel();
-        this.createProducts(numberOfProductsToPlay,6);
+        if(list){
+            this.createProductsByList(list);
+        }else{
+            this.createProducts(numberOfProductsToPlay, 6);
+        }
+    }
+
+    private createProductsByList(list: List){
+        let listProducts: Array<Product>= this.extractProducts(list.products);
+        this.filterProducts(listProducts);
+        let numberOfProductsToPlay = this.getQuantityByLevel();
+        if(listProducts.length < 6){
+            let numberToAdd = 6 - listProducts.length;
+            this.addRandomProductsTo(listProducts, numberToAdd);
+            this.filterProducts(listProducts);
+        }
+        this.finalThreatment(listProducts, numberOfProductsToPlay);
+    }
+
+    private finalThreatment(listProducts, numberOfProductsToPlay){
+        this.productsToBuy = listProducts.slice(0,6);
+        numberOfProductsToPlay-=6;
+        this.productsToPlay = listProducts.slice(0,6);
+        this.addRandomProductsTo(this.productsToPlay ,numberOfProductsToPlay);
+    }
+
+    private addRandomProductsTo(array, numberToAdd: number){
+        let productsToAdd: Array<Product> = ArrayManager.getManyRandomElements(numberToAdd,this.products); 
+        for(let product of productsToAdd){
+            array.push(product);
+        }
+    }
+
+    private filterProducts(listProducts: Array<Product>){        
+        for(let listProduct of listProducts){
+            this.products = this.products.filter(product => {return product.id != listProduct.id});
+        }
+    }
+
+    private extractProducts(productsList: Array<ProductList>): Array<Product>{
+        let products: Array<Product>= [];
+        for(let productList of productsList){
+            products.push(productList.product);
+        }
+        return products;
     }
 
     private createProducts(numberOfProductsToPlay:number,numberOfProductsToBuy:number) : void {

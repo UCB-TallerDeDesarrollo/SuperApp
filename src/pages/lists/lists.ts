@@ -10,6 +10,7 @@ import { ListProvider } from '../../providers/list/list';
 import { Login } from '../../providers/login/Login';
 import { EditListPage } from '../edit-list/edit-list';
 import { ConfirmationPage } from './../confirmation/confirmation';
+import { SupermarketPage } from './../supermarket/supermarket';
 
 @IonicPage()
 @Component({
@@ -21,6 +22,8 @@ export class ListsPage {
   user: User;
   lists: Array<List>;
   rowSelected;
+  toEditPage: boolean;
+  toSuperMarketGame: boolean= false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -29,6 +32,8 @@ export class ListsPage {
               public userProvider: UserProvider,
               private login: Login,
               private modalController: ModalController) {
+    this.toEditPage=false;
+    this.toSuperMarketGame = this.navParams.get('SuperMarket');
   }
 
   ionViewWillEnter() {
@@ -52,12 +57,24 @@ export class ListsPage {
   }
 
   editList(list_id: number) {
+    this.toEditPage=true;
+    this.navCtrl.pop();
     this.navCtrl.push(EditListPage, { listId: list_id })
   }
 
   listPage(list_id: number) {
-    this.navCtrl.pop();
-    this.navCtrl.push(ListaPage, { listId: list_id });
+    if(!this.toEditPage){
+      if(!this.toSuperMarketGame){
+        this.navCtrl.pop();
+        this.navCtrl.push(ListaPage, { listId: list_id });
+      }
+      else{
+        this.navCtrl.pop();
+        let level = this.navParams.get('level'); 
+        let maxLevel = this.navParams.get('maxLevel'); 
+        this.navCtrl.push(SupermarketPage, { listId: list_id, level: level, maxLevel: maxLevel});
+      }
+    }
   }
 
   createList() {

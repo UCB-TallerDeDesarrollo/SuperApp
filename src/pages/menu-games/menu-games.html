@@ -1,22 +1,28 @@
 <ion-header>
-    <div class="music-logo">
+        <page-user-information>
+        
+            </page-user-information>
+    <!-- <div class="music-logo">
         <img [src]="imageSound" alt="" (click)="stopSound()">
-    </div>
+    </div> -->
 </ion-header>
 
 <ion-content padding class="main">
-    
-    <button ion-button icon-only class="back-arrow"(click)="navController.pop()">
+
+    <button ion-button icon-only class="back-arrow" (click)="navController.pop()">
         <ion-icon name="arrow-back"></ion-icon>
     </button>
-    
-   
-    <div class="logo">
+
+
+    <div class="logo-super">
         <img src="assets/imgs/shopping.svg" class="superapp-logo" alt="">
     </div>
-   
+
     <div class="game-images">
-        <img src="assets/imgs/lista.png" class="word" alt="" (click)="pushPageSupermarket()">
-        <img src="assets/imgs/lista_button.png" class="word" alt="" (click)="pushPageList()">
+        <img src="assets/imgs/lista.png" class="image-super" alt="" (click)="pushPageSupermarket()">
+        <img src="assets/imgs/lista_button.png" class="image-list" alt="" (click)="pushPageList()">
+    </div>
+    <div class="music-logo">
+        <img class="music-icon" [src]="imageSound" alt="" (click)="stopSound()">
     </div>
 </ion-content>

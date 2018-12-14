@@ -5,7 +5,7 @@
     <button ion-button icon-only class="back-arrow" (click)="navCtrl.pop()">
       <ion-icon name="arrow-back"></ion-icon>
     </button>
-      <h3 class="tittle">Editar usuario</h3>
+      <h3 class="tittle">EDITAR USUARIO</h3>
       <div class="form">
         <div class="user_image">
           <img src={{Image}} class="image_user">
@@ -14,10 +14,10 @@
                 {{avatar.name}}
               </ion-option>
           </ion-select>
-            <button ion-fab mini class="select" color="primary" (click)="showSelect()"><ion-icon name="md-contact"></ion-icon></button>
-            <button ion-fab mini class="camera" color="primary" (click)="takePicture('camera')"><ion-icon name="md-camera"></ion-icon></button>
-            <button ion-fab mini class="album" color="primary" (click)="takePicture('album')"><ion-icon name="images"></ion-icon></button>
-            <button ion-fab mini class="deleteImage" [disabled]="!isenabled" color="danger" (click)="deleteImage()"><ion-icon name="md-trash"></ion-icon></button>
+            <button ion-fab mini class="select" color="white" (click)="showSelect()"><ion-icon name="md-contact"></ion-icon></button>
+            <button ion-fab mini class="camera" color="white" (click)="takePicture('camera')"><ion-icon name="md-camera"></ion-icon></button>
+            <button ion-fab mini class="album" color="white" (click)="takePicture('album')"><ion-icon name="images"></ion-icon></button>
+            <button ion-fab mini class="deleteUser" color="danger" (click)="deleteCurrentUser()"><ion-icon name="md-trash"></ion-icon></button>
         </div>
           <br>
           <br>
@@ -25,8 +25,8 @@
           <br>
           <ion-list>
             <ion-item>
-              <ion-label fixed> Usuario</ion-label>
-              <ion-input text-uppercase type="text" [(ngModel)]="username"></ion-input>
+              <ion-label fixed>USUARIO</ion-label>
+              <ion-input text-uppercase type="text" (input)="validate()" [(ngModel)]="username"></ion-input>
             </ion-item>
             <!--<ion-item>
               <ion-label fixed>Cumpleaños</ion-label>
@@ -34,7 +34,7 @@
             </ion-item>-->
           </ion-list>
         <div padding>
-            <button ion-button class="save_user_button"(click)="saveUser()">Guardar cambios</button>
+            <button ion-button class="save_user_button"(click)="saveUser()">GUARDAR CAMBIOS</button>
         </div>
       </div>
   </ion-content>

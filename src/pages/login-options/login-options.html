@@ -1,23 +1,15 @@
-<ion-fab bottom button right>
-    <button ion-fab mini><img src={{Image}} style="width: 100%; height: 100%;"></button>
-    <div id="loged_items">
-        <ion-fab-list side="left">
-                <button ion-fab mini color="primary" (click)="logout()"><ion-icon name="md-exit" fab-size=""></ion-icon></button>
-        </ion-fab-list>
-        <ion-fab-list side="top">
-                    
-                <button ion-fab mini color="primary" (click)="delete()"><ion-icon name="md-trash"></ion-icon></button>
-                    <button ion-fab mini color="primary" (click)="edit()"><ion-icon name="md-settings"></ion-icon></button>
-                    <button ion-fab mini color="primary" (click)="show()"><ion-icon name="md-eye"></ion-icon></button>
-        </ion-fab-list>
-    </div>
-    <div id="unloged_items">
-            <ion-fab-list side="left">
-                    
-                    <button ion-fab mini color="primary" (click)="login()"><ion-icon name="md-log-in" fab-size=""></ion-icon></button>
-            </ion-fab-list>
-            <ion-fab-list side="top">
-                        <button ion-fab mini color="primary" (click)="create()"><ion-icon name="md-person-add"></ion-icon></button>
-            </ion-fab-list>
+
+<img src={{Image}} class="image-user" (click)="showEditUserOptions()">
+<div id="loged_items">
+        <div class="loggedUsername">
+                {{userName}}
+                <img src="assets/icon/coin.png" class="user-coin-icon"> {{userCoins}}
         </div>
-</ion-fab>
+</div>
+<div id="unloged_items">
+        <div class="buttons">
+                <button ion-fab mini color="white" (click)="login()"><ion-icon name="md-log-in" fab-size="mini"></ion-icon></button>
+                <button ion-fab mini color="white" (click)="create()"><ion-icon name="md-person-add"></ion-icon></button>
+        </div>
+</div>
+

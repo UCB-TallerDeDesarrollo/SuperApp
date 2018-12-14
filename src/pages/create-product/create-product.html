@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Agregar nuevo item</ion-title>
+    <ion-title>AGREGAR UN NUEVO ITEM</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -17,7 +17,7 @@
     </ion-item>
     <ion-item [formGroup]="productForm">
       <ion-label>Nombre del Item</ion-label>
-      <ion-input text-uppercase type="text" maxlength="20"   formControlName="title" [(ngModel)]="product.title" name="title"></ion-input>
+      <ion-input text-uppercase type="text" maxlength="20"   formControlName="title" [(ngModel)]="product.title" name="title" (ionChange)="isItATitleValid()"></ion-input>
     </ion-item>
     <ion-item>
       <button ion-button primary (click)="callFunctionCamera(1)"><ion-icon name="md-camera"></ion-icon>&nbsp;&nbsp;Camara</button>
@@ -31,7 +31,7 @@
       <ion-label>Activo</ion-label>
       <ion-checkbox [(ngModel)]="product.state" name="state"></ion-checkbox>
     </ion-item>
-    <button ion-button type="submit" [disabled]="!productForm.valid" block>Guardar</button>
+    <button ion-button type="submit" [disabled]="!productForm.valid || !isItAValidProduct" block>Guardar</button>
   </form>
 </ion-content>
   

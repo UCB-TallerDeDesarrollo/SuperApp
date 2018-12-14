@@ -37,7 +37,7 @@ export class LoadingPage {
     if(this.typeOfGame==="supermarket"){
       this.navCtrl.push(SupermarketPage, {level: this.level ,maxLevel:this.maxLevel}); 
     }else{
-      this.navCtrl.push(WordPage, {level: this.level});
+      this.navCtrl.push(WordPage, {level: this.level,dark:true});
     }
     this.navCtrl.remove(this.navCtrl.length()-1);
   }

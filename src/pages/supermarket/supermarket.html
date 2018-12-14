@@ -1,3 +1,8 @@
+<ion-header>
+    <page-user-information>
+
+    </page-user-information>
+</ion-header>
 <ion-content no-bounce padding class="supermarket-container">
 
     <div class="nav-bar-market">
@@ -6,14 +11,30 @@
             <ion-icon name="arrow-back"></ion-icon>
         </button>
 
+        <div class="{{ categories.length>0 ? 'categories-block' : 'hide' }}">
+            <ion-row>
+                <ion-col class="category-button" *ngFor="let category of onViewCategories">
+                    <button class="button-category-card" (click)="onSelectCategory(category)" id="{{category.name}}">{{category.name}}</button>
+                </ion-col>
+                <ion-col>
+                    <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>ON_VIEW_CATEGORIES_LENGTH ? 'arrow' : 'hide' }}" (click)="nextCategoryPage()">
+                </ion-col>
+            </ion-row>
+        </div>
+
         <div class="nav-bar-market__header">
             <h1 class="title" (click)="changeLevel()">NIVEL {{level}}</h1>
         </div>
 
+        <div [class]="(showListButton) ? '' : 'hide'">
+            <button ion-button class="listButton" (click)="openList()">JUGAR CON LISTA</button>
+        </div>
+
+
         <div class="nav-bar-market__sound">
             <img [src]="imageSound" (click)="stopSound()">
         </div>
-        
+
     </div>
 
 
@@ -22,14 +43,14 @@
         <div class="products-to-play">
             <div class="product-block" *ngFor="let product of onViewProducts" id="play-{{product.title}}" dragula="{{selectorName}}">
                 <div id="productPlay-{{product.id}}" class="product-info">
-                    <img class="product-store" src="{{product.image}}" (click)="playPronunciationOfTheProductName(product.title)"/>
+                    <img class="product-store" src="{{product.image}}" (click)="playPronunciationOfTheProductName(product.title)" />
                     <p [class]="(textClass) ? 'product-name' : 'hidden-product'">{{product.title}}</p>
                 </div>
             </div>
         </div>
 
-         <div id="high_container" class="products-to-buy">
-           
+        <div id="high_container" class="products-to-buy">
+
             <div class="title">COMPRAR</div>
 
             <div class="product-block" *ngFor="let product of productsToBuy" id="{{product.title}}">
@@ -39,24 +60,15 @@
                     <img id="img-play-{{product.title}}" class="product-store product-absolute" src="../../assets/imgs/check-symbol.png" />
                     <p [class]="(imageClass) ? 'product-name' : 'product-name center-element'">{{product.title}}</p>
                 </div>
-            
+
             </div>
 
-        </div> 
-        
+        </div>
+
     </div>
 
-    <div class="{{ categories.length>0 ? 'categories-block' : 'hide' }}">
-        <ion-row>
-            <ion-col class="category-button" *ngFor="let category of onViewCategories">
-                <button class="button-category-card" (click)="onSelectCategory(category)">{{category.name}}</button>
-            </ion-col>
-            <ion-col>
-                <img src="assets/imgs/arrowgreen.png" class="{{ categories.length>3 ? 'arrow' : 'hide' }}" (click)="nextCategoryPage()">
-            </ion-col>
-        </ion-row>
-    </div>
 
+    <button class="market-help-button" ion-fab mini color="dark" (click)="reduceCoins()" [disabled]="isDisabled"><ion-icon name="md-help" fab-size="mini"></ion-icon></button>
     <div id="carrito" class="carrito_container">
         <img class="icon-image product-objetive-container" src="{{carImage}}" dragula="{{selectorName}}" />
     </div>

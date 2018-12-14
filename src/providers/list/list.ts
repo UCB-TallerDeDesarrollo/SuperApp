@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { getRepository, Repository } from 'typeorm';
 import { List } from '../../entities/list';
+import { ProductsProvider } from '../product/product';
+import { ProductListProvider } from '../product-list/product-list';
+import { ProductList } from '../../entities/productList';
 
 @Injectable()
 export class ListProvider {
 
   listRepository: any;
 
-  constructor() {
+  constructor(public productsProvider: ProductsProvider, public productListProvider: ProductListProvider) {
     this.listRepository = getRepository('list') as Repository<List>;
   }
 
@@ -21,6 +24,21 @@ export class ListProvider {
       result = false;
     }
     return result;
+  }
+
+
+  async isItANameValid(name: string, user_id: number): Promise<Boolean> {
+    let result: number;
+    try {
+      result = await this.listRepository.createQueryBuilder()
+                                        .where("name = :name", { name: name })
+                                        .andWhere("user_id = :user_id", { user_id: user_id})
+                                        .getCount();
+    } catch (error) {
+      console.error(error);
+      result = 0;
+    }
+    return (result == 0);
   }
 
   async updateList(list: List): Promise<Boolean> {
@@ -64,6 +82,24 @@ export class ListProvider {
       result = null;
     }
     return result;
+  }
+
+  async getFullObjectListById(listId: number){
+    let fullList: List;
+    await this.getListById(listId).then(list => {
+      fullList = list;
+    });
+    if(fullList){
+      let productList = await this.productListProvider.getAsyncProductListByListId(listId)
+      fullList.products = productList;
+      return new Promise<List>((resolve, reject) => {
+        resolve(fullList)
+      });
+    }else{
+      return new Promise<List>((resolve, reject) => {
+        resolve(null)
+      });
+    }
   }
 
   async getListsByUserId(user_id: number): Promise<Array<List>> {

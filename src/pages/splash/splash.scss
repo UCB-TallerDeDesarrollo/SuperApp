@@ -1,0 +1,35 @@
+page-splash {
+	.img-container{
+		width: 20%;
+		max-height: 60%;
+		margin-left: 6%;
+		margin-right: 6%;
+		margin-top: 7%;
+		float:left;
+
+		@media screen and (min-height: 768px) {
+			margin-top: 15%;
+      }
+
+		img{			
+			max-width:100%;
+			max-height:100%;
+		}
+	}
+
+		.img-container-bottom-row{
+		width: 15%;
+		max-height: 50%;
+		margin-left: 8%;
+		margin-right: 8%;
+		float:left;
+		img{			
+			max-width:100%;
+			max-height:100%;
+		}
+	}
+	.center {
+	  margin: auto;
+	  width: 99%;	  
+	}
+}

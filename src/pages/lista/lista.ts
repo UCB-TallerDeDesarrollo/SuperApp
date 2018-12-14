@@ -1,7 +1,7 @@
 import { ListProvider } from './../../providers/list/list';
 import { ProductListProvider } from './../../providers/product-list/product-list';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { NavController, AlertController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, AlertController, NavParams, ModalController, ToastController } from 'ionic-angular';
 import { ProductsPage } from '../products/products';
 import { DragulaService } from 'ng2-dragula';
 import { AudioProvider } from '../../shared/providers/AudioProvider';
@@ -16,6 +16,7 @@ import { LoginStatus } from '../../providers/login/LoginStatus';
 import { UserProvider } from './../../providers/user/user';
 import { ListsPage } from './../lists/lists';
 import { ConfirmationPage } from './../confirmation/confirmation';
+import { AlertProvider } from '../../providers/alert/alert'
 
 @Component({
   selector: 'page-lista',
@@ -24,7 +25,7 @@ import { ConfirmationPage } from './../confirmation/confirmation';
 })
 export class ListaPage implements OnInit, AfterViewInit {
 
-  list = new List();
+  list: List;
   path_images = '../../assets/imgs/Products/';
   defaultCategoryId:number = 1;
   actualSelectedElement:any;
@@ -35,14 +36,13 @@ export class ListaPage implements OnInit, AfterViewInit {
   imageSound: String;
   productPageIndex: number;
   categoriesPageIndex: number;
-  productsOnList: Array<ProductList> = [];
   toAddProducts: Array<ProductList> = [];
   toDeleteProducts: Array<ProductList> = [];
   onViewProducts: Array<Product> = [];
   onViewCategories: Array<{id: number, name: string}>=[];
   ON_VIEW_LIST_LENGTH = 12;
   ON_VIEW_CATEGORIES_LENGTH = 3;
-  
+  DEFAULT_NAME:string = "NUEVA LISTA";
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -54,8 +54,11 @@ export class ListaPage implements OnInit, AfterViewInit {
               public productListProvider: ProductListProvider,
               public listProvider: ListProvider,
               public userProvider: UserProvider,
-              private modalController: ModalController) {
-    this.list.name="NUEVA LISTA";
+              private modalController: ModalController,
+              private alertProvider: AlertProvider,
+              public toastController: ToastController) {
+    this.list = new List;
+    this.list.name = this.DEFAULT_NAME;
     this.productPageIndex=0;
     this.categoriesPageIndex=0;
     this.selectedCategory=Categories.getCategoryById(1);
@@ -64,6 +67,8 @@ export class ListaPage implements OnInit, AfterViewInit {
       categoryProvider.getCategoriesByUserId(user.id)
       .then(categories => {
         this.categories = categories;
+        this.selectedCategory = this.categories[0];
+        this.defaultCategoryId = this.categories[0].id;
         this.chargeCategories();
       }).catch(error => {
         console.log(error);
@@ -80,24 +85,17 @@ export class ListaPage implements OnInit, AfterViewInit {
     });
   }
 
-  ionViewWillEnter() {
-    this.chargeList();
-    this.initializerVariables();
+  async ionViewDidEnter() {
     this.changeSoundIcon();
-    this.selectedCategory = this.categories[0];
-    this.defaultCategoryId=this.categories[0].id;
+    await this.chargeList();
+    this.onSelectCategory(this.selectedCategory);
   }
 
-  chargeList(){
+  async chargeList(){
     let listId=this.navParams.get("listId");
     if(listId>-1){
-      this.listProvider.getListById(listId)
-      .then(list => {
-        this.list = list;
-        this.loadProductsOnList();
-      }).catch(error => {
-        console.error(error);
-      });
+      this.list = await this.listProvider.getFullObjectListById(listId);
+      this.loadProductsOnList();
     }
   }
 
@@ -115,21 +113,6 @@ export class ListaPage implements OnInit, AfterViewInit {
       bound = this.categories.length;
     }
     this.onViewCategories = this.categories.slice(this.categoriesPageIndex, bound);
-  }
-
-  initializerVariables() {
-    this.userProvider.getUserByUsername(LoginStatus.username)
-    .then(user => {
-      this.productsProvider.getProductsByCategoryAndUserIdOnlyActive(this.selectedCategory.id, user.id)
-      .then(products => {
-        this.products = products;
-        this.chargeProducts();
-      }).catch(error => {
-        console.log(error);
-      });
-    }).catch(error => {
-      console.log(error);
-    });
   }
 
   ngOnInit() {
@@ -155,7 +138,7 @@ export class ListaPage implements OnInit, AfterViewInit {
       productListTemp.list_id = this.navParams.get("listId");
       productListTemp.product_id = product.id;
       productListTemp.product=product;
-      this.productsOnList.push(productListTemp);
+      this.list.products.push(productListTemp);
       this.addToQueueList(productListTemp);
       this.products=this.products.filter(prod => prod.id!==product.id);
       this.chargeProducts();
@@ -214,7 +197,7 @@ export class ListaPage implements OnInit, AfterViewInit {
       .then(products => {
         this.products=products.filter(product => {
           let isNotOnList =true;
-          for(let productList of this.productsOnList){
+          for(let productList of this.list.products){
             if(product.id===productList.product.id){
               isNotOnList=false;
               break;
@@ -233,53 +216,45 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   onClickDeleteList() {
-    let alert = this.alertCtrl.create({
-      title: 'Borrar toda la lista',
-      message: '¿Quieres borrar toda la lista de productos?',
-      buttons: [
-        {
-          text: 'Si',
-          handler: () => {
-            this.deleteListOfProducts();
-          }
-        },
-        {
-          text: 'No',
-          role: 'no',
-          handler: () => {
-            console.log('no clicked');
-          }
-        }
-      ]
-    });
+    let title: string = 'Borrar toda la lista';
+    let message: string = '¿Quieres borrar toda la lista de productos?';
+    let agreeButtonText = 'SI';
+    let agreeCallback = () => {this.deleteListOfProducts()};
+    let disagreeButtonText = 'NO';
+    let disagreeCallback = () => {};
+
+    let alert = this.alertCtrl.create(this.alertProvider.generateConfirmationAlert(title, 
+                                                                                   message, 
+                                                                                   agreeButtonText, 
+                                                                                   agreeCallback, 
+                                                                                   disagreeButtonText, 
+                                                                                   disagreeCallback,
+                                                                                   ""));
     alert.present();
   }
 
   alertSucessSaveList(){
-    let alert = this.alertCtrl.create({
-      title: 'Guardado Satisfactoriamente',
-      message: 'Se guardo la lista '+this.list.name,
-      buttons: [
-        {
-          text: 'Ok',
-          handler: () => {
-          }
-        }
-      ]
-    });
+    let title: string = 'Guardado Satisfactoriamente';
+    let message: string = 'Se guardo la lista '+this.list.name;
+    let textButton: string = 'OK';
+    let alert = this.alertCtrl.create(this.alertProvider.generateBasicAlert(title, 
+                                                                            message, 
+                                                                            textButton, 
+                                                                            ()=>{} ,
+                                                                            ""));
     alert.present();
   }
 
   onClickDeleteAProduct(productOfList) {
     let productId=productOfList.product.id;
-    this.productsOnList=this.productsOnList.filter(onList=>onList.product_id!==productId);
+    this.list.products=this.list.products.filter(onList=>onList.product_id!==productId);
     this.addToDeleteQueue(productOfList);
     this.onSelectCategory(this.selectedCategory);    
   }
 
   deleteListOfProducts() {
-    this.toDeleteProducts=this.productsOnList;
-    this.productsOnList=[];
+    this.toDeleteProducts=this.list.products;
+    this.list.products=[];
     this.onSelectCategory(this.selectedCategory);
   }
 
@@ -302,30 +277,13 @@ export class ListaPage implements OnInit, AfterViewInit {
   }
 
   loadProductsOnList() {
-    let listId=this.list.id;
-    this.productListProvider.getProductListByListId(listId)
-    .then(productList => {
-      this.productsOnList.splice(0, this.productsOnList.length);
-      productList.forEach(productOfProductList => {
-        this.productsProvider.getProductById(productOfProductList.product_id)
-        .then(product => {
-          let productList=new ProductList();
-          productList.list_id=listId;
-          productList.product_id=product.id;
-          productList.product=product;
-          this.productsOnList.push(productList);
-          this.products=this.products.filter(prod => prod.id!==product.id);
-          this.chargeProducts();
-        }).catch(error => {
-          console.log(error);
-        })
-      });
-    }).catch(error => {
-      console.log(error);
-    });
+    for(let productOnList of this.list.products){
+      this.products = this.products.filter(product => {product.id != productOnList.product_id});
+    }
+    this.chargeProducts();
   }
 
-  async saveList() {
+  async saveList(){
     if(this.list.id){
       this.listProvider.updateList(this.list)
       .then(
@@ -334,27 +292,79 @@ export class ListaPage implements OnInit, AfterViewInit {
       });
     }else{
       this.userProvider.getUserByUsername(LoginStatus.username)
-      .then(user => {
+      .then(async (user) => {
         this.list.user_id = user.id;
-        this.listProvider.saveList(this.list).then(success => {
-          this.saveProductList(true);
-        });
+        if(this.list.name==this.DEFAULT_NAME){
+          let name: string = <string> await this.promptSaveList();
+          while(name == ""){
+            await this.blankNameAlert();
+            name = <string> await this.promptSaveList();
+          }
+          this.list.name = name;
+        }
+        this.list.name = this.list.name.toUpperCase();
+        this.listProvider.isItANameValid(this.list.name, user.id)
+        .then(result => {
+          if(!result) {
+            this.nameAlreadyExist();
+          } else {
+            this.listProvider.saveList(this.list).then(success => {
+              this.saveProductList(true);
+            });
+          }
+        })
       }).catch(error => {
         console.error(error);
       });
     }
   }
 
+  async blankNameAlert(){
+    return new Promise((resolve, reject) => {
+      let title: string = 'Nombre no puede estar vacio';
+      let message: string = 'El nombre de la lista no puede estar vacio';
+      let textButton: string = 'OK';
+      let alert = this.alertCtrl.create(this.alertProvider.generateBasicAlert(title, 
+                                                                              message, 
+                                                                              textButton, 
+                                                                              ()=>{resolve('OK');} ,
+                                                                              ""));
+      alert.present();
+    });
+  }
+
+  async promptSaveList(){
+    return new Promise((resolve, reject) => {
+      let alert = this.alertCtrl.create(this.alertProvider.generatePromptAlert(
+                                                            'Guardar Lista',
+                                                            'Introduzca el nombre de la lista',
+                                                            [{
+                                                              name: 'listName',
+                                                              placeholder: 'Nombre de la lista'
+                                                            }],
+                                                            [{
+                                                              text: 'Cancelar'
+                                                            },
+                                                            {
+                                                              text: 'Guardar',
+                                                              handler: (data) => {
+                                                                resolve(data.listName.toUpperCase());
+                                                              }
+                                                            }],
+                                                            'uppercaseText'));
+      alert.present()
+    });
+  }
+
   async saveProductList(newList: boolean){
     if(!newList){
       await this.saveAuxiliarLists();
-    }
-    else{
-      for(let onList of this.productsOnList){
-        onList.list_id=this.list.id;
-        await this.productListProvider.saveProductList(onList);
+      }else{
+        for(let onList of this.list.products){
+          onList.list_id=this.list.id;
+          await this.productListProvider.saveProductList(onList);
+        }
       }
-    }
     this.alertSucessSaveList();
   }
 
@@ -389,7 +399,7 @@ export class ListaPage implements OnInit, AfterViewInit {
     });
     this.list=new List;
     this.list.name="NUEVA LISTA";
-    this.productsOnList=[];
+    this.list.products=[];
   }
 
   openList(){
@@ -410,5 +420,14 @@ export class ListaPage implements OnInit, AfterViewInit {
     this.list.name=this.list.name.toUpperCase();
     title.classList.remove("hide");
     form.classList.add("hide");
+  }
+
+  nameAlreadyExist() {
+    let alertMessage = this.toastController.create({
+      message: 'YA EXISTE UNA LISTA CON EL NOMBRE: ' + this.list.name,
+      duration: 2000,
+      position: 'bottom'
+    });
+    alertMessage.present();
   }
 }
